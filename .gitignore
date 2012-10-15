@@ -1,0 +1,20 @@
+
+# bundler
+.bundle
+
+# jeweler generated
+pkg
+
+#
+Gemfile.lock
+
+# MacOS:
+.DS_Store
+
+# vim, emacs, textmate
+*~
+\#*
+.\#*
+*.tmproj
+tmtags
+*.swp
