@@ -1,5 +1,4 @@
-jenkins_api_client
-==================
+======== jenkins_api_client
 
 Client libraries for communicating with a Jenkins CI server
 
@@ -9,6 +8,7 @@ Install jenkins_api_client by <tt>sudo gem install jenkins_api_client</tt>
 
   require 'jenkins_api_client'
 
-  client = JenkinsApi::Client.new(:server_ip => '0.0.0.0', :username => 'somename', :password => 'secret password')
+  client = JenkinsApi::Client.new(:server_ip => '0.0.0.0', 
+           :username => 'somename', :password => 'secret password')
   # The following call will return all jobs matching 'Testjob'
   puts client.job.list("^Testjob")
