@@ -3,7 +3,7 @@ jenkins_api_client
 
 Client libraries for communicating with a Jenkins CI server
 
-Sample Usage:
+==== Sample Usage:
 
 Install jenkins_api_client by `sudo gem install jenkins_api_client`
 
