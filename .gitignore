@@ -7,7 +7,7 @@ pkg
 
 # Yard doc
 doc
-
+.yardoc
 #
 Gemfile.lock
 
