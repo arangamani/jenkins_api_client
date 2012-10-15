@@ -5,6 +5,9 @@
 # jeweler generated
 pkg
 
+# Yard doc
+doc
+
 #
 Gemfile.lock
 

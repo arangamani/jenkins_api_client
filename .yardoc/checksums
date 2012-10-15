@@ -1,0 +1,5 @@
+lib/jenkins_api_client.rb 30a1ac379832443148dabade3bc91b6a708f0d83
+lib/jenkins_api_client/job.rb 71219da41ea704b35f0be4c2d9bb6746d1d2d69d
+lib/jenkins_api_client/client.rb fbd352f422f543530bd1daa91d986f6f74054c76
+lib/jenkins_api_client/version.rb e1b3fdaa8fe2cc0dc1386f74b5c4ef3cfec49d56
+lib/jenkins_api_client/exceptions.rb 0289e3477d1b7abc2537fafe56a2f44e83bb5aa4
