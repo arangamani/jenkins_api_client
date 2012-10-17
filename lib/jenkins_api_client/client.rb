@@ -53,7 +53,16 @@ module JenkinsApi
       request = Net::HTTP::Get.new("#{url_prefix}/api/json")
       request.basic_auth @username, @password
       response = http.request(request)
-      JSON.parse(response.body)
+      case response.code
+      when 200
+        return JSON.parse(response.body)
+      when 404
+        raise Exceptions::NotFoundException.new("HTTP Code: #{response.code.to_s}, Response Body: #{response.body}")
+      when 500
+        raise Exceptions::InternelServerErrorException.new("HTTP Code: #{response.code.to_s}, Response Body: #{response.body}")
+      else
+        raise Exceptions::ApiException.new("HTTP Code: #{response.code.to_s}, Response body: #{response.body}")
+      end
     end
 
     # Sends a POST message to the Jenkins CI server with the specified URL
@@ -65,6 +74,16 @@ module JenkinsApi
       request = Net::HTTP::Post.new("#{url_prefix}")
       request.basic_auth @username, @password
       response = http.request(request)
+      case response.code
+      when 200
+        return response.code
+      when 404
+        raise Exceptions::NotFoundException.new("HTTP Code: #{response.code.to_s}, Response Body: #{response.body}")
+      when 500
+        raise Exceptions::InternelServerErrorException.new("HTTP Code: #{response.code.to_s}, Response Body: #{response.body}")
+      else
+        raise Exceptions::ApiException.new("HTTP Code: #{response.code.to_s}, Response body: #{response.body}")
+      end
     end
 
     # Obtains the configuration of a component from the Jenkins CI server
