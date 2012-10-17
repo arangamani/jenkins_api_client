@@ -1,0 +1,19 @@
+# The Jenkins server and login information can be stored in a YAML file like this 
+# so we don't have to pass in the parameters every we login to the server
+# through this API client.
+
+# This file contains the following four parameters
+
+# The IP address of the Jenkins CI Server
+
+:server_ip: 0.0.0.0
+
+# The port number on which the Jenkins listens on. The default is 8080
+
+:server_port: 8080
+
+# The username and password to authenticate to the server
+
+:username: my_username
+
+:password: my_password
