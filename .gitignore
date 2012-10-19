@@ -5,6 +5,9 @@
 # jeweler generated
 pkg
 
+# test script
+test
+
 # Yard doc
 doc
 .yardoc
