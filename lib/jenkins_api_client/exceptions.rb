@@ -6,6 +6,12 @@ module JenkinsApi
       end
     end
 
+    class UnautherizedException < ApiException
+      def initialize(message = "")
+        super("Invalid credentials are provided. #{message}")
+      end
+    end
+
     class NotFoundException < ApiException
       def initialize(message = "")
         super("Requested page not found on the Jenkins CI server. #{message}")

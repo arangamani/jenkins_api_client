@@ -4,6 +4,7 @@ require 'net/http'
 require 'nokogiri'
 require 'active_support/core_ext'
 require 'active_support/builder'
+require 'base64'
 
 require File.expand_path('../version', __FILE__)
 require File.expand_path('../exceptions', __FILE__)
@@ -28,8 +29,13 @@ module JenkinsApi
         instance_variable_set("@#{key}", value) if value
       } if args.is_a? Hash
      raise "Server IP is required to connect to Jenkins Server" unless @server_ip
-     raise "Credentials are required to connect to te Jenkins Server" unless @username && @password
+     raise "Credentials are required to connect to te Jenkins Server" unless @username && (@password || @password_base64)
      @server_port = DEFAULT_SERVER_PORT unless @server_port
+
+     # Base64 decode inserts a newline character at the end. As a workaroung added chomp
+     # to remove newline characters. I hope nobody uses newline characters at the end of
+     # their passwords :)
+     @password = Base64.decode64(@password_base64).chomp if @password_base64
     end
 
     # Creates an instance to the Job object by passing a reference to self
@@ -53,9 +59,11 @@ module JenkinsApi
       request = Net::HTTP::Get.new("#{url_prefix}/api/json")
       request.basic_auth @username, @password
       response = http.request(request)
-      case response.code
+      case response.code.to_i
       when 200
         return JSON.parse(response.body)
+      when 401
+        raise Exceptions::UnautherizedException.new("HTTP Code: #{response.code.to_s}, Response Body: #{response.body}")
       when 404
         raise Exceptions::NotFoundException.new("HTTP Code: #{response.code.to_s}, Response Body: #{response.body}")
       when 500
@@ -74,7 +82,7 @@ module JenkinsApi
       request = Net::HTTP::Post.new("#{url_prefix}")
       request.basic_auth @username, @password
       response = http.request(request)
-      case response.code
+      case response.code.to_i
       when 200
         return response.code
       when 404
