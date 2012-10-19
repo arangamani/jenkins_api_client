@@ -32,7 +32,7 @@ module JenkinsApi
      raise "Credentials are required to connect to te Jenkins Server" unless @username && (@password || @password_base64)
      @server_port = DEFAULT_SERVER_PORT unless @server_port
 
-     # Base64 decode inserts a newline character at the end. As a workaroung added chomp
+     # Base64 decode inserts a newline character at the end. As a workaround added chomp
      # to remove newline characters. I hope nobody uses newline characters at the end of
      # their passwords :)
      @password = Base64.decode64(@password_base64).chomp if @password_base64
