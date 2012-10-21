@@ -237,6 +237,10 @@ module JenkinsApi
         post_config(job_name, xml_modified)
       end
 
+      def chain(job_names)
+
+      end
+
     end
   end
 end

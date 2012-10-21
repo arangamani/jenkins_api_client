@@ -120,9 +120,5 @@ module JenkinsApi
       response.code
     end
 
-    def chain(job_names)
-
-    end
-
   end
 end
