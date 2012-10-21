@@ -9,7 +9,6 @@ require 'base64'
 require File.expand_path('../version', __FILE__)
 require File.expand_path('../exceptions', __FILE__)
 require File.expand_path('../job', __FILE__)
-require File.expand_path('../feature.rb', __FILE__)
 
 module JenkinsApi
   class Client
@@ -43,10 +42,6 @@ module JenkinsApi
     #
     def job
       JenkinsApi::Client::Job.new(self)
-    end
-
-    def feature
-      JenkinsApi::Client::Feature.new(job)
     end
 
     # Returns a string representing the class name
@@ -123,6 +118,10 @@ module JenkinsApi
       request.body = xml
       response = http.request(request)
       response.code
+    end
+
+    def chain(job_names)
+
     end
 
   end
