@@ -154,8 +154,9 @@ module JenkinsApi
       # @param [String] job_name
       # @param [String] downstream_projects
       # @param [String] threshold - failure, success, or unstable
+      # @param [Bool] overwrite - true or false
       #
-      def add_downstream_projects(job_name, downstream_projects, threshold = 'success')
+      def add_downstream_projects(job_name, downstream_projects, threshold, overwrite = false)
         case threshold
         when 'success'
           name = 'SUCCESS'
@@ -174,7 +175,11 @@ module JenkinsApi
         n_xml = Nokogiri::XML(xml)
         child_projects_node = n_xml.xpath("//childProjects").first
         if child_projects_node
-          child_projects_node.content = child_projects_node.content + ", #{downstream_projects}"
+          if overwrite
+            child_projects_node.content = "#{downstream_projects}"
+          else
+            child_projects_node.content = child_projects_node.content + ", #{downstream_projects}"
+          end
         else
           publisher_node = n_xml.xpath("//publishers").first
           build_trigger_node = publisher_node.add_child("<hudson.tasks.BuildTrigger/>")
@@ -235,6 +240,31 @@ module JenkinsApi
         end
         xml_modified = n_xml.to_xml
         post_config(job_name, xml_modified)
+      end
+
+      def chain(job_names, threshold, criteria, parallel = 1)
+        raise "Parallel jobs should be at least 1" if parallel < 1
+
+        job_names.each { |job|
+          puts "INFO: Removing downstream projects for <#{job}>"
+          @client.job.remove_downstream_projects(job)
+        }
+
+        filtered_job_names = []
+        if criteria.include?("all") || criteria.empty?
+          filtered_job_names = job_names
+        else
+          puts "INFO: Criteria is specified. Filtering jobs..."
+          job_names.each { |job|
+            filtered_job_names << job if criteria.include?(@client.job.get_current_build_status(job))
+          }
+        end
+        filtered_job_names.each_with_index { |job_name, index|
+          break if index >= (filtered_job_names.length - parallel)
+          puts "INFO: Adding <#{filtered_job_names[index+1]}> as a downstream project to <#{job_name}> with <#{threshold}> as the threshold"
+          @client.job.add_downstream_projects(job_name, filtered_job_names[index + parallel], threshold, true)
+        }
+        filtered_job_names[0..parallel-1]
       end
 
     end
