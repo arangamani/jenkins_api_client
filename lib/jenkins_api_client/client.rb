@@ -9,6 +9,7 @@ require 'base64'
 require File.expand_path('../version', __FILE__)
 require File.expand_path('../exceptions', __FILE__)
 require File.expand_path('../job', __FILE__)
+require File.expand_path('../views', __FILE__)
 
 module JenkinsApi
   class Client
@@ -42,6 +43,10 @@ module JenkinsApi
     #
     def job
       JenkinsApi::Client::Job.new(self)
+    end
+
+    def views
+      JenkinsApi::Client::Views.new(self)
     end
 
     # Returns a string representing the class name

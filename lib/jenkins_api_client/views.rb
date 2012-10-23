@@ -6,6 +6,10 @@ module JenkinsApi
         @client = client
       end
 
+      def to_s
+        "#<JenkinsApi::Client::Views>"
+      end
+
       def list_all
 
       end

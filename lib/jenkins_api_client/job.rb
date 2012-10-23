@@ -8,6 +8,10 @@ module JenkinsApi
         @client = client
       end
 
+      def to_s
+        "#<JenkinsApi::Client::Job>"
+      end
+
       # List all jobs on the Jenkins CI server
       #
       def list_all
