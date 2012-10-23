@@ -22,12 +22,17 @@ module JenkinsApi
       # List all jobs that match the given regex
       #
       # @param [String] filter - a regex
+      # @param [Boolean] ignorecase
       #
-      def list(filter)
+      def list(filter, ignorecase = true)
         response_json = @client.api_get_request("")
         jobs = []
         response_json["jobs"].each { |job|
-          jobs << job["name"] if job["name"] =~ /#{filter}/i
+          if ignorecase
+            jobs << job["name"] if job["name"] =~ /#{filter}/i
+          else
+            jobs << job["name"] if job["name"] =~ /#{filter}/
+          end
         }
         jobs
       end
@@ -242,6 +247,13 @@ module JenkinsApi
         post_config(job_name, xml_modified)
       end
 
+      # Chain the jobs given based on specified criteria
+      #
+      # @param [Array] job_names Array of job names to be chained
+      # @param [String] threshold what should be the threshold for running the next job
+      # @param [Array] criteria criteria which should be applied for picking the jobs for the chain
+      # @param [Integer] parallel Number of jobs that should be considered for parallel run
+      #
       def chain(job_names, threshold, criteria, parallel = 1)
         raise "Parallel jobs should be at least 1" if parallel < 1
 

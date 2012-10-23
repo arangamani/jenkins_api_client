@@ -83,7 +83,7 @@ module JenkinsApi
       request.basic_auth @username, @password
       response = http.request(request)
       case response.code.to_i
-      when 200
+      when 200, 302
         return response.code
       when 404
         raise Exceptions::NotFoundException.new("HTTP Code: #{response.code.to_s}, Response Body: #{response.body}")
