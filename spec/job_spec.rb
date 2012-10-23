@@ -77,5 +77,28 @@ describe JenkinsApi::Client::Job do
 #      @client.job.get_current_build_status(job_name).should == "running"
     end
 
+    it "Should be able to restrict a job to a node" do
+      job_name = @client.job.list(@filter)[0]
+      job_name.class.should == String
+      @client.job.restrict_to_node(job_name, 'master').to_i.should == 200
+      # Run it again to make sure that the replace existing node works
+      @client.job.restrict_to_node(job_name, 'master').to_i.should == 200
+    end
+
+    it "Should be able to chain jobs" do
+      #
+      jobs = @client.job.list(@filter)
+      jobs.class.should == Array
+      start_jobs = @client.job.chain(jobs, 'success', ["all"])
+      start_jobs.class.should == Array
+      start_jobs.length.should == 1
+
+      #
+      #
+      start_jobs = @client.job.chain(jobs, 'failure', ["not run", "aborted", 'failure'], 3)
+      start_jobs.class.should == Array
+      start_jobs.length.should == 3
+    end
+
   end
 end

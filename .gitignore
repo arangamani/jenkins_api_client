@@ -8,6 +8,9 @@ pkg
 # test script
 test
 
+# simplecov code coverage directory
+coverage
+
 # Yard doc
 doc
 .yardoc
