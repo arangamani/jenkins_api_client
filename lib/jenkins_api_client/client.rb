@@ -9,7 +9,6 @@ require 'base64'
 require File.expand_path('../version', __FILE__)
 require File.expand_path('../exceptions', __FILE__)
 require File.expand_path('../job', __FILE__)
-require File.expand_path('../views', __FILE__)
 
 module JenkinsApi
   class Client
@@ -59,9 +58,10 @@ module JenkinsApi
     #
     # @param [String] url_prefix
     #
-    def api_get_request(url_prefix)
+    def api_get_request(url_prefix, tree = nil)
       http = Net::HTTP.start(@server_ip, @server_port)
       request = Net::HTTP::Get.new("#{url_prefix}/api/json")
+      request = Net::HTTP::Get.new("#{url_prefix}/api/json?#{tree}") if tree
       request.basic_auth @username, @password
       response = http.request(request)
       case response.code.to_i
@@ -118,9 +118,10 @@ module JenkinsApi
     #
     def post_config(url_prefix, xml)
       http = Net::HTTP.start(@server_ip, @server_port)
-      request = Net::HTTP::Post.new("#{url_prefix}/config.xml")
+      request = Net::HTTP::Post.new("#{url_prefix}")
       request.basic_auth @username, @password
       request.body = xml
+      request.content_type = 'application/xml'
       response = http.request(request)
       response.code
     end

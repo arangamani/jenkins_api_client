@@ -8,8 +8,27 @@ module JenkinsApi
         @client = client
       end
 
+      # Return a string representation of the object
+      #
       def to_s
         "#<JenkinsApi::Client::Job>"
+      end
+
+      # Create a job with the name specified and the xml given
+      #
+      # @param [String] job_name
+      # @param [XML] xml
+      #
+      def create(job_name, xml)
+        @client.post_config("/createItem?name=#{job_name}", xml)
+      end
+
+      # Delete a job given the name
+      #
+      # @param [String] job_name
+      #
+      def delete(job_name)
+        @client.api_post_request("/job/#{job_name}/doDelete")
       end
 
       # List all jobs on the Jenkins CI server
@@ -110,10 +129,10 @@ module JenkinsApi
       # This functions lists all jobs that are currently running on the Jenkins CI server
       #
       def list_running
-        jobs = list_all
+        xml_response = @client.api_get_request("", "tree=jobs[name,color]")
         running_jobs = []
-        jobs.each { |job|
-          running_jobs << job if get_current_build_status(job) == "running"
+        xml_response["jobs"].each { |job|
+          running_jobs << job["name"] if job["color"] =~ /anime/
         }
         running_jobs
       end
@@ -140,7 +159,7 @@ module JenkinsApi
       # @param [String] xml
       #
       def post_config(job_name, xml)
-        @client.post_config("/job/#{job_name}", xml)
+        @client.post_config("/job/#{job_name}/config.xml", xml)
       end
 
       # Change the description of a specific job
@@ -280,6 +299,7 @@ module JenkinsApi
           puts "INFO: Adding <#{filtered_job_names[index+1]}> as a downstream project to <#{job_name}> with <#{threshold}> as the threshold"
           @client.job.add_downstream_projects(job_name, filtered_job_names[index + parallel], threshold, true)
         }
+        parallel = filtered_job_names.length if parallel > filtered_job_names.length
         filtered_job_names[0..parallel-1]
       end
 
