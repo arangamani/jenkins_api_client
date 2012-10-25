@@ -1,3 +1,8 @@
+#
+# Specifying JenkinsApi::Client class capabilities
+# Author: Kannan Manickam <arangamani.kannan@gmail.com>
+#
+
 require File.expand_path('../spec_helper', __FILE__)
 require 'yaml'
 

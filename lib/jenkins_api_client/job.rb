@@ -1,3 +1,25 @@
+#
+# Copyright (c) 2012 Kannan Manickam <arangamani.kannan@gmail.com>
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+#
+
 module JenkinsApi
   class Client
     class Job
@@ -281,7 +303,7 @@ module JenkinsApi
         raise "Parallel jobs should be at least 1" if parallel < 1
 
         job_names.each { |job|
-          puts "INFO: Removing downstream projects for <#{job}>"
+          puts "INFO: Removing downstream projects for <#{job}>" if @client.debug
           @client.job.remove_downstream_projects(job)
         }
 
@@ -289,14 +311,14 @@ module JenkinsApi
         if criteria.include?("all") || criteria.empty?
           filtered_job_names = job_names
         else
-          puts "INFO: Criteria is specified. Filtering jobs..."
+          puts "INFO: Criteria is specified. Filtering jobs..." if @client.debug
           job_names.each { |job|
             filtered_job_names << job if criteria.include?(@client.job.get_current_build_status(job))
           }
         end
         filtered_job_names.each_with_index { |job_name, index|
           break if index >= (filtered_job_names.length - parallel)
-          puts "INFO: Adding <#{filtered_job_names[index+1]}> as a downstream project to <#{job_name}> with <#{threshold}> as the threshold"
+          puts "INFO: Adding <#{filtered_job_names[index+1]}> as a downstream project to <#{job_name}> with <#{threshold}> as the threshold" if @client.debug
           @client.job.add_downstream_projects(job_name, filtered_job_names[index + parallel], threshold, true)
         }
         parallel = filtered_job_names.length if parallel > filtered_job_names.length

@@ -1,3 +1,8 @@
+#
+# Specifying JenkinsApi::Client::Job class capabilities
+# Author: Kannan Manickam <arangamani.kannan@gmail.com>
+#
+
 require File.expand_path('../spec_helper', __FILE__)
 require 'yaml'
 
@@ -6,7 +11,7 @@ describe JenkinsApi::Client::Job do
     before(:all) do
       @helper = JenkinsApiSpecHelper::Helper.new
       @creds_file = '~/.jenkins_api_client/login.yml'
-      @job_name_prefix = '0rspec_awesome_test_job'
+      @job_name_prefix = 'awesome_rspec_test_job'
       @filter = "^#{@job_name_prefix}.*"
       @job_name = ''
       begin
@@ -90,8 +95,6 @@ describe JenkinsApi::Client::Job do
       @client.job.get_current_build_status(@job_name).should_not == "running"
       response = @client.job.build(@job_name)
       response.to_i.should == 302
-      sleep 2
-#      @client.job.get_current_build_status(job_name).should == "running"
     end
 
     it "Should be able to restrict a job to a node" do
