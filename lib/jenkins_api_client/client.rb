@@ -44,10 +44,6 @@ module JenkinsApi
       JenkinsApi::Client::Job.new(self)
     end
 
-    def views
-      JenkinsApi::Client::Views.new(self)
-    end
-
     # Returns a string representing the class name
     #
     def to_s
