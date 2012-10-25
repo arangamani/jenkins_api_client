@@ -4,14 +4,41 @@ require 'yaml'
 describe JenkinsApi::Client::Job do
   context "With properly initialized client" do
     before(:all) do
+      @helper = JenkinsApiSpecHelper::Helper.new
       @creds_file = '~/.jenkins_api_client/login.yml'
-      @filter = '^test_aws_est_cenhvm.*'
+      @job_name_prefix = '0rspec_awesome_test_job'
+      @filter = "^#{@job_name_prefix}.*"
+      @job_name = ''
       begin
         @client = JenkinsApi::Client.new(YAML.load_file(File.expand_path(@creds_file, __FILE__)))
       rescue Exception => e
         puts "WARNING: Credentials are not set properly."
         puts e.message
       end
+      # Creating 10 jobs to run the spec tests on
+      begin
+        10.times do |num|
+          xml = @helper.create_job_xml
+          job = "#{@job_name_prefix}_#{num}"
+          @job_name = job if num == 0
+          @client.job.create(job, xml).to_i.should == 200
+        end
+      rescue Exception => e
+        puts "WARNING: Can't create jobs for preparing to spec tests"
+      end
+    end
+
+    it "Should be able to create a job" do
+      xml = @helper.create_job_xml
+      @client.job.create("some_random_nonexistent_job", xml).to_i.should == 200
+    end
+
+    it "Should be able to change the description of a job" do
+      @client.job.change_description("some_random_nonexistent_job", "The description has been changed by the spec test").to_i.should == 200
+    end
+
+    it "Should be able to delete a job" do
+      @client.job.delete("some_random_nonexistent_job").to_i.should == 302
     end
 
     it "Should list all jobs" do
@@ -37,52 +64,40 @@ describe JenkinsApi::Client::Job do
     end
 
     it "Should list upstream projects of the specified job" do
-      job_name = @client.job.list(@filter)[0]
-      job_name.class.should == String
-      @client.job.get_upstream_projects(job_name).class.should == Array
+      @client.job.get_upstream_projects(@job_name).class.should == Array
     end
 
     it "Should list downstream projects of the specified job" do
-      job_name = @client.job.list(@filter)[0]
-      job_name.class.should == String
-      @client.job.get_downstream_projects(job_name).class.should == Array
+      @client.job.get_downstream_projects(@job_name).class.should == Array
     end
 
     it "Should get builds of a specified job" do
-      job_name = @client.job.list(@filter)[0]
-      job_name.class.should == String
-      @client.job.get_builds(job_name).class.should == Array
+      @client.job.get_builds(@job_name).class.should == Array
     end
 
     it "Should obtain the current build status for the specified job" do
-      job_name = @client.job.list(@filter)[0]
-      job_name.class.should == String
-      build_status = @client.job.get_current_build_status(job_name)
+      build_status = @client.job.get_current_build_status(@job_name)
       build_status.class.should == String
       valid_build_status = ["not run", "aborted", "success", "failure", "unstable", "running"]
       valid_build_status.include?(build_status).should be_true
     end
 
-#    it "Should list all running jobs" do
-#      @client.job.list_running.class.should == Array
-#    end
+    it "Should list all running jobs" do
+      @client.job.list_running.class.should == Array
+    end
 
     it "Should build the specified job" do
-      job_name = @client.job.list(@filter)[0]
-      job_name.class.should == String
-      @client.job.get_current_build_status(job_name).should_not == "running"
-      response = @client.job.build(job_name)
+      @client.job.get_current_build_status(@job_name).should_not == "running"
+      response = @client.job.build(@job_name)
       response.to_i.should == 302
       sleep 2
 #      @client.job.get_current_build_status(job_name).should == "running"
     end
 
     it "Should be able to restrict a job to a node" do
-      job_name = @client.job.list(@filter)[0]
-      job_name.class.should == String
-      @client.job.restrict_to_node(job_name, 'master').to_i.should == 200
+      @client.job.restrict_to_node(@job_name, 'master').to_i.should == 200
       # Run it again to make sure that the replace existing node works
-      @client.job.restrict_to_node(job_name, 'master').to_i.should == 200
+      @client.job.restrict_to_node(@job_name, 'master').to_i.should == 200
     end
 
     it "Should be able to chain jobs" do
@@ -98,6 +113,13 @@ describe JenkinsApi::Client::Job do
       start_jobs = @client.job.chain(jobs, 'failure', ["not run", "aborted", 'failure'], 3)
       start_jobs.class.should == Array
       start_jobs.length.should == 3
+    end
+
+    after(:all) do
+      job_names = @client.job.list(@filter)
+      job_names.each { |job_name|
+        @client.job.delete(job_name)
+      }
     end
 
   end

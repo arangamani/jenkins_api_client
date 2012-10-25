@@ -5,6 +5,8 @@ describe JenkinsApi::Client do
   context "Given valid credentials and server information in the ~/.jenkins_api_client/login.yml" do
     before(:all) do
       @creds_file = '~/.jenkins_api_client/login.yml'
+      # Grabbing just the server IP in a variable so we can check for wrong credentials
+      @server_ip = YAML.load_file(File.expand_path(@creds_file, __FILE__))[:server_ip]
       begin
         @client = JenkinsApi::Client.new(YAML.load_file(File.expand_path(@creds_file, __FILE__)))
       rescue Exception => e
@@ -18,13 +20,22 @@ describe JenkinsApi::Client do
       client1.class.should == JenkinsApi::Client
     end
 
+    it "Should fail if wrong credentials are given" do
+      begin
+        client2 = JenkinsApi::Client.new(:server_ip => @server_ip, :username => 'stranger', :password => 'hacked')
+        client2.job.list_all
+      rescue Exception => e
+        e.class.should == JenkinsApi::Exceptions::UnautherizedException
+      end
+    end
+
     it "Should return a job object on call to job function" do
       @client.job.class.should == JenkinsApi::Client::Job
     end
 
     it "Should accept a YAML argument when creating a new client" do
-      client2 = JenkinsApi::Client.new(YAML.load_file(File.expand_path(@creds_file, __FILE__)))
-      client2.class.should == JenkinsApi::Client
+      client3 = JenkinsApi::Client.new(YAML.load_file(File.expand_path(@creds_file, __FILE__)))
+      client3.class.should == JenkinsApi::Client
     end
     
   end
