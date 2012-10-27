@@ -29,22 +29,22 @@ Include this gem in your code as a require statement.
 === Using with IRB
 
 If you want to just play with it and not actually want to write a script, you can just use the
-irb launcher script which is available in `scripts/login_with_irb.rb`. But make sure that
+irb launcher script which is available in <tt>scripts/login_with_irb.rb</tt>. But make sure that
 you have your credentials available in the correct location. By default the script assumes that
-you have your credentials file in `~/.jenkins_api_client/login.yml`. If you don't prefer this
+you have your credentials file in <tt>~/.jenkins_api_client/login.yml</tt>. If you don't prefer this
 location and would like to use a different location, just modify that script to point to the
 location where the credentials file exists.
 
   ruby scripts/login_with_irb.rb
 
 You will see the that it entered IRB session and you can play with the API client with the
-`@client` object that it has returned.
+<tt>@client</tt> object that it has returned.
 
 === Authentication
 
 This project supports two types of password-based authentication. You can just you the plain
-password by using `password` parameter. If you don't prefer leaving plain passwords in the
-credentials file, you can encode your password in base64 format and use `password_base64`
+password by using <tt>password</tt> parameter. If you don't prefer leaving plain passwords in the
+credentials file, you can encode your password in base64 format and use <tt>password_base64</tt>
 parameter to specify the password either in the arguments or in the credentials file.
 
 === Basic Usage
@@ -59,7 +59,7 @@ The following call just passes the information as parameters
   puts @client.job.list("^Testjob")
 
 The following example passes the YAML file contents. An example yaml file is located in
-`config/login.yml.example`.
+<tt>config/login.yml.example</tt>.
 
   @client = JenkinsApi::Client.new(YAML.Load_file(File.expand_path('~/.jenkins_api_client/login.yml', __FILE__)))
   # The following call lists all jobs
@@ -97,22 +97,22 @@ single job. There is a reason behind it. In simple chain, such as the one in the
 jobs specified are chained one by one. But in some cases they might not be dependent on the previous
 jobs and we might want to run some jobs parallelly. We just have to specify that as a parameter.
 
-For example: `parallel = 3` in the parameter list to the `chain` method will take the first three
+For example: <tt>parallel = 3</tt> in the parameter list to the <tt>chain</tt> method will take the first three
 jobs and chain them with the next three jobs and so forth till it reaches the end of the list.
 
 There is another filter option you can specify for the method to take only jobs that are in a
 particular state. In case if we want to build only jobs that are failed or unstable, we can achieve
 that by passing in the states in the third parameter. In the example above, we wanted build all jobs.
-If we just want to build failed and unstable jobs, just pass `["failure", "unstable"]`. Also if you
+If we just want to build failed and unstable jobs, just pass <tt>["failure", "unstable"]</tt>. Also if you
 pass in an empty array, it will assume that you want to consider all jobs and no filtering will be
 performed.
 
-There is another parameter called `threshold` you can specify for the chaining and this is used
-to decide whether to move forward with the next job in the chain or not. A `success` will move to
-the next job only if the current build succeeds, `failure` will move to the next job even if the build
-fails, and `unstable` will move to the job even if the build is unstable.
+There is another parameter called <tt>threshold</tt> you can specify for the chaining and this is used
+to decide whether to move forward with the next job in the chain or not. A <tt>success</tt> will move to
+the next job only if the current build succeeds, <tt>failure</tt> will move to the next job even if the build
+fails, and <tt>unstable</tt> will move to the job even if the build is unstable.
 
-The following call to the `chain` method will consider only failed and unstable jobs, chain then
+The following call to the <tt>chain</tt> method will consider only failed and unstable jobs, chain then
 with 'failure' as the threshold, and also chain three jobs in parallel.
 
   initial_jobs = @client.job.chain(jobs, 'failure', ["failure", "unstable"], 3)
@@ -124,7 +124,7 @@ with 'failure' as the threshold, and also chain three jobs in parallel.
 
 === Debug
 
-The call to client initialization accepts a debug parameter. If it is set to `true` it will print
+The call to client initialization accepts a debug parameter. If it is set to <tt>true</tt> it will print
 some debug information to the console. By default it is set to false.
 
 == CONTRIBUTING:
