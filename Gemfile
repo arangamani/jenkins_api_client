@@ -1,7 +1,7 @@
 source "http://rubygems.org"
 
-gem "nokogiri", "~-> 1.5.5"
-gem "activesupport", "~-> 3.2.8"
+gem "nokogiri", "~> 1.5.5"
+gem "activesupport", "~> 3.2.8"
 
 group :development do
   gem "bundler", "~> 1.2.1"
