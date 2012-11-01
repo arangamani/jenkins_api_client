@@ -1,1 +1,1 @@
-require File.expand_path('../jenkins_api_client/client', __FILE__)
+Dir[File.dirname(__FILE__) + '/jenkins_api_client/*.rb'].each {|file| require file }
