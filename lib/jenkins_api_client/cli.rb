@@ -24,51 +24,19 @@ require 'thor'
 require 'thor/group'
 require 'terminal-table/import'
 require "#{File.dirname(__FILE__)}/client.rb"
+require "#{File.dirname(__FILE__)}/cli/job.rb"
 
 module JenkinsApi
+  module CLI
 
-  class CLI < Thor
-    def initialize(args=[], options={}, config={})
-      super(args, options, config)
-    end
-  end
-
-  class Job < Thor
-
-    desc "list", "List jobs"
-    method_option :filter, :aliases => "-f", :desc => "Regular expression to filter jobs"
-    def list
-      @client = JenkinsApi::Client.new(YAML.load_file(File.expand_path('~/.jenkins_api_client/login.yml', __FILE__)))
-      if options[:filter]
-        puts @client.job.list(options[:filter])
-      else
-        puts @client.job.list_all
-      end
-    end
-
-    desc "build JOB", "Build a job"
-    def build(job)
-      @client = JenkinsApi::Client.new(YAML.load_file(File.expand_path('~/.jenkins_api_client/login.yml', __FILE__)))
-      @client.job.build(job)
-    end
-
-    desc "status JOB", "Get the current build status of a job"
-    def status(job)
-      @client = JenkinsApi::Client.new(YAML.load_file(File.expand_path('~/.jenkins_api_client/login.yml', __FILE__)))
-      puts @client.job.get_current_build_status(job)
-    end
-
-    desc "listrunning", "List running jobs"
-    def listrunning
-      @client = JenkinsApi::Client.new(YAML.load_file(File.expand_path('~/.jenkins_api_client/login.yml', __FILE__)))
-      puts @client.job.list_running
+    class Main < Thor
     end
 
   end
 end
 
-JenkinsApi::CLI.register(
-  JenkinsApi::Job,
+JenkinsApi::CLI::Main.register(
+  JenkinsApi::CLI::Job,
   'job',
   'job [subcommand]',
   'provides functions to access the job interface of Jenkins CI server'
