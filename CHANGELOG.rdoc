@@ -1,6 +1,6 @@
 = CHANGELOG
 
-===== v0.2.0  [02-NOV-2012]
+===== v0.2.1  [02-NOV-2012]
 * Added command line interface for basic operations
 
 ===== v0.1.1  [30-OCT-2012]
