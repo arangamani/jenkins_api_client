@@ -2,4 +2,4 @@
 
 $LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__) + "/../lib"))
 require 'jenkins_api_client'
-JenkinsApi::CLI::Main.start
+JenkinsApi::CLI::Base.start

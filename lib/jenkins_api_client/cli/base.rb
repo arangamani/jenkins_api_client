@@ -23,22 +23,28 @@
 require 'thor'
 require 'thor/group'
 require 'terminal-table/import'
-require "#{File.dirname(__FILE__)}/client.rb"
-require "#{File.dirname(__FILE__)}/cli/job.rb"
+require "#{File.dirname(__FILE__)}/../client.rb"
+require "#{File.dirname(__FILE__)}/job.rb"
 
 module JenkinsApi
   module CLI
 
-    class Main < Thor
+    class Base < Thor
+      map "-v" => :version
+
+      desc "version", "Shows current version"
+      def version
+        puts JenkinsApi::Client::VERSION
+      end
     end
 
   end
 end
 
-JenkinsApi::CLI::Main.register(
+JenkinsApi::CLI::Base.register(
   JenkinsApi::CLI::Job,
   'job',
   'job [subcommand]',
-  'provides functions to access the job interface of Jenkins CI server'
+  'Provides functions to access the job interface of Jenkins CI server'
 )
 
