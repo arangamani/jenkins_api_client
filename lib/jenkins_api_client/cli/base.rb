@@ -22,7 +22,6 @@
 
 require 'thor'
 require 'thor/group'
-require 'terminal-table/import'
 require "#{File.dirname(__FILE__)}/../client.rb"
 require "#{File.dirname(__FILE__)}/job.rb"
 

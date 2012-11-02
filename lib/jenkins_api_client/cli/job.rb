@@ -87,6 +87,23 @@ module JenkinsApi
         puts @client.job.list_running
       end
 
+      desc "delete JOB", "Delete the job"
+      def delete(job)
+        @client = setup
+        puts @client.job.delete(job)
+      end
+
+      desc "restrict JOB", "Restricts a job to a specific node"
+      method_option :node, :aliases => "-n", :desc => "Node to be restricted to"
+      def restrict(job)
+        @client = setup
+        if options[:node]
+          @client.job.restrict_to_node(job, options[:node])
+        else
+          say "You need to specify the node to be restricted to.", :red
+        end
+      end
+
     end
   end
 end

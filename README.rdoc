@@ -122,6 +122,15 @@ with 'failure' as the threshold, and also chain three jobs in parallel.
     raise "Unable to build job: #{job}" unless code == 302
   }
 
+=== Using with command line
+Command line interface is supported only from version 0.2.0.
+See help using <tt>jenkinscli help</tt>
+
+There are three ways for authentication using command line interface
+1. Passing all credentials and server information using command line parameters
+2. Passing the credentials file as the command line parameter
+3. Having the credentials file in the default location <tt>HOME/.jenkins_api_client/login.yml</tt>
+
 === Debug
 
 The call to client initialization accepts a debug parameter. If it is set to <tt>true</tt> it will print

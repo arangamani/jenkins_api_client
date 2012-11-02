@@ -1,5 +1,8 @@
 = CHANGELOG
 
+===== v0.2.0  [02-NOV-2012]
+* Added command line interface for basic operations
+
 ===== v0.1.1  [30-OCT-2012]
 * Updated gem dependencies to work with Ruby 1.8.7
 

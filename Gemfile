@@ -3,7 +3,7 @@ source "http://rubygems.org"
 gem "nokogiri", "~> 1.5.5"
 gem "activesupport", "~> 3.2.8"
 gem "thor", "~> 0.16.0"
-gem "terminal-table", "~> 1.4.5"
+gem "json", ">= 0"
 
 group :development do
   gem "bundler", "~> 1.2.1"
