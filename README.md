@@ -1,7 +1,8 @@
 Jenkins API Client
 ==================
 
-Copyright &copy; 2004, Kannan Manickam.
+Copyright &copy; 2012, Kannan Manickam.
+
 Client libraries for communicating with a Jenkins CI server and programatically managing jobs.
 
 OVERVIEW:
