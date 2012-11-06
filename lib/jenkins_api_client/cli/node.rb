@@ -20,22 +20,15 @@
 # THE SOFTWARE.
 #
 
-require "#{File.dirname(__FILE__)}/helper.rb"
 module JenkinsApi
   module CLI
     class Node < Thor
       include Thor::Actions
-      class_option :username,        :aliases => "-u", :desc => "Name of Jenkins user"
-      class_option :password,        :aliases => "-p", :desc => "Password of Jenkins user"
-      class_option :password_base64, :aliases => "-b", :desc => "Base 64 encoded password of Jenkins user"
-      class_option :server_ip,       :aliases => "-s", :desc => "Jenkins server IP address"
-      class_option :server_port,     :aliases => "-o", :desc => "Jenkins server port"
-      class_option :creds_file,      :aliases => "-c", :desc => "Credentials file for communicating with Jenkins server"
 
       desc "list", "List all nodes"
       method_option :filter, :aliases => "-f", :desc => "Regular expression to filter jobs"
       def list
-        @client = Helper.setup(options)
+        @client = Helper.setup(parent_options)
         if options[:filter]
           puts @client.node.list(options[:filter])
         else
@@ -53,14 +46,3 @@ module JenkinsApi
     end
   end
 end
-
-#self.register(
-#  Node,
-#  'node',
-#  'node [subcommand]',
-#  'Provides functions to access the node interface of Jenkins CI server'
-#)
-
-#end
-#end
-#end

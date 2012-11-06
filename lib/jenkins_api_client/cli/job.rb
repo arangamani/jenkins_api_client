@@ -20,25 +20,16 @@
 # THE SOFTWARE.
 #
 
-require File.expand_path('../helper', __FILE__)
-require 'fileutils'
-
 module JenkinsApi
   module CLI
 
     class Job < Thor
       include Thor::Actions
-      class_option :username,        :aliases => "-u", :desc => "Name of Jenkins user"
-      class_option :password,        :aliases => "-p", :desc => "Password of Jenkins user"
-      class_option :password_base64, :aliases => "-b", :desc => "Base 64 encoded password of Jenkins user"
-      class_option :server_ip,       :aliases => "-s", :desc => "Jenkins server IP address"
-      class_option :server_port,     :aliases => "-o", :desc => "Jenkins server port"
-      class_option :creds_file,      :aliases => "-c", :desc => "Credentials file for communicating with Jenkins server"
 
       desc "list", "List jobs"
       method_option :filter, :aliases => "-f", :desc => "Regular expression to filter jobs"
       def list
-        @client = Helper.setup(options)
+        @client = Helper.setup(parent_options)
         if options[:filter]
           puts @client.job.list(options[:filter])
         else
@@ -84,10 +75,3 @@ module JenkinsApi
     end
   end
 end
-
-#JenkinsApi::CLI::Base.register(
-#    JenkinsApi::CLI::Job,
-#    'job',
-#    'job [subcommand]',
-#    'Provides functions to access the job interface of Jenkins CI server'
-#)
