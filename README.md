@@ -1,5 +1,5 @@
 Jenkins API Client
-##################
+==================
 
 Client libraries for communicating with a Jenkins CI server and programatically managing jobs.
 
@@ -39,7 +39,7 @@ you have your credentials file in <tt>~/.jenkins_api_client/login.yml</tt>. If y
 location and would like to use a different location, just modify that script to point to the
 location where the credentials file exists.
 
-  ruby scripts/login_with_irb.rb
+    ruby scripts/login_with_irb.rb
 
 You will see the that it entered IRB session and you can play with the API client with the
 <tt>@client</tt> object that it has returned.
