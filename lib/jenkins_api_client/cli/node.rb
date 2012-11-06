@@ -20,11 +20,10 @@
 # THE SOFTWARE.
 #
 
-#require "#{File.dirname(__FILE__)}/base.rb"
+require "#{File.dirname(__FILE__)}/helper.rb"
 module JenkinsApi
   module CLI
     class Node < Thor
-      include Base
       include Thor::Actions
       class_option :username,        :aliases => "-u", :desc => "Name of Jenkins user"
       class_option :password,        :aliases => "-p", :desc => "Password of Jenkins user"
@@ -36,7 +35,7 @@ module JenkinsApi
       desc "list", "List all nodes"
       method_option :filter, :aliases => "-f", :desc => "Regular expression to filter jobs"
       def list
-        @client = setup
+        @client = Helper.setup(options)
         if options[:filter]
           puts @client.node.list(options[:filter])
         else
@@ -47,7 +46,7 @@ module JenkinsApi
       #====== test
       desc "is_offline", "is_offline"
       def is_offline(node)
-        @client = self.setup
+        @client = Helper.setup(options)
         puts @client.node.is_offline?(node)
       end
 

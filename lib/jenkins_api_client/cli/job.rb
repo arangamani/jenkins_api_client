@@ -20,14 +20,14 @@
 # THE SOFTWARE.
 #
 
-#require File.expand_path('../base', __FILE__)
+require File.expand_path('../helper', __FILE__)
 require 'fileutils'
 
 module JenkinsApi
   module CLI
 
-    class Job < Base
-#      include Thor::Actions
+    class Job < Thor
+      include Thor::Actions
       class_option :username,        :aliases => "-u", :desc => "Name of Jenkins user"
       class_option :password,        :aliases => "-p", :desc => "Password of Jenkins user"
       class_option :password_base64, :aliases => "-b", :desc => "Base 64 encoded password of Jenkins user"
@@ -38,7 +38,7 @@ module JenkinsApi
       desc "list", "List jobs"
       method_option :filter, :aliases => "-f", :desc => "Regular expression to filter jobs"
       def list
-        @client = self.setup
+        @client = Helper.setup(options)
         if options[:filter]
           puts @client.job.list(options[:filter])
         else
@@ -48,32 +48,32 @@ module JenkinsApi
 
       desc "build JOB", "Build a job"
       def build(job)
-        @client = self.setup
+        @client = Helper.setup(options)
         @client.job.build(job)
       end
 
       desc "status JOB", "Get the current build status of a job"
       def status(job)
-        @client = self.setup
+        @client = Helper.setup(options)
         puts @client.job.get_current_build_status(job)
       end
 
       desc "listrunning", "List running jobs"
       def listrunning
-        @client =  self.setup
+        @client =  Helper.setup(options)
         puts @client.job.list_running
       end
 
       desc "delete JOB", "Delete the job"
       def delete(job)
-        @client = self.setup
+        @client = Helper.setup(options)
         puts @client.job.delete(job)
       end
 
       desc "restrict JOB", "Restricts a job to a specific node"
       method_option :node, :aliases => "-n", :desc => "Node to be restricted to"
       def restrict(job)
-        @client = self.setup
+        @client = Helper.setup(options)
         if options[:node]
           @client.job.restrict_to_node(job, options[:node])
         else

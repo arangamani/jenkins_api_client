@@ -24,7 +24,7 @@ require 'thor'
 require 'thor/group'
 require "#{File.dirname(__FILE__)}/../client.rb"
 require "#{File.dirname(__FILE__)}/node.rb"
-#require "#{File.dirname(__FILE__)}/job.rb"
+require "#{File.dirname(__FILE__)}/job.rb"
 
 module JenkinsApi
   module CLI
@@ -32,22 +32,6 @@ module JenkinsApi
     class Base < Thor
       include Thor::Actions
       map "-v" => :version
-
-      no_tasks {
-        def setup
-          if options[:username] && options[:server_ip] && (options[:password] || options[:password_base64])
-            creds = options
-          elsif options[:creds_file]
-            creds = YAML.load_file(File.expand_path(options[:creds_file], __FILE__))
-          elsif File.exist?("#{ENV['HOME']}/.jenkins_api_client/login.yml")
-            creds = YAML.load_file(File.expand_path("#{ENV['HOME']}/.jenkins_api_client/login.yml", __FILE__))
-          else
-            say "Credentials are not set. Please pass them as parameters or set them in the default credentials file", :red
-          end
-          JenkinsApi::Client.new(creds)
-        end
-      }
-
 
       desc "version", "Shows current version"
       def version
@@ -61,21 +45,13 @@ module JenkinsApi
         'Provides functions to access the node interface of Jenkins CI server'
       )
 
-#      register(
-#        CLI::Job,
-#        'job',
-#        'job [subcommand]',
-#        'Provides functions to access the job interface of Jenkins CI server'
-#      )
-    end
+      register(
+        CLI::Job,
+        'job',
+        'job [subcommand]',
+        'Provides functions to access the job interface of Jenkins CI server'
+      )
 
+    end
   end
 end
-
-#JenkinsApi::CLI::Base.register(
-# JenkinsApi::CLI::Job,
-#  'job',
-#  'job [subcommand]',
-#  'Provides functions to access the job interface of Jenkins CI server'
-#)
-
