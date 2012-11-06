@@ -39,7 +39,7 @@ module JenkinsApi
       #====== test
       desc "is_offline", "is_offline"
       def is_offline(node)
-        @client = Helper.setup(options)
+        @client = Helper.setup(parent_options)
         puts @client.node.is_offline?(node)
       end
 
