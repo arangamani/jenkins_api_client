@@ -136,6 +136,9 @@ There are three ways for authentication using command line interface
 The call to client initialization accepts a debug parameter. If it is set to <tt>true</tt> it will print
 some debug information to the console. By default it is set to false.
 
+== Status
+{<img src="https://gemnasium.com/arangamani/jenkins_api_client.png" alt="Dependency Status" />}[https://gemnasium.com/arangamani/jenkins_api_client]
+
 == CONTRIBUTING:
 
 If you would like to contribute to this project, just do the following:
