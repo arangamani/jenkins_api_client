@@ -20,14 +20,12 @@
 # THE SOFTWARE.
 #
 
-#require File.expand_path('../base', __FILE__)
-require 'fileutils'
-
+#require "#{File.dirname(__FILE__)}/base.rb"
 module JenkinsApi
   module CLI
-
-    class Job < Base
-#      include Thor::Actions
+    class Node < Thor
+      include Base
+      include Thor::Actions
       class_option :username,        :aliases => "-u", :desc => "Name of Jenkins user"
       class_option :password,        :aliases => "-p", :desc => "Password of Jenkins user"
       class_option :password_base64, :aliases => "-b", :desc => "Base 64 encoded password of Jenkins user"
@@ -35,59 +33,35 @@ module JenkinsApi
       class_option :server_port,     :aliases => "-o", :desc => "Jenkins server port"
       class_option :creds_file,      :aliases => "-c", :desc => "Credentials file for communicating with Jenkins server"
 
-      desc "list", "List jobs"
+      desc "list", "List all nodes"
       method_option :filter, :aliases => "-f", :desc => "Regular expression to filter jobs"
       def list
-        @client = self.setup
+        @client = setup
         if options[:filter]
-          puts @client.job.list(options[:filter])
+          puts @client.node.list(options[:filter])
         else
-          puts @client.job.list_all
+          puts @client.node.list_all
         end
       end
 
-      desc "build JOB", "Build a job"
-      def build(job)
+      #====== test
+      desc "is_offline", "is_offline"
+      def is_offline(node)
         @client = self.setup
-        @client.job.build(job)
-      end
-
-      desc "status JOB", "Get the current build status of a job"
-      def status(job)
-        @client = self.setup
-        puts @client.job.get_current_build_status(job)
-      end
-
-      desc "listrunning", "List running jobs"
-      def listrunning
-        @client =  self.setup
-        puts @client.job.list_running
-      end
-
-      desc "delete JOB", "Delete the job"
-      def delete(job)
-        @client = self.setup
-        puts @client.job.delete(job)
-      end
-
-      desc "restrict JOB", "Restricts a job to a specific node"
-      method_option :node, :aliases => "-n", :desc => "Node to be restricted to"
-      def restrict(job)
-        @client = self.setup
-        if options[:node]
-          @client.job.restrict_to_node(job, options[:node])
-        else
-          say "You need to specify the node to be restricted to.", :red
-        end
+        puts @client.node.is_offline?(node)
       end
 
     end
   end
 end
 
-#JenkinsApi::CLI::Base.register(
-#    JenkinsApi::CLI::Job,
-#    'job',
-#    'job [subcommand]',
-#    'Provides functions to access the job interface of Jenkins CI server'
+#self.register(
+#  Node,
+#  'node',
+#  'node [subcommand]',
+#  'Provides functions to access the node interface of Jenkins CI server'
 #)
+
+#end
+#end
+#end
