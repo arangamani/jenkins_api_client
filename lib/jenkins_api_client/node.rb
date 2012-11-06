@@ -28,15 +28,6 @@ module JenkinsApi
         @client = client
       end
 
-      def list_all
-        node_names = []
-        response_json = @client.api_get_request("/computer")
-        response_json["computer"].each { |computer|
-          node_names << computer["displayName"]
-        }
-        node_names
-      end
-
       def list(filter = "^.*")
         node_names = []
         response_json = @client.api_get_request("/computer")
@@ -46,18 +37,25 @@ module JenkinsApi
         node_names
       end
 
-      def is_offline?(node_name)
+      def index(node_name)
         response_json = @client.api_get_request("/computer")
-        response_json["computer"]
-        #response_json["computer"]["temporarilyOffline"] == "False" ? false : true
+        response_json["computer"].each_with_index { |computer, index|
+          return index if computer["displayName"] == node_name
+        }
       end
 
-      def num_executors(node_name)
-
+      %w(idle jnlpAgent launchSupported manualLaunchAllowed offline temporarilyOffline).each do |meth_suffix|
+        define_method("is_#{meth_suffix}?") do |node_name|
+          response_json = @client.api_get_request("/computer")
+          response_json["computer"][index(node_name)]["#{meth_suffix}"] =~ /False/i ? false : true
+        end
       end
 
-      def num_total_executors
-
+      %w(numExecutors icon displayName loadStatistics monitorData offlineCause oneOffExecutors).each do |meth_suffix|
+        define_method("get_#{meth_suffix}") do |node_name|
+          response_json = @client.api_get_request("/computer")
+          response_json["computer"][index(node_name)]["#{meth_suffix}"]
+        end
       end
 
     end
