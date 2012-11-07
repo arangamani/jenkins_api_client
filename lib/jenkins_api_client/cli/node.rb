@@ -32,15 +32,8 @@ module JenkinsApi
         if options[:filter]
           puts @client.node.list(options[:filter])
         else
-          puts @client.node.list_all
+          puts @client.node.list
         end
-      end
-
-      #====== test
-      desc "is_offline", "is_offline"
-      def is_offline(node)
-        @client = Helper.setup(parent_options)
-        puts @client.node.is_offline?(node)
       end
 
     end
