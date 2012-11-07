@@ -22,53 +22,17 @@
 
 module JenkinsApi
   module CLI
-
-    class Job < Thor
+    class Node < Thor
       include Thor::Actions
 
-      desc "list", "List jobs"
+      desc "list", "List all nodes"
       method_option :filter, :aliases => "-f", :desc => "Regular expression to filter jobs"
       def list
         @client = Helper.setup(parent_options)
         if options[:filter]
-          puts @client.job.list(options[:filter])
+          puts @client.node.list(options[:filter])
         else
-          puts @client.job.list_all
-        end
-      end
-
-      desc "build JOB", "Build a job"
-      def build(job)
-        @client = Helper.setup(parent_options)
-        @client.job.build(job)
-      end
-
-      desc "status JOB", "Get the current build status of a job"
-      def status(job)
-        @client = Helper.setup(parent_options)
-        puts @client.job.get_current_build_status(job)
-      end
-
-      desc "listrunning", "List running jobs"
-      def listrunning
-        @client =  Helper.setup(parent_options)
-        puts @client.job.list_running
-      end
-
-      desc "delete JOB", "Delete the job"
-      def delete(job)
-        @client = Helper.setup(parent_options)
-        puts @client.job.delete(job)
-      end
-
-      desc "restrict JOB", "Restricts a job to a specific node"
-      method_option :node, :aliases => "-n", :desc => "Node to be restricted to"
-      def restrict(job)
-        @client = Helper.setup(parent_options)
-        if options[:node]
-          @client.job.restrict_to_node(job, options[:node])
-        else
-          say "You need to specify the node to be restricted to.", :red
+          puts @client.node.list
         end
       end
 

@@ -32,6 +32,7 @@ require File.expand_path('../version', __FILE__)
 require File.expand_path('../exceptions', __FILE__)
 require File.expand_path('../job', __FILE__)
 require File.expand_path('../system', __FILE__)
+require File.expand_path('../node', __FILE__)
 
 module JenkinsApi
   class Client
@@ -62,7 +63,7 @@ module JenkinsApi
      @password = Base64.decode64(@password_base64).chomp if @password_base64
     end
 
-    # Creates an instance to the Job object by passing a reference to self
+    # Creates an instance to the Job class by passing a reference to self
     #
     def job
       JenkinsApi::Client::Job.new(self)
@@ -70,6 +71,12 @@ module JenkinsApi
 
     def system
       JenkinsApi::Client::System.new(self)
+    end
+
+    # Creates an instance to the Node class by passing a reference to self
+    #
+    def node
+      JenkinsApi::Client::Node.new(self)
     end
 
     # Returns a string representing the class name

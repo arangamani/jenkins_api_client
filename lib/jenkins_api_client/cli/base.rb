@@ -23,27 +23,43 @@
 require 'thor'
 require 'thor/group'
 require "#{File.dirname(__FILE__)}/../client.rb"
+require "#{File.dirname(__FILE__)}/node.rb"
 require "#{File.dirname(__FILE__)}/job.rb"
 
 module JenkinsApi
   module CLI
 
     class Base < Thor
+
+      class_option :username,        :aliases => "-u", :desc => "Name of Jenkins user"
+      class_option :password,        :aliases => "-p", :desc => "Password of Jenkins user"
+      class_option :password_base64, :aliases => "-b", :desc => "Base 64 encoded password of Jenkins user"
+      class_option :server_ip,       :aliases => "-s", :desc => "Jenkins server IP address"
+      class_option :server_port,     :aliases => "-o", :desc => "Jenkins server port"
+      class_option :creds_file,      :aliases => "-c", :desc => "Credentials file for communicating with Jenkins server"
+
+
       map "-v" => :version
 
       desc "version", "Shows current version"
       def version
         puts JenkinsApi::Client::VERSION
       end
-    end
 
+      register(
+        CLI::Node,
+        'node',
+        'node [subcommand]',
+        'Provides functions to access the node interface of Jenkins CI server'
+      )
+
+      register(
+        CLI::Job,
+        'job',
+        'job [subcommand]',
+        'Provides functions to access the job interface of Jenkins CI server'
+      )
+
+    end
   end
 end
-
-JenkinsApi::CLI::Base.register(
-  JenkinsApi::CLI::Job,
-  'job',
-  'job [subcommand]',
-  'Provides functions to access the job interface of Jenkins CI server'
-)
-
