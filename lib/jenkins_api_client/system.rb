@@ -56,7 +56,7 @@ module JenkinsApi
             response = @client.get_root
             puts "Waiting for jenkins to restart: "
             if (response.body =~ /Please wait while Jenkins is restarting/ || response.body =~ /Please wait while Jenkins is getting ready to work/)
-              sleep 5
+              sleep 10
               redo
             else
                break
