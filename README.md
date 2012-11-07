@@ -153,7 +153,7 @@ some debug information to the console. By default it is set to false.
 CODE STATUS:
 ------------
 
-* {<img src="https://gemnasium.com/arangamani/jenkins_api_client.png" alt="Dependency Status" />}[https://gemnasium.com/arangamani/jenkins_api_client]
+[![Dependency Status](https://gemnasium.com/arangamani/jenkins_api_client.png)](https://gemnasium.com/arangamani/jenkins_api_client)
 
 CONTRIBUTING:
 -------------
