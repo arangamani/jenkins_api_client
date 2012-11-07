@@ -31,6 +31,7 @@ require 'base64'
 require File.expand_path('../version', __FILE__)
 require File.expand_path('../exceptions', __FILE__)
 require File.expand_path('../job', __FILE__)
+require File.expand_path('../system', __FILE__)
 
 module JenkinsApi
   class Client
@@ -67,10 +68,21 @@ module JenkinsApi
       JenkinsApi::Client::Job.new(self)
     end
 
+    def system
+      JenkinsApi::Client::System.new(self)
+    end
+
     # Returns a string representing the class name
     #
     def to_s
       "#<JenkinsApi::Client>"
+    end
+
+    def get_root
+      http = Net::HTTP.start(@server_ip, @server_port)
+      request = Net::HTTP::Get.new("/")
+      request.basic_auth @username, @password
+      http.request(request)
     end
 
     # Sends a GET request to the Jenkins CI server with the specified URL
