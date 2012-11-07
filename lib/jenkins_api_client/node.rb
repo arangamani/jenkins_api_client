@@ -24,11 +24,36 @@ module JenkinsApi
   class Client
     class Node
 
+      @general_attrs = [
+        "busyExecutors",
+        "displayName",
+        "totalExecutors"
+      ]
+
+      @node_properties = [
+        "idle",
+        "jnlpAgent",
+        "launchSupported",
+        "manualLaunchAllowed",
+        "offline",
+        "temporarilyOffline"
+      ]
+
+      @node_specific_attrs = [
+        "numExecutors",
+        "icon",
+        "displayName",
+        "loadStatistics",
+        "monitorData",
+        "offlineCause",
+        "oneOffExecutors"
+      ]
+
       def initialize(client)
         @client = client
       end
 
-      def list(filter = "^.*")
+      def list(filter = nil, ignorecase = true)
         node_names = []
         response_json = @client.api_get_request("/computer")
         response_json["computer"].each { |computer|
@@ -44,14 +69,21 @@ module JenkinsApi
         }
       end
 
-      %w(idle jnlpAgent launchSupported manualLaunchAllowed offline temporarilyOffline).each do |meth_suffix|
+      @general_attrs.each do |meth_suffix|
+        define_method("get_#{meth_suffix}") do
+          response_json = @client.api_get_request("/computer")
+          response_json["#{meth_suffix}"]
+        end
+      end
+
+      @node_properties.each do |meth_suffix|
         define_method("is_#{meth_suffix}?") do |node_name|
           response_json = @client.api_get_request("/computer")
           response_json["computer"][index(node_name)]["#{meth_suffix}"] =~ /False/i ? false : true
         end
       end
 
-      %w(numExecutors icon displayName loadStatistics monitorData offlineCause oneOffExecutors).each do |meth_suffix|
+      @node_specific_attrs.each do |meth_suffix|
         define_method("get_#{meth_suffix}") do |node_name|
           response_json = @client.api_get_request("/computer")
           response_json["computer"][index(node_name)]["#{meth_suffix}"]
