@@ -10,4 +10,5 @@ group :development do
   gem "jeweler", ">= 1.6.4"
   gem "builder", "~> 3.1.3"
   gem "simplecov"
+  gem "rspec"
 end

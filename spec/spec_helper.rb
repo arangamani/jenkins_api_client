@@ -10,9 +10,9 @@ require 'pp'
 require 'yaml'
 require 'nokogiri'
 
-RSpec.configure do |config|
-  config.mock_with :flexmock
-end
+#RSpec.configure do |config|
+#  config.mock_with :flexmock
+#end
 
 module JenkinsApiSpecHelper
   class Helper
