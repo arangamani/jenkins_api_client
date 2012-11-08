@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-gem "nokogiri", "~> 1.5.5"
+gem "nokogiri"
 gem "activesupport", "~> 3.2.8"
 gem "thor", "~> 0.16.0"
 gem "json", ">= 0"
