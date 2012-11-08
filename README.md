@@ -22,6 +22,15 @@ work and the functionality mainly focussed on my usage and I believe others migh
 too. I would love to add more features to it and I will continue working on improving existing
 features and add more interfaces such as nodes, views, build queue, etc,.
 
+CODE STATUS:
+------------
+
+* Gemnasium: [![Dependency Status](https://gemnasium.com/arangamani/jenkins_api_client.png)](https://gemnasium.com/arangamani/jenkins_api_client)
+
+* Travis: [![Build Status](https://secure.travis-ci.org/arangamani/jenkins_api_client.png?branch=master)](https://travis-ci.org/arangamani/jenkins_api_client)
+
+* Code Climate: [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/arangamani/jenkins_api_client)
+
 USAGE:
 ------
 
@@ -149,13 +158,6 @@ There are three ways for authentication using command line interface
 
 The call to client initialization accepts a debug parameter. If it is set to <tt>true</tt> it will print
 some debug information to the console. By default it is set to false.
-
-CODE STATUS:
-------------
-
-[![Dependency Status](https://gemnasium.com/arangamani/jenkins_api_client.png)](https://gemnasium.com/arangamani/jenkins_api_client)
-
-[![Build Status](https://secure.travis-ci.org/arangamani/jenkins_api_client.png?branch=master)](https://travis-ci.org/arangamani/jenkins_api_client)
 
 CONTRIBUTING:
 -------------
