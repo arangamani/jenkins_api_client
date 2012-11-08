@@ -11,4 +11,7 @@ before_install:
   - echo `ifconfig`
   - echo `hostname`
   - echo `netstat -an`
+  - export ip=`/sbin/ifconfig eth0 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}'`
+  - echo `curl $ip`
+  - echo `curl $ip:8080`
 script: bundle exec rspec
