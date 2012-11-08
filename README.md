@@ -27,8 +27,6 @@ CODE STATUS:
 
 * Gemnasium: [![Dependency Status](https://gemnasium.com/arangamani/jenkins_api_client.png)](https://gemnasium.com/arangamani/jenkins_api_client)
 
-* Travis: [![Build Status](https://secure.travis-ci.org/arangamani/jenkins_api_client.png?branch=master)](https://travis-ci.org/arangamani/jenkins_api_client)
-
 * Code Climate: [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/arangamani/jenkins_api_client)
 
 USAGE:

@@ -12,3 +12,10 @@ before_install:
   - echo `hostname`
   - echo `netstat -an`
 script: bundle exec rspec
+notifications:
+  email: false
+  irc:
+    on_success: change
+    on_failure: always
+    channels:
+      - "irc.freenode.org#arangamani"
