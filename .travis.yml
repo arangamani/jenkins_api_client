@@ -10,4 +10,5 @@ before_install:
   - echo `curl localhost`
   - echo `ifconfig`
   - echo `hostname`
+  - echo `netstat -an`
 script: bundle exec rspec
