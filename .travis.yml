@@ -4,5 +4,8 @@ rvm:
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq jenkins
+  - echo `service jenkins status`
   - echo `curl 127.0.0.1:8080`
+  - echo `curl 127.0.0.1`
+  - echo `curl localhost`
 script: bundle exec rspec
