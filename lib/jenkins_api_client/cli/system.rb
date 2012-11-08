@@ -38,14 +38,11 @@ module JenkinsApi
       end
 
       desc "restart", "Restarts the Jenkins server"
-      method_option :safe, :aliases => "-s", :desc => "Safe restart"
+      method_option :force, :type => :boolean, :aliases => "-s", :desc => "Force restart"
       def restart
         @client = Helper.setup(parent_options)
-        if options[:safe]
-          @client.system.restart(true)
-        else
-          @client.system.restart
-        end
+        force = options[:force] ? true : false
+        @client.system.restart(force)
       end
 
     end
