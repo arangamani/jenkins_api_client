@@ -20,6 +20,9 @@
 # THE SOFTWARE.
 #
 
+require 'thor'
+require 'thor/group'
+
 module JenkinsApi
   module CLI
 
