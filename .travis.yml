@@ -8,4 +8,6 @@ before_install:
   - echo `curl 127.0.0.1:8080`
   - echo `curl 127.0.0.1`
   - echo `curl localhost`
+  - echo `ifconfig`
+  - echo `hostname`
 script: bundle exec rspec
