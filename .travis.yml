@@ -4,4 +4,6 @@ rvm:
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq jenkins
-script: bundle exec rspec
+script:
+  - bundle exec rspec
+  - curl 127.0.0.1:8080
