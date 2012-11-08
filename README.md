@@ -155,6 +155,8 @@ CODE STATUS:
 
 [![Dependency Status](https://gemnasium.com/arangamani/jenkins_api_client.png)](https://gemnasium.com/arangamani/jenkins_api_client)
 
+[![Build Status](https://secure.travis-ci.org/arangamani/jenkins_api_client.png?branch=master)](https://travis-ci.org/arangamani/jenkins_api_client)
+
 CONTRIBUTING:
 -------------
 
