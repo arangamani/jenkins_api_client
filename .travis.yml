@@ -11,5 +11,4 @@ before_install:
   - echo `ifconfig`
   - echo `hostname`
   - echo `netstat -an`
-  - echo `/sbin/ifconfig eth0 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}'`
 script: bundle exec rspec
