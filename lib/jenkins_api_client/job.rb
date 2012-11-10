@@ -292,6 +292,17 @@ module JenkinsApi
         post_config(job_name, xml_modified)
       end
 
+      # Unchain any existing chain between given job names
+      #
+      # @param [Array] job_names Array of job names to be unchained
+      #
+      def unchain(job_names)
+        job_names.each { |job|
+          puts "INFO: Removing downstream projects for <#{job}>" if @client.debug
+          @client.job.remove_downstream_projects(job)
+        }
+      end
+
       # Chain the jobs given based on specified criteria
       #
       # @param [Array] job_names Array of job names to be chained
@@ -301,12 +312,7 @@ module JenkinsApi
       #
       def chain(job_names, threshold, criteria, parallel = 1)
         raise "Parallel jobs should be at least 1" if parallel < 1
-
-        job_names.each { |job|
-          puts "INFO: Removing downstream projects for <#{job}>" if @client.debug
-          @client.job.remove_downstream_projects(job)
-        }
-
+        unchain(job_names)
         filtered_job_names = []
         if criteria.include?("all") || criteria.empty?
           filtered_job_names = job_names
