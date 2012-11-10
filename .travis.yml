@@ -4,7 +4,6 @@ rvm:
 before_install:
   - wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
   - sudo sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
-  - 
   - sudo apt-get update -qq
   - sudo apt-get install -qq jenkins
   - echo `service jenkins status`
