@@ -1,5 +1,8 @@
 = CHANGELOG
 
+===== v0.3.1  [11-NOV-2012]
+* Removed unnecessary debug statements
+
 ===== v0.3.0  [11-NOV-2012]
 * Added System class to support quietdown and restart functionality.
 * Added Node class to query the node interface of Jenkins server.
