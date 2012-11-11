@@ -23,6 +23,7 @@
 module JenkinsApi
   class Client
     class Node
+      attr_reader :general_attrs
 
       @general_attrs = [
         "busyExecutors",
@@ -48,6 +49,10 @@ module JenkinsApi
         "offlineCause",
         "oneOffExecutors"
       ]
+
+      def get_that
+        @general_attrs
+      end
 
       def initialize(client)
         @client = client

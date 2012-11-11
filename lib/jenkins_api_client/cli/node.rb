@@ -22,6 +22,7 @@
 
 require 'thor'
 require 'thor/group'
+require 'terminal-table'
 
 module JenkinsApi
   module CLI
@@ -37,6 +38,22 @@ module JenkinsApi
         else
           puts @client.node.list
         end
+      end
+
+      desc "print_general_attrs", "Prints general attributes of nodes"
+      def print_general_attrs
+        @client = Helper.setup(parent_options)
+        puts @client.node.list.length
+      end
+
+      desc "print_node_attrs NODE", "Prints attributes specific to a node"
+      def print_node_attributes(node)
+        @client = Helper.setup(parent_options)
+      end
+
+      desc "print_node_properties NODE", "Prints properties of a node"
+      def print_node_properties(node)
+        @client = Helper.setup(parent_options)
       end
 
     end

@@ -42,11 +42,11 @@ module JenkinsApi
         @client.api_post_request("/cancelQuietDown")
       end
 
-      def restart(safe = false)
-        if safe
-          @client.api_post_request("/safeRestart")
-        else
+      def restart(force = false)
+        if force
           @client.api_post_request("/restart")
+        else
+          @client.api_post_request("/safeRestart")
         end
       end
 

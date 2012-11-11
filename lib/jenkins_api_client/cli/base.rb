@@ -25,6 +25,7 @@ require 'thor/group'
 require "#{File.dirname(__FILE__)}/../client.rb"
 require "#{File.dirname(__FILE__)}/node.rb"
 require "#{File.dirname(__FILE__)}/job.rb"
+require "#{File.dirname(__FILE__)}/system.rb"
 
 module JenkinsApi
   module CLI
@@ -58,6 +59,13 @@ module JenkinsApi
         'job',
         'job [subcommand]',
         'Provides functions to access the job interface of Jenkins CI server'
+      )
+
+      register(
+        CLI::System,
+        'system',
+        'system [subcommand]',
+        ' Provides functions to access system functions of the Jenkins CI server'
       )
 
     end
