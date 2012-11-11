@@ -109,7 +109,6 @@ module JenkinsApi
     def api_get_request(url_prefix, tree = nil)
       http = Net::HTTP.start(@server_ip, @server_port)
       request = Net::HTTP::Get.new("#{url_prefix}/api/json")
-      puts "[DEBUG] debug value is: #{@debug}"
       puts "[INFO] GET #{url_prefix}/api/json" if @debug
       request = Net::HTTP::Get.new("#{url_prefix}/api/json?#{tree}") if tree
       request.basic_auth @username, @password
