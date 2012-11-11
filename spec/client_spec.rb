@@ -20,6 +20,11 @@ describe JenkinsApi::Client do
       end
     end
 
+    it "Should be able to toggle the debug value" do
+      value = @client.debug
+      @client.toggle_debug.should_not == value
+    end
+
     it "Should be able to initialize with valid credentials" do
       client1 = JenkinsApi::Client.new(YAML.load_file(File.expand_path(@creds_file, __FILE__)))
       client1.class.should == JenkinsApi::Client

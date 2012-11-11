@@ -63,12 +63,20 @@ module JenkinsApi
      @password = Base64.decode64(@password_base64).chomp if @password_base64
     end
 
+    # This method toggles the debug parameter in run time
+    #
+    def toggle_debug
+      @debug = @debug == false ? true : false
+    end
+
     # Creates an instance to the Job class by passing a reference to self
     #
     def job
       JenkinsApi::Client::Job.new(self)
     end
 
+    # Creates an instance to the System class by passing a reference to self
+    #
     def system
       JenkinsApi::Client::System.new(self)
     end
@@ -85,6 +93,8 @@ module JenkinsApi
       "#<JenkinsApi::Client>"
     end
 
+    # Obtains the root of Jenkins server. This function is used to see if
+    # Jenkins is running
     def get_root
       http = Net::HTTP.start(@server_ip, @server_port)
       request = Net::HTTP::Get.new("/")
@@ -99,6 +109,7 @@ module JenkinsApi
     def api_get_request(url_prefix, tree = nil)
       http = Net::HTTP.start(@server_ip, @server_port)
       request = Net::HTTP::Get.new("#{url_prefix}/api/json")
+      puts "[DEBUG] debug value is: #{@debug}"
       puts "[INFO] GET #{url_prefix}/api/json" if @debug
       request = Net::HTTP::Get.new("#{url_prefix}/api/json?#{tree}") if tree
       request.basic_auth @username, @password

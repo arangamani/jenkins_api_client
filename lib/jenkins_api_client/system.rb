@@ -26,22 +26,36 @@ module JenkinsApi
   class Client
     class System
 
+      # Initializes a new System object.
+      #
+      # @param [Object] client a reference to Client
+      #
       def initialize(client)
         @client = client
       end
 
+      # Returns a string representation of System class.
+      #
       def to_s
         "#<JenkinsApi::Client::System>"
       end
 
+      # Sends a quiet down request to the server.
+      #
       def quiet_down
         @client.api_post_request("/quietDown")
       end
 
+      # Cancels the quiet doen request sent to the server.
+      #
       def cancel_quiet_down
         @client.api_post_request("/cancelQuietDown")
       end
 
+      # Restarts the Jenkins server
+      #
+      # @param [Bool] force whether to force restart or wait till all jobs are completed.
+      #
       def restart(force = false)
         if force
           @client.api_post_request("/restart")
@@ -50,19 +64,22 @@ module JenkinsApi
         end
       end
 
+      # This method waits till the server becomes ready after a start or restart.
+      #
       def wait_for_ready
         Timeout::timeout(120) do
           while true do
             response = @client.get_root
-            puts "Waiting for jenkins to restart: "
+            puts "[INFO] Waiting for jenkins to restart..." if @client.debug
             if (response.body =~ /Please wait while Jenkins is restarting/ || response.body =~ /Please wait while Jenkins is getting ready to work/)
-              sleep 10
+              sleep 15
               redo
             else
-               break
+               return true
             end
           end
         end
+        false
       end
 
     end

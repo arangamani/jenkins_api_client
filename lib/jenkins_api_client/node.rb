@@ -23,14 +23,33 @@
 module JenkinsApi
   class Client
     class Node
-      #attr_reader :GENERAL_ATTRS
 
+      # General attributes of a node.
+      # This allows the following methods to be called on this node object.
+      # These methods are defined using define_method and are prefixed
+      # with get_.
+      #
+      # def get_busyExecutors
+      # def get_displayName
+      # def get_totalExecutors
+      #
       GENERAL_ATTRIBUTES = [
         "busyExecutors",
         "displayName",
         "totalExecutors"
       ]
 
+      # Properties of a node.
+      # The following methods are defined to be called on the node object
+      # and are prefixed with is_ and end with ? as they return true or false.
+      #
+      # def is_idle?(node_name)
+      # def is_jnlpAgent?(node_name)
+      # def is_launchSupported?(node_name)
+      # def is_manualLaunchAllowed?(node_name)
+      # def is_offline?(node_name)
+      # def is_temporarilyOffline?(node_name)
+      #
       NODE_PROPERTIES = [
         "idle",
         "jnlpAgent",
@@ -40,6 +59,18 @@ module JenkinsApi
         "temporarilyOffline"
       ]
 
+      # Node specific attributes.
+      # The following methods are defined using define_method.
+      # These methods are prefixed with get_node_.
+      #
+      # def get_node_numExecutors(node_name)
+      # def get_node_icon(node_name)
+      # def get_node_displayName(node_name)
+      # def get_node_loadStatistics(node_name)
+      # def get_node_monitorData(node_name)
+      # def get_node_offlineCause(node_name)
+      # def get_node_oneOffExecutors(node_name)
+      #
       NODE_ATTRIBUTES = [
         "numExecutors",
         "icon",
@@ -50,14 +81,23 @@ module JenkinsApi
         "oneOffExecutors"
       ]
 
-      def get_that
-        @general_attrs
-      end
-
+      # Initializes a new node object
+      #
+      # @param [Object] client reference to Client
+      #
       def initialize(client)
         @client = client
       end
 
+      def to_s
+        "#<JenkinsApi::Client::Node>"
+      end
+
+      # This method lists all nodes
+      #
+      # @param [String] filter a regex to filter node names
+      # @param [Bool] ignorecase whether to be case sensitive or not
+      #
       def list(filter = nil, ignorecase = true)
         node_names = []
         response_json = @client.api_get_request("/computer")
@@ -67,6 +107,10 @@ module JenkinsApi
         node_names
       end
 
+      # Identifies the index of a node name in the array node nodes
+      #
+      # @param [String] node_name name of the node
+      #
       def index(node_name)
         response_json = @client.api_get_request("/computer")
         response_json["computer"].each_with_index { |computer, index|
@@ -74,6 +118,8 @@ module JenkinsApi
         }
       end
 
+      # Defines methods for general node attributes.
+      #
       GENERAL_ATTRIBUTES.each do |meth_suffix|
         define_method("get_#{meth_suffix}") do
           response_json = @client.api_get_request("/computer")
@@ -81,6 +127,8 @@ module JenkinsApi
         end
       end
 
+      # Defines methods for node properties.
+      #
       NODE_PROPERTIES.each do |meth_suffix|
         define_method("is_#{meth_suffix}?") do |node_name|
           response_json = @client.api_get_request("/computer")
@@ -88,6 +136,7 @@ module JenkinsApi
         end
       end
 
+      # Defines methods for node specific attributes.
       NODE_ATTRIBUTES.each do |meth_suffix|
         define_method("get_node_#{meth_suffix}") do |node_name|
           response_json = @client.api_get_request("/computer")

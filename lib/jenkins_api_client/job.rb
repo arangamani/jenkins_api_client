@@ -124,15 +124,12 @@ module JenkinsApi
         response_json["builds"]
       end
 
-      # Obtain the current build status of the job
-      # By defaule Jenkins returns the color of the job status icon
-      # This function translates the color into a meaningful status
+      # This method maps the color to status of a job
       #
-      # @param [String] job_name
+      # @param [String] color color given by the API for a job
       #
-      def get_current_build_status(job_name)
-        response_json = @client.api_get_request("/job/#{job_name}")
-        case response_json["color"]
+      def color_to_status(color)
+        case color
         when "blue"
           "success"
         when "red"
@@ -145,7 +142,20 @@ module JenkinsApi
           "not run"
         when "aborted"
           "aborted"
+        else
+          "invalid"
         end
+      end
+
+      # Obtain the current build status of the job
+      # By defaule Jenkins returns the color of the job status icon
+      # This function translates the color into a meaningful status
+      #
+      # @param [String] job_name
+      #
+      def get_current_build_status(job_name)
+        response_json = @client.api_get_request("/job/#{job_name}")
+        color_to_status(response_json["color"])
       end
 
       # This functions lists all jobs that are currently running on the Jenkins CI server
@@ -154,7 +164,7 @@ module JenkinsApi
         xml_response = @client.api_get_request("", "tree=jobs[name,color]")
         running_jobs = []
         xml_response["jobs"].each { |job|
-          running_jobs << job["name"] if job["color"] =~ /anime/
+          running_jobs << job["name"] if color_to_status(job["color"]) == "running"
         }
         running_jobs
       end
