@@ -40,7 +40,7 @@ module JenkinsApi
         end
       end
 
-      desc "print_general_attrs", "Prints general attributes of nodes"
+      desc "print_general_attributes", "Prints general attributes of nodes"
       def print_general_attributes
         @client = Helper.setup(parent_options)
         general_attributes = Client::Node::GENERAL_ATTRIBUTES
@@ -52,7 +52,7 @@ module JenkinsApi
         puts table
       end
 
-      desc "print_node_attrs NODE", "Prints attributes specific to a node"
+      desc "print_node_attributes NODE", "Prints attributes specific to a node"
       def print_node_attributes(node)
         @client = Helper.setup(parent_options)
         node_attributes = Client::Node::NODE_ATTRIBUTES

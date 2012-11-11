@@ -65,7 +65,7 @@ module JenkinsApi
         CLI::System,
         'system',
         'system [subcommand]',
-        ' Provides functions to access system functions of the Jenkins CI server'
+        'Provides functions to access system functions of the Jenkins CI server'
       )
 
     end
