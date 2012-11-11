@@ -99,6 +99,7 @@ module JenkinsApi
     def api_get_request(url_prefix, tree = nil)
       http = Net::HTTP.start(@server_ip, @server_port)
       request = Net::HTTP::Get.new("#{url_prefix}/api/json")
+      puts "[INFO] GET #{url_prefix}/api/json" if @debug
       request = Net::HTTP::Get.new("#{url_prefix}/api/json?#{tree}") if tree
       request.basic_auth @username, @password
       response = http.request(request)
@@ -123,6 +124,7 @@ module JenkinsApi
     def api_post_request(url_prefix)
       http = Net::HTTP.start(@server_ip, @server_port)
       request = Net::HTTP::Post.new("#{url_prefix}")
+      puts "[INFO] PUT #{url_prefix}" if @debug
       request.basic_auth @username, @password
       response = http.request(request)
       case response.code.to_i
@@ -144,6 +146,7 @@ module JenkinsApi
     def get_config(url_prefix)
       http = Net::HTTP.start(@server_ip, @server_port)
       request = Net::HTTP::Get.new("#{url_prefix}/config.xml")
+      puts "[INFO] GET #{url_prefix}/config.xml" if @debug
       request.basic_auth @username, @password
       response = http.request(request)
       response.body
@@ -157,6 +160,7 @@ module JenkinsApi
     def post_config(url_prefix, xml)
       http = Net::HTTP.start(@server_ip, @server_port)
       request = Net::HTTP::Post.new("#{url_prefix}")
+      puts "[INFO] PUT #{url_prefix}" if @debug
       request.basic_auth @username, @password
       request.body = xml
       request.content_type = 'application/xml'

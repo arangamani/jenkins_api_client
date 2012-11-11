@@ -298,7 +298,7 @@ module JenkinsApi
       #
       def unchain(job_names)
         job_names.each { |job|
-          puts "INFO: Removing downstream projects for <#{job}>" if @client.debug
+          puts "[INFO] Removing downstream projects for <#{job}>" if @client.debug
           @client.job.remove_downstream_projects(job)
         }
       end
@@ -317,14 +317,14 @@ module JenkinsApi
         if criteria.include?("all") || criteria.empty?
           filtered_job_names = job_names
         else
-          puts "INFO: Criteria is specified. Filtering jobs..." if @client.debug
+          puts "[INFO] Criteria is specified. Filtering jobs..." if @client.debug
           job_names.each { |job|
             filtered_job_names << job if criteria.include?(@client.job.get_current_build_status(job))
           }
         end
         filtered_job_names.each_with_index { |job_name, index|
           break if index >= (filtered_job_names.length - parallel)
-          puts "INFO: Adding <#{filtered_job_names[index+1]}> as a downstream project to <#{job_name}> with <#{threshold}> as the threshold" if @client.debug
+          puts "[INFO] Adding <#{filtered_job_names[index+1]}> as a downstream project to <#{job_name}> with <#{threshold}> as the threshold" if @client.debug
           @client.job.add_downstream_projects(job_name, filtered_job_names[index + parallel], threshold, true)
         }
         parallel = filtered_job_names.length if parallel > filtered_job_names.length
