@@ -23,15 +23,15 @@
 module JenkinsApi
   class Client
     class Node
-      attr_reader :general_attrs
+      #attr_reader :GENERAL_ATTRS
 
-      @general_attrs = [
+      GENERAL_ATTRIBUTES = [
         "busyExecutors",
         "displayName",
         "totalExecutors"
       ]
 
-      @node_properties = [
+      NODE_PROPERTIES = [
         "idle",
         "jnlpAgent",
         "launchSupported",
@@ -40,7 +40,7 @@ module JenkinsApi
         "temporarilyOffline"
       ]
 
-      @node_specific_attrs = [
+      NODE_ATTRIBUTES = [
         "numExecutors",
         "icon",
         "displayName",
@@ -74,22 +74,22 @@ module JenkinsApi
         }
       end
 
-      @general_attrs.each do |meth_suffix|
+      GENERAL_ATTRIBUTES.each do |meth_suffix|
         define_method("get_#{meth_suffix}") do
           response_json = @client.api_get_request("/computer")
           response_json["#{meth_suffix}"]
         end
       end
 
-      @node_properties.each do |meth_suffix|
+      NODE_PROPERTIES.each do |meth_suffix|
         define_method("is_#{meth_suffix}?") do |node_name|
           response_json = @client.api_get_request("/computer")
           response_json["computer"][index(node_name)]["#{meth_suffix}"] =~ /False/i ? false : true
         end
       end
 
-      @node_specific_attrs.each do |meth_suffix|
-        define_method("get_#{meth_suffix}") do |node_name|
+      NODE_ATTRIBUTES.each do |meth_suffix|
+        define_method("get_node_#{meth_suffix}") do |node_name|
           response_json = @client.api_get_request("/computer")
           response_json["computer"][index(node_name)]["#{meth_suffix}"]
         end

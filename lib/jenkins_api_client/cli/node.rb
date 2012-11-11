@@ -41,19 +41,41 @@ module JenkinsApi
       end
 
       desc "print_general_attrs", "Prints general attributes of nodes"
-      def print_general_attrs
+      def print_general_attributes
         @client = Helper.setup(parent_options)
-        puts @client.node.list.length
+        general_attributes = Client::Node::GENERAL_ATTRIBUTES
+        rows = []
+        general_attributes.each do |attr|
+          rows << [attr, @client.node.method("get_#{attr}").call]
+        end
+        table = Terminal::Table.new :headings => ['Attribute', 'Value'], :rows => rows
+        puts table
       end
 
       desc "print_node_attrs NODE", "Prints attributes specific to a node"
       def print_node_attributes(node)
         @client = Helper.setup(parent_options)
+        node_attributes = Client::Node::NODE_ATTRIBUTES
+        rows = []
+        node_attributes.each do |attr|
+          rows << [attr, @client.node.method("get_node_#{attr}").call(node)]
+        end
+        table = Terminal::Table.new :headings => ['Attribute', 'Value'], :rows => rows
+        puts "Node: #{node}"
+        puts table
       end
 
       desc "print_node_properties NODE", "Prints properties of a node"
       def print_node_properties(node)
         @client = Helper.setup(parent_options)
+        node_properties = Client::Node::NODE_PROPERTIES
+        rows = []
+        node_properties.each do |property|
+          rows << [property, @client.node.method("is_#{property}?").call(node)]
+        end
+        table = Terminal::Table.new :headings => ['Property', 'Value'], :rows => rows
+        puts "Node: #{node}"
+        puts table
       end
 
     end
