@@ -16,8 +16,8 @@ automatically manage jobs and other artifacts.
 
 DETAILS:
 --------
-This projects currently only provides functionality for the <tt>jobs</tt> interface. This is
-still a work-in-progress project. I mainly use the functionality of this project for my autmation
+This projects currently only provides functionality for the <tt>jobs, node, and system</tt> interfaces. 
+This is still a work-in-progress project. I mainly use the functionality of this project for my autmation
 work and the functionality mainly focussed on my usage and I believe others might find it useful
 too. I would love to add more features to it and I will continue working on improving existing
 features and add more interfaces such as nodes, views, build queue, etc,.

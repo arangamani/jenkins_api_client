@@ -1,5 +1,11 @@
 = CHANGELOG
 
+===== v0.3.0  [11-NOV-2012]
+* Added System class to support quietdown and restart functionality.
+* Added Node class to query the node interface of Jenkins server.
+* Added Command line interface for System and Node class.
+* Introduced terminal tables for displaying attributes in command line.
+
 ===== v0.2.1  [02-NOV-2012]
 * Added command line interface for basic operations
 
