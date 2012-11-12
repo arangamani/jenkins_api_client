@@ -12,12 +12,17 @@
     <link href="../jenkins_api_client/assets/css/bootstrap-responsive.css" rel="stylesheet">
     <link href="../jenkins_api_client/assets/css/docs.css" rel="stylesheet">
     <link href="../jenkins_api_client/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
-    <style type="text/css">
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
-    </style>
+
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-146052-10']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
 
   </head>
 
@@ -28,11 +33,11 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
-          </a>
+          </button>
           <a class="brand" href="#">Jenkins API Client</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
@@ -46,6 +51,7 @@
                   <li><a href="./system.html">System</a></li>
                 </ul>
               </li>
+	      <li><a href="./cli.html">CLI</a></li>
               <li><a href="#contact">Contact</a></li>
             </ul>
           </div><!--/.nav-collapse -->
@@ -53,14 +59,12 @@
       </div>
     </div>
 
-    
-<!-- Main hero unit for a primary marketing message or call to action -->
-<header class="jumbotron subhead">
+<!-- Subhead
+================================================== -->
+<header class="jumbotron subhead" id="overview">
   <div class="container">
-    <div class="hero-unit">
-      <h1>Jenkins API Client</h1>
-      <p class="lead">Client libraries for communicating with a Jenkins CI server and programatically managing jobs.</p>
-    </div>
+    <h1>Jenkins API Client</h1>
+    <p class="lead">Client libraries for communicating with a Jenkins CI server and programatically managing its interfaces.</p>
   </div>
 </header>
 
@@ -118,6 +122,7 @@ ruby scripts/login_with_irb.rb</pre>
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
     <script src="../jenkins_api_client/assets/js/jquery.js"></script>
     <script src="../jenkins_api_client/assets/js/google-code-prettify/prettify.js"></script>
     <script src="../jenkins_api_client/assets/js/bootstrap-transition.js"></script>
@@ -132,6 +137,8 @@ ruby scripts/login_with_irb.rb</pre>
     <script src="../jenkins_api_client/assets/js/bootstrap-collapse.js"></script>
     <script src="../jenkins_api_client/assets/js/bootstrap-carousel.js"></script>
     <script src="../jenkins_api_client/assets/js/bootstrap-typeahead.js"></script>
+    <script src="../jenkins_api_client/assets/js/bootstrap-affix.js"></script>
+    <script src="../jenkins_api_client/assets/js/application.js"></script>
 
   </body>
 </html>
