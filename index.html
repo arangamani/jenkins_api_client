@@ -36,14 +36,14 @@
           <a class="brand" href="#">Jenkins API Client</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="#getting-started">Getting Started</a></li>
+              <li class="active"><a href="./index.html">Home</a></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Classes <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                  <li><a href="#">Client</a></li>
-                  <li><a href="#">Job</a></li>
-                  <li><a href="#">Node</a></li>
-                  <li><a href="#">System</a></li>
+                  <li><a href="./client.html">Client</a></li>
+                  <li><a href="./job.html">Job</a></li>
+                  <li><a href="./node.html">Node</a></li>
+                  <li><a href="./system.html">System</a></li>
                 </ul>
               </li>
               <li><a href="#contact">Contact</a></li>
@@ -74,8 +74,6 @@
             <li><a href="#overview"><i class="icon-chevron-right"></i> Overview</a></li>
             <li><a href="#details"><i class="icon-chevron-right"></i> Details</a></li>
             <li><a href="#getting-started"><i class="icon-chevron-right"></i> Getting Started</a></li>
-            <li><a href="#examples"><i class="icon-chevron-right"></i> Examples</a></li>
-
           </ul>
         </div>
         <div class="span9">
@@ -94,13 +92,24 @@
             <p>This projects currently only provides functionality for the jobs, node, and system interfaces. This is still a work-in-progress project. I mainly use the functionality of this project for my autmation work and the functionality mainly focussed on my usage and I believe others might find it useful too. I would love to add more features to it and I will continue working on improving existing features and add more interfaces such as nodes, views, build queue, etc,.</p>
           </section>
 
-          <section id "getting-started">
+          <section id="getting-started">
             <div class="page-header">
               <h2>Getting Started</h2>
             </div>
-            <p>Install jenkins_api_client by <code>sudo gem install jenkins_api_client</code>. Include this gem in your code as a require statement.<p>
-          </section>
 
+	    <h3>Installation</h3>
+            <p>Install jenkins_api_client by <code>sudo gem install jenkins_api_client</code>. Include this gem in your code as a require statement.<p>
+
+            <h3>Using with IRB</h3>
+	    <p>If you want to just play with it and not actually want to write a script, you can just use the irb launcher script which is available in <code>scripts/login_with_irb.rb</code>. But make sure that you have your credentials available in the correct location. By default the script assumes that you have your credentials file in <code>~/.jenkins_api_client/login.yml</code>. If you don't prefer this location and would like to use a different location, just modify that script to point to the location where the credentials file exists.</p>
+           <pre class="prettyprint">
+ruby scripts/login_with_irb.rb</pre>
+	   <p>You will see the that it entered IRB session and you can play with the API client with the @client object that it has returned.</p>
+
+	   <h3>Debug</h3>
+	   <p>The call to client initialization accepts a debug parameter. If it is set to true it will print some debug information to the console. By default it is set to false. If you've initialized the client when you're in an IRB session and you want to change the debug parameter, just call the
+<code>@client.toggle_debug</code> to toggle the debug mode.</p>
+	 </section>
           
         </div>
       </div>
@@ -110,6 +119,7 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="../jenkins_api_client/assets/js/jquery.js"></script>
+    <script src="../jenkins_api_client/assets/js/google-code-prettify/prettify.js"></script>
     <script src="../jenkins_api_client/assets/js/bootstrap-transition.js"></script>
     <script src="../jenkins_api_client/assets/js/bootstrap-alert.js"></script>
     <script src="../jenkins_api_client/assets/js/bootstrap-modal.js"></script>
