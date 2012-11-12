@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Jenkins API Client</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="../jenkins_api_client/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="../jenkins_api_client/assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="../jenkins_api_client/assets/css/docs.css" rel="stylesheet">
+    <link href="../jenkins_api_client/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
+
+  </head>
+
+  <body data-spy="scroll" data-target=".bs-docs-sidebar">
+
+    <!-- Navbar
+    ================================================== -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#">Jenkins API Client</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href="./index.html">Home</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Classes <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="./client.html">Client</a></li>
+                  <li><a href="./job.html">Job</a></li>
+                  <li><a href="./node.html">Node</a></li>
+                  <li><a href="./system.html">System</a></li>
+                </ul>
+              </li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    
+<!-- Main hero unit for a primary marketing message or call to action -->
+<header>
+  <div class="container">
+    <div class="hero-unit">
+      <h1>Jenkins API Client</h1>
+      <p class="lead">Client libraries for communicating with a Jenkins CI server and programatically managing jobs.</p>
+    </div>
+  </div>
+</header>
+
+    <div class="container">
+
+      <!-- Docs nav
+      ================================================== -->
+      <div class="row">
+        <div class="span3 bs-docs-sidebar">
+          <ul class="nav nav-list bs-docs-sidenav">
+            <li><a href="#authentication"><i class="icon-chevron-right"></i> Authentication</a></li>
+            <li><a href="#initializing-the-client"><i class="icon-chevron-right"></i> Initializing the Client</a></li>
+
+          </ul>
+        </div>
+        <div class="span9">
+
+          <section id="authentication">
+	    <h2>Authentication</h2>
+	    <p>This project supports two types of password-based authentication. You can just you the plain password by using <code>password</code> parameter. If you don't prefer leaving plain passwords in the credentials file, you can encode your password in base64 format and use <code>password_base64</code> parameter to specify the password either in the arguments or in the credentials file.</p>
+	  </section>
+
+	  <section id="initializing-the-client">
+	    <h2>Initializing the Client</h2>
+      	    <p>As discussed earlier, you can either specify all the credentials and server information as parameters to the Client or have a credentials file and just parse the yaml file and pass it in. The following call just passes the information as parameters.</p>
+	    <pre class="prettyprint">
+@client = JenkinsApi::Client.new(:server_ip => '0.0.0.0', 
+	  :username => 'somename', :password => 'secret password')
+# The following call will return all jobs matching 'Testjob'
+puts @client.job.list("^Testjob")
+	    </pre>
+	    <p>The following example passes the YAML file contents. An example yaml file is located in <code>config/login.yml.example</code>.</p>
+	    <pre class="prettyprint">
+@client = JenkinsApi::Client.new(YAML.Load_file(File.expand_path('~/.jenkins_api_client/login.yml', __FILE__)))
+# The following call lists all jobs
+puts @client.job.list_all
+	    </pre>
+	  </section>
+          
+        </div>
+      </div>
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../jenkins_api_client/assets/js/jquery.js"></script>
+    <script src="../jenkins_api_client/assets/js/google-code-prettify/prettify.js"></script>
+    <script src="../jenkins_api_client/assets/js/bootstrap-transition.js"></script>
+    <script src="../jenkins_api_client/assets/js/bootstrap-alert.js"></script>
+    <script src="../jenkins_api_client/assets/js/bootstrap-modal.js"></script>
+    <script src="../jenkins_api_client/assets/js/bootstrap-dropdown.js"></script>
+    <script src="../jenkins_api_client/assets/js/bootstrap-scrollspy.js"></script>
+    <script src="../jenkins_api_client/assets/js/bootstrap-tab.js"></script>
+    <script src="../jenkins_api_client/assets/js/bootstrap-tooltip.js"></script>
+    <script src="../jenkins_api_client/assets/js/bootstrap-popover.js"></script>
+    <script src="../jenkins_api_client/assets/js/bootstrap-button.js"></script>
+    <script src="../jenkins_api_client/assets/js/bootstrap-collapse.js"></script>
+    <script src="../jenkins_api_client/assets/js/bootstrap-carousel.js"></script>
+    <script src="../jenkins_api_client/assets/js/bootstrap-typeahead.js"></script>
+
+  </body>
+</html>
