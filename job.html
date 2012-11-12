@@ -22,7 +22,7 @@
     </style>
   </head>
 
-  <body data-spy="scroll" data-target=".bs-docs-sidebar">
+  <body onload="prettyPrint()" data-spy="scroll" data-target=".bs-docs-sidebar">
 
     <!-- Navbar
     ================================================== -->
@@ -125,7 +125,7 @@
             </div>
             <p>Sometimes we want certain jobs to be added as downstream projects and run them sequencially. 
                The following example will explain how this could be done.</p>
-<pre>
+<pre class='brush: rails'>
 require 'jenkins_api_client'
 
 # We want to filter all jobs that start with 'test_job'
