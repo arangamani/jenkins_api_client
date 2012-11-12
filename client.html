@@ -86,14 +86,14 @@
 	  <section id="initializing-the-client">
 	    <h2>Initializing the Client</h2>
       	    <p>As discussed earlier, you can either specify all the credentials and server information as parameters to the Client or have a credentials file and just parse the yaml file and pass it in. The following call just passes the information as parameters.</p>
-	    <pre class="prettyprint">
+	    <pre>
 @client = JenkinsApi::Client.new(:server_ip => '0.0.0.0', 
 	  :username => 'somename', :password => 'secret password')
 # The following call will return all jobs matching 'Testjob'
 puts @client.job.list("^Testjob")
 	    </pre>
 	    <p>The following example passes the YAML file contents. An example yaml file is located in <code>config/login.yml.example</code>.</p>
-	    <pre class="prettyprint">
+	    <pre>
 @client = JenkinsApi::Client.new(YAML.Load_file(File.expand_path('~/.jenkins_api_client/login.yml', __FILE__)))
 # The following call lists all jobs
 puts @client.job.list_all
@@ -107,6 +107,7 @@ puts @client.job.list_all
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
     <script src="../jenkins_api_client/assets/js/jquery.js"></script>
     <script src="../jenkins_api_client/assets/js/google-code-prettify/prettify.js"></script>
     <script src="../jenkins_api_client/assets/js/bootstrap-transition.js"></script>
@@ -121,6 +122,7 @@ puts @client.job.list_all
     <script src="../jenkins_api_client/assets/js/bootstrap-collapse.js"></script>
     <script src="../jenkins_api_client/assets/js/bootstrap-carousel.js"></script>
     <script src="../jenkins_api_client/assets/js/bootstrap-typeahead.js"></script>
-
+    <script src="../jenkins_api_client/assets/js/bootstrap-affix.js"></script>
+    <script src="../jenkins_api_client/assets/js/application.js"></script>
   </body>
 </html>

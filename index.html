@@ -12,18 +12,12 @@
     <link href="../jenkins_api_client/assets/css/bootstrap-responsive.css" rel="stylesheet">
     <link href="../jenkins_api_client/assets/css/docs.css" rel="stylesheet">
     <link href="../jenkins_api_client/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
-
-    <script type="text/javascript">
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-146052-10']);
-      _gaq.push(['_trackPageview']);
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
-    </script>
-
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
   </head>
 
   <body data-spy="scroll" data-target=".bs-docs-sidebar">
@@ -59,12 +53,15 @@
       </div>
     </div>
 
+
 <!-- Subhead
 ================================================== -->
-<header class="jumbotron subhead" id="overview">
+<header>
   <div class="container">
-    <h1>Jenkins API Client</h1>
-    <p class="lead">Client libraries for communicating with a Jenkins CI server and programatically managing its interfaces.</p>
+    <div class="hero-unit">
+      <h1>Jenkins API Client</h1>
+      <p class="lead">Client libraries for communicating with a Jenkins CI server and programatically managing jobs.</p>
+    </div>
   </div>
 </header>
 
@@ -78,6 +75,7 @@
             <li><a href="#overview"><i class="icon-chevron-right"></i> Overview</a></li>
             <li><a href="#details"><i class="icon-chevron-right"></i> Details</a></li>
             <li><a href="#getting-started"><i class="icon-chevron-right"></i> Getting Started</a></li>
+            <li><a href="#contributing"><i class="icon-chevron-right"></i> Contributing</a></li>
           </ul>
         </div>
         <div class="span9">
@@ -114,6 +112,21 @@ ruby scripts/login_with_irb.rb</pre>
 	   <p>The call to client initialization accepts a debug parameter. If it is set to true it will print some debug information to the console. By default it is set to false. If you've initialized the client when you're in an IRB session and you want to change the debug parameter, just call the
 <code>@client.toggle_debug</code> to toggle the debug mode.</p>
 	 </section>
+
+         <section id="contributing">
+           <div class="page-header">
+             <h2>Contributing</h2>
+           </div>
+           <p>If you would like to contribute to this project, just do the following:</p>
+           <ol>
+           <li>Fork the repo on Github.</li>
+           <li>Add your features and make commits to your forked repo.</li>
+           <li>Make a pull request to this repo.</li>
+           <li>Review will be done and changes will be requested.</li>
+           <li>Once changes are done or no changes are required, pull request will be merged.</li>
+           <li>The next release will have your changes in it.</li>
+           </ol>
+         </section>
           
         </div>
       </div>
