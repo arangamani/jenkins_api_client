@@ -1,19 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="utf-8">
     <title>Jenkins API Client</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
     <!-- Le styles -->
     <link href="../jenkins_api_client/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="../jenkins_api_client/assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="../jenkins_api_client/assets/css/docs.css" rel="stylesheet">
+    <link href="../jenkins_api_client/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
     <style type="text/css">
       body {
         padding-top: 60px;
         padding-bottom: 40px;
       }
     </style>
-    <link href="../jenkins_api_client/assets/css/bootstrap-responsive.css" rel="stylesheet">
 
   </head>
-  <body>
+
+  <body data-spy="scroll" data-target=".bs-docs-sidebar">
+
+    <!-- Navbar
+    ================================================== -->
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -43,15 +54,15 @@
     </div>
 
     
-    <!-- Main hero unit for a primary marketing message or call to action -->
-    <header class="jumbotron subhead">
-      <div class="container">
-        <div class="hero-unit">
-          <h1>Jenkins API Client</h1>
-          <p class="lead">Client libraries for communicating with a Jenkins CI server and programatically managing jobs.</p>
-        </div>
-      </div>
-    </header>
+<!-- Main hero unit for a primary marketing message or call to action -->
+<header class="jumbotron subhead">
+  <div class="container">
+    <div class="hero-unit">
+      <h1>Jenkins API Client</h1>
+      <p class="lead">Client libraries for communicating with a Jenkins CI server and programatically managing jobs.</p>
+    </div>
+  </div>
+</header>
 
     <div class="container">
 
@@ -63,34 +74,35 @@
             <li><a href="#overview"><i class="icon-chevron-right"></i> Overview</a></li>
             <li><a href="#details"><i class="icon-chevron-right"></i> Details</a></li>
             <li><a href="#getting-started"><i class="icon-chevron-right"></i> Getting Started</a></li>
+            <li><a href="#examples"><i class="icon-chevron-right"></i> Examples</a></li>
+
           </ul>
         </div>
         <div class="span9">
 
-      <section id="overview">
-        <div class = "page-header">
-          <h2>Overview</h2>
-        </div>
-        <p>This project is a simple API client for interacting with Jenkins Continuous Integration server. Jenkins provides three kinds of remote access API. 1. XML API, 2. JSON API, and 3. Python API. This project aims at consuming the JSON API and provides some useful functions for controlling jobs on the Jenkins programatically. Even though Jenkins provides an awesome UI for controlling jobs, it would be nice and helpful to have a programmable interface so we can dynamically and automatically manage jobs and other artifacts.</p>
-      </section>
+          <section id="overview">
+            <div class = "page-header">
+              <h2>Overview</h2>
+            </div>
+            <p>This project is a simple API client for interacting with Jenkins Continuous Integration server. Jenkins provides three kinds of remote access API. 1. XML API, 2. JSON API, and 3. Python API. This project aims at consuming the JSON API and provides some useful functions for controlling jobs on the Jenkins programatically. Even though Jenkins provides an awesome UI for controlling jobs, it would be nice and helpful to have a programmable interface so we can dynamically and automatically manage jobs and other artifacts.</p>
+          </section>
 
-      <section id="details">
-        <div class = "page-header">
-          <h2>Details</h2>
-        </div>
-        <p>This projects currently only provides functionality for the jobs, node, and system interfaces. This is still a work-in-progress project. I mainly use the functionality of this project for my autmation work and the functionality mainly focussed on my usage and I believe others might find it useful too. I would love to add more features to it and I will continue working on improving existing features and add more interfaces such as nodes, views, build queue, etc,.</p>
-      </section>
+          <section id="details">
+            <div class = "page-header">
+              <h2>Details</h2>
+            </div>
+            <p>This projects currently only provides functionality for the jobs, node, and system interfaces. This is still a work-in-progress project. I mainly use the functionality of this project for my autmation work and the functionality mainly focussed on my usage and I believe others might find it useful too. I would love to add more features to it and I will continue working on improving existing features and add more interfaces such as nodes, views, build queue, etc,.</p>
+          </section>
 
-      <section id "getting-started">
-        <div class="page-header">
-          <h2>Getting Started</h2>
-        </div>
-          <p>Install jenkins_api_client by <code>sudo gem install jenkins_api_client</code>. Include this gem in your code as a require statement.<p>
-      </section>
+          <section id "getting-started">
+            <div class="page-header">
+              <h2>Getting Started</h2>
+            </div>
+            <p>Install jenkins_api_client by <code>sudo gem install jenkins_api_client</code>. Include this gem in your code as a require statement.<p>
+          </section>
 
-      <footer>
-        <p>&copy; Arangamanikkannan Manickam 2012</p>
-      </footer>
+          
+        </div>
       </div>
     </div> <!-- /container -->
 
