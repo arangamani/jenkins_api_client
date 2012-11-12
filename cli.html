@@ -61,7 +61,7 @@
 <header>
   <div class="container">
     <div class="hero-unit">
-      <h1>Jenkins API Client</h1>
+      <h1>Jenkins API Client {CLI}</h1>
       <p class="lead">Client libraries for communicating with a Jenkins CI server and programatically managing jobs.</p>
     </div>
   </div>
@@ -81,6 +81,99 @@
           </ul>
         </div>
         <div class="span9">
+
+          <!-- What is CLI?
+          =============================================== -->
+          <section id="what-is-cli">
+            <div class = "page-header">
+              <h2>What is CLI?</h2>
+            </div>
+            <p>CLI stands for <strong>C</strong>ommand <strong>L</strong>ine <strong>I</strong>nterface. Although the API client offers features which could be 
+               achieved by writing scripts, for simple functions such as listing all jobs on the server, listing all running jobs, and restarting the server, 
+               etc. can be done by a single command from the terminal. This eliminates the need to write script or going to an IRB session
+               for such simple functions. The recent improvements include <a href="http://github.com/visionmedia/terminal-table">terminal-table</a> 
+               feature to list the information in the form of a table for better visualization.</p>
+            <p>This command line feature is supported only from version 0.2.0. For all subcommands available in the CLI, check the help.</p>
+            <p>The help will look like this.</p>
+<pre>
+Kannans-MacBook-Pro:bin kannanmanickam$ jenkinscli help
+Tasks:
+  jenkinscli help [TASK]          # Describe available tasks or one specific task
+  jenkinscli job [subcommand]     # Provides functions to access the job interface of Jenkins CI server
+  jenkinscli node [subcommand]    # Provides functions to access the node interface of Jenkins CI server
+  jenkinscli system [subcommand]  # Provides functions to access system functions of the Jenkins CI server
+  jenkinscli version              # Shows current version
+
+Options:
+  -u, [--username=USERNAME]                # Name of Jenkins user
+  -p, [--password=PASSWORD]                # Password of Jenkins user
+  -b, [--password-base64=PASSWORD_BASE64]  # Base 64 encoded password of Jenkins user
+  -s, [--server-ip=SERVER_IP]              # Jenkins server IP address
+  -o, [--server-port=SERVER_PORT]          # Jenkins server port
+  -c, [--creds-file=CREDS_FILE]            # Credentials file for communicating with Jenkins server
+</pre>
+            <p>There are three ways for authentication using command line interface.</p>
+            <ol>
+              <li>Passing all credentials and server information using command line parameters.</li>
+              <li>Passing the credentials file as the command line parameter.</li>
+              <li>Having the credentials file in the default location <code>HOME/.jenkins_api_client/login.yml</code>.</li>
+            </ol>
+            <p>All examples shown in this page are executed by keeping the credentials in the default location so no parameters will 
+               be passed in the command line. Each sub-command will have its own help page which is explained in following sections.</p>
+          </section>
+
+          <!-- Job CLI
+          =============================================== -->
+          <section id="job-cli">
+            <div class = "page-header">
+              <h2>Job CLI</h2>
+            </div>
+              <p></p>
+<pre>
+Kannans-MacBook-Pro:bin kannanmanickam$ jenkinscli job help
+Tasks:
+  jenkinscli job build JOB       # Build a job
+  jenkinscli job delete JOB      # Delete the job
+  jenkinscli job help [COMMAND]  # Describe subcommands or one specific subcommand
+  jenkinscli job list            # List jobs
+  jenkinscli job listrunning     # List running jobs
+  jenkinscli job restrict JOB    # Restricts a job to a specific node
+  jenkinscli job status JOB      # Get the current build status of a job
+</pre>
+          </section>
+
+          <!-- Node CLI
+          =============================================== -->
+          <section id="node-cli">
+            <div class = "page-header">
+              <h2>Node CLI</h2>
+            </div>
+<pre>
+Kannans-MacBook-Pro:bin kannanmanickam$ jenkinscli node help
+Tasks:
+  jenkinscli node help [COMMAND]              # Describe subcommands or one specific subcommand
+  jenkinscli node list                        # List all nodes
+  jenkinscli node print_general_attributes    # Prints general attributes of nodes
+  jenkinscli node print_node_attributes NODE  # Prints attributes specific to a node
+  jenkinscli node print_node_properties NODE  # Prints properties of a node
+</pre>
+          </section>
+
+          <!-- System CLI
+          =============================================== -->
+          <section id="system-cli">
+            <div class = "page-header">
+              <h2>System CLI</h2>
+            </div>
+<pre>
+Kannans-MacBook-Pro:bin kannanmanickam$ jenkinscli system help
+Tasks:
+  jenkinscli system cancel_quietdown  # Cancels the Quiet down mode of Jenkins server
+  jenkinscli system help [COMMAND]    # Describe subcommands or one specific subcommand
+  jenkinscli system quietdown         # Puts the Jenkins server in Quiet down mode
+  jenkinscli system restart           # Restarts the Jenkins server
+</pre>
+          </section>
 
         </div>
       </div>

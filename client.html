@@ -61,7 +61,7 @@
 <header>
   <div class="container">
     <div class="hero-unit">
-      <h1>Jenkins API Client</h1>
+      <h1>Jenkins API Client {Client}</h1>
       <p class="lead">Client libraries for communicating with a Jenkins CI server and programatically managing jobs.</p>
     </div>
   </div>
@@ -120,7 +120,8 @@ puts @client.job.list_all
             <div class="page-header">
               <h2>Accessing other Classes</h2>
             </div>
-            <p>Once you create an object to the Client class, you can easily access other classes by just calling the
+            <p>This is the main class under the <strong>JenkinsApi</strong> namespace and all other classes are subclasses to this Client class. 
+               Once you create an object to the Client class, you can easily access other classes by just calling the
                methods matching the class name. For example, to call a method in the <code>job</code> class just
                call the method <code>job</code> using your client object and then the intended method you wanted
                to call on the <code>job</code> class. The <code>job</code> method on the client class creates an
