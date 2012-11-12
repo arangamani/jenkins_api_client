@@ -87,8 +87,8 @@
 	    <h2>Initializing the Client</h2>
       	    <p>As discussed earlier, you can either specify all the credentials and server information as parameters to the Client or have a credentials file and just parse the yaml file and pass it in. The following call just passes the information as parameters.</p>
 	    <pre>
-@client = JenkinsApi::Client.new(:server_ip => '0.0.0.0', 
-	  :username => 'somename', :password => 'secret password')
+@client = JenkinsApi::Client.new(:server_ip =&gt; '0.0.0.0', 
+	  :username =&gt; 'somename', :password =&gt; 'secret password')
 # The following call will return all jobs matching 'Testjob'
 puts @client.job.list("^Testjob")
 	    </pre>

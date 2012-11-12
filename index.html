@@ -7,6 +7,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <link rel="shortcut icon" href="../jenkins_api_client/assets/img/api.png">
+
     <!-- Le styles -->
     <link href="../jenkins_api_client/assets/css/bootstrap.css" rel="stylesheet">
     <link href="../jenkins_api_client/assets/css/bootstrap-responsive.css" rel="stylesheet">
@@ -107,6 +109,16 @@
            <pre class="prettyprint">
 ruby scripts/login_with_irb.rb</pre>
 	   <p>You will see the that it entered IRB session and you can play with the API client with the @client object that it has returned.</p>
+           <h3>Using with Command line</h3>
+           <p>Command line interface is supported only from version 0.2.0. See help using <code>jenkinscli help</code>.</p>
+
+           <p>There are three ways for authentication using command line interface.</p> 
+           <ol>
+             <li>Passing all credentials and server information using command line parameters.</li>
+             <li>Passing the credentials file as the command line parameter.</li>
+             <li>Having the credentials file in the default location <code>HOME/.jenkins_api_client/login.yml</code>.</li>
+           </ol>
+           <p>For more information please checkout <a href="./cli.html">here.</a></p>
 
 	   <h3>Debug</h3>
 	   <p>The call to client initialization accepts a debug parameter. If it is set to true it will print some debug information to the console. By default it is set to false. If you've initialized the client when you're in an IRB session and you want to change the debug parameter, just call the
@@ -131,6 +143,25 @@ ruby scripts/login_with_irb.rb</pre>
         </div>
       </div>
     </div> <!-- /container -->
+
+    <footer class="footer">
+      <div class="container">
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>&copy; 2012 Arangamanikkannan Manickam. All rights reserved.</p>
+        <p>Designed with <a href = "http://twitter.github.com/bootstrap/index.html">Twitter Bootstrap </a>on <a href="http://www.vim.org/">Vim</a> and hosted using <a href="http://pages.github.com/">Github Pages</a>.</p>
+        <ul class="footer-links">
+          <li><a href="http://github.com/arangamani/jenkins_api_client">Github</a></li>
+          <li class="muted">&middot;</li>
+          <li><a href="https://github.com/arangamani/jenkins_api_client/issues">Issues</a></li>
+          <li class="muted">&middot;</li>
+          <li><a href="http://rubygems.org/gems/jenkins_api_client">Rubygem</a></li>
+          <li class="muted">&middot;</li>
+          <li><a href="http://rubydoc.info/github/arangamani/jenkins_api_client">RubyDoc</a></li>
+          <li class="muted">&middot;</li>
+          <li><a href="http://jenkins-ci.org/">Jenkins</a></li>
+        </ul>
+      </div>
+    </footer>
 
     <!-- Le javascript
     ================================================== -->
