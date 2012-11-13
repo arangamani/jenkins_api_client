@@ -128,7 +128,10 @@ Options:
             <div class = "page-header">
               <h2>Job CLI</h2>
             </div>
-              <p></p>
+              <p>The Job CLI provides functions for accessing the Job class's basic functions. Only simple and easy-to-use functions are 
+                 implemented for this CLI tool. Functions like chaining will be hard to run by command line and a script would be 
+                 simple to write and achive such functions.</p>
+              <p>The following is the help page shown by running command <code>jenkinscli job help</code>.</p>
 <pre>
 Kannans-MacBook-Pro:bin kannanmanickam$ jenkinscli job help
 Tasks:
@@ -139,6 +142,66 @@ Tasks:
   jenkinscli job listrunning     # List running jobs
   jenkinscli job restrict JOB    # Restricts a job to a specific node
   jenkinscli job status JOB      # Get the current build status of a job
+</pre>
+            <h3>Listing Jobs:</h3>
+            <p>Listing can be done for all jobs. The following is the help displayed for the <code>list</code> command for Job.
+               It optionally accepts a filter parameter which can be used to filter jobs matching that filter. This filter is parsed 
+               as a regular expression in the code. So you can provide regular expression that match jobs of your choice. This listing 
+               not only helps to view the jobs on the server but also for running other commands such as build and status which accept 
+               the job name.</p>
+<pre>
+Kannans-MacBook-Pro:bin kannanmanickam$ jenkinscli job help list
+Usage:
+  jenkinscli list
+
+Options:
+  -f, [--filter=FILTER]  # Regular expression to filter jobs
+
+List jobs
+</pre>
+            <p>The following displays the help page for <code>listrunning</code> command. This command is a slight variation of the
+               one we saw above. It only returns the jobs that are presently running on the server. It has no parameters.</p>
+<pre>
+Kannans-MacBook-Pro:bin kannanmanickam$ jenkinscli job help listrunning
+Usage:
+  jenkinscli listrunning
+
+List running jobs
+</pre>
+            <h3>Deleting a Job:</h3>
+<pre>
+Kannans-MacBook-Pro:bin kannanmanickam$ jenkinscli job help delete
+Usage:
+  jenkinscli delete JOB
+
+Delete the job
+</pre>
+            <h3>Building a Job:</h3>
+<pre>
+Kannans-MacBook-Pro:bin kannanmanickam$ jenkinscli job help build
+Usage:
+  jenkinscli build JOB
+
+Build a job
+</pre>
+            <h3>Obtaining the status of a Job:</h3>
+<pre>
+Kannans-MacBook-Pro:bin kannanmanickam$ jenkinscli job help status
+Usage:
+  jenkinscli status JOB
+
+Get the current build status of a job
+</pre>
+            <h3>Restricting a Job to a particular Node:</h3>
+<pre>
+Kannans-MacBook-Pro:bin kannanmanickam$ jenkinscli job help restrict
+Usage:
+  jenkinscli restrict JOB
+
+Options:
+  -n, [--node=NODE]  # Node to be restricted to
+
+Restricts a job to a specific node
 </pre>
           </section>
 
