@@ -169,6 +169,7 @@ Usage:
 List running jobs
 </pre>
             <h3>Deleting a Job:</h3>
+            <p>The following block shows the help page for the <code>delete</code> subcommand for Job.</p>
 <pre>
 Kannans-MacBook-Pro:bin kannanmanickam$ jenkinscli job help delete
 Usage:
@@ -176,7 +177,11 @@ Usage:
 
 Delete the job
 </pre>
+            <p>Deleting a job is simply running the subcommand by giving the job name as a parameter.
+               The job name is usually obtained by the <code>list</code> subcommand we saw previously.</p>
+
             <h3>Building a Job:</h3>
+            <p>The following block shows the help page for the <code>build</code> subcommand for Job.</p>
 <pre>
 Kannans-MacBook-Pro:bin kannanmanickam$ jenkinscli job help build
 Usage:
@@ -184,7 +189,12 @@ Usage:
 
 Build a job
 </pre>
+            <p>Building a job is similar to the delete operation. It just requires the job name to be passed.</p>
+
             <h3>Obtaining the status of a Job:</h3>
+            <p>Once we build a job we might want to monitor the status of that job. This <code>status</code> 
+               subcommand obtains the status of the job. It also translates the color status into a readable status:
+               success, failure, or unstanle.</p>
 <pre>
 Kannans-MacBook-Pro:bin kannanmanickam$ jenkinscli job help status
 Usage:
@@ -192,7 +202,16 @@ Usage:
 
 Get the current build status of a job
 </pre>
+            <p>Similar to previous subcommands, this subcommand also accepts the job name and obtains the status of 
+               job from the Jenkins server.</p>
+            <p><strong>Pro Tip:</strong> In cases you might want to monitor the status continuously. You can use 
+               the <code>watch</code> unix command for this purpose. Just execute 
+               <code>watch -n2 jenkinscli job status job_name</code> in the terminal and it will refresh the status 
+               of the job every 2 seconds.</p>
+
             <h3>Restricting a Job to a particular Node:</h3>
+            <p>If we have multiple nodes on the Jenkins server, we can restrict a job to be run on a particular node. 
+               The following block shows the help page for the <code>restrict</code> subcommand.</p>
 <pre>
 Kannans-MacBook-Pro:bin kannanmanickam$ jenkinscli job help restrict
 Usage:
@@ -203,6 +222,11 @@ Options:
 
 Restricts a job to a specific node
 </pre>
+            <p>This commands accepts both a parameter and an option. THe parameter is usually the job name which you 
+               want to operate on. The parameter is the node name you want to restrict this job to. For example, if you 
+               want to restrict 'test_job' to be run only on 'master' node, execute the following command: 
+               <code>jenkinscli job restrict --node master test_job</code>.</p>
+
           </section>
 
           <!-- Node CLI
