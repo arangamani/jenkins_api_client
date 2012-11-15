@@ -53,6 +53,17 @@ module JenkinsApi
         @client.api_post_request("/job/#{job_name}/doDelete")
       end
 
+      # Re-create the same job
+      # This is a hack to clear any existing builds
+      #
+      # @param [String] job_name
+      #
+      def recreate(job_name)
+        job_xml = get_config(job_name)
+        delete(job_name)
+        create(job_name, job_xml)
+      end
+
       # List all jobs on the Jenkins CI server
       #
       def list_all
