@@ -75,6 +75,22 @@ module JenkinsApi
         jobs.sort!
       end
 
+      # List all Jobs matching the given status
+      # You can optionally pass in jobs list to filter the status from
+      #
+      # @param [String] status
+      # @param [Array] jobs
+      #
+      def list_by_status(status, jobs = [])
+        jobs = list_all if jobs.empty?
+        xml_response = @client.api_get_request("", "tree=jobs[name,color]")
+        filtered_jobs = []
+        xml_response["jobs"].each { |job|
+          filtered_jobs << job["name"] if color_to_status(job["color"]) == status && jobs.include?(job["name"])
+        }
+        filtered_jobs
+      end
+
       # List all jobs that match the given regex
       #
       # @param [String] filter - a regex
