@@ -38,6 +38,10 @@ describe JenkinsApi::Client::Job do
       @client.job.create("some_random_nonexistent_job", xml).to_i.should == 200
     end
 
+    it "Should be able to re-create a job" do
+      @client.job.recreate("some_random_nonexistent_job").to_i.should == 200
+    end
+
     it "Should be able to change the description of a job" do
       @client.job.change_description("some_random_nonexistent_job", "The description has been changed by the spec test").to_i.should == 200
     end

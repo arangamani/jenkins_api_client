@@ -30,14 +30,26 @@ module JenkinsApi
       include Thor::Actions
 
       desc "list", "List jobs"
+      method_option :status, :aliases => "-t", :desc => "Status to filter"
       method_option :filter, :aliases => "-f", :desc => "Regular expression to filter jobs"
       def list
         @client = Helper.setup(parent_options)
-        if options[:filter]
+        if options[:filter] && options[:status]
+          name_filtered = @client.job.list(options[:filter])
+          puts @client.job.list_by_status(options[:status], name_filtered)
+        elsif options[:filter]
           puts @client.job.list(options[:filter])
+        elsif options[:status]
+          puts @client.job.list_by_status(options[:status])
         else
           puts @client.job.list_all
         end
+      end
+
+      desc "recreate JOB", "Recreate a specified job"
+      def recreate(job)
+        @client = Helper.setup(parent_options)
+        @client.job.recreate(job)
       end
 
       desc "build JOB", "Build a job"
