@@ -62,6 +62,15 @@ describe JenkinsApi::Client::Job do
       }
     end
 
+    it "Should be able to list jobs by status" do
+      names = @client.job.list('success')
+      names.class.should == Array
+      names.each do |name|
+        status = @client.job.get_current_build_status(name)
+        status.should == 'success'
+      end
+    end
+
     it "Should return all job names with details" do
       @client.job.list_all_with_details.class.should == Array
     end
