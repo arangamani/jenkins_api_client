@@ -166,7 +166,7 @@ module JenkinsApi
         when "grey_anime", "blue_anime", "red_anime"
           "running"
         when "grey"
-          "not run"
+          "not_run"
         when "aborted"
           "aborted"
         else

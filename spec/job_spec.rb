@@ -96,7 +96,7 @@ describe JenkinsApi::Client::Job do
     it "Should obtain the current build status for the specified job" do
       build_status = @client.job.get_current_build_status(@job_name)
       build_status.class.should == String
-      valid_build_status = ["not run", "aborted", "success", "failure", "unstable", "running"]
+      valid_build_status = ["not_run", "aborted", "success", "failure", "unstable", "running"]
       valid_build_status.include?(build_status).should be_true
     end
 
@@ -126,7 +126,7 @@ describe JenkinsApi::Client::Job do
 
       #
       #
-      start_jobs = @client.job.chain(jobs, 'failure', ["not run", "aborted", 'failure'], 3)
+      start_jobs = @client.job.chain(jobs, 'failure', ["not_run", "aborted", 'failure'], 3)
       start_jobs.class.should == Array
       start_jobs.length.should == 3
     end
