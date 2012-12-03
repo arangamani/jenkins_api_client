@@ -1,11 +1,9 @@
 Jenkins API Client
 ==================
 
-Copyright &copy; 2012, Kannan Manickam.
+Copyright &copy; 2012, Kannan Manickam [![endorse](http://api.coderwall.com/arangamani/endorsecount.png)](http://coderwall.com/arangamani)
 
 Client libraries for communicating with a Jenkins CI server and programatically managing jobs.
-
-[![endorse](http://api.coderwall.com/arangamani/endorsecount.png)](http://coderwall.com/arangamani)
 
 OVERVIEW:
 ---------
