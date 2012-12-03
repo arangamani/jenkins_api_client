@@ -5,6 +5,8 @@ Copyright &copy; 2012, Kannan Manickam.
 
 Client libraries for communicating with a Jenkins CI server and programatically managing jobs.
 
+[![endorse](http://api.coderwall.com/arangamani/endorsecount.png)](http://coderwall.com/arangamani)
+
 OVERVIEW:
 ---------
 This project is a simple API client for interacting with Jenkins Continuous Integration server.
