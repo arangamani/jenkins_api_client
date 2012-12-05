@@ -60,7 +60,7 @@ module JenkinsApi
       # @param [String] job_name
       # @param [Number] build_number
       #
-      def stop(job_name, build_number = 0)
+      def stop_build(job_name, build_number = 0)
         build_number = get_current_build_number(job_name) if build_number == 0
         # Check and see if the build is running
         is_building = @client.api_get_request("/job/#{job_name}/#{build_number}")["building"]
