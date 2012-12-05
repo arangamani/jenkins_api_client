@@ -53,6 +53,20 @@ module JenkinsApi
         @client.api_post_request("/job/#{job_name}/doDelete")
       end
 
+      # Stops a running build of a job
+      # This method will stop the current/most recent build if no build number
+      # is specified. The build will be stopped only if it was in 'running' state.
+      #
+      # @param [String] job_name
+      # @param [Number] build_number
+      #
+      def stop(job_name, build_number = 0)
+        build_number = get_current_build_number(job_name) if build_number == 0
+        # Check and see if the build is running
+        is_building = @client.api_get_request("/job/#{job_name}/#{build_number}")["building"]
+        @client.api_post_request("/job/#{job_name}/#{build_number}/stop") if is_building
+      end
+
       # Re-create the same job
       # This is a hack to clear any existing builds
       #
@@ -183,6 +197,16 @@ module JenkinsApi
       def get_current_build_status(job_name)
         response_json = @client.api_get_request("/job/#{job_name}")
         color_to_status(response_json["color"])
+      end
+
+      # Obtain the current build number of the given job
+      # This function returns nil if there were no builds for the given job name.
+      #
+      # @param [String] job_name
+      #
+      def get_current_build_number(job_name)
+        builds = get_builds(job_name)
+        builds.length > 0 ? builds.first["number"] : nil
       end
 
       # This functions lists all jobs that are currently running on the Jenkins CI server

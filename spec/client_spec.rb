@@ -47,6 +47,6 @@ describe JenkinsApi::Client do
       client3 = JenkinsApi::Client.new(YAML.load_file(File.expand_path(@creds_file, __FILE__)))
       client3.class.should == JenkinsApi::Client
     end
-    
+
   end
 end
