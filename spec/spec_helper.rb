@@ -33,7 +33,7 @@ module JenkinsApiSpecHelper
           xml.concurrentBuild "false"
           xml.builders {
             xml.send("hudson.tasks.Shell") {
-              xml.command "\necho 'done'\necho 'done again'"
+              xml.command "\necho 'going to take a nice nap'\nsleep 120\necho 'took a nice nap'"
             }
           }
           xml.publishers

@@ -108,6 +108,24 @@ describe JenkinsApi::Client::Job do
       @client.job.get_current_build_status(@job_name).should_not == "running"
       response = @client.job.build(@job_name)
       response.to_i.should == 302
+      # Sleep for 20 seconds so we don't hit the Jenkins quiet period
+      sleep 20
+      @client.job.get_current_build_status(@job_name).should == "running"
+      while @client.job.get_current_build_status(@job_name) == "running" do
+        # Waiting for this job to finish so it doesn't affect other tests
+        sleep 10
+      end
+    end
+
+    it "Should be able to abort a recent build of a running job" do
+      @client.job.get_current_build_status(@job_name).should_not == "running"
+      @client.job.build(@job_name)
+      sleep 20
+      @client.job.get_current_build_status(@job_name).should == "running"
+      sleep 20
+      @client.job.stop_build(@job_name).should == 302
+      sleep 20
+      @client.job.get_current_build_status(@job_name).should == "aborted"
     end
 
     it "Should be able to restrict a job to a node" do
@@ -124,8 +142,6 @@ describe JenkinsApi::Client::Job do
       start_jobs.class.should == Array
       start_jobs.length.should == 1
 
-      #
-      #
       start_jobs = @client.job.chain(jobs, 'failure', ["not_run", "aborted", 'failure'], 3)
       start_jobs.class.should == Array
       start_jobs.length.should == 3
