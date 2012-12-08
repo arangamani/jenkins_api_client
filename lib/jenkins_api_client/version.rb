@@ -23,8 +23,8 @@
 module JenkinsApi
   class Client
     MAJOR   = 0
-    MINOR   = 3
-    TINY    = 2
+    MINOR   = 4
+    TINY    = 0
     PRE     = nil
     VERSION = [MAJOR, MINOR, TINY, PRE].compact.join('.')
   end

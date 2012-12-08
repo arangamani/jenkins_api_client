@@ -1,5 +1,9 @@
 = CHANGELOG
 
+===== v0.4.0  [07-DEC-2012]
+* Added some methods for handling jobs.
+* The status 'not run' is not returned as 'not_run' from job status.
+
 ===== v0.3.2  [17-NOV-2012]
 * Added some new methods for Job class
 
