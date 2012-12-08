@@ -90,6 +90,14 @@ module JenkinsApi
         jobs.sort!
       end
 
+      # Checks if the given job exists in Jenkins
+      #
+      # @param [String] job_name
+      #
+      def exists?(job_name)
+        list(job_name).include?(job_name) ? true : false
+      end
+
       # List all Jobs matching the given status
       # You can optionally pass in jobs list to filter the status from
       #
