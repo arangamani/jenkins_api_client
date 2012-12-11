@@ -16,7 +16,7 @@ automatically manage jobs and other artifacts.
 
 DETAILS:
 --------
-This projects currently only provides functionality for the <tt>jobs, node, and system</tt> interfaces. 
+This projects currently only provides functionality for the <tt>jobs, node, and system</tt> interfaces.
 This is still a work-in-progress project. I mainly use the functionality of this project for my autmation
 work and the functionality mainly focussed on my usage and I believe others might find it useful
 too. I would love to add more features to it and I will continue working on improving existing
@@ -67,7 +67,7 @@ parameters to the Client or have a credentials file and just parse the yaml file
 The following call just passes the information as parameters
 
 ```ruby
-@client = JenkinsApi::Client.new(:server_ip => '0.0.0.0', 
+@client = JenkinsApi::Client.new(:server_url => 'http://jenkins.example.com',
          :username => 'somename', :password => 'secret password')
 # The following call will return all jobs matching 'Testjob'
 puts @client.job.list("^Testjob")
