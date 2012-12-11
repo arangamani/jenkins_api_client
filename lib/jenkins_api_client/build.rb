@@ -28,7 +28,7 @@ class InvalidBuildAttribute < StandardError; end
 
       VALID_BUILD_ATTRS = [
         "result"
-].freeze
+      ].freeze
 
       def initialize(client)
         @client = client
@@ -41,7 +41,7 @@ class InvalidBuildAttribute < StandardError; end
       end
 
       def get_attr(job_number, build_number, attr)
-raise InvalidBuildAttribute if !VALID_BUILD_ATTRS.include?(attr)
+        raise InvalidBuildAttribute if !VALID_BUILD_ATTRS.include?(attr)
         response_json = @client.api_get_request("/job/#{@job_number}/#{@build_number}")
         response_json[attr]
       end
