@@ -23,6 +23,7 @@
 require 'rubygems'
 require 'json'
 require 'net/http'
+require 'net/https'
 require 'nokogiri'
 require 'active_support/core_ext'
 require 'active_support/builder'
@@ -39,24 +40,24 @@ module JenkinsApi
   class Client
     attr_accessor :debug
     @debug = false
-    DEFAULT_SERVER_PORT = 8080
-    VALID_PARAMS = %w(server_ip server_port username password debug)
+    VALID_PARAMS = %w(server_url username password debug)
 
     # Initialize a Client object with Jenkins CI server information and credentials
     #
     # @param [Hash] args
-    #  * the +:server_ip+ param is the IP address of the Jenkins CI server
-    #  * the +:server_port+ param is the port on which the Jenkins server listens
+    #  * the +:server_url+ param is the full URL address of the Jenkins CI server (http/https)
     #  * the +:username+ param is the username used for connecting to the CI server
-    #  * the +:password+ param is the password for connecting to the CI server
+    #  * the +:password+ param is the password or token for connecting to the CI server
     #
     def initialize(args)
       args.each { |key, value|
         instance_variable_set("@#{key}", value) if value
       } if args.is_a? Hash
-     raise "Server IP is required to connect to Jenkins Server" unless @server_ip
-     raise "Credentials are required to connect to te Jenkins Server" unless @username && (@password || @password_base64)
-     @server_port = DEFAULT_SERVER_PORT unless @server_port
+     raise "Server URL is required to connect to the Jenkins Server" unless @server_url
+     raise "Credentials are required to connect to the Jenkins Server" unless @username && (@password || @password_base64)
+     @server_uri = URI.parse(@server_url)
+     @context_path = @server_uri.path
+     @ssl_enabled = @server_uri.scheme == "https"
 
      # Base64 decode inserts a newline character at the end. As a workaround added chomp
      # to remove newline characters. I hope nobody uses newline characters at the end of
@@ -103,8 +104,15 @@ module JenkinsApi
     # Obtains the root of Jenkins server. This function is used to see if
     # Jenkins is running
     def get_root
-      http = Net::HTTP.start(@server_ip, @server_port)
-      request = Net::HTTP::Get.new("/")
+      http = Net::HTTP.new(@server_uri.host, @server_uri.port)
+      http.use_ssl = true if @ssl_enabled
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE if @ssl_enabled
+      if !@context_path.nil?
+        request_url = "#{@context_path}"
+      else
+        request_url = "/"
+      end
+      request = Net::HTTP::Get.new("#{request_url}")
       request.basic_auth @username, @password
       http.request(request)
     end
@@ -114,10 +122,17 @@ module JenkinsApi
     # @param [String] url_prefix
     #
     def api_get_request(url_prefix, tree = nil)
-      http = Net::HTTP.start(@server_ip, @server_port)
-      request = Net::HTTP::Get.new("#{url_prefix}/api/json")
-      puts "[INFO] GET #{url_prefix}/api/json" if @debug
-      request = Net::HTTP::Get.new("#{url_prefix}/api/json?#{tree}") if tree
+      http = Net::HTTP.new(@server_uri.host, @server_uri.port)
+      http.use_ssl = true if @ssl_enabled
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE if @ssl_enabled
+      if !@context_path.nil?
+        request_url = "#{@context_path}#{url_prefix}/api/json"
+      else
+        request_url = "#{url_prefix}/api/json"
+      end
+      request = Net::HTTP::Get.new("#{request_url}")
+      puts "[INFO] GET #{request_url}" if @debug
+      request = Net::HTTP::Get.new("#{request_url}?#{tree}") if tree
       request.basic_auth @username, @password
       response = http.request(request)
       case response.code.to_i
@@ -139,9 +154,16 @@ module JenkinsApi
     # @param [String] url_prefix
     #
     def api_post_request(url_prefix)
-      http = Net::HTTP.start(@server_ip, @server_port)
-      request = Net::HTTP::Post.new("#{url_prefix}")
-      puts "[INFO] PUT #{url_prefix}" if @debug
+      http = Net::HTTP.new(@server_uri.host, @server_uri.port)
+      http.use_ssl = true if @ssl_enabled
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE if @ssl_enabled
+      if !@context_path.nil?
+        request_url = "#{@context_path}#{url_prefix}"
+      else
+        request_url = "#{url_prefix}"
+      end
+      request = Net::HTTP::Post.new("#{request_url}")
+      puts "[INFO] PUT #{request_url}" if @debug
       request.basic_auth @username, @password
       response = http.request(request)
       case response.code.to_i
@@ -161,9 +183,16 @@ module JenkinsApi
     # @param [String] url_prefix
     #
     def get_config(url_prefix)
-      http = Net::HTTP.start(@server_ip, @server_port)
-      request = Net::HTTP::Get.new("#{url_prefix}/config.xml")
-      puts "[INFO] GET #{url_prefix}/config.xml" if @debug
+      http = Net::HTTP.new(@server_uri.host, @server_uri.port)
+      http.use_ssl = true if @ssl_enabled
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE if @ssl_enabled
+      if !@context_path.nil?
+        request_url = "#{@context_path}#{url_prefix}/config.xml"
+      else
+        request_url = "#{url_prefix}/config.xml"
+      end
+      request = Net::HTTP::Get.new("#{request_url}")
+      puts "[INFO] GET #{request_url}" if @debug
       request.basic_auth @username, @password
       response = http.request(request)
       response.body
@@ -175,9 +204,16 @@ module JenkinsApi
     # @param [String] xml
     #
     def post_config(url_prefix, xml)
-      http = Net::HTTP.start(@server_ip, @server_port)
-      request = Net::HTTP::Post.new("#{url_prefix}")
-      puts "[INFO] PUT #{url_prefix}" if @debug
+      http = Net::HTTP.new(@server_uri.host, @server_uri.port)
+      http.use_ssl = true if @ssl_enabled
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE if @ssl_enabled
+      if !@context_path.nil?
+        request_url = "#{@context_path}#{url_prefix}"
+      else
+        request_url = "#{url_prefix}"
+      end
+      request = Net::HTTP::Post.new("#{request_url}")
+      puts "[INFO] PUT #{request_url}" if @debug
       request.basic_auth @username, @password
       request.body = xml
       request.content_type = 'application/xml'
