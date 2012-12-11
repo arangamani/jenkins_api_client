@@ -24,7 +24,7 @@ module JenkinsApi
   class Client
     class Build
 
-class InvalidBuildAttribute < StandardError end
+class InvalidBuildAttribute < StandardError; end
 
       VALID_BUILD_ATTRS = [
         "result"
