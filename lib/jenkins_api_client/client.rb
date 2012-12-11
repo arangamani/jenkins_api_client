@@ -75,6 +75,12 @@ module JenkinsApi
       JenkinsApi::Client::Job.new(self)
     end
 
+    # Creates an instance to the Build class by passing a reference to self
+    #
+    def build
+      JenkinsApi::Client::Build.new(self)
+    end
+
     # Creates an instance to the System class by passing a reference to self
     #
     def system
