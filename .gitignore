@@ -27,3 +27,6 @@ Gemfile.lock
 *.tmproj
 tmtags
 *.swp
+
+# gems
+*.gem
