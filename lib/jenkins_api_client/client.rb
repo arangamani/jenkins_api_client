@@ -33,6 +33,7 @@ require File.expand_path('../exceptions', __FILE__)
 require File.expand_path('../job', __FILE__)
 require File.expand_path('../system', __FILE__)
 require File.expand_path('../node', __FILE__)
+require File.expand_path('../build', __FILE__)
 
 module JenkinsApi
   class Client
