@@ -53,6 +53,14 @@ module JenkinsApi
         @client.api_post_request("/job/#{job_name}/doDelete")
       end
 
+      # Wipe out the workspace for a job given the name
+      #
+      # @param [String] job_name
+      #
+      def wipeOutWorkspace(job_name)
+        @client.api_post_request("/job/#{job_name}/wipeOutWorkspace")
+      end
+
       # Stops a running build of a job
       # This method will stop the current/most recent build if no build number
       # is specified. The build will be stopped only if it was in 'running' state.
@@ -235,6 +243,22 @@ module JenkinsApi
       #
       def build(job_name)
         @client.api_post_request("/job/#{job_name}/build")
+      end
+
+      # Enable a job given the name of the job
+      #
+      # @param [String] job_name
+      #
+      def enable(job_name)
+        @client.api_post_request("/job/#{job_name}/enable")
+      end
+
+      # Disable a job given the name of the job
+      #
+      # @param [String] job_name
+      #
+      def disable(job_name)
+        @client.api_post_request("/job/#{job_name}/disable")
       end
 
       # Obtain the configuration stored in config.xml of a specific job
