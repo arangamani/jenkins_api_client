@@ -87,6 +87,16 @@ module JenkinsApi
         create(job_name, job_xml)
       end
 
+      # Copy a job
+      #
+      # @param [String] from_job_name
+      # @param [String] new_job_name
+      #
+      def copy(from_job_name, new_job_name=nil)
+        new_job_name = "copy_of_#{job_name}" if new_job_name.nil?
+        @client.post_config("/createItem?name=#{new_job_name}&mode=copy&from=#{from_job_name}")
+      end
+
       # List all jobs on the Jenkins CI server
       #
       def list_all
