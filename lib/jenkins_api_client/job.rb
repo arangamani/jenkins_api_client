@@ -251,8 +251,12 @@ module JenkinsApi
       #
       # @param [String] job_name
       #
-      def build(job_name)
-        @client.api_post_request("/job/#{job_name}/build")
+      def build(job_name, params = {})
+        if params.empty?
+          @client.api_post_request("/job/#{job_name}/build")
+        else
+          @client.api_post_request("/job/#{job_name}/buildWithParameters", params)
+        end
       end
 
       # Enable a job given the name of the job
