@@ -82,6 +82,15 @@ module JenkinsApi
         false
       end
 
+      def list_users
+        users = @client.api_get_request("/people")
+        names = []
+        users['users'].each { |user|
+          names << user['user']['fullName']
+        }
+        return names
+      end
+
     end
   end
 end
