@@ -154,7 +154,7 @@ module JenkinsApi
     # @param [String] url_prefix
     # @param [Hash] params
     #
-    def api_post_request(url_prefix, params= {})
+    def api_post_request(url_prefix)
       http = Net::HTTP.new(@server_uri.host, @server_uri.port)
       http.use_ssl = true if @ssl_enabled
       http.verify_mode = OpenSSL::SSL::VERIFY_NONE if @ssl_enabled
@@ -163,12 +163,9 @@ module JenkinsApi
       else
         request_url = "#{url_prefix}"
       end
-      request = Net::HTTP::Post.new("#{request_url}", initheader = {'Content-Type' =>'application/json'})
+      request = Net::HTTP::Post.new("#{request_url}")
       puts "[INFO] PUT #{request_url}" if @debug
       request.basic_auth @username, @password
-      if !params.empty?
-        request.body = params.to_json
-      end
       response = http.request(request)
       case response.code.to_i
       when 200, 302

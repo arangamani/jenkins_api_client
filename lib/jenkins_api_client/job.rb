@@ -255,7 +255,10 @@ module JenkinsApi
         if params.empty?
           @client.api_post_request("/job/#{job_name}/build")
         else
-          @client.api_post_request("/job/#{job_name}/buildWithParameters", params)
+          params_list = []
+          params.each{|key,value| params_list << "#{key}=#{value}"}
+          joined_params = params_list.inject([]){|x,y| x << y << "&"}[0...-1].join('')
+          @client.api_post_request("/job/#{job_name}/buildWithParameters?#{joined_params}")
         end
       end
 
