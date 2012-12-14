@@ -389,7 +389,7 @@ module JenkinsApi
                 param_hash[:name] = value.content if value.name == "name"
                 param_hash[:description] = value.content if value.name == "description"
                 param_hash[:tags_dir] = value.content if value.name == "tagsDir"
-                param_hash[:tags_filter] = value.content if value.name == "tagFilter"
+                param_hash[:tags_filter] = value.content if value.name == "tagsFilter"
                 param_hash[:reverse_by_date] = value.content if value.name == "reverseByDate"
                 param_hash[:reverse_by_name] = value.content if value.name == "reverseByName"
                 param_hash[:default] = value.content if value.name == "defaultValue"
