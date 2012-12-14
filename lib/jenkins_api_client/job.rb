@@ -84,9 +84,7 @@ module JenkinsApi
       def list_all
         response_json = @client.api_get_request("")
         jobs = []
-        response_json["jobs"].each { |job|
-          jobs << job["name"]
-        }
+        response_json["jobs"].each { |job| jobs << job["name"] }
         jobs.sort!
       end
 
@@ -108,9 +106,9 @@ module JenkinsApi
         jobs = list_all if jobs.empty?
         xml_response = @client.api_get_request("", "tree=jobs[name,color]")
         filtered_jobs = []
-        xml_response["jobs"].each { |job|
+        xml_response["jobs"].each do |job|
           filtered_jobs << job["name"] if color_to_status(job["color"]) == status && jobs.include?(job["name"])
-        }
+        end
         filtered_jobs
       end
 
@@ -122,13 +120,13 @@ module JenkinsApi
       def list(filter, ignorecase = true)
         response_json = @client.api_get_request("")
         jobs = []
-        response_json["jobs"].each { |job|
+        response_json["jobs"].each do |job|
           if ignorecase
             jobs << job["name"] if job["name"] =~ /#{filter}/i
           else
             jobs << job["name"] if job["name"] =~ /#{filter}/
           end
-        }
+        end
         jobs
       end
 
@@ -270,6 +268,130 @@ module JenkinsApi
         post_config(job_name, xml_modified)
       end
 
+      # Block the build of the job when downstream is building
+      #
+      # @param [String] job_name
+      #
+      def block_build_when_downstream_building(job_name)
+        xml = get_config(job_name)
+        n_xml = Nokogiri::XML(xml)
+        node = n_xml.xpath("//blockBuildWhenDownstreamBuilding").first
+        if node.content == "false"
+          node.content = "true"
+          xml_modified = n_xml.to_xml
+          post_config(job_name, xml_modified)
+        end
+      end
+
+      # Unblock the build of the job when downstream is building
+      #
+      # @param [String] job_name
+      #
+      def unblock_build_when_downstream_building(job_name)
+        xml = get_config(job_name)
+        n_xml = Nokogiri::XML(xml)
+        node = n_xml.xpath("//blockBuildWhenDownstreamBuilding").first
+        if node.content == "true"
+          node.content = "false"
+          xml_modified = n_xml.to_xml
+          post_config(job_name, xml_modified)
+        end
+      end
+
+      # Block the build of the job when upstream is building
+      #
+      # @param [String] job_name
+      #
+      def block_build_when_upstream_building(job_name)
+        xml = get_config(job_name)
+        n_xml = Nokogiri::XML(xml)
+        node = n_xml.xpath("//blockBuildWhenUpstreamBuilding").first
+        if node.content == "false"
+          node.content = "true"
+          xml_modified = n_xml.to_xml
+          post_config(job_name, xml_modified)
+        end
+      end
+
+      # Unblock the build of the job when upstream is building
+      #
+      # @param [String] job_name
+      #
+      def unblock_build_when_upstream_building(job_name)
+        xml = get_config(job_name)
+        n_xml = Nokogiri::XML(xml)
+        node = n_xml.xpath("//blockBuildWhenUpstreamBuilding").first
+        if node.content == "true"
+          node.content = "false"
+          xml_modified = n_xml.to_xml
+          post_config(job_name, xml_modified)
+        end
+      end
+
+      # Allow to either execute concurrent builds or disable concurrent execution
+      #
+      # @param [String] job_name
+      # @param [Bool] option true or false
+      #
+      def execute_concurrent_builds(job_name, option)
+        xml = get_config(job_name)
+        n_xml = Nokogiri::XML(xml)
+        node = n_xml.xpath("//concurrentBuild").first
+        if node.content != "#{option}"
+          node.content = option == true ? "true" : "false"
+          xml_modified = n_xml.to_xml
+          post_config(job_name, xml_modified)
+        end
+      end
+
+      # Obtain the build parameters of a job. It returns an array of hashes with
+      # details of job params.
+      #
+      # @param [String] job_name
+      #
+      # @return [Array] params_array
+      #
+      def get_build_params(job_name)
+        xml = get_config(job_name)
+        n_xml = Nokogiri::XML(xml)
+        params = n_xml.xpath("//parameterDefinitions").first
+        params_array = []
+        if params
+          params.children.each do |param|
+            param_hash = {}
+            case param.name
+            when "hudson.model.StringParameterDefinition"
+              param_hash[:type] = 'string'
+              param.children.each do |value|
+                param_hash[:name] = value.content if value.name == "name" && !value.content.empty?
+                param_hash[:description] = value.content if value.name == "description" && !value.content.empty?
+                param_hash[:default] = value.content if value.name == "defaultValue" && !value.content.empty?
+              end
+            when "hudson.model.ChoiceParameterDefinition"
+              param_hash[:type] = 'choice'
+              param.children.each do |value|
+                param_hash[:name] = value.content if value.name == "name" && !value.content.empty?
+                param_hash[:description] = value.content if value.name == "description" && !value.content.empty?
+                choices = []
+                if value.name == "choices"
+                  value.children.each do |value_child|
+                    if value_child.name == "a"
+                      puts "value child children count: #{value_child.children.count}"
+                      value_child.children.each do |choice_child|
+                        choices << choice_child.content.strip.chomp unless choice_child.content.strip.empty?
+                      end
+                    end
+                  end
+                end
+                param_hash[:choices] = choices unless choices.empty?
+              end
+            end
+            params_array << param_hash unless param_hash.empty?
+         end
+       end
+       puts params_array
+      end
+
       # Add downstream projects to a specific job given the job name, projects to be
       # added as downstream projects, and the threshold
       #
@@ -320,24 +442,24 @@ module JenkinsApi
       def remove_downstream_projects(job_name)
         xml = get_config(job_name)
         n_xml = Nokogiri::XML(xml)
-        n_xml.search("//hudson.tasks.BuildTrigger").each{ |node|
+        n_xml.search("//hudson.tasks.BuildTrigger").each do |node|
           child_project_trigger = false
-          node.search("//childProjects").each { |child_node|
+          node.search("//childProjects").each do |child_node|
             child_project_trigger = true
-            child_node.search("//threshold").each { |threshold_node|
-              threshold_node.children.each { |threshold_value_node|
+            child_node.search("//threshold").each do |threshold_node|
+              threshold_node.children.each do |threshold_value_node|
                 threshold_value_node.content = nil
                 threshold_value_node.remove
-              }
+              end
               threshold_node.content = nil
               threshold_node.remove
-            }
+            end
             child_node.content = nil
             child_node.remove
-          }
+          end
           node.content = nil
           node.remove
-        }
+        end
         publisher_node = n_xml.search("//publishers").first
         publisher_node.content = nil if publisher_node.children.empty?
         xml_modified = n_xml.to_xml
@@ -390,15 +512,15 @@ module JenkinsApi
           filtered_job_names = job_names
         else
           puts "[INFO] Criteria is specified. Filtering jobs..." if @client.debug
-          job_names.each { |job|
+          job_names.each do |job|
             filtered_job_names << job if criteria.include?(@client.job.get_current_build_status(job))
-          }
+          end
         end
-        filtered_job_names.each_with_index { |job_name, index|
+        filtered_job_names.each_with_index do |job_name, index|
           break if index >= (filtered_job_names.length - parallel)
           puts "[INFO] Adding <#{filtered_job_names[index+1]}> as a downstream project to <#{job_name}> with <#{threshold}> as the threshold" if @client.debug
           @client.job.add_downstream_projects(job_name, filtered_job_names[index + parallel], threshold, true)
-        }
+        end
         parallel = filtered_job_names.length if parallel > filtered_job_names.length
         filtered_job_names[0..parallel-1]
       end
