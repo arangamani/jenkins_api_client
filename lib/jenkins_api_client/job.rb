@@ -378,7 +378,7 @@ module JenkinsApi
                     if value_child.name == "a"
                       puts "value child children count: #{value_child.children.count}"
                       value_child.children.each do |choice_child|
-                        choices << choice_child.content.strip.chomp unless choice_child.content.strip.empty?
+                        choices << choice_child.content.strip unless choice_child.content.strip.empty?
                       end
                     end
                   end
