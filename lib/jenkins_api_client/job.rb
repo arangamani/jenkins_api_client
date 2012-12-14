@@ -376,7 +376,6 @@ module JenkinsApi
                 if value.name == "choices"
                   value.children.each do |value_child|
                     if value_child.name == "a"
-                      puts "value child children count: #{value_child.children.count}"
                       value_child.children.each do |choice_child|
                         choices << choice_child.content.strip unless choice_child.content.strip.empty?
                       end
@@ -389,7 +388,7 @@ module JenkinsApi
             params_array << param_hash unless param_hash.empty?
          end
        end
-       puts params_array
+       params_array
       end
 
       # Add downstream projects to a specific job given the job name, projects to be
