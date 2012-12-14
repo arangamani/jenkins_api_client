@@ -363,15 +363,15 @@ module JenkinsApi
             when "hudson.model.StringParameterDefinition"
               param_hash[:type] = 'string'
               param.children.each do |value|
-                param_hash[:name] = value.content if value.name == "name" && !value.content.empty?
-                param_hash[:description] = value.content if value.name == "description" && !value.content.empty?
-                param_hash[:default] = value.content if value.name == "defaultValue" && !value.content.empty?
+                param_hash[:name] = value.content if value.name == "name"
+                param_hash[:description] = value.content if value.name == "description"
+                param_hash[:default] = value.content if value.name == "defaultValue"
               end
             when "hudson.model.ChoiceParameterDefinition"
               param_hash[:type] = 'choice'
               param.children.each do |value|
-                param_hash[:name] = value.content if value.name == "name" && !value.content.empty?
-                param_hash[:description] = value.content if value.name == "description" && !value.content.empty?
+                param_hash[:name] = value.content if value.name == "name"
+                param_hash[:description] = value.content if value.name == "description"
                 choices = []
                 if value.name == "choices"
                   value.children.each do |value_child|
