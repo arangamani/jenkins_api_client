@@ -360,12 +360,41 @@ module JenkinsApi
           params.children.each do |param|
             param_hash = {}
             case param.name
-            when "hudson.model.StringParameterDefinition"
-              param_hash[:type] = 'string'
+            when "hudson.model.StringParameterDefinition", "hudson.model.BooleanParameterDefinition", "hudson.model.TextParameterDefinition", "hudson.model.PasswordParameterDefinition"
+              param_hash[:type] = 'string' if param.name =~ /string/i
+              param_hash[:type] = 'boolean' if param.name =~ /boolean/i
+              param_hash[:type] = 'text' if param.name =~ /text/i
+              param_hash[:type] = 'password' if param.name =~ /password/i
               param.children.each do |value|
                 param_hash[:name] = value.content if value.name == "name"
                 param_hash[:description] = value.content if value.name == "description"
                 param_hash[:default] = value.content if value.name == "defaultValue"
+              end
+            when "hudson.model.RunParameterDefinition"
+              param_hash[:type] = 'run'
+              param.children.each do |value|
+                param_hash[:name] = value.content if value.name == "name"
+                param_hash[:description] = value.content if value.name == "description"
+                param_hash[:project] = value.content if value.name == "projectName"
+              end
+            when "hudson.model.FileParameterDefinition"
+              param_hash[:type] = 'file'
+              param.children.each do |value|
+                param_hash[:name] = value.content if value.name == "name"
+                param_hash[:description] = value.content if value.name == "description"
+              end
+            when "hudson.scm.listtagsparameter.ListSubversionTagsParameterDefinition"
+              param_hash[:type] = 'list_tags'
+              param.children.each do |value|
+                param_hash[:name] = value.content if value.name == "name"
+                param_hash[:description] = value.content if value.name == "description"
+                param_hash[:tags_dir] = value.content if value.name == "tagsDir"
+                param_hash[:tags_filter] = value.content if value.name == "tagFilter"
+                param_hash[:reverse_by_date] = value.content if value.name == "reverseByDate"
+                param_hash[:reverse_by_name] = value.content if value.name == "reverseByName"
+                param_hash[:default] = value.content if value.name == "defaultValue"
+                param_hash[:max_tags] = value.content if value.name == "maxTags"
+                param_hash[:uuid] = value.content if value.name == "uuid"
               end
             when "hudson.model.ChoiceParameterDefinition"
               param_hash[:type] = 'choice'
