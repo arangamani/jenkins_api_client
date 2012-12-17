@@ -50,6 +50,27 @@ module JenkinsApi
         view_names
       end
 
+      # Checks if the given view exists in Jenkins
+      #
+      # @param [String] view_name
+      #
+      def exists?(view_name)
+        list(view_name).include?(view_name)
+      end
+
+      # List jobs in a view
+      #
+      # @param [String] view_name
+      #
+      def list_jobs(view_name)
+        job_names = []
+        response_json = @client.api_get_request("/view/#{view_name}")
+        response_json["jobs"].each do |job|
+          job_names << job["name"]
+        end
+        job_names
+      end
+
       # Add a job to view
       #
       # @param [String] view_name

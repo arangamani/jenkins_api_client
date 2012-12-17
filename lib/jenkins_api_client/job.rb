@@ -216,7 +216,7 @@ module JenkinsApi
       # @param [String] job_name
       #
       def exists?(job_name)
-        list(job_name).include?(job_name) ? true : false
+        list(job_name).include?(job_name)
       end
 
       # List all Jobs matching the given status
