@@ -87,6 +87,12 @@ module JenkinsApi
       JenkinsApi::Client::Node.new(self)
     end
 
+    # Creates an instance to the View class by passing a reference to self
+    #
+    def view
+      JenkinsApi::Client::View.new(self)
+    end
+
     # Returns a string representing the class name
     #
     def to_s
