@@ -45,6 +45,129 @@ module JenkinsApi
         @client.post_config("/createItem?name=#{job_name}", xml)
       end
 
+      # Create a job with params given as a hash instead of the xml
+      # This gives some flexibility for creating simple jobs so the user doesn't have to
+      # learn about handling xml.
+      #
+      # @param [Hash] param
+      #  * +:name+ param name of the job
+      #  * +:keep_dependencies+ true or false
+      #  * +:block_build_when_downstream_building+ true or false
+      #  * +:block_build_when_upstream_building+ true or false
+      #  * +:concurrent_build+ true or false
+      #  * +:scm_provider+ type of source control system. Supported: git
+      #  * +:scm_url+ remote url for scm
+      #  * +:scm_branch+ branch to use in scm. Uses master by default
+      #  * +:shell_command+ command to execute in the shell
+      #  * +:child_projects+ projects to add as downstream projects
+      #  * +:child_threshold+ threshold for child projects. success, failure, or unstable. Default: failure.
+      #
+      def create_with_params(params)
+        # TODO: Add support for all SCM providers supported by Jenkins
+        supported_scm_providers = ['git']
+
+        # Set default values for params that are not specified and Error handling.
+        raise 'Job name must be specified' unless params[:name]
+        params[:keep_dependencies] = false if params[:keep_dependencies].nil?
+        params[:block_build_when_downstream_building] = false if params[:block_build_when_downstream_building].nil?
+        params[:block_build_when_upstream_building] = false if params[:block_build_when_upstream_building].nil?
+        params[:concurrent_build] = false if params[:concurrent_build].nil?
+
+        # SCM configurations and Error handling. Presently only Git plugin is supported.
+        unless supported_scm_providers.include?(params[:scm_provider]) || params[:scm_provider].nil?
+          raise "SCM #{params[:scm_provider]} is currently not supported"
+        end
+        raise 'SCM URL must be specified' if params[:scm_url].nil? && !params[:scm_provider].nil?
+        params[:scm_branch] = "master" if params[:scm_branch].nil? && !params[:scm_provider].nil?
+
+        # Child projects configuration and Error handling
+        params[:child_threshold] = 'failure' if params[:child_threshold].nil? && !params[:child_projects].nil?
+
+        # Build the Job xml file based on the parameters given
+        builder = Nokogiri::XML::Builder.new(:encoding => 'UTF-8') { |xml|
+          xml.project {
+            xml.actions
+            xml.description
+            xml.keepDependencies "#{params[:keep_dependencies]}"
+            xml.properties
+            # SCM related stuff
+            if params[:scm_provider] == 'git'
+              xml.scm(:class => "hudson.plugins.git.GitSCM") {
+                xml.configVersion "2"
+                xml.userRemoteConfigs {
+                  xml.send("hudson.plugins.git.UserRemoteConfig") {
+                    xml.name
+                    xml.refspec
+                    xml.url "#{params[:scm_url]}"
+                  }
+                }
+                xml.branches {
+                  xml.send("hudson.plugins.git.BranchSpec") {
+                    xml.name "#{params[:scm_branch]}"
+                  }
+                }
+                xml.disableSubmodules "false"
+                xml.recursiveSubmodules "false"
+                xml.doGenerateSubmoduleConfigurations "false"
+                xml.authorOrCommitter "false"
+                xml.clean "false"
+                xml.wipeOutWorkspace "false"
+                xml.pruneBranches "false"
+                xml.remotePoll "false"
+                xml.ignoreNotifyCommit "false"
+                xml.useShallowClone "false"
+                xml.buildChooser(:class => "hudson.plugins.git.util.DefaultBuildChooser")
+                xml.gitTool "Default"
+                xml.submoduleCfg(:class => "list")
+                xml.relativeTargetDir
+                xml.reference
+                xml.excludedRegions
+                xml.excludedUsers
+                xml.gitConfigName
+                xml.gitConfigEmail
+                xml.skipTag "false"
+                xml.includedRegions
+                xml.scmName
+              }
+            else
+              xml.scm(:class => "hudson.scm.NullSCM")
+            end
+            xml.canRoam "true"
+            xml.disabled "false"
+            xml.blockBuildWhenDownstreamBuilding "#{params[:block_build_when_downstream_building]}"
+            xml.blockBuildWhenUpstreamBuilding "#{params[:block_build_when_upstream_building]}"
+            xml.triggers.vector
+            xml.concurrentBuild "#{params[:concurrent_build]}"
+            # Shell command stuff
+            if params[:shell_command]
+              xml.builders {
+                xml.send("hudson.tasks.Shell") {
+                  xml.command "#{params[:shell_command]}"
+                }
+              }
+            else
+              xml.builders
+            end
+            # Adding Downstream projects
+            xml.publishers {
+              if params[:child_projects]
+                xml.send("hudson.tasks.BuildTrigger") {
+                  xml.childProjects"#{params[:child_projects]}"
+                  name, ordinal, color = get_threshold_params(params[:child_threshold])
+                  xml.threshold {
+                    xml.name "#{name}"
+                    xml.ordinal "#{ordinal}"
+                    xml.color "#{color}"
+                  }
+                }
+              end
+            }
+            xml.buildWrappers
+          }
+        }
+        create(params[:name], builder.to_xml)
+      end
+
       # Delete a job given the name
       #
       # @param [String] job_name
@@ -420,15 +543,11 @@ module JenkinsApi
        params_array
       end
 
-      # Add downstream projects to a specific job given the job name, projects to be
-      # added as downstream projects, and the threshold
+      # Obtains the threshold params used by jenkins in the XML file given the threshold
       #
-      # @param [String] job_name
-      # @param [String] downstream_projects
-      # @param [String] threshold - failure, success, or unstable
-      # @param [Bool] overwrite - true or false
+      # @param [String] threshold success, failure, or unstable
       #
-      def add_downstream_projects(job_name, downstream_projects, threshold, overwrite = false)
+      def get_threshold_params(threshold)
         case threshold
         when 'success'
           name = 'SUCCESS'
@@ -443,6 +562,19 @@ module JenkinsApi
           ordinal = 2
           color = 'RED'
         end
+        return name, ordinal, color
+      end
+
+      # Add downstream projects to a specific job given the job name, projects to be
+      # added as downstream projects, and the threshold
+      #
+      # @param [String] job_name
+      # @param [String] downstream_projects
+      # @param [String] threshold - failure, success, or unstable
+      # @param [Bool] overwrite - true or false
+      #
+      def add_downstream_projects(job_name, downstream_projects, threshold, overwrite = false)
+        name, ordinal, color = get_threshold_params(threshold)
         xml = get_config(job_name)
         n_xml = Nokogiri::XML(xml)
         child_projects_node = n_xml.xpath("//childProjects").first
