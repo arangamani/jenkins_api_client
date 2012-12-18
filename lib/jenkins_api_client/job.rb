@@ -49,22 +49,22 @@ module JenkinsApi
       # This gives some flexibility for creating simple jobs so the user doesn't have to
       # learn about handling xml.
       #
-      # @param [Hash] param
-      #  * +:name+ param name of the job
+      # @param [Hash] params
+      #  * +:name+ name of the job
       #  * +:keep_dependencies+ true or false
       #  * +:block_build_when_downstream_building+ true or false
       #  * +:block_build_when_upstream_building+ true or false
       #  * +:concurrent_build+ true or false
-      #  * +:scm_provider+ type of source control system. Supported: git
+      #  * +:scm_provider+ type of source control system. Supported: git, subversion
       #  * +:scm_url+ remote url for scm
       #  * +:scm_branch+ branch to use in scm. Uses master by default
       #  * +:shell_command+ command to execute in the shell
       #  * +:child_projects+ projects to add as downstream projects
       #  * +:child_threshold+ threshold for child projects. success, failure, or unstable. Default: failure.
       #
-      def create_with_params(params)
+      def create_freestyle(params)
         # TODO: Add support for all SCM providers supported by Jenkins
-        supported_scm_providers = ['git']
+        supported_scm_providers = ['git', 'subversion']
 
         # Set default values for params that are not specified and Error handling.
         raise 'Job name must be specified' unless params[:name]
@@ -91,7 +91,22 @@ module JenkinsApi
             xml.keepDependencies "#{params[:keep_dependencies]}"
             xml.properties
             # SCM related stuff
-            if params[:scm_provider] == 'git'
+            if params[:scm_provider] == 'subversion'
+              xml.scm(:class => "hudson.scm.SubversionSCM", :plugin => "subversion@1.39") {
+                xml.locations {
+                  xml.send("hudson.scm.SubversionSCM_-ModuleLocation") {
+                    xml.remote "#{params[:scm_url]}"
+                    xml.local "."
+                  }
+                }
+                xml.excludedRegions
+                xml.includedRegions
+                xml.excludedUsers
+                xml.excludedRevprop
+                xml.excludedCommitMessages
+                xml.workspaceUpdater(:class => "hudson.scm.subversion.UpdateUpdater")
+              }
+            elsif params[:scm_provider] == 'git'
               xml.scm(:class => "hudson.plugins.git.GitSCM") {
                 xml.configVersion "2"
                 xml.userRemoteConfigs {
@@ -139,15 +154,13 @@ module JenkinsApi
             xml.triggers.vector
             xml.concurrentBuild "#{params[:concurrent_build]}"
             # Shell command stuff
-            if params[:shell_command]
-              xml.builders {
+            xml.builders {
+              if params[:shell_command]
                 xml.send("hudson.tasks.Shell") {
                   xml.command "#{params[:shell_command]}"
                 }
-              }
-            else
-              xml.builders
-            end
+              end
+            }
             # Adding Downstream projects
             xml.publishers {
               if params[:child_projects]
