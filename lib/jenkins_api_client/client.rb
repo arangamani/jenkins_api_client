@@ -142,6 +142,7 @@ module JenkinsApi
       request = Net::HTTP::Post.new("#{url_prefix}")
       puts "[INFO] PUT #{url_prefix}" if @debug
       request.basic_auth @username, @password
+      request.content_type = 'application/json'
       response = http.request(request)
       case response.code.to_i
       when 200, 302

@@ -36,6 +36,53 @@ module JenkinsApi
         "#<JenkinsApi::Client::View>"
       end
 
+      def create(view_name, xml)
+        #@client.api_post_request("/createView?name=#{view_name}&mode=hudson.model.ListView&json={\"name\":\"#{view_name}\",\"mode\":\"hudson.model.ListView\"}")
+        post_config(view_name, xml)
+      end
+
+      def create_with_params(params)
+        builder = Nokogiri::XML::Builder.new(:encoding => 'UTF-8') { |xml|
+          xml.send("hudson.model.View_-2") {
+            xml.send("outer-class", :class => "hudson.model.ListView") {
+              xml.name "#{params[:name]}"
+              xml.filterExecutors "false"
+              xml.filterQueue "false"
+              xml.properties(:class => "hudson.model.View$PropertyList")
+              xml.jobNames(:class => "tree-set") {
+                xml.comparator(:class => "hudson.util.CaseInsensitiveComparator")
+                if params[:job_names]
+                  params[:job_names].each do |job_name|
+                    xml.string "#{job_name}"
+                  end
+                end
+              }
+              xml.jobFilters
+              xml.columns {
+                xml.send("hudson.views.StatusColumn")
+                xml.send("hudson.views.WeatherColumn")
+                xml.send("hudson.views.JobColumn")
+                #xml.send("hudson.views.LastSuccessColumn")
+                #xml.send("hudson.views.LastFailureColumn")
+                #xml.send("hudson.views.LastDurationColumn")
+                #xml.send("hudson.views.BuildButtonColumn")
+              }
+              if params[:include_regex]
+                xml.includeRegex "#{params[:include_regex]}"
+              end
+            }
+          }
+        }
+        puts "#{builder.to_xml}"
+        got_xml = get_config(params[:name])
+        puts "#{got_xml}"
+        create(params[:name], builder.to_xml)
+      end
+
+      def delete(view_name)
+        @client.api_post_request("/view/#{view_name}/doDelete")
+      end
+
       # This method lists all views
       #
       # @param [String] filter a regex to filter view names
@@ -87,6 +134,14 @@ module JenkinsApi
       #
       def remove_job(view_name, job_name)
         @client.api_post_request("/view/#{view_name}/removeJobFromView?name=#{job_name}")
+      end
+
+      def get_config(view_name)
+        @client.get_config("/view/#{view_name}")
+      end
+
+      def post_config(view_name, xml)
+        @client.post_config("/view/#{view_name}/config.xml", xml)
       end
 
     end
