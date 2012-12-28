@@ -7,7 +7,7 @@ before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq jenkins
   - echo `sudo service jenkins status`
-  - cat /var/log/syslog
+  - cat /var/log/jenkins/jenkins.log
   - echo `curl 10.0.2.15:8080`
   - echo `curl 10.0.2.15`
   - echo `curl localhost:8080`
