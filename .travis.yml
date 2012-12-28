@@ -6,7 +6,7 @@ before_install:
   - sudo sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
   - sudo apt-get update -qq
   - sudo apt-get install -qq jenkins
-  - echo `service jenkins status`
+  - echo `sudo service jenkins status`
   - echo `curl 10.0.2.15:8080`
   - echo `curl 10.0.2.15`
   - echo `curl localhost:8080`
