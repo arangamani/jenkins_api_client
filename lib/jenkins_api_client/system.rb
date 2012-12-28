@@ -82,6 +82,65 @@ module JenkinsApi
         false
       end
 
+      def list_permissions(user_name)
+        xml = @client.get_config("/computer/(master)")
+        n_xml = Nokogiri::XML(xml)
+        #puts xml
+        users = n_xml.xpath("//authorizationStrategy").first
+        user_details = []
+        users.children.each do |detail|
+          # puts user_details
+          user_details << detail.content if detail.content =~ /hudson/ && detail.content.split(':')[1] == user_name
+        end
+        permissions = {}
+        permissions[:computer] = []
+        permissions[:hudson] = []
+        permissions[:item] = []
+        permissions[:view] = []
+        permissions[:run] = []
+        permissions[:scm] = []
+        user_details.each do |detail|
+          if detail =~ /Computer/
+            permissions[:computer] << detail.split('.')[3].split(':')[0].downcase
+          elsif detail =~ /Hudson/
+            permissions[:hudson] << detail.split('.')[3].split(':')[0].downcase
+          elsif detail =~ /Item/
+            permissions[:item] << detail.split('.')[3].split(':')[0].downcase
+          elsif detail =~ /View/
+            permissions[:view] << detail.split('.')[3].split(':')[0].downcase
+          elsif detail =~ /Run/
+            permissions[:run] << detail.split('.')[3].split(':')[0].downcase
+          elsif detail =~ /SCM/
+            permissions[:scm] << detail.split('.')[3].split(':')[0].downcase
+          end
+       end
+       permissions
+      end
+
+      def disable_signup(option)
+        xml = @client.get_config("/computer/(master)")
+        n_xml = Nokogiri::XML(xml)
+        disable_signup = n_xml.xpath("//disableSignup").first
+        if disable_signup.content != option
+          disable_signup.content = disable_signup.content == true ? false : true
+          xml_modified = n_xml.to_xml
+          puts xml_modified
+          @client.post_config("/computer/(master)/config.xml", xml_modified)
+        end
+      end
+
+      def enable_captcha(option)
+        xml = @client.get_config("/computer/(master)")
+        n_xml = Nokogiri::XML(xml)
+        enable_captcha = n_xml.xpath("//enableCaptcha").first
+        if enable_captcha.content != option
+          enable_captcha.content = enable_captcha.content == true ? false : true
+          xml_modified = n_xml.to_xml
+          puts xml_modified
+          @client.post_config("/computer/(master)/config.xml", xml_modified)
+        end
+      end
+
     end
   end
 end
