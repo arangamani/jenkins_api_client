@@ -28,12 +28,6 @@ require 'active_support/core_ext'
 require 'active_support/builder'
 require 'base64'
 
-require File.expand_path('../version', __FILE__)
-require File.expand_path('../exceptions', __FILE__)
-require File.expand_path('../job', __FILE__)
-require File.expand_path('../system', __FILE__)
-require File.expand_path('../node', __FILE__)
-
 module JenkinsApi
   class Client
     attr_accessor :debug
