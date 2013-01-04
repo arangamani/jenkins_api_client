@@ -101,9 +101,9 @@ module JenkinsApi
       def list(filter = nil, ignorecase = true)
         node_names = []
         response_json = @client.api_get_request("/computer")
-        response_json["computer"].each { |computer|
+        response_json["computer"].each do |computer|
           node_names << computer["displayName"] if computer["displayName"] =~ /#{filter}/i
-        }
+        end
         node_names
       end
 
@@ -113,9 +113,9 @@ module JenkinsApi
       #
       def index(node_name)
         response_json = @client.api_get_request("/computer")
-        response_json["computer"].each_with_index { |computer, index|
+        response_json["computer"].each_with_index do |computer, index|
           return index if computer["displayName"] == node_name
-        }
+        end
       end
 
       # Defines methods for general node attributes.

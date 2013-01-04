@@ -44,9 +44,9 @@ module JenkinsApi
     #  * the +:password+ param is the password for connecting to the CI server
     #
     def initialize(args)
-      args.each { |key, value|
+      args.each do |key, value|
         instance_variable_set("@#{key}", value) if value
-      } if args.is_a? Hash
+      end if args.is_a? Hash
      raise "Server IP is required to connect to Jenkins Server" unless @server_ip
      raise "Credentials are required to connect to te Jenkins Server" unless @username && (@password || @password_base64)
      @server_port = DEFAULT_SERVER_PORT unless @server_port

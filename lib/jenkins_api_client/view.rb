@@ -62,9 +62,9 @@ module JenkinsApi
       def list(filter = nil, ignorecase = true)
         view_names = []
         response_json = @client.api_get_request("/")
-        response_json["views"].each { |view|
+        response_json["views"].each do |view|
           view_names << view["name"] if view["name"] =~ /#{filter}/i
-        }
+        end
         view_names
       end
 
