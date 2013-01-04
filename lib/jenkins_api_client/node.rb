@@ -37,7 +37,7 @@ module JenkinsApi
         "busyExecutors",
         "displayName",
         "totalExecutors"
-      ]
+      ].freeze
 
       # Properties of a node.
       # The following methods are defined to be called on the node object
@@ -57,7 +57,7 @@ module JenkinsApi
         "manualLaunchAllowed",
         "offline",
         "temporarilyOffline"
-      ]
+      ].freeze
 
       # Node specific attributes.
       # The following methods are defined using define_method.
@@ -79,7 +79,7 @@ module JenkinsApi
         "monitorData",
         "offlineCause",
         "oneOffExecutors"
-      ]
+      ].freeze
 
       # Initializes a new node object
       #
@@ -146,4 +146,4 @@ module JenkinsApi
 
     end
   end
-end 
+end
