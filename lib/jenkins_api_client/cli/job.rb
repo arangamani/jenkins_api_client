@@ -77,19 +77,26 @@ module JenkinsApi
       end
 
       desc "console JOB", "Print the progressive console output of a job"
+      method_option :sleep, :aliases => "-z", :desc => "Time to wait between querying the API for console output"
       def console(job)
         @client = Helper.setup(parent_options)
+        # If debug is enabled, disable it. It shouldn't interfere with console output.
         debug_changed = false
         if @client.debug == true
           @client.debug = false
           debug_changed = true
         end
+
+        # Print progressive console output
         response = @client.job.get_console_output(job)
+        puts response['output'] unless response['more']
         while response['more']
           size = response['size']
           puts response['output'] unless response['output'].chomp.empty?
+          sleep options[:sleep].to_i if options[:sleep]
           response = @client.job.get_console_output(job, 0, size)
         end
+        # Change the debug back if we changed it now
         @client.toggle_debug if debug_changed
       end
 
