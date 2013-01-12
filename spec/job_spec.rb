@@ -117,16 +117,16 @@ describe JenkinsApi::Client::Job do
       end
     end
 
-#    it "Should be able to abort a recent build of a running job" do
-#      @client.job.get_current_build_status(@job_name).should_not == "running"
-#      @client.job.build(@job_name)
-#      sleep 20
-#      @client.job.get_current_build_status(@job_name).should == "running"
-#      sleep 20
-#      @client.job.stop_build(@job_name).should == 302
-#      sleep 20
-#      @client.job.get_current_build_status(@job_name).should == "aborted"
-#    end
+    it "Should be able to abort a recent build of a running job" do
+      @client.job.get_current_build_status(@job_name).should_not == "running"
+      @client.job.build(@job_name)
+      sleep 20
+      @client.job.get_current_build_status(@job_name).should == "running"
+      sleep 20
+      @client.job.stop_build(@job_name).should.to_i == 302
+      sleep 20
+      @client.job.get_current_build_status(@job_name).should == "aborted"
+    end
 
     it "Should be able to restrict a job to a node" do
       @client.job.restrict_to_node(@job_name, 'master').to_i.should == 200
