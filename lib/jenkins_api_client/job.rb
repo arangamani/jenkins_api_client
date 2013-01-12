@@ -215,6 +215,18 @@ module JenkinsApi
         create(job_name, job_xml)
       end
 
+      # Get progressive console output from Jenkins server for a job
+      #
+      # @param [String] job_name Name of the Jenkins job
+      # @param [Number] build_number Specific build number to obtain the console output from. Default is the recent build
+      # @param [Number] start start offset to get only a portion of the text
+      # @param [String] mode Mode of text output. 'text' or 'html'
+      #
+      # @return [Hash] response
+      #   * +output+ Console output of the job
+      #   * +size+ Size of the text. This can be used as 'start' for the next call to get progressive output
+      #   * +more+ More data available for the job. 'true' if available and nil otherwise
+      #
       def get_console_output(job_name, build_number = 0, start = 0, mode = 'text')
         build_number = get_current_build_number(job_name) if build_number == 0
         if build_number == 0
