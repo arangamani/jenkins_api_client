@@ -76,6 +76,23 @@ module JenkinsApi
         puts @client.job.delete(job)
       end
 
+      desc "console JOB", "Print the progressive console output of a job"
+      def console(job)
+        @client = Helper.setup(parent_options)
+        debug_changed = false
+        if @client.debug == true
+          @client.debug = false
+          debug_changed = true
+        end
+        response = @client.job.get_console_output(job)
+        while response['more']
+          size = response['size']
+          puts response['output'] unless response['output'].chomp.empty?
+          response = @client.job.get_console_output(job, 0, size)
+        end
+        @client.toggle_debug if debug_changed
+      end
+
       desc "restrict JOB", "Restricts a job to a specific node"
       method_option :node, :aliases => "-n", :desc => "Node to be restricted to"
       def restrict(job)
