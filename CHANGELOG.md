@@ -4,6 +4,7 @@ CHANGELOG
 v0.6.0
 ------
 * Added functionality to get progressive console output from Jenkins.
+* Added CLI command `console` for printing progressive console output on terminal.
 * Fixed a bug with `get_current_build_number` not returning the recent running build number.
 
 v0.5.0  [22-DEC-2012]
