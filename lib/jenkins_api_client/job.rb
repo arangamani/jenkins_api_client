@@ -215,6 +215,29 @@ module JenkinsApi
         create(job_name, job_xml)
       end
 
+      def get_console_output(job_name, build_number = 0, start = 0, mode = 'text')
+        build_number = get_current_build_number(job_name) if build_number == 0
+        if build_number == 0
+          puts "No builds for this job '#{job_name}' yet."
+          return nil
+        end
+        if mode == 'text'
+          mode = 'Text'
+        elsif mode == 'html'
+          mode = 'Html'
+        else
+          raise "Mode should either be 'text' or 'html'. You gave: #{mode}"
+        end
+        api_response = @client.api_get_request("/job/#{job_name}/#{build_number}/logText/progressive#{mode}?start=#{start}", nil, nil)
+        #puts "Response: #{api_response.header['x-more-data']}"
+        response = {}
+        response['output'] = api_response.body
+        response['size'] = api_response.header['x-text-size']
+        response['more'] = api_response.header['x-more-data']
+
+        response
+      end
+
       # List all jobs on the Jenkins CI server
       #
       def list_all
@@ -348,8 +371,7 @@ module JenkinsApi
       # @param [String] job_name
       #
       def get_current_build_number(job_name)
-        builds = get_builds(job_name)
-        builds.length > 0 ? builds.first["number"] : nil
+        @client.api_get_request("/job/#{job_name}")['nextBuildNumber'] - 1
       end
 
       # This functions lists all jobs that are currently running on the Jenkins CI server

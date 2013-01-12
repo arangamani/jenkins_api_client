@@ -112,16 +112,20 @@ module JenkinsApi
     #
     # @param [String] url_prefix
     #
-    def api_get_request(url_prefix, tree = nil)
+    def api_get_request(url_prefix, tree = nil, url_suffix ="/api/json")
       http = Net::HTTP.start(@server_ip, @server_port)
-      request = Net::HTTP::Get.new("#{url_prefix}/api/json")
-      puts "[INFO] GET #{url_prefix}/api/json" if @debug
-      request = Net::HTTP::Get.new("#{url_prefix}/api/json?#{tree}") if tree
+      request = Net::HTTP::Get.new("#{url_prefix}#{url_suffix}")
+      puts "[INFO] GET #{url_prefix}#{url_suffix}" if @debug
+      request = Net::HTTP::Get.new("#{url_prefix}#{url_suffix}?#{tree}") if tree
       request.basic_auth @username, @password
       response = http.request(request)
       case response.code.to_i
       when 200
-        return JSON.parse(response.body)
+        if url_suffix =~ /json/
+          return JSON.parse(response.body)
+        else
+          return response
+        end
       when 401
         raise Exceptions::UnautherizedException.new("HTTP Code: #{response.code.to_s}, Response Body: #{response.body}")
       when 404
