@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+v0.6.1  [13-JAN-2013]
+---------------------
+* Fixed a bug where the last few lines of console output was missed in the CLI when using the `jenkinscli job console` command.
+
 v0.6.0  [12-JAN-2013]
 ---------------------
 * Added functionality to get progressive console output from Jenkins.
