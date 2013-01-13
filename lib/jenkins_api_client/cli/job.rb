@@ -96,6 +96,8 @@ module JenkinsApi
           sleep options[:sleep].to_i if options[:sleep]
           response = @client.job.get_console_output(job, 0, size)
         end
+        # Print the last few lines
+        puts response['output'] unless response['output'].chomp.empty?
         # Change the debug back if we changed it now
         @client.toggle_debug if debug_changed
       end
