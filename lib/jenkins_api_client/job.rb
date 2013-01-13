@@ -355,7 +355,7 @@ module JenkinsApi
           "failure"
         when "yellow"
           "unstable"
-        when "grey_anime", "blue_anime", "red_anime"
+        when /anime/
           "running"
         when "grey"
           "not_run"
