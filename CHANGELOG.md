@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+v0.6.2  [13-JAN-2013]
+---------------------
+* Fixed a bug where running job previously aborted was not recognized by the color
+
 v0.6.1  [13-JAN-2013]
 ---------------------
 * Fixed a bug where the last few lines of console output was missed in the CLI when using the `jenkinscli job console` command.
