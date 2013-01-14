@@ -20,6 +20,9 @@ Gemfile.lock
 # MacOS:
 .DS_Store
 
+# Rubymine
+.idea
+
 # vim, emacs, textmate
 *~
 \#*
