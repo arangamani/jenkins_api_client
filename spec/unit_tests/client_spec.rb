@@ -93,7 +93,7 @@ describe JenkinsApi::Client do
 
   end
 
-  context "With some required parameters" do
+  context "With some required parameters missing" do
 
     it "Should fail if server_ip is missing" do
       expect(
