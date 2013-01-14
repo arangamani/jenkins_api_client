@@ -9,6 +9,7 @@ Copyright &copy; 2012, Kannan Manickam [![endorse](http://api.coderwall.com/aran
 Client libraries for communicating with a Jenkins CI server and programatically managing jobs.
 
 IRC Channel: ##jenkins-api-client
+Mailing list: jenkins.api.client@librelist.com
 
 OVERVIEW:
 ---------
