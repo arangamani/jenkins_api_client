@@ -27,9 +27,8 @@ describe JenkinsApi::Client::Job do
     end
 
     it "Should have #stop_build method and should accept the job name and build number" do
-      @client.should_receive(:api_get_request).and_return("building" => true)
+      @client.should_receive(:api_get_request).twice.and_return("building" => true, "nextBuildNumber" => 2)
       @client.should_receive(:api_post_request)
-      @job.should_receive(:get_current_build_number).and_return(1)
       @job.stop_build('test_job')
     end
 
