@@ -22,3 +22,15 @@ automating Job configuration programaticaly and so forth}
   gemspec.test_files = `git ls-files -- {spec}/*`.split("\n")
   gemspec.rubygems_version = '1.8.17'
 end
+
+require 'rspec/core'
+require 'rspec/core/rake_task'
+RSpec::Core::RakeTask.new(:unit_tests) do |spec|
+  spec.pattern = FileList['spec/unit_tests/*_spec.rb']
+  spec.rspec_opts = ['--color', '--format documentation']
+end
+
+RSpec::Core::RakeTask.new(:func_tests) do |spec|
+  spec.pattern = FileList['spec/func_tests/*_spec.rb']
+  spec.rspec_opts = ['--color', '--format documentation']
+end
