@@ -18,6 +18,39 @@ describe JenkinsApi::Client do
       ).not_to raise_error
     end
 
+    it "The default for debug should be false" do
+      client = JenkinsApi::Client.new({
+                                        server_ip: '127.0.0.1',
+                                        server_port: 8080,
+                                        username: 'username',
+                                        password: 'password'
+                                      })
+      client.debug.should == false
+    end
+
+    it "Should be able to set the debug value" do
+      client = JenkinsApi::Client.new({
+                                        server_ip: '127.0.0.1',
+                                        server_port: 8080,
+                                        username: 'username',
+                                        password: 'password',
+                                        debug: true
+                                      })
+      client.debug.should == true
+    end
+
+    it "Should be able to toggle the debug value" do
+      client = JenkinsApi::Client.new({
+                                        server_ip: '127.0.0.1',
+                                        server_port: 8080,
+                                        username: 'username',
+                                        password: 'password',
+                                        debug: true
+                                      })
+      client.toggle_debug
+      client.debug.should == false
+    end
+
     it "Should be able to get a Client::Job object by calling the job method" do
       client = JenkinsApi::Client.new({
                                         server_ip: '127.0.0.1',
