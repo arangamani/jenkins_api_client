@@ -37,7 +37,6 @@ require File.expand_path('../node', __FILE__)
 module JenkinsApi
   class Client
     attr_accessor :debug
-    @debug = false
     DEFAULT_SERVER_PORT = 8080
     VALID_PARAMS = %w(server_ip server_port username password debug)
 
@@ -56,6 +55,7 @@ module JenkinsApi
      raise "Server IP is required to connect to Jenkins Server" unless @server_ip
      raise "Credentials are required to connect to te Jenkins Server" unless @username && (@password || @password_base64)
      @server_port = DEFAULT_SERVER_PORT unless @server_port
+     @debug = false unless @debug
 
      # Base64 decode inserts a newline character at the end. As a workaround added chomp
      # to remove newline characters. I hope nobody uses newline characters at the end of
