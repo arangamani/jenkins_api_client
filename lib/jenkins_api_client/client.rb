@@ -37,7 +37,6 @@ require File.expand_path('../node', __FILE__)
 module JenkinsApi
   class Client
     attr_accessor :debug
-    @debug = false
     DEFAULT_SERVER_PORT = 8080
     VALID_PARAMS = %w(server_ip server_port username password debug)
 
@@ -56,6 +55,7 @@ module JenkinsApi
      raise "Server IP is required to connect to Jenkins Server" unless @server_ip
      raise "Credentials are required to connect to te Jenkins Server" unless @username && (@password || @password_base64)
      @server_port = DEFAULT_SERVER_PORT unless @server_port
+     @debug = false unless @debug
 
      # Base64 decode inserts a newline character at the end. As a workaround added chomp
      # to remove newline characters. I hope nobody uses newline characters at the end of
@@ -112,16 +112,20 @@ module JenkinsApi
     #
     # @param [String] url_prefix
     #
-    def api_get_request(url_prefix, tree = nil)
+    def api_get_request(url_prefix, tree = nil, url_suffix ="/api/json")
       http = Net::HTTP.start(@server_ip, @server_port)
-      request = Net::HTTP::Get.new("#{url_prefix}/api/json")
-      puts "[INFO] GET #{url_prefix}/api/json" if @debug
-      request = Net::HTTP::Get.new("#{url_prefix}/api/json?#{tree}") if tree
+      request = Net::HTTP::Get.new("#{url_prefix}#{url_suffix}")
+      puts "[INFO] GET #{url_prefix}#{url_suffix}" if @debug
+      request = Net::HTTP::Get.new("#{url_prefix}#{url_suffix}?#{tree}") if tree
       request.basic_auth @username, @password
       response = http.request(request)
       case response.code.to_i
       when 200
-        return JSON.parse(response.body)
+        if url_suffix =~ /json/
+          return JSON.parse(response.body)
+        else
+          return response
+        end
       when 401
         raise Exceptions::UnautherizedException.new("HTTP Code: #{response.code.to_s}, Response Body: #{response.body}")
       when 404
@@ -142,6 +146,7 @@ module JenkinsApi
       request = Net::HTTP::Post.new("#{url_prefix}")
       puts "[INFO] PUT #{url_prefix}" if @debug
       request.basic_auth @username, @password
+      request.content_type = 'application/json'
       response = http.request(request)
       case response.code.to_i
       when 200, 302

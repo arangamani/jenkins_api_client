@@ -32,8 +32,26 @@ module JenkinsApi
         @client = client
       end
 
+      # Return a string representation of the object
+      #
       def to_s
         "#<JenkinsApi::Client::View>"
+      end
+
+      # Create a new view
+      #
+      # @param [String] view_name
+      #
+      def create(view_name)
+        @client.api_post_request("/createView?name=#{view_name}&mode=hudson.model.ListView&json={\"name\":\"#{view_name}\",\"mode\":\"hudson.model.ListView\"}")
+      end
+
+      # Delete a view
+      #
+      # @param [String] view_name
+      #
+      def delete(view_name)
+        @client.api_post_request("/view/#{view_name}/doDelete")
       end
 
       # This method lists all views
@@ -87,6 +105,23 @@ module JenkinsApi
       #
       def remove_job(view_name, job_name)
         @client.api_post_request("/view/#{view_name}/removeJobFromView?name=#{job_name}")
+      end
+
+      # Obtain the configuration stored in config.xml of a specific view
+      #
+      # @param [String] view_name
+      #
+      def get_config(view_name)
+        @client.get_config("/view/#{view_name}")
+      end
+
+      # Post the configuration of a view given the view name and the config.xml
+      #
+      # @param [String] view_name
+      # @param [String] xml
+      #
+      def post_config(view_name, xml)
+        @client.post_config("/view/#{view_name}/config.xml", xml)
       end
 
     end

@@ -7,9 +7,9 @@ require File.expand_path('../spec_helper', __FILE__)
 require 'yaml'
 
 describe JenkinsApi::Client do
-  context "Given valid credentials and server information in the ~/.jenkins_api_client/login.yml" do
+  context "Given valid credentials and server information in the ~/.jenkins_api_client/spec.yml" do
     before(:all) do
-      @creds_file = '~/.jenkins_api_client/login.yml'
+      @creds_file = '~/.jenkins_api_client/spec.yml'
       # Grabbing just the server IP in a variable so we can check for wrong credentials
       @server_ip = YAML.load_file(File.expand_path(@creds_file, __FILE__))[:server_ip]
       begin

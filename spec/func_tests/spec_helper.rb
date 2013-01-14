@@ -5,7 +5,7 @@
 
 require 'simplecov'
 SimpleCov.start if ENV["COVERAGE"]
-require File.expand_path('../../lib/jenkins_api_client', __FILE__)
+require File.expand_path('../../../lib/jenkins_api_client', __FILE__)
 require 'pp'
 require 'yaml'
 require 'nokogiri'
