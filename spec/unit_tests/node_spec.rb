@@ -10,6 +10,7 @@ describe JenkinsApi::Client::Node do
           "displayName" => "slave"
         ]
       }
+      @sample_computer_xml = File.read(File.expand_path('../fixtures/files/computer_sample.xml', __FILE__))
     end
 
     describe "InstanceMethods" do
@@ -62,6 +63,20 @@ describe JenkinsApi::Client::Node do
               @node.method("get_node_#{attribute}").call("slave")
             end
           end
+        end
+      end
+
+      describe "#get_config" do
+        it "accepts the node name and obtains the config xml from the server" do
+          @client.should_receive(:get_config).with("/computer/slave/config.xml").and_return(@sample_computer_xml)
+          @node.get_config("slave")
+        end
+      end
+
+      describe "#post_config" do
+        it "accepts the node namd and config.xml and posts it to the server" do
+          @client.should_receive(:post_config)
+          @node.post_config("slave", @sample_computer_xml)
         end
       end
 
