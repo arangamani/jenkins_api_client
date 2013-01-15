@@ -16,8 +16,11 @@ describe JenkinsApi::Client::Job do
       @sample_json_job_response = {
         "downstreamProjects" => ["test_job1"],
         "upstreamProjects" => ["test_job2"],
-        "builds" => []
+        "builds" => [],
+        "color" => "running",
+        "nextBuildNumber" => 2
       }
+      @sample_job_xml = File.read(File.expand_path('../fixtures/files/job_sample.xml', __FILE__))
     end
 
     describe "InstanceMethods" do
@@ -145,19 +148,62 @@ describe JenkinsApi::Client::Job do
       end
 
       describe "#color_to_status" do
-        it "should accept the color and convert it to correct status" do
-          @job.color_to_status("blue").should == "success"
-          @job.color_to_status("blue_anime").should == "running"
-          @job.color_to_status("red").should == "failure"
-          @job.color_to_status("red_anime").should == "running"
-          @job.color_to_status("yellow").should == "unstable"
+        it "accepts the color and convert it to correct status" do
+          @job.color_to_status("blue").should         == "success"
+          @job.color_to_status("blue_anime").should   == "running"
+          @job.color_to_status("red").should          == "failure"
+          @job.color_to_status("red_anime").should    == "running"
+          @job.color_to_status("yellow").should       == "unstable"
           @job.color_to_status("yellow_anime").should == "running"
-          @job.color_to_status("grey").should == "not_run"
-          @job.color_to_status("grey_anime").should == "running"
-          @job.color_to_status("aborted").should == "aborted"
+          @job.color_to_status("grey").should         == "not_run"
+          @job.color_to_status("grey_anime").should   == "running"
+          @job.color_to_status("aborted").should      == "aborted"
         end
-        it "should give invalid as the output if unknown color is detected" do
+        it "returns invalid as the output if unknown color is detected" do
           @job.color_to_status("orange").should == "invalid"
+        end
+      end
+
+      describe "#get_current_build_status" do
+        it "accepts the job name and returns its current build status" do
+          @client.should_receive(:api_get_request).and_return(@sample_json_job_response)
+          @job.get_current_build_status("test_job").class.should == String
+        end
+      end
+
+      describe "#get_current_build_number" do
+        it "accepts the job name and returns its current build number" do
+          @client.should_receive(:api_get_request).and_return(@sample_json_job_response)
+          @job.get_current_build_number("test_job").class.should == Fixnum
+        end
+      end
+
+      describe "#build" do
+        it "accepts the job name and builds the job" do
+          @client.should_receive(:api_post_request).with("/job/test_job/build").and_return(302)
+          @job.build("test_job").should == 302
+        end
+      end
+
+      describe "#get_config" do
+        it "accepts the job name and obtains its config.xml" do
+          @client.should_receive(:get_config).with("/job/test_job").and_return("<job>test_job</job>")
+          @job.get_config("test_job").should == "<job>test_job</job>"
+        end
+      end
+
+      describe "#post_config" do
+        it "accepts the job name and posts its config.xml to the server" do
+          @client.should_receive(:post_config).with("/job/test_job/config.xml", "<job>test_job</job>")
+          @job.post_config("test_job", "<job>test_job</job>")
+        end
+      end
+
+      describe "#change_description" do
+        it "accepts the job name and description and changes it" do
+          @client.should_receive(:get_config).with("/job/test_job").and_return(@sample_job_xml)
+          @client.should_receive(:post_config)
+          @job.change_description("test_job", "new description")
         end
       end
 
