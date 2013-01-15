@@ -245,6 +245,32 @@ describe JenkinsApi::Client::Job do
         end
       end
 
+      describe "#restrict_to_node" do
+        it "accepts the job name and node name and restricts the job to the specified node" do
+          @client.should_receive(:get_config).with("/job/test_job").and_return(@sample_job_xml)
+          @client.should_receive(:post_config)
+          @job.restrict_to_node("test_job", "test_slave")
+        end
+      end
+
+      describe "#unchain" do
+        it "accepts the job names and unchains them" do
+          @client.should_receive(:debug).and_return(false)
+          @client.should_receive(:get_config).with("/job/test_job").and_return(@sample_job_xml)
+          @client.should_receive(:post_config)
+          @job.unchain(["test_job"])
+        end
+      end
+
+      describe "#chain" do
+        it "accepts the job names, threshold, criteria, parallel jobs, and chains them" do
+          @client.should_receive(:debug).and_return(false)
+          @client.should_receive(:get_config).with("/job/test_job").and_return(@sample_job_xml)
+          @client.should_receive(:post_config)
+          @job.unchain(["test_job"])
+        end
+      end
+
     end
   end
 end

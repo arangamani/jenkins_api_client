@@ -700,7 +700,7 @@ module JenkinsApi
       def unchain(job_names)
         job_names.each { |job|
           puts "[INFO] Removing downstream projects for <#{job}>" if @client.debug
-          @client.job.remove_downstream_projects(job)
+          remove_downstream_projects(job)
         }
       end
 
