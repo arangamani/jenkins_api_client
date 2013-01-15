@@ -207,6 +207,44 @@ describe JenkinsApi::Client::Job do
         end
       end
 
+      describe "#block_build_when_downstream_building" do
+        it "accepts the job name and blocks build when downstream is building" do
+          @client.should_receive(:get_config).with("/job/test_job").and_return(@sample_job_xml)
+          @client.should_receive(:post_config)
+          @job.block_build_when_downstream_building("test_job")
+        end
+      end
+
+      describe "#unblock_build_when_downstream_building" do
+        it "accepts the job name and unblocks build when downstream is building" do
+          @client.should_receive(:get_config).with("/job/test_job").and_return(@sample_job_xml)
+          @job.unblock_build_when_downstream_building("test_job")
+        end
+      end
+
+      describe "#block_build_when_upstream_building" do
+        it "accepts the job name and blocks build when upstream is building" do
+          @client.should_receive(:get_config).with("/job/test_job").and_return(@sample_job_xml)
+          @client.should_receive(:post_config)
+          @job.block_build_when_upstream_building("test_job")
+        end
+      end
+
+      describe "#unblock_build_when_upstream_building" do
+        it "accepts the job name and unblocks build when upstream is building" do
+          @client.should_receive(:get_config).with("/job/test_job").and_return(@sample_job_xml)
+          @job.unblock_build_when_upstream_building("test_job")
+        end
+      end
+
+      describe "#execute_concurrent_builds" do
+        it "accepts the job name and option and executes concurrent builds based on the option" do
+          @client.should_receive(:get_config).with("/job/test_job").and_return(@sample_job_xml)
+          @client.should_receive(:post_config)
+          @job.execute_concurrent_builds("test_job", true)
+        end
+      end
+
     end
   end
 end
