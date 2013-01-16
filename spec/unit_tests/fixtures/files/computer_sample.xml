@@ -1,0 +1,17 @@
+<slave>
+<name>slave</name>
+<description/>
+<remoteFS>/var/jenkins</remoteFS>
+<numExecutors>20</numExecutors>
+<mode>NORMAL</mode>
+<retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+<launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@0.21">
+<host>127.0.0.1</host>
+<port>22</port>
+<password>supersecret</password>
+<privatekey>/root/.ssh/api_user_key</privatekey>
+</launcher>
+<label>slave</label>
+<nodeProperties/>
+<userId>kannan</userId>
+</slave>

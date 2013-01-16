@@ -144,6 +144,28 @@ module JenkinsApi
         end
       end
 
+      def change_mode(node_name, mode)
+        mode = mode.upcase
+        xml = get_config(node_name)
+        n_xml = Nokogiri::XML(xml)
+        desc = n_xml.xpath("//mode").first
+        puts "[DEBUG] Current mode is: #{desc.content}"
+        desc.content = "#{mode}"
+        xml_modified = n_xml.to_xml
+        puts xml_modified
+        post_config(node_name, xml_modified)
+      end
+
+      def get_config(node_name)
+        node_name = "(master)" if node_name == "master"
+        @client.get_config("/computer/#{node_name}/config.xml")
+      end
+
+      def post_config(node_name, xml)
+        node_name = "(master)" if node_name == "master"
+        @client.post_config("/computer/#{node_name}/config.xml", xml)
+      end
+
     end
   end
 end

@@ -1,24 +1,20 @@
 language: ruby
 rvm:
   - 1.9.3
-before_install:
-  - wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
-  - sudo sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
-  - sudo apt-get update -qq
-  - sudo apt-get install -qq jenkins
-  - echo `sudo service jenkins status`
-  - cat /var/log/jenkins/jenkins.log
-  - echo `curl 10.0.2.15:8080`
-  - echo `curl 10.0.2.15`
-  - echo `curl localhost:8080`
-  - echo `ifconfig`
-  - echo `hostname`
-  - echo `netstat -an`
-script: bundle exec rspec
+  - 1.9.2
+  - jruby-18mode
+  - jruby-19mode
+  - rbx-18mode
+  - rbx-19mode
+  - ruby-head
+  - jruby-head
+  - 1.8.7
+  - ree
+script: bundle exec rake unit_tests
 notifications:
   email: false
   irc:
     on_success: change
     on_failure: always
     channels:
-      - "irc.freenode.org##arangamani"
+      - "irc.freenode.org##jenins-api-client"

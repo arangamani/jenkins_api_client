@@ -9,7 +9,7 @@ require 'yaml'
 describe JenkinsApi::Client::Node do
   context "With properly initialized client" do
     before(:all) do
-      @creds_file = '~/.jenkins_api_client/login.yml'
+      @creds_file = '~/.jenkins_api_client/spec.yml'
       @node_name = 'master'
       begin
         @client = JenkinsApi::Client.new(YAML.load_file(File.expand_path(@creds_file, __FILE__)))

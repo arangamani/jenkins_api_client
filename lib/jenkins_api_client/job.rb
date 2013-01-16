@@ -215,6 +215,41 @@ module JenkinsApi
         create(job_name, job_xml)
       end
 
+      # Get progressive console output from Jenkins server for a job
+      #
+      # @param [String] job_name Name of the Jenkins job
+      # @param [Number] build_number Specific build number to obtain the console output from. Default is the recent build
+      # @param [Number] start start offset to get only a portion of the text
+      # @param [String] mode Mode of text output. 'text' or 'html'
+      #
+      # @return [Hash] response
+      #   * +output+ Console output of the job
+      #   * +size+ Size of the text. This can be used as 'start' for the next call to get progressive output
+      #   * +more+ More data available for the job. 'true' if available and nil otherwise
+      #
+      def get_console_output(job_name, build_number = 0, start = 0, mode = 'text')
+        build_number = get_current_build_number(job_name) if build_number == 0
+        if build_number == 0
+          puts "No builds for this job '#{job_name}' yet."
+          return nil
+        end
+        if mode == 'text'
+          mode = 'Text'
+        elsif mode == 'html'
+          mode = 'Html'
+        else
+          raise "Mode should either be 'text' or 'html'. You gave: #{mode}"
+        end
+        api_response = @client.api_get_request("/job/#{job_name}/#{build_number}/logText/progressive#{mode}?start=#{start}", nil, nil)
+        #puts "Response: #{api_response.header['x-more-data']}"
+        response = {}
+        response['output'] = api_response.body
+        response['size'] = api_response.header['x-text-size']
+        response['more'] = api_response.header['x-more-data']
+
+        response
+      end
+
       # List all jobs on the Jenkins CI server
       #
       def list_all
@@ -320,7 +355,7 @@ module JenkinsApi
           "failure"
         when "yellow"
           "unstable"
-        when "grey_anime", "blue_anime", "red_anime"
+        when /anime/
           "running"
         when "grey"
           "not_run"
@@ -348,8 +383,7 @@ module JenkinsApi
       # @param [String] job_name
       #
       def get_current_build_number(job_name)
-        builds = get_builds(job_name)
-        builds.length > 0 ? builds.first["number"] : nil
+        @client.api_get_request("/job/#{job_name}")['nextBuildNumber'] - 1
       end
 
       # This functions lists all jobs that are currently running on the Jenkins CI server
@@ -666,7 +700,7 @@ module JenkinsApi
       def unchain(job_names)
         job_names.each { |job|
           puts "[INFO] Removing downstream projects for <#{job}>" if @client.debug
-          @client.job.remove_downstream_projects(job)
+          remove_downstream_projects(job)
         }
       end
 

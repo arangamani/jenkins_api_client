@@ -1,11 +1,16 @@
 Jenkins API Client
 ==================
+[![Build Status](https://travis-ci.org/arangamani/jenkins_api_client.png?branch=master)](https://travis-ci.org/arangamani/jenkins_api_client)
+[![Dependency Status](https://gemnasium.com/arangamani/jenkins_api_client.png)](https://gemnasium.com/arangamani/jenkins_api_client)
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/arangamani/jenkins_api_client)
 
 Copyright &copy; 2012, Kannan Manickam [![endorse](http://api.coderwall.com/arangamani/endorsecount.png)](http://coderwall.com/arangamani)
 
 Client libraries for communicating with a Jenkins CI server and programatically managing jobs.
 
 IRC Channel: ##jenkins-api-client
+
+Mailing list: jenkins.api.client@librelist.com
 
 OVERVIEW:
 ---------
@@ -18,18 +23,11 @@ automatically manage jobs and other artifacts.
 
 DETAILS:
 --------
-This projects currently only provides functionality for the <tt>jobs, node, and system</tt> interfaces. 
+This projects currently only provides functionality for the <tt>jobs, node, and system</tt> interfaces.
 This is still a work-in-progress project. I mainly use the functionality of this project for my autmation
 work and the functionality mainly focussed on my usage and I believe others might find it useful
 too. I would love to add more features to it and I will continue working on improving existing
 features and add more interfaces such as nodes, views, build queue, etc,.
-
-CODE STATUS:
-------------
-
-* Gemnasium: [![Dependency Status](https://gemnasium.com/arangamani/jenkins_api_client.png)](https://gemnasium.com/arangamani/jenkins_api_client)
-
-* Code Climate: [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/arangamani/jenkins_api_client)
 
 USAGE:
 ------
@@ -69,7 +67,7 @@ parameters to the Client or have a credentials file and just parse the yaml file
 The following call just passes the information as parameters
 
 ```ruby
-@client = JenkinsApi::Client.new(:server_ip => '0.0.0.0', 
+@client = JenkinsApi::Client.new(:server_ip => '0.0.0.0',
          :username => 'somename', :password => 'secret password')
 # The following call will return all jobs matching 'Testjob'
 puts @client.job.list("^Testjob")
