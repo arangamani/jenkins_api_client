@@ -19,7 +19,7 @@ describe JenkinsApi::Client::Node do
       describe "#initialize" do
         it "initializes by receiving an instance of client object" do
           expect(
-            lambda{JenkinsApi::Client::Node.new(@client)}
+            lambda{ JenkinsApi::Client::Node.new(@client) }
           ).not_to raise_error
         end
       end
