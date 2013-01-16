@@ -393,9 +393,9 @@ module JenkinsApi
         puts "[WARN] list_running is deprecated. Please use list_by_status('running') instead."
         xml_response = @client.api_get_request("", "tree=jobs[name,color]")
         running_jobs = []
-        xml_response["jobs"].each { |job|
+        xml_response["jobs"].each do |job|
           running_jobs << job["name"] if color_to_status(job["color"]) == "running"
-        }
+        end
         running_jobs
       end
 
