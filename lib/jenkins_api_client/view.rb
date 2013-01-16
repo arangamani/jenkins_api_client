@@ -63,7 +63,11 @@ module JenkinsApi
         view_names = []
         response_json = @client.api_get_request("/")
         response_json["views"].each { |view|
-          view_names << view["name"] if view["name"] =~ /#{filter}/i
+          if ignorecase
+            view_names << view["name"] if view["name"] =~ /#{filter}/i
+          else
+            view_names << view["name"] if view["name"] =~ /#{filter}/
+          end
         }
         view_names
       end
