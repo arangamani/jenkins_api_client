@@ -11,6 +11,12 @@ describe JenkinsApi::Client::View do
           {"name" => "test_view2"}
         ]
       }
+      @sample_view_json = {
+        "jobs" => [
+          {"name" => "test_job"},
+          {"name" => "test_job2"}
+        ]
+      }
     end
 
     describe "InstanceMethods" do
@@ -72,23 +78,48 @@ describe JenkinsApi::Client::View do
       end
 
       describe "#list_jobs" do
+        it "lists all jobs in the given view" do
+          @client.should_receive(:api_get_request).with("/").and_return(@sample_views_json)
+          @client.should_receive(:api_get_request).with("/view/test_view").and_return(@sample_view_json)
+          response = @view.list_jobs("test_view")
+          response.class.should == Array
+          response.size.should == 2
+        end
 
+        it "raises an error if called on a non-existent view" do
+          @client.should_receive(:api_get_request).with("/").and_return(@sample_views_json)
+          expect(
+            lambda { @view.list_jobs("i_am_not_there") }
+          ).to raise_error
+        end
       end
 
       describe "#add_job" do
-
+        it "adds the specified job to the specified view" do
+          @client.should_receive(:api_post_request)
+          @view.add_job("test_view", "test_job3")
+        end
       end
 
       describe "#remove_job" do
-
+        it "removes the specified job to the specified view" do
+          @client.should_receive(:api_post_request)
+          @view.remove_job("test_view", "test_job")
+        end
       end
 
       describe "#get_config" do
-
+        it "obtains the config from the server for the specified view" do
+          @client.should_receive(:get_config).with("/view/test_view")
+          @view.get_config("test_view")
+        end
       end
 
       describe "#post_config" do
-
+        it "posts the config to the server for the specified view" do
+          @client.should_receive(:post_config).with("/view/test_view/config.xml", "<view>test_view</view>")
+          @view.post_config("test_view", "<view>test_view</view>")
+        end
       end
 
     end
