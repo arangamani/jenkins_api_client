@@ -10,7 +10,8 @@ describe JenkinsApi::Client::Node do
           "displayName" => "slave"
         ]
       }
-      @sample_computer_xml = File.read(File.expand_path('../fixtures/files/computer_sample.xml', __FILE__))
+      computer_sample_xml_filename = '../fixtures/files/computer_sample.xml'
+      @sample_computer_xml = File.read(File.expand_path(computer_sample_xml_filename , __FILE__))
     end
 
     describe "InstanceMethods" do
