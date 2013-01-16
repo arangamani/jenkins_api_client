@@ -86,6 +86,7 @@ module JenkinsApi
       #
       def list_jobs(view_name)
         job_names = []
+        raise "The view #{view_name} doesn't exists on the server" unless exists?(view_name)
         response_json = @client.api_get_request("/view/#{view_name}")
         response_json["jobs"].each do |job|
           job_names << job["name"]
