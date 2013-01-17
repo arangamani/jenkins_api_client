@@ -145,7 +145,7 @@ module JenkinsApi
       request.basic_auth @username, @password
       request.content_type = 'application/json'
       response = http.request(request)
-      msg = "HTTP Code: #{resonse.code}, Response Body: #{response.body}"
+      msg = "HTTP Code: #{response.code}, Response Body: #{response.body}"
       case response.code.to_i
       when 200, 302
         return response.code
