@@ -43,11 +43,20 @@ describe JenkinsApi::Client::Job do
       end
 
       describe "#create_freestyle" do
-        it "Should be able to create a freestyle job with params" do
+        it "Should be able to create a simple freestyle job" do
           params = {
-            :name => "test_job_name_using_params",
-            :shell_command => "echo hello"
+            :name => "test_job_name_using_params"
           }
+          @client.job.create_freestyle(params).to_i.should == 200
+          @client.job.delete("test_job_name_using_params").to_i.should == 302
+        end
+        it "Should be able to create a freestyle job with shell command" do
+          params = {
+            :name => "test_job_name_using_params_shell",
+            :shell_command => "echo this is a free style project"
+          }
+          @client.job.create_freestyle(params).to_i.should == 200
+          @client.job.delete("test_job_name_using_params_shell").to_i.should == 302
         end
       end
 
