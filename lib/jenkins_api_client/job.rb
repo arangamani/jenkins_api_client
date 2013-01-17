@@ -46,8 +46,8 @@ module JenkinsApi
       end
 
       # Create a job with params given as a hash instead of the xml
-      # This gives some flexibility for creating simple jobs so the user doesn't have to
-      # learn about handling xml.
+      # This gives some flexibility for creating simple jobs so the user
+      # doesn't have to learn about handling xml.
       #
       # @param [Hash] params
       #  * +:name+ name of the job
@@ -55,33 +55,47 @@ module JenkinsApi
       #  * +:block_build_when_downstream_building+ true or false
       #  * +:block_build_when_upstream_building+ true or false
       #  * +:concurrent_build+ true or false
-      #  * +:scm_provider+ type of source control system. Supported: git, subversion
+      #  * +:scm_provider+ type of source control system.
+      #      Supported: git, subversion
       #  * +:scm_url+ remote url for scm
       #  * +:scm_branch+ branch to use in scm. Uses master by default
       #  * +:shell_command+ command to execute in the shell
       #  * +:child_projects+ projects to add as downstream projects
-      #  * +:child_threshold+ threshold for child projects. success, failure, or unstable. Default: failure.
+      #  * +:child_threshold+ threshold for child projects.
+      #      success, failure, or unstable. Default: failure.
       #
       def create_freestyle(params)
         # TODO: Add support for all SCM providers supported by Jenkins
-        supported_scm_providers = ['git', 'subversion']
+        supported_scm = ['git', 'subversion']
 
-        # Set default values for params that are not specified and Error handling.
+        # Set default values for params that are not specified.
         raise 'Job name must be specified' unless params[:name]
-        params[:keep_dependencies] = false if params[:keep_dependencies].nil?
-        params[:block_build_when_downstream_building] = false if params[:block_build_when_downstream_building].nil?
-        params[:block_build_when_upstream_building] = false if params[:block_build_when_upstream_building].nil?
+        if params[:keep_dependencies].nil?
+          params[:keep_dependencies] = false
+        end
+        if params[:block_build_when_downstream_building].nil?
+          params[:block_build_when_downstream_building] = false
+        end
+        if params[:block_build_when_upstream_building].nil?
+          params[:block_build_when_upstream_building] = false
+        end
         params[:concurrent_build] = false if params[:concurrent_build].nil?
 
-        # SCM configurations and Error handling. Presently only Git plugin is supported.
-        unless supported_scm_providers.include?(params[:scm_provider]) || params[:scm_provider].nil?
+        # SCM configurations and Error handling.
+        unless supported_scm.include?(params[:scm_provider]) || params[:scm_provider].nil?
           raise "SCM #{params[:scm_provider]} is currently not supported"
         end
-        raise 'SCM URL must be specified' if params[:scm_url].nil? && !params[:scm_provider].nil?
-        params[:scm_branch] = "master" if params[:scm_branch].nil? && !params[:scm_provider].nil?
+        if params[:scm_url].nil? && !params[:scm_provider].nil?
+          raise 'SCM URL must be specified'
+        end
+        if params[:scm_branch].nil? && !params[:scm_provider].nil?
+          params[:scm_branch] = "master"
+        end
 
         # Child projects configuration and Error handling
-        params[:child_threshold] = 'failure' if params[:child_threshold].nil? && !params[:child_projects].nil?
+        if params[:child_threshold].nil? && !params[:child_projects].nil?
+          params[:child_threshold] = 'failure'
+        end
 
         # Build the Job xml file based on the parameters given
         builder = Nokogiri::XML::Builder.new(:encoding => 'UTF-8') { |xml|
@@ -92,7 +106,8 @@ module JenkinsApi
             xml.properties
             # SCM related stuff
             if params[:scm_provider] == 'subversion'
-              xml.scm(:class => "hudson.scm.SubversionSCM", :plugin => "subversion@1.39") {
+              xml.scm(:class => "hudson.scm.SubversionSCM",
+                      :plugin => "subversion@1.39") {
                 xml.locations {
                   xml.send("hudson.scm.SubversionSCM_-ModuleLocation") {
                     xml.remote "#{params[:scm_url]}"
@@ -104,7 +119,8 @@ module JenkinsApi
                 xml.excludedUsers
                 xml.excludedRevprop
                 xml.excludedCommitMessages
-                xml.workspaceUpdater(:class => "hudson.scm.subversion.UpdateUpdater")
+                xml.workspaceUpdater(:class =>
+                                     "hudson.scm.subversion.UpdateUpdater")
               }
             elsif params[:scm_provider] == 'git'
               xml.scm(:class => "hudson.plugins.git.GitSCM") {
@@ -131,7 +147,8 @@ module JenkinsApi
                 xml.remotePoll "false"
                 xml.ignoreNotifyCommit "false"
                 xml.useShallowClone "false"
-                xml.buildChooser(:class => "hudson.plugins.git.util.DefaultBuildChooser")
+                xml.buildChooser(:class =>
+                                 "hudson.plugins.git.util.DefaultBuildChooser")
                 xml.gitTool "Default"
                 xml.submoduleCfg(:class => "list")
                 xml.relativeTargetDir
@@ -149,8 +166,10 @@ module JenkinsApi
             end
             xml.canRoam "true"
             xml.disabled "false"
-            xml.blockBuildWhenDownstreamBuilding "#{params[:block_build_when_downstream_building]}"
-            xml.blockBuildWhenUpstreamBuilding "#{params[:block_build_when_upstream_building]}"
+            xml.blockBuildWhenDownstreamBuilding(
+              "#{params[:block_build_when_downstream_building]}")
+            xml.blockBuildWhenUpstreamBuilding(
+              "#{params[:block_build_when_upstream_building]}")
             xml.triggers.vector
             xml.concurrentBuild "#{params[:concurrent_build]}"
             # Shell command stuff
@@ -166,7 +185,8 @@ module JenkinsApi
               if params[:child_projects]
                 xml.send("hudson.tasks.BuildTrigger") {
                   xml.childProjects"#{params[:child_projects]}"
-                  name, ordinal, color = get_threshold_params(params[:child_threshold])
+                  threshold = params[:child_threshold]
+                  name, ordinal, color = get_threshold_params(threshold)
                   xml.threshold {
                     xml.name "#{name}"
                     xml.ordinal "#{ordinal}"
@@ -191,7 +211,8 @@ module JenkinsApi
 
       # Stops a running build of a job
       # This method will stop the current/most recent build if no build number
-      # is specified. The build will be stopped only if it was in 'running' state.
+      # is specified. The build will be stopped only if it was
+      # in 'running' state.
       #
       # @param [String] job_name
       # @param [Number] build_number
@@ -218,18 +239,21 @@ module JenkinsApi
       # Get progressive console output from Jenkins server for a job
       #
       # @param [String] job_name Name of the Jenkins job
-      # @param [Number] build_number Specific build number to obtain the console output from. Default is the recent build
+      # @param [Number] build_number Specific build number to obtain the
+      #                 console output from. Default is the recent build
       # @param [Number] start start offset to get only a portion of the text
       # @param [String] mode Mode of text output. 'text' or 'html'
       #
       # @return [Hash] response
       #   * +output+ Console output of the job
-      #   * +size+ Size of the text. This can be used as 'start' for the next call to get progressive output
-      #   * +more+ More data available for the job. 'true' if available and nil otherwise
+      #   * +size+ Size of the text. This can be used as 'start' for the
+      #            next call to get progressive output
+      #   * +more+ More data available for the job. 'true' if available
+      #            and nil otherwise
       #
-      def get_console_output(job_name, build_number = 0, start = 0, mode = 'text')
-        build_number = get_current_build_number(job_name) if build_number == 0
-        if build_number == 0
+      def get_console_output(job_name, build_num = 0, start = 0, mode = 'text')
+        build_num = get_current_build_number(job_name) if build_num == 0
+        if build_num == 0
           puts "No builds for this job '#{job_name}' yet."
           return nil
         end
@@ -240,7 +264,7 @@ module JenkinsApi
         else
           raise "Mode should either be 'text' or 'html'. You gave: #{mode}"
         end
-        api_response = @client.api_get_request("/job/#{job_name}/#{build_number}/logText/progressive#{mode}?start=#{start}", nil, nil)
+        api_response = @client.api_get_request("/job/#{job_name}/#{build_num}/logText/progressive#{mode}?start=#{start}", nil, nil)
         #puts "Response: #{api_response.header['x-more-data']}"
         response = {}
         response['output'] = api_response.body
@@ -278,7 +302,9 @@ module JenkinsApi
         xml_response = @client.api_get_request("", "tree=jobs[name,color]")
         filtered_jobs = []
         xml_response["jobs"].each do |job|
-          filtered_jobs << job["name"] if color_to_status(job["color"]) == status && jobs.include?(job["name"])
+          if color_to_status(job["color"]) == status && jobs.include?(job["name"])
+            filtered_jobs << job["name"]
+          end
         end
         filtered_jobs
       end
@@ -378,7 +404,7 @@ module JenkinsApi
       end
 
       # Obtain the current build number of the given job
-      # This function returns nil if there were no builds for the given job name.
+      # This function returns nil if there were no builds for the given job.
       #
       # @param [String] job_name
       #
@@ -386,15 +412,18 @@ module JenkinsApi
         @client.api_get_request("/job/#{job_name}")['nextBuildNumber'] - 1
       end
 
-      # This functions lists all jobs that are currently running on the Jenkins CI server
-      # This method is deprecated. Please use list_by_status instead.
+      # This functions lists all jobs that are currently running on the
+      # Jenkins CI server. This method is deprecated.
+      # Please use list_by_status instead.
       #
       def list_running
         puts "[WARN] list_running is deprecated. Please use list_by_status('running') instead."
         xml_response = @client.api_get_request("", "tree=jobs[name,color]")
         running_jobs = []
         xml_response["jobs"].each do |job|
-          running_jobs << job["name"] if color_to_status(job["color"]) == "running"
+          if color_to_status(job["color"]) == "running"
+            running_jobs << job["name"]
+          end
         end
         running_jobs
       end
@@ -498,7 +527,7 @@ module JenkinsApi
         end
       end
 
-      # Allow to either execute concurrent builds or disable concurrent execution
+      # Allow or disable concurrent build execution
       #
       # @param [String] job_name
       # @param [Bool] option true or false
@@ -530,7 +559,10 @@ module JenkinsApi
           params.children.each do |param|
             param_hash = {}
             case param.name
-            when "hudson.model.StringParameterDefinition", "hudson.model.BooleanParameterDefinition", "hudson.model.TextParameterDefinition", "hudson.model.PasswordParameterDefinition"
+            when "hudson.model.StringParameterDefinition",
+                 "hudson.model.BooleanParameterDefinition",
+                 "hudson.model.TextParameterDefinition",
+                 "hudson.model.PasswordParameterDefinition"
               param_hash[:type] = 'string' if param.name =~ /string/i
               param_hash[:type] = 'boolean' if param.name =~ /boolean/i
               param_hash[:type] = 'text' if param.name =~ /text/i
@@ -590,7 +622,8 @@ module JenkinsApi
        params_array
       end
 
-      # Obtains the threshold params used by jenkins in the XML file given the threshold
+      # Obtains the threshold params used by jenkins in the XML file
+      # given the threshold
       #
       # @param [String] threshold success, failure, or unstable
       #
@@ -612,8 +645,8 @@ module JenkinsApi
         return name, ordinal, color
       end
 
-      # Add downstream projects to a specific job given the job name, projects to be
-      # added as downstream projects, and the threshold
+      # Add downstream projects to a specific job given the job name,
+      # projects to be added as downstream projects, and the threshold
       #
       # @param [String] job_name
       # @param [String] downstream_projects
@@ -707,9 +740,11 @@ module JenkinsApi
       # Chain the jobs given based on specified criteria
       #
       # @param [Array] job_names Array of job names to be chained
-      # @param [String] threshold what should be the threshold for running the next job
-      # @param [Array] criteria criteria which should be applied for picking the jobs for the chain
-      # @param [Integer] parallel Number of jobs that should be considered for parallel run
+      # @param [String] threshold threshold for running the next job
+      # @param [Array] criteria criteria which should be applied for
+      #                picking the jobs for the chain
+      # @param [Integer] parallel Number of jobs that should be considered
+      #                  for parallel run
       #
       def chain(job_names, threshold, criteria, parallel = 1)
         raise "Parallel jobs should be at least 1" if parallel < 1
