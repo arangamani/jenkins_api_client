@@ -34,26 +34,28 @@ module JenkinsApi
     DEFAULT_SERVER_PORT = 8080
     VALID_PARAMS = %w(server_ip server_port username password debug)
 
-    # Initialize a Client object with Jenkins CI server information and credentials
+    # Initialize a Client object with Jenkins CI server credentials
     #
     # @param [Hash] args
     #  * the +:server_ip+ param is the IP address of the Jenkins CI server
-    #  * the +:server_port+ param is the port on which the Jenkins server listens
-    #  * the +:username+ param is the username used for connecting to the CI server
+    #  * the +:server_port+ param is the port on which the Jenkins listens
+    #  * the +:username+ param is the username used for connecting to the server
     #  * the +:password+ param is the password for connecting to the CI server
     #
     def initialize(args)
       args.each do |key, value|
         instance_variable_set("@#{key}", value) if value
       end if args.is_a? Hash
-     raise "Server IP is required to connect to Jenkins Server" unless @server_ip
-     raise "Credentials are required to connect to te Jenkins Server" unless @username && (@password || @password_base64)
+     raise "Server IP is required to connect to Jenkins" unless @server_ip
+     unless @username && (@password || @password_base64)
+       raise "Credentials are required to connect to te Jenkins Server"
+     end
      @server_port = DEFAULT_SERVER_PORT unless @server_port
      @debug = false unless @debug
 
-     # Base64 decode inserts a newline character at the end. As a workaround added chomp
-     # to remove newline characters. I hope nobody uses newline characters at the end of
-     # their passwords :)
+     # Base64 decode inserts a newline character at the end. As a workaround
+     # added chomp to remove newline characters. I hope nobody uses newline
+     # characters at the end of their passwords :)
      @password = Base64.decode64(@password_base64).chomp if @password_base64
     end
 
@@ -113,6 +115,7 @@ module JenkinsApi
       request = Net::HTTP::Get.new("#{url_prefix}#{url_suffix}?#{tree}") if tree
       request.basic_auth @username, @password
       response = http.request(request)
+      msg = "HTTP Code: #{response.code}, Response Body: #{response.body}"
       case response.code.to_i
       when 200
         if url_suffix =~ /json/
@@ -121,13 +124,13 @@ module JenkinsApi
           return response
         end
       when 401
-        raise Exceptions::UnautherizedException.new("HTTP Code: #{response.code.to_s}, Response Body: #{response.body}")
+        raise Exceptions::UnautherizedException.new(msg)
       when 404
-        raise Exceptions::NotFoundException.new("HTTP Code: #{response.code.to_s}, Response Body: #{response.body}")
+        raise Exceptions::NotFoundException.new(msg)
       when 500
-        raise Exceptions::InternelServerErrorException.new("HTTP Code: #{response.code.to_s}, Response Body: #{response.body}")
+        raise Exceptions::InternelServerErrorException.new(msg)
       else
-        raise Exceptions::ApiException.new("HTTP Code: #{response.code.to_s}, Response body: #{response.body}")
+        raise Exceptions::ApiException.new(msg)
       end
     end
 
@@ -142,15 +145,16 @@ module JenkinsApi
       request.basic_auth @username, @password
       request.content_type = 'application/json'
       response = http.request(request)
+      msg = "HTTP Code: #{resonse.code}, Response Body: #{response.body}"
       case response.code.to_i
       when 200, 302
         return response.code
       when 404
-        raise Exceptions::NotFoundException.new("HTTP Code: #{response.code.to_s}, Response Body: #{response.body}")
+        raise Exceptions::NotFoundException.new(msg)
       when 500
-        raise Exceptions::InternelServerErrorException.new("HTTP Code: #{response.code.to_s}, Response Body: #{response.body}")
+        raise Exceptions::InternelServerErrorException.new(msg)
       else
-        raise Exceptions::ApiException.new("HTTP Code: #{response.code.to_s}, Response body: #{response.body}")
+        raise Exceptions::ApiException.new(msg)
       end
     end
 
