@@ -100,10 +100,6 @@ describe JenkinsApi::Client::Job do
       valid_build_status.include?(build_status).should be_true
     end
 
-    it "Should list all running jobs" do
-      @client.job.list_running.class.should == Array
-    end
-
     it "Should build the specified job" do
       @client.job.get_current_build_status(@job_name).should_not == "running"
       response = @client.job.build(@job_name)

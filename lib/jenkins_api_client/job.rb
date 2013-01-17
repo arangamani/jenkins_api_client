@@ -412,22 +412,6 @@ module JenkinsApi
         @client.api_get_request("/job/#{job_name}")['nextBuildNumber'] - 1
       end
 
-      # This functions lists all jobs that are currently running on the
-      # Jenkins CI server. This method is deprecated.
-      # Please use list_by_status instead.
-      #
-      def list_running
-        puts "[WARN] list_running is deprecated. Please use list_by_status('running') instead."
-        xml_response = @client.api_get_request("", "tree=jobs[name,color]")
-        running_jobs = []
-        xml_response["jobs"].each do |job|
-          if color_to_status(job["color"]) == "running"
-            running_jobs << job["name"]
-          end
-        end
-        running_jobs
-      end
-
       # Build a job given the name of the job
       #
       # @param [String] job_name
