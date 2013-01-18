@@ -19,14 +19,22 @@ describe JenkinsApi::Client::Node do
       end
     end
 
-    it "Should be able to list all nodes" do
-      @client.node.list.class.should == Array
-    end
+    describe "InstanceMethods" do
 
-    it "Should be able to list all general attributes" do
-      node_attributes = JenkinsApi::Client::Node::GENERAL_ATTRIBUTES
-      node_attributes.each do |attr|
-        @client.node.method("get_#{attr}").call
+      describe "#list" do
+        it "Should be able to list all nodes" do
+          @client.node.list.class.should == Array
+        end
+      end
+
+    describe "#GeneralAttributes" do
+      general_attributes = JenkinsApi::Node::GENERAL_ATTRIBUTES
+      general_attributes.each do |attribute|
+        describe "#get_#{attributes}" do
+          it "should get the #{attribute} attribute" do
+              @client.node.method("get_#{attribute}").call
+          end
+        end
       end
     end
 
