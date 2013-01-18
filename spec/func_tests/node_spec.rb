@@ -27,30 +27,39 @@ describe JenkinsApi::Client::Node do
         end
       end
 
-    describe "#GeneralAttributes" do
-      general_attributes = JenkinsApi::Node::GENERAL_ATTRIBUTES
-      general_attributes.each do |attribute|
-        describe "#get_#{attributes}" do
-          it "should get the #{attribute} attribute" do
+      describe "GeneralAttributes" do
+        general_attributes = JenkinsApi::Client::Node::GENERAL_ATTRIBUTES
+        general_attributes.each do |attribute|
+          describe "#get_#{attribute}" do
+            it "should get the #{attribute} attribute" do
               @client.node.method("get_#{attribute}").call
+            end
           end
         end
       end
-    end
 
-    it "Should be able to list all node properties" do
-      node_properties = JenkinsApi::Client::Node::NODE_PROPERTIES
-      node_properties.each do |property|
-        @client.node.method("is_#{property}?").call(@node_name)
+      describe "NodeProperties" do
+        node_properties = JenkinsApi::Client::Node::NODE_PROPERTIES
+        node_properties.each do |property|
+          describe "is_#{property}" do
+            it "should get the #{property} property" do
+              @client.node.method("is_#{property}?").call(@node_name)
+            end
+          end
+        end
       end
-    end
 
-    it "Should be able to list all node attributes" do
-      node_attributes = JenkinsApi::Client::Node::NODE_ATTRIBUTES
-      node_attributes.each do |attr|
-        @client.node.method("get_node_#{attr}").call(@node_name)
+      describe "NodeAttributes" do
+        node_attributes = JenkinsApi::Client::Node::NODE_ATTRIBUTES
+        node_attributes.each do |attribute|
+          describe "get_node_#{attribute}" do
+            it "Should be able to list all node attributes" do
+              @client.node.method("get_node_#{attribute}").call(@node_name)
+            end
+          end
+        end
       end
+      
     end
-
   end
 end
