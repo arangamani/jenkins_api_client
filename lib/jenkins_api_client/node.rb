@@ -144,6 +144,11 @@ module JenkinsApi
         end
       end
 
+      # Changes the mode of a slave node in Jenkins
+      #
+      # @param [String] node_name name of the node to change mode for
+      # @param [String] mode mode to change to
+      #
       def change_mode(node_name, mode)
         mode = mode.upcase
         xml = get_config(node_name)
