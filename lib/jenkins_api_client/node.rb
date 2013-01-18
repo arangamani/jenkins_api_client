@@ -161,11 +161,20 @@ module JenkinsApi
         post_config(node_name, xml_modified)
       end
 
+      # Obtains the configuration of node from Jenkins server
+      #
+      # @param [String] node_name name of the node
+      #
       def get_config(node_name)
         node_name = "(master)" if node_name == "master"
         @client.get_config("/computer/#{node_name}/config.xml")
       end
 
+      # Posts the given config.xml to the Jenkins node
+      #
+      # @param [String] node_name name of the node
+      # @param [String] xml Config.xml of the node
+      #
       def post_config(node_name, xml)
         node_name = "(master)" if node_name == "master"
         @client.post_config("/computer/#{node_name}/config.xml", xml)
