@@ -1,2 +1,2 @@
 curl
-http://http://184.106.99.70:8080/git/notifyCommit?url=git://github.com/arangamani/jenkins_api_client.git[master]
+http://184.106.99.70:8080/git/notifyCommit?url=git://github.com/arangamani/jenkins_api_client.git&brancher=master
