@@ -43,7 +43,10 @@ module JenkinsApi
       # @param [String] view_name
       #
       def create(view_name)
-        @client.api_post_request("/createView?name=#{view_name}&mode=hudson.model.ListView&json={\"name\":\"#{view_name}\",\"mode\":\"hudson.model.ListView\"}")
+        post_msg = "/createView?name=#{view_name}&"
+        post_msg << "mode=hudson.model.ListView&json={\"name\":\"#{view_name}}"
+        post_msg << "\",\"mode\":\"hudson.model.ListView\"}"
+        @client.api_post_request(post_msg)
       end
 
       # Delete a view
@@ -86,7 +89,8 @@ module JenkinsApi
       #
       def list_jobs(view_name)
         job_names = []
-        raise "The view #{view_name} doesn't exists on the server" unless exists?(view_name)
+        raise "The view #{view_name} doesn't exists on the server"\
+          unless exists?(view_name)
         response_json = @client.api_get_request("/view/#{view_name}")
         response_json["jobs"].each do |job|
           job_names << job["name"]
@@ -100,7 +104,8 @@ module JenkinsApi
       # @param [String] job_name
       #
       def add_job(view_name, job_name)
-        @client.api_post_request("/view/#{view_name}/addJobToView?name=#{job_name}")
+        post_msg = "/view/#{view_name}/addJobToView?name=#{job_name}"
+        @client.api_post_request(post_msg)
       end
 
       # Remove a job from view
@@ -109,7 +114,8 @@ module JenkinsApi
       # @param [String] job_name
       #
       def remove_job(view_name, job_name)
-        @client.api_post_request("/view/#{view_name}/removeJobFromView?name=#{job_name}")
+        post_msg = "/view/#{view_name}/removeJobFromView?name=#{job_name}"
+        @client.api_post_request(post_msg)
       end
 
       # Obtain the configuration stored in config.xml of a specific view
