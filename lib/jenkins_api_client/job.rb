@@ -82,7 +82,7 @@ module JenkinsApi
         params[:concurrent_build] = false if params[:concurrent_build].nil?
 
         # SCM configurations and Error handling.
-        unless supported_scm.include?(params[:scm_provider]) || \
+        unless supported_scm.include?(params[:scm_provider]) ||
           params[:scm_provider].nil?
           raise "SCM #{params[:scm_provider]} is currently not supported"
         end
@@ -225,8 +225,9 @@ module JenkinsApi
         is_building = @client.api_get_request(
           "/job/#{job_name}/#{build_number}"
         )["building"]
-        @client.api_post_request("/job/#{job_name}/#{build_number}/stop") \
-          if is_building
+        if is_building
+          @client.api_post_request("/job/#{job_name}/#{build_number}/stop")
+        end
       end
 
       # Re-create the same job
@@ -308,8 +309,8 @@ module JenkinsApi
         xml_response = @client.api_get_request("", "tree=jobs[name,color]")
         filtered_jobs = []
         xml_response["jobs"].each do |job|
-          if color_to_status(job["color"]) == status && \
-            jobs.include?(job["name"])
+          if color_to_status(job["color"]) == status &&
+             jobs.include?(job["name"])
             filtered_jobs << job["name"]
           end
         end
@@ -560,32 +561,48 @@ module JenkinsApi
               param_hash[:type] = 'password' if param.name =~ /password/i
               param.children.each do |value|
                 param_hash[:name] = value.content if value.name == "name"
-                param_hash[:description] = value.content if value.name == "description"
-                param_hash[:default] = value.content if value.name == "defaultValue"
+                if value.name == "description"
+                  param_hash[:description = value.content]
+                end
+                if value.name == "defaultValue"
+                  param_hash[:default] = value.content
+                end
               end
             when "hudson.model.RunParameterDefinition"
               param_hash[:type] = 'run'
               param.children.each do |value|
                 param_hash[:name] = value.content if value.name == "name"
-                param_hash[:description] = value.content if value.name == "description"
-                param_hash[:project] = value.content if value.name == "projectName"
+                if value.name == "description"
+                  param_hash[:description] = value.content
+                end
+                if value.name == "projectName"
+                  param_hash[:project] = value.content
+                end
               end
             when "hudson.model.FileParameterDefinition"
               param_hash[:type] = 'file'
               param.children.each do |value|
                 param_hash[:name] = value.content if value.name == "name"
-                param_hash[:description] = value.content if value.name == "description"
+                param_hash[:description] = value.content \
+                  if value.name == "description"
               end
             when "hudson.scm.listtagsparameter.ListSubversionTagsParameterDefinition"
               param_hash[:type] = 'list_tags'
               param.children.each do |value|
-                param_hash[:name] = value.content if value.name == "name"
-                param_hash[:description] = value.content if value.name == "description"
-                param_hash[:tags_dir] = value.content if value.name == "tagsDir"
-                param_hash[:tags_filter] = value.content if value.name == "tagsFilter"
-                param_hash[:reverse_by_date] = value.content if value.name == "reverseByDate"
-                param_hash[:reverse_by_name] = value.content if value.name == "reverseByName"
-                param_hash[:default] = value.content if value.name == "defaultValue"
+                param_hash[:name] = value.content \
+                  if value.name == "name"
+                param_hash[:description] = value.content \
+                  if value.name == "description"
+                param_hash[:tags_dir] = value.content \
+                  if value.name == "tagsDir"
+                param_hash[:tags_filter] = value.content \
+                  if value.name == "tagsFilter"
+                param_hash[:reverse_by_date] = value.content \
+                  if value.name == "reverseByDate"
+                param_hash[:reverse_by_name] = value.content \
+                  if value.name == "reverseByName"
+                param_hash[:default] = value.content \
+                  if value.name == "defaultValue"
                 param_hash[:max_tags] = value.content if value.name == "maxTags"
                 param_hash[:uuid] = value.content if value.name == "uuid"
               end
@@ -593,13 +610,15 @@ module JenkinsApi
               param_hash[:type] = 'choice'
               param.children.each do |value|
                 param_hash[:name] = value.content if value.name == "name"
-                param_hash[:description] = value.content if value.name == "description"
+                param_hash[:description] = value.content \
+                  if value.name == "description"
                 choices = []
                 if value.name == "choices"
                   value.children.each do |value_child|
                     if value_child.name == "a"
                       value_child.children.each do |choice_child|
-                        choices << choice_child.content.strip unless choice_child.content.strip.empty?
+                        choices << choice_child.content.strip \
+                          unless choice_child.content.strip.empty?
                       end
                     end
                   end
@@ -644,8 +663,10 @@ module JenkinsApi
       # @param [String] threshold - failure, success, or unstable
       # @param [Bool] overwrite - true or false
       #
-      def add_downstream_projects(job_name, downstream_projects, threshold, overwrite = false)
-        name, ordinal, color = get_threshold_params(threshold)
+      def add_downstream_projects(job_name,
+                                  downstream_projects,
+                                  threshold, overwrite = false)
+        name, ord, col = get_threshold_params(threshold)
         xml = get_config(job_name)
         n_xml = Nokogiri::XML(xml)
         child_projects_node = n_xml.xpath("//childProjects").first
@@ -653,14 +674,23 @@ module JenkinsApi
           if overwrite
             child_projects_node.content = "#{downstream_projects}"
           else
-            child_projects_node.content = child_projects_node.content + ", #{downstream_projects}"
+            child_projects_node.content = child_projects_node.content
+            child_projects_node.content << ", #{downstream_projects}"
           end
         else
           publisher_node = n_xml.xpath("//publishers").first
-          build_trigger_node = publisher_node.add_child("<hudson.tasks.BuildTrigger/>")
-          child_project_node = build_trigger_node.first.add_child("<childProjects>#{downstream_projects}</childProjects>")
-          threshold_node = child_project_node.first.add_next_sibling("<threshold/>")
-          threshold_node.first.add_child("<name>#{name}</name><ordinal>#{ordinal}</ordinal><color>#{color}</color>")
+          build_trigger_node = publisher_node.add_child(
+            "<hudson.tasks.BuildTrigger/>"
+          )
+          child_project_node = build_trigger_node.first.add_child(
+            "<childProjects>#{downstream_projects}</childProjects>"
+          )
+          threshold_node = child_project_node.first.add_next_sibling(
+            "<threshold/>"
+          )
+          threshold_node.first.add_child(
+            "<name>#{name}</name><ordinal>#{ord}</ordinal><color>#{col}</color>"
+          )
         end
         xml_modified = n_xml.to_xml
         post_config(job_name, xml_modified)
@@ -709,7 +739,9 @@ module JenkinsApi
           node.content = node_name
         else
           project = n_xml.xpath("//scm").first
-          child_node = project.add_next_sibling("<assignedNode>#{node_name}</assignedNode>")
+          child_node = project.add_next_sibling(
+            "<assignedNode>#{node_name}</assignedNode>"
+          )
           roam_node = n_xml.xpath("//canRoam").first
           roam_node.content = "false"
         end
@@ -723,7 +755,8 @@ module JenkinsApi
       #
       def unchain(job_names)
         job_names.each { |job|
-          puts "[INFO] Removing downstream projects for <#{job}>" if @client.debug
+          puts "[INFO] Removing downstream projects for <#{job}>" \
+            if @client.debug
           remove_downstream_projects(job)
         }
       end
@@ -744,17 +777,26 @@ module JenkinsApi
         if criteria.include?("all") || criteria.empty?
           filtered_job_names = job_names
         else
-          puts "[INFO] Criteria is specified. Filtering jobs..." if @client.debug
+          puts "[INFO] Criteria is specified. Filtering jobs..." \
+            if @client.debug
           job_names.each do |job|
-            filtered_job_names << job if criteria.include?(@client.job.get_current_build_status(job))
+            filtered_job_names << job if criteria.include?(
+              @client.job.get_current_build_status(job)
+            )
           end
         end
         filtered_job_names.each_with_index do |job_name, index|
           break if index >= (filtered_job_names.length - parallel)
-          puts "[INFO] Adding <#{filtered_job_names[index+1]}> as a downstream project to <#{job_name}> with <#{threshold}> as the threshold" if @client.debug
-          @client.job.add_downstream_projects(job_name, filtered_job_names[index + parallel], threshold, true)
+          msg = "[INFO] Adding <#{filtered_job_names[index+1]}> as a"
+          msg << " downstream project to <#{job_name}> with <#{threshold}> as"
+          msg << " the threshold"
+          puts msg if @client.debug
+          @client.job.add_downstream_projects(
+            job_name, filtered_job_names[index + parallel], threshold, true
+          )
         end
-        parallel = filtered_job_names.length if parallel > filtered_job_names.length
+        parallel = filtered_job_names.length \
+          if parallel > filtered_job_names.length
         filtered_job_names[0..parallel-1]
       end
 
