@@ -102,7 +102,9 @@ module JenkinsApi
         node_names = []
         response_json = @client.api_get_request("/computer")
         response_json["computer"].each do |computer|
-          node_names << computer["displayName"] if computer["displayName"] =~ /#{filter}/i
+            if computer["displayName"] =~ /#{filter}/i
+              node_names << computer["displayName"]
+            end
         end
         node_names
       end
@@ -132,7 +134,8 @@ module JenkinsApi
       NODE_PROPERTIES.each do |meth_suffix|
         define_method("is_#{meth_suffix}?") do |node_name|
           response_json = @client.api_get_request("/computer")
-          response_json["computer"][index(node_name)]["#{meth_suffix}"] =~ /False/i ? false : true
+          resp = response_json["computer"][index(node_name)]["#{meth_suffix}"]
+          resp =~ /False/i ? false : true
         end
       end
 
