@@ -87,6 +87,8 @@ module JenkinsApi
       #
       # @param [String] view_name
       #
+      # @return [Array] job_names list of jobs in the specified view
+      #
       def list_jobs(view_name)
         job_names = []
         raise "The view #{view_name} doesn't exists on the server"\
