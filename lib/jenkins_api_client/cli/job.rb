@@ -31,7 +31,8 @@ module JenkinsApi
 
       desc "list", "List jobs"
       method_option :status, :aliases => "-t", :desc => "Status to filter"
-      method_option :filter, :aliases => "-f", :desc => "Regular expression to filter jobs"
+      method_option :filter, :aliases => "-f",
+        :desc => "Regular expression to filter jobs"
       def list
         @client = Helper.setup(parent_options)
         if options[:filter] && options[:status]
@@ -77,10 +78,12 @@ module JenkinsApi
       end
 
       desc "console JOB", "Print the progressive console output of a job"
-      method_option :sleep, :aliases => "-z", :desc => "Time to wait between querying the API for console output"
+      method_option :sleep, :aliases => "-z",
+        :desc => "Time to wait between querying the API for console output"
       def console(job)
         @client = Helper.setup(parent_options)
-        # If debug is enabled, disable it. It shouldn't interfere with console output.
+        # If debug is enabled, disable it. It shouldn't interfere
+        # with console output.
         debug_changed = false
         if @client.debug == true
           @client.debug = false

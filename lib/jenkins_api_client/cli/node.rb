@@ -28,9 +28,11 @@ module JenkinsApi
   module CLI
     class Node < Thor
       include Thor::Actions
+      include Terminal
 
       desc "list", "List all nodes"
-      method_option :filter, :aliases => "-f", :desc => "Regular expression to filter jobs"
+      method_option :filter, :aliases => "-f",
+        :desc => "Regular expression to filter jobs"
       def list
         @client = Helper.setup(parent_options)
         if options[:filter]
@@ -48,7 +50,7 @@ module JenkinsApi
         general_attributes.each do |attr|
           rows << [attr, @client.node.method("get_#{attr}").call]
         end
-        table = Terminal::Table.new :headings => ['Attribute', 'Value'], :rows => rows
+        table = Table.new :headings => ['Attribute', 'Value'], :rows => rows
         puts table
       end
 
@@ -60,7 +62,7 @@ module JenkinsApi
         node_attributes.each do |attr|
           rows << [attr, @client.node.method("get_node_#{attr}").call(node)]
         end
-        table = Terminal::Table.new :headings => ['Attribute', 'Value'], :rows => rows
+        table = Table.new :headings => ['Attribute', 'Value'], :rows => rows
         puts "Node: #{node}"
         puts table
       end
@@ -73,7 +75,7 @@ module JenkinsApi
         node_properties.each do |property|
           rows << [property, @client.node.method("is_#{property}?").call(node)]
         end
-        table = Terminal::Table.new :headings => ['Property', 'Value'], :rows => rows
+        table = Table.new :headings => ['Property', 'Value'], :rows => rows
         puts "Node: #{node}"
         puts table
       end

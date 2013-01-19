@@ -32,12 +32,16 @@ module JenkinsApi
 
     class Base < Thor
 
-      class_option :username,        :aliases => "-u", :desc => "Name of Jenkins user"
-      class_option :password,        :aliases => "-p", :desc => "Password of Jenkins user"
-      class_option :password_base64, :aliases => "-b", :desc => "Base 64 encoded password of Jenkins user"
-      class_option :server_ip,       :aliases => "-s", :desc => "Jenkins server IP address"
-      class_option :server_port,     :aliases => "-o", :desc => "Jenkins server port"
-      class_option :creds_file,      :aliases => "-c", :desc => "Credentials file for communicating with Jenkins server"
+      class_option :username, :aliases => "-u", :desc => "Name of Jenkins user"
+      class_option :password, :aliases => "-p",
+        :desc => "Password of Jenkins user"
+      class_option :password_base64, :aliases => "-b",
+        :desc => "Base 64 encoded password of Jenkins user"
+      class_option :server_ip, :aliases => "-s",
+        :desc => "Jenkins server IP address"
+      class_option :server_port, :aliases => "-o", :desc => "Jenkins port"
+      class_option :creds_file, :aliases => "-c",
+        :desc => "Credentials file for communicating with Jenkins server"
 
 
       map "-v" => :version
