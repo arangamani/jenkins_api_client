@@ -18,28 +18,37 @@ describe JenkinsApi::Client::System do
       end
     end
 
-    it "Should be able to quiet down a Jenkins server" do
-      @client.system.quiet_down.to_i.should == 302
-    end
+    describe "InstanceMethods" do
 
-    it "Should be able to cancel the quiet down a Jenkins server" do
-      @client.system.cancel_quiet_down.to_i.should == 302
-    end
+      describe "#quiet_down" do
+        it "Should be able to quiet down a Jenkins server" do
+          @client.system.quiet_down.to_i.should == 302
+        end
+      end
 
-    it "Should be able to restart a Jenkins server safely" do
-      @client.system.restart.to_i.should == 302
-    end
+      describe "#cancel_quiet_down" do
+        it "Should be able to cancel the quiet down a Jenkins server" do
+          @client.system.cancel_quiet_down.to_i.should == 302
+        end
+      end
 
-    it "Should be able to wait after a safe restart" do
-      @client.system.wait_for_ready.should == true
-    end
+      describe "#restart" do
+        it "Should be able to restart a Jenkins server safely" do
+          @client.system.restart.to_i.should == 302
+        end
 
-    it "Should be able to force restart a Jenkins server" do
-      @client.system.restart(true).to_i.should == 302
-    end
+        it "Should be able to wait after a safe restart" do
+          @client.system.wait_for_ready.should == true
+        end
 
-    it "Should be able to wait after a force restart" do
-      @client.system.wait_for_ready.should == true
+        it "Should be able to force restart a Jenkins server" do
+          @client.system.restart(true).to_i.should == 302
+        end
+
+        it "Should be able to wait after a force restart" do
+          @client.system.wait_for_ready.should == true
+        end
+      end
     end
 
   end
