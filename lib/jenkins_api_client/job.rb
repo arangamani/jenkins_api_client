@@ -562,7 +562,7 @@ module JenkinsApi
               param.children.each do |value|
                 param_hash[:name] = value.content if value.name == "name"
                 if value.name == "description"
-                  param_hash[:description = value.content]
+                  param_hash[:description] = value.content
                 end
                 if value.name == "defaultValue"
                   param_hash[:default] = value.content
@@ -627,9 +627,9 @@ module JenkinsApi
               end
             end
             params_array << param_hash unless param_hash.empty?
-         end
-       end
-       params_array
+          end
+        end
+        params_array
       end
 
       # Obtains the threshold params used by jenkins in the XML file
@@ -739,9 +739,7 @@ module JenkinsApi
           node.content = node_name
         else
           project = n_xml.xpath("//scm").first
-          child_node = project.add_next_sibling(
-            "<assignedNode>#{node_name}</assignedNode>"
-          )
+          project.add_next_sibling("<assignedNode>#{node_name}</assignedNode>")
           roam_node = n_xml.xpath("//canRoam").first
           roam_node.content = "false"
         end
@@ -755,8 +753,8 @@ module JenkinsApi
       #
       def unchain(job_names)
         job_names.each { |job|
-          puts "[INFO] Removing downstream projects for <#{job}>" \
-            if @client.debug
+          log_msg = "[INFO] Removing downstream projects for <#{job}>"
+          puts log_msg if @client.debug
           remove_downstream_projects(job)
         }
       end
