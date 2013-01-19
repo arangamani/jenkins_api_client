@@ -65,12 +65,6 @@ module JenkinsApi
         puts @client.job.get_current_build_status(job)
       end
 
-      desc "listrunning", "List running jobs"
-      def listrunning
-        @client =  Helper.setup(parent_options)
-        puts @client.job.list_running
-      end
-
       desc "delete JOB", "Delete the job"
       def delete(job)
         @client = Helper.setup(parent_options)
