@@ -810,7 +810,7 @@ module JenkinsApi
         if criteria.include?("all") || criteria.empty?
           filtered_job_names = job_names
         else
-          log_msg "[INFO] Criteria is specified. Filtering jobs..."
+          log_msg = "[INFO] Criteria is specified. Filtering jobs..."
           puts log_msg if @client.debug
           job_names.each do |job|
             filtered_job_names << job if criteria.include?(
