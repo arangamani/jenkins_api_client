@@ -62,3 +62,4 @@ describe JenkinsApi::Client::Node do
       
     end
   end
+end
