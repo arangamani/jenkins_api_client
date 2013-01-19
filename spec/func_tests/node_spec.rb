@@ -12,7 +12,9 @@ describe JenkinsApi::Client::Node do
       @creds_file = '~/.jenkins_api_client/spec.yml'
       @node_name = 'master'
       begin
-        @client = JenkinsApi::Client.new(YAML.load_file(File.expand_path(@creds_file, __FILE__)))
+        @client = JenkinsApi::Client.new(
+          YAML.load_file(File.expand_path(@creds_file, __FILE__))
+        )
       rescue Exception => e
         puts "WARNING: Credentials are not set properly."
         puts e.message
@@ -41,7 +43,7 @@ describe JenkinsApi::Client::Node do
       describe "NodeProperties" do
         node_properties = JenkinsApi::Client::Node::NODE_PROPERTIES
         node_properties.each do |property|
-          describe "is_#{property}" do
+          describe "#is_#{property}" do
             it "should get the #{property} property" do
               @client.node.method("is_#{property}?").call(@node_name)
             end
@@ -52,11 +54,37 @@ describe JenkinsApi::Client::Node do
       describe "NodeAttributes" do
         node_attributes = JenkinsApi::Client::Node::NODE_ATTRIBUTES
         node_attributes.each do |attribute|
-          describe "get_node_#{attribute}" do
+          describe "#get_node_#{attribute}" do
             it "Should be able to list all node attributes" do
               @client.node.method("get_node_#{attribute}").call(@node_name)
             end
           end
+        end
+      end
+
+      describe "#change_mode" do
+        it "changes the mode of the given slave to the given mode" do
+          @client.node.change_mode("slave", "exclusive").to_i.should == 200
+          @client.node.change_mode("slave", "normal").to_i.should == 200
+        end
+      end
+
+      describe "#get_config" do
+        it "obtaines the node config.xml from the server" do
+          expect(
+            lambda { @client.node.get_config("slave") }
+          ).not_to raise_error
+        end
+      end
+
+      describe "#post_config" do
+        it "posts the given config.xml to the jenkins server's node" do
+          expect(
+            lambda {
+              xml = @client.node.get_config("slave")
+              @client.node.post_config("slave", xml)
+            }
+          ).not_to raise_error
         end
       end
       

@@ -154,10 +154,8 @@ module JenkinsApi
         xml = get_config(node_name)
         n_xml = Nokogiri::XML(xml)
         desc = n_xml.xpath("//mode").first
-        puts "[DEBUG] Current mode is: #{desc.content}"
-        desc.content = "#{mode}"
+        desc.content = "#{mode.upcase}"
         xml_modified = n_xml.to_xml
-        puts xml_modified
         post_config(node_name, xml_modified)
       end
 
