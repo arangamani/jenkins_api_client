@@ -381,6 +381,8 @@ module JenkinsApi
       #
       # @param [String] color color given by the API for a job
       #
+      # @return [String] status status of the given job matching the color
+      #
       def color_to_status(color)
         case color
         when "blue"
@@ -406,6 +408,8 @@ module JenkinsApi
       #
       # @param [String] job_name
       #
+      # @return [String] status current status of the given job
+      #
       def get_current_build_status(job_name)
         response_json = @client.api_get_request("/job/#{job_name}")
         color_to_status(response_json["color"])
@@ -416,13 +420,17 @@ module JenkinsApi
       #
       # @param [String] job_name
       #
+      # @return [Number] build_unumber current build number of the given job
+      #
       def get_current_build_number(job_name)
-        @client.api_get_request("/job/#{job_name}")['nextBuildNumber'] - 1
+        @client.api_get_request("/job/#{job_name}")['nextBuildNumber'].to_i - 1
       end
 
       # Build a job given the name of the job
       #
       # @param [String] job_name
+      #
+      # @return [String] response_code return code from HTTP POST
       #
       def build(job_name)
         @client.api_post_request("/job/#{job_name}/build")
@@ -431,6 +439,8 @@ module JenkinsApi
       # Obtain the configuration stored in config.xml of a specific job
       #
       # @param [String] job_name
+      #
+      # @return [String] XML Config.xml of the job
       #
       def get_config(job_name)
         @client.get_config("/job/#{job_name}")
@@ -441,6 +451,8 @@ module JenkinsApi
       # @param [String] job_name
       # @param [String] xml
       #
+      # @return [String] response_code return code from HTTP POST
+      #
       def post_config(job_name, xml)
         @client.post_config("/job/#{job_name}/config.xml", xml)
       end
@@ -449,6 +461,8 @@ module JenkinsApi
       #
       # @param [String] job_name
       # @param [String] description
+      #
+      # @return [String] response_code return code from HTTP POST
       #
       def change_description(job_name, description)
         xml = get_config(job_name)
@@ -462,6 +476,8 @@ module JenkinsApi
       # Block the build of the job when downstream is building
       #
       # @param [String] job_name
+      #
+      # @return [String] response_code return code from HTTP POST
       #
       def block_build_when_downstream_building(job_name)
         xml = get_config(job_name)
@@ -478,6 +494,8 @@ module JenkinsApi
       #
       # @param [String] job_name
       #
+      # @return [String] response_code return code from HTTP POST
+      #
       def unblock_build_when_downstream_building(job_name)
         xml = get_config(job_name)
         n_xml = Nokogiri::XML(xml)
@@ -493,6 +511,8 @@ module JenkinsApi
       #
       # @param [String] job_name
       #
+      # @return [String] response_code return code from HTTP POST
+      #
       def block_build_when_upstream_building(job_name)
         xml = get_config(job_name)
         n_xml = Nokogiri::XML(xml)
@@ -507,6 +527,8 @@ module JenkinsApi
       # Unblock the build of the job when upstream is building
       #
       # @param [String] job_name
+      #
+      # @return [String] response_code return code from HTTP POST
       #
       def unblock_build_when_upstream_building(job_name)
         xml = get_config(job_name)
@@ -524,6 +546,8 @@ module JenkinsApi
       # @param [String] job_name
       # @param [Bool] option true or false
       #
+      # @return [String] response_code return code from HTTP POST
+      #
       def execute_concurrent_builds(job_name, option)
         xml = get_config(job_name)
         n_xml = Nokogiri::XML(xml)
@@ -540,7 +564,7 @@ module JenkinsApi
       #
       # @param [String] job_name
       #
-      # @return [Array] params_array
+      # @return [Array] params_array Array of parameters for the given job
       #
       def get_build_params(job_name)
         xml = get_config(job_name)
@@ -637,6 +661,8 @@ module JenkinsApi
       #
       # @param [String] threshold success, failure, or unstable
       #
+      # @return [String] status readable status matching the color
+      #
       def get_threshold_params(threshold)
         case threshold
         when 'success'
@@ -662,6 +688,8 @@ module JenkinsApi
       # @param [String] downstream_projects
       # @param [String] threshold - failure, success, or unstable
       # @param [Bool] overwrite - true or false
+      #
+      # @return [String] response_code return code from HTTP POST
       #
       def add_downstream_projects(job_name,
                                   downstream_projects,
@@ -700,6 +728,8 @@ module JenkinsApi
       #
       # @param [String] job_name
       #
+      # @return [String] response_code return code from HTTP POST
+      #
       def remove_downstream_projects(job_name)
         xml = get_config(job_name)
         n_xml = Nokogiri::XML(xml)
@@ -732,6 +762,8 @@ module JenkinsApi
       # @param [String] job_name
       # @param [String] node_name
       #
+      # @return [String] response_code return code from HTTP POST
+      #
       def restrict_to_node(job_name, node_name)
         xml = get_config(job_name)
         n_xml = Nokogiri::XML(xml)
@@ -752,11 +784,11 @@ module JenkinsApi
       # @param [Array] job_names Array of job names to be unchained
       #
       def unchain(job_names)
-        job_names.each { |job|
+        job_names.each do |job|
           log_msg = "[INFO] Removing downstream projects for <#{job}>"
           puts log_msg if @client.debug
           remove_downstream_projects(job)
-        }
+        end
       end
 
       # Chain the jobs given based on specified criteria
@@ -768,21 +800,25 @@ module JenkinsApi
       # @param [Integer] parallel Number of jobs that should be considered
       #                  for parallel run
       #
+      # @return [Array] job_names Names of jobs that are in the top of the
+      #                 chain
       def chain(job_names, threshold, criteria, parallel = 1)
         raise "Parallel jobs should be at least 1" if parallel < 1
         unchain(job_names)
+
         filtered_job_names = []
         if criteria.include?("all") || criteria.empty?
           filtered_job_names = job_names
         else
-          puts "[INFO] Criteria is specified. Filtering jobs..." \
-            if @client.debug
+          log_msg "[INFO] Criteria is specified. Filtering jobs..."
+          puts log_msg if @client.debug
           job_names.each do |job|
             filtered_job_names << job if criteria.include?(
               @client.job.get_current_build_status(job)
             )
           end
         end
+
         filtered_job_names.each_with_index do |job_name, index|
           break if index >= (filtered_job_names.length - parallel)
           msg = "[INFO] Adding <#{filtered_job_names[index+1]}> as a"
@@ -793,8 +829,9 @@ module JenkinsApi
             job_name, filtered_job_names[index + parallel], threshold, true
           )
         end
-        parallel = filtered_job_names.length \
-          if parallel > filtered_job_names.length
+        if parallel > filtered_job_names.length
+          parallel = filtered_job_names.length
+        end
         filtered_job_names[0..parallel-1]
       end
 
