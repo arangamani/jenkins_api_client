@@ -82,7 +82,8 @@ module JenkinsApi
         params[:concurrent_build] = false if params[:concurrent_build].nil?
 
         # SCM configurations and Error handling.
-        unless supported_scm.include?(params[:scm_provider]) || params[:scm_provider].nil?
+        unless supported_scm.include?(params[:scm_provider]) || \
+          params[:scm_provider].nil?
           raise "SCM #{params[:scm_provider]} is currently not supported"
         end
         if params[:scm_url].nil? && !params[:scm_provider].nil?
@@ -221,8 +222,11 @@ module JenkinsApi
         build_number = get_current_build_number(job_name) if build_number == 0
         raise "No builds for #{job_name}" unless build_number
         # Check and see if the build is running
-        is_building = @client.api_get_request("/job/#{job_name}/#{build_number}")["building"]
-        @client.api_post_request("/job/#{job_name}/#{build_number}/stop") if is_building
+        is_building = @client.api_get_request(
+          "/job/#{job_name}/#{build_number}"
+        )["building"]
+        @client.api_post_request("/job/#{job_name}/#{build_number}/stop") \
+          if is_building
       end
 
       # Re-create the same job
@@ -264,7 +268,9 @@ module JenkinsApi
         else
           raise "Mode should either be 'text' or 'html'. You gave: #{mode}"
         end
-        api_response = @client.api_get_request("/job/#{job_name}/#{build_num}/logText/progressive#{mode}?start=#{start}", nil, nil)
+        get_msg = "/job/#{job_name}/#{build_num}/logText/progressice#{mode}?"
+        get_msg << "start=#{start}"
+        api_response = @client.api_get_request(get_msg, nil, nil)
         #puts "Response: #{api_response.header['x-more-data']}"
         response = {}
         response['output'] = api_response.body
@@ -302,7 +308,8 @@ module JenkinsApi
         xml_response = @client.api_get_request("", "tree=jobs[name,color]")
         filtered_jobs = []
         xml_response["jobs"].each do |job|
-          if color_to_status(job["color"]) == status && jobs.include?(job["name"])
+          if color_to_status(job["color"]) == status && \
+            jobs.include?(job["name"])
             filtered_jobs << job["name"]
           end
         end
