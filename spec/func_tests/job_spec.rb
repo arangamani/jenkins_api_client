@@ -15,7 +15,9 @@ describe JenkinsApi::Client::Job do
       @filter = "^#{@job_name_prefix}.*"
       @job_name = ''
       begin
-        @client = JenkinsApi::Client.new(YAML.load_file(File.expand_path(@creds_file, __FILE__)))
+        @client = JenkinsApi::Client.new(
+          YAML.load_file(File.expand_path(@creds_file, __FILE__))
+        )
       rescue Exception => e
         puts "WARNING: Credentials are not set properly."
         puts e.message
@@ -35,10 +37,23 @@ describe JenkinsApi::Client::Job do
 
     describe "InstanceMethods" do
 
+      describe "#initialize" do
+        it "Initializes without any exception" do
+          expect(
+            lambda { job = JenkinsApi::Client::Job.new(@client) }
+          ).not_to raise_error
+        end
+        it "Raises an error if a reference of client is not passed" do
+          expect(
+            lambda { job = JenkinsApi::Client::Job.new() }
+          ).to raise_error
+        end
+      end
+
       describe "#create" do
         it "Should be able to create a job" do
           xml = @helper.create_job_xml
-          @client.job.create("some_random_nonexistent_job", xml).to_i.should == 200
+          @client.job.create("qwerty_nonexistent_job", xml).to_i.should == 200
         end
       end
 
@@ -52,29 +67,31 @@ describe JenkinsApi::Client::Job do
         end
         it "Should be able to create a freestyle job with shell command" do
           params = {
-            :name => "test_job_name_using_params_shell",
+            :name => "test_job_using_params_shell",
             :shell_command => "echo this is a free style project"
           }
           @client.job.create_freestyle(params).to_i.should == 200
-          @client.job.delete("test_job_name_using_params_shell").to_i.should == 302
+          @client.job.delete("test_job_using_params_shell").to_i.should == 302
         end
       end
 
       describe "#recreate" do
         it "Should be able to re-create a job" do
-          @client.job.recreate("some_random_nonexistent_job").to_i.should == 200
+          @client.job.recreate("qwerty_nonexistent_job").to_i.should == 200
         end
       end
 
       describe "#change_description" do
         it "Should be able to change the description of a job" do
-          @client.job.change_description("some_random_nonexistent_job", "The description has been changed by the spec test").to_i.should == 200
+          @client.job.change_description("qwerty_nonexistent_job",
+            "The description has been changed by the spec test"
+          ).to_i.should == 200
         end
       end
 
       describe "#delete" do
         it "Should be able to delete a job" do
-          @client.job.delete("some_random_nonexistent_job").to_i.should == 302
+          @client.job.delete("qwerty_nonexistent_job").to_i.should == 302
         end
       end
 
@@ -141,14 +158,21 @@ describe JenkinsApi::Client::Job do
         it "Should obtain the current build status for the specified job" do
           build_status = @client.job.get_current_build_status(@job_name)
           build_status.class.should == String
-          valid_build_status = ["not_run", "aborted", "success", "failure", "unstable", "running"]
+          valid_build_status = ["not_run",
+                                "aborted",
+                                "success",
+                                "failure",
+                                "unstable",
+                                "running"]
           valid_build_status.include?(build_status).should be_true
         end
       end
 
       describe "#build" do
         it "Should build the specified job" do
-          @client.job.get_current_build_status(@job_name).should_not == "running"
+          @client.job.get_current_build_status(
+            @job_name
+          ).should_not == "running"
           response = @client.job.build(@job_name)
           response.to_i.should == 302
           # Sleep for 6 seconds so we don't hit the Jenkins quiet period (5
@@ -164,7 +188,9 @@ describe JenkinsApi::Client::Job do
 
       describe "#stop" do
         it "Should be able to abort a recent build of a running job" do
-          @client.job.get_current_build_status(@job_name).should_not == "running"
+          @client.job.get_current_build_status(
+            @job_name
+          ).should_not == "running"
           @client.job.build(@job_name)
           sleep 6
           @client.job.get_current_build_status(@job_name).should == "running"
@@ -192,10 +218,12 @@ describe JenkinsApi::Client::Job do
           start_jobs.class.should == Array
           start_jobs.length.should == 1
         end
-        it "Should be able to chain jobs based on the specified criteria and parallel jobs" do
+        it "Should be able to chain jobs based on the specified criteria" do
           jobs = @client.job.list(@filter)
           jobs.class.should == Array
-          start_jobs = @client.job.chain(jobs, 'failure', ["not_run", "aborted", 'failure'], 3)
+          start_jobs = @client.job.chain(jobs,
+            'failure', ["not_run", "aborted", 'failure'], 3
+          )
           start_jobs.class.should == Array
           start_jobs.length.should == 3
         end
