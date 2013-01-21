@@ -104,6 +104,13 @@ describe JenkinsApi::Client::Job do
             lambda{ @client.job.create_freestyle(params) }
           ).to raise_error
         end
+        it "Should accept assigned node option" do
+          params = {
+            :name => "test_job_assigned_node",
+            :assigned_node => "master"
+          }
+          @client.job.create_freestyle(params).to_i.should == 200
+        end
         it "Should accept block_build_when_downstream_building option" do
           params = {
             :name => "test_job_block_build_when_downstream_building",
