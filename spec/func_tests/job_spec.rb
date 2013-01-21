@@ -51,7 +51,7 @@ describe JenkinsApi::Client::Job do
       end
 
       describe "#create" do
-        it "Should be able to create a job" do
+        it "Should be able to create a job by getting an xml" do
           xml = @helper.create_job_xml
           @client.job.create("qwerty_nonexistent_job", xml).to_i.should == 200
         end
@@ -72,6 +72,53 @@ describe JenkinsApi::Client::Job do
           }
           @client.job.create_freestyle(params).to_i.should == 200
           @client.job.delete("test_job_using_params_shell").to_i.should == 302
+        end
+        it "Should accept Git SCM provider" do
+          params = {
+            :name => "test_job_with_git_scm",
+            :scm_provider => "git",
+            :scm_url => "git://github.com./arangamani/jenkins_api_client.git",
+            :scm_branch => "master"
+          }
+          @client.job.create_freestyle(params).to_i.should == 200
+          @client.job.delete("test_job_with_git_scm").to_i.should == 302
+        end
+        it "Should accept subversion SCM provider" do
+          params = {
+            :name => "test_job_with_subversion_scm",
+            :scm_provider => "subversion",
+            :scm_url => "http://svn.freebsd.org/base/",
+            :scm_branch => "master"
+          }
+          @client.job.create_freestyle(params).to_i.should == 200
+          @client.job.delete("test_job_with_subversion_scm").to_i.should == 302
+        end
+        it "Should fail if unsupported SCM is specified" do
+          params = {
+            :name => "test_job_unsupported_scm",
+            :scm_provider => "non-existent",
+            :scm_url => "http://non-existent.com/non-existent.non",
+            :scm_branch => "master"
+          }
+          expect(
+            lambda{ @client.job.create_freestyle(params) }
+          ).to raise_error
+        end
+        it "Should accept block_build_when_downstreadm_building option" do
+          params = {
+            :name => "test_job_block_build_when_upstream_building",
+            :block_build_when_upstream_building => true,
+          }
+          @client.job.create_freestyle(params).to_i.should == 200
+          @client.job.delete(
+            "test_job_block_build_when_upstream_building"
+          ).to_i.should == 302
+        end
+        it "Should accept block_build_when_upstream_building option" do
+        end
+        it "Should accept concurrent_build option" do
+        end
+        it "Should accept child projects option" do
         end
       end
 
