@@ -5,3 +5,5 @@ script:
  - bundle install
  - rake unit_tests
  - rake func_tests
+ notification_email: kannan@rightscale.com
+ notification_email_for_every_unstable: true
