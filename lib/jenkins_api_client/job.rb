@@ -79,6 +79,14 @@ module JenkinsApi
           params[:block_build_when_upstream_building] = false
         end
         params[:concurrent_build] = false if params[:concurrent_build].nil?
+        if params[:notification_email]
+          if params[:notification_email_for_every_unstable_build].nil?
+            params[:notification_email_for_every_unstable] = false
+          end
+          if params[:notification_email_send_to_individuals].nil?
+            params[:notification_email_send_to_individuals] ||= false
+          end
+        end
 
         # SCM configurations and Error handling.
         unless supported_scm.include?(params[:scm_provider]) ||
@@ -165,8 +173,8 @@ module JenkinsApi
               xml.scm(:class => "hudson.scm.NullSCM")
             end
             # Restrict job to run in a specified node
-            if params[:assigned_node]
-              xml.assignedNode "#{params[:assigned_node]}"
+            if params[:restricted_node]
+              xml.assignedNode "#{params[:restricted_node]}"
               xml.canRoam "false"
             else
               xml.canRoam "true"
@@ -198,6 +206,15 @@ module JenkinsApi
                     xml.ordinal "#{ordinal}"
                     xml.color "#{color}"
                   }
+                }
+              end
+              if params[:notification_email]
+                xml.send("hudson.tasks.Mailer") {
+                  xml.recipients "#{params[:notification_email]}"
+                  xml.dontNotifyEveryUnstableBuild(
+                    "#{params[:notification_email_for_every_unstable]}")
+                  xml.sendToIndividuals(
+                    "#{params[:notification_email_send_to_individuals]}")
                 }
               end
             }
