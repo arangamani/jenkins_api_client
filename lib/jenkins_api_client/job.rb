@@ -164,7 +164,13 @@ module JenkinsApi
             else
               xml.scm(:class => "hudson.scm.NullSCM")
             end
-            xml.canRoam "true"
+            # Restrict job to run in a specified node
+            if params[:assigned_node]
+              xml.assignedNode "#{params[:assigned_node]}"
+              xml.canRoam "false"
+            else
+              xml.canRoam "true"
+            end
             xml.disabled "false"
             xml.blockBuildWhenDownstreamBuilding(
               "#{params[:block_build_when_downstream_building]}")
