@@ -57,15 +57,18 @@ module JenkinsApi
       #  * +:concurrent_build+ true or false
       #  * +:scm_provider+ type of source control system. Supported: Git, SVN
       #  * +:scm_url+ remote url for scm
+      #  * +:scm_module+ Module to download. Only for CVS.
       #  * +:scm_branch+ branch to use in scm. Uses master by default
+      #  * +:scm_tag+ tag to download from scm. Only for CVS.
+      #  * +:scm_use_head_if_tag_not_found+ Only for CVS.
       #  * +:shell_command+ command to execute in the shell
       #  * +:child_projects+ projects to add as downstream projects
       #  * +:child_threshold+ threshold for child projects.
       #      success, failure, or unstable. Default: failure.
       #
       def create_freestyle(params)
-        # TODO: Add support for all SCM providers supported by Jenkins
-        supported_scm = ['git', 'subversion']
+        # Supported SCM providers
+        supported_scm = ["git", "subversion", "cvs"]
 
         # Set default values for params that are not specified.
         raise 'Job name must be specified' unless params[:name]
@@ -99,6 +102,9 @@ module JenkinsApi
         if params[:scm_branch].nil? && !params[:scm_provider].nil?
           params[:scm_branch] = "master"
         end
+        if params[:scm_use_head_if_tag_not_found].nil?
+          params[:scm_use_head_if_tag_not_found] = false
+        end
 
         # Child projects configuration and Error handling
         if params[:child_threshold].nil? && !params[:child_projects].nil?
@@ -130,7 +136,28 @@ module JenkinsApi
                 xml.workspaceUpdater(:class =>
                                      "hudson.scm.subversion.UpdateUpdater")
               }
-            elsif params[:scm_provider] == 'git'
+            elsif params[:scm_provider] == "cvs"
+              xml.scm(:class => "hudson.scm.CVSSCM",
+                      :plugin => "cvs@1.6") {
+                xml.cvsroot "#{params[:scm_url]}"
+                xml.module "#{params[:scm_module]}"
+                if params[:scm_branch]
+                  xml.branch "#{params[:scm_branch]}"
+                else
+                  xml.branch "#{params[:scm_tag]}"
+                end
+                xml.canUseUpdate true
+                xml.useHeadIfNotFound(
+                  "#{params[:scm_use_head_if_tag_not_found]}")
+                xml.flatten true
+                if params[:scm_tag]
+                  xml.isTag true
+                else
+                  xml.isTag false
+                end
+                xml.excludedRegions
+              }
+            elsif params[:scm_provider] == "git"
               xml.scm(:class => "hudson.plugins.git.GitSCM") {
                 xml.configVersion "2"
                 xml.userRemoteConfigs {
