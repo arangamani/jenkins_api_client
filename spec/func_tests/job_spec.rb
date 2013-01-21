@@ -102,7 +102,7 @@ describe JenkinsApi::Client::Job do
             :scm_branch => "MAIN"
           }
           @client.job.create_freestyle(params).to_i.should == 200
-          #@client.job.delete("test_job_with_cvs_scm").to_i.should == 302
+          @client.job.delete("test_job_with_cvs_scm").to_i.should == 302
         end
         it "Should fail if unsupported SCM is specified" do
           params = {
