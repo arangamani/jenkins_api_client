@@ -184,7 +184,7 @@ module JenkinsApi
             xml.publishers {
               if params[:child_projects]
                 xml.send("hudson.tasks.BuildTrigger") {
-                  xml.childProjects"#{params[:child_projects]}"
+                  xml.childProjects "#{params[:child_projects]}"
                   threshold = params[:child_threshold]
                   name, ordinal, color = get_threshold_params(threshold)
                   xml.threshold {
