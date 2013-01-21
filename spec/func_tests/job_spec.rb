@@ -93,6 +93,17 @@ describe JenkinsApi::Client::Job do
           @client.job.create_freestyle(params).to_i.should == 200
           @client.job.delete("test_job_with_subversion_scm").to_i.should == 302
         end
+        it "Should accept CVS SCM provider" do
+          params = {
+            :name => "test_job_with_cvs_scm",
+            :scm_provider => "cvs",
+            :scm_url => "http://cvs.NetBSD.org",
+            :scm_module => "src",
+            :scm_branch => "MAIN"
+          }
+          @client.job.create_freestyle(params).to_i.should == 200
+          #@client.job.delete("test_job_with_cvs_scm").to_i.should == 302
+        end
         it "Should fail if unsupported SCM is specified" do
           params = {
             :name => "test_job_unsupported_scm",
