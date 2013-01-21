@@ -104,21 +104,42 @@ describe JenkinsApi::Client::Job do
             lambda{ @client.job.create_freestyle(params) }
           ).to raise_error
         end
-        it "Should accept block_build_when_downstreadm_building option" do
+        it "Should accept block_build_when_downstream_building option" do
+          params = {
+            :name => "test_job_block_build_when_downstream_building",
+            :block_build_when_downstream_building => true,
+          }
+          @client.job.create_freestyle(params).to_i.should == 200
+          @client.job.delete(
+            "test_job_block_build_when_downstream_building"
+          ).to_i.should == 302
+        end
+        it "Should accept block_build_when_upstream_building option" do
           params = {
             :name => "test_job_block_build_when_upstream_building",
-            :block_build_when_upstream_building => true,
+            :block_build_when_upstream_building => true
           }
           @client.job.create_freestyle(params).to_i.should == 200
           @client.job.delete(
             "test_job_block_build_when_upstream_building"
           ).to_i.should == 302
         end
-        it "Should accept block_build_when_upstream_building option" do
-        end
         it "Should accept concurrent_build option" do
+          params = {
+            :name => "test_job_concurrent_build",
+            :concurrent_build => true
+          }
+          @client.job.create_freestyle(params).to_i.should == 200
+          @client.job.delete("test_job_concurrent_build").to_i.should == 302
         end
         it "Should accept child projects option" do
+          params = {
+            :name => "test_job_child_projects",
+            :child_projects => @job_name,
+            :child_threshold => "success"
+          }
+          @client.job.create_freestyle(params).to_i.should == 200
+          @client.job.delete("test_job_child_projects").to_i.should == 302
         end
       end
 
