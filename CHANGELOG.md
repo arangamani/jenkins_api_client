@@ -1,6 +1,15 @@
 CHANGELOG
 =========
 
+upcoming
+--------
+* Fixed a bug where the ignorecase was never used in view list
+* Raise an error if the view doesnt exists while listing jobs
+* Added capability to change the mode of a node
+* Added support for giving node to restrict the job during creation
+* Added support for notification_email option when setting up a job
+* Added support for CVS provider in SCM
+
 v0.6.2  [13-JAN-2013]
 ---------------------
 * Fixed a bug where running job previously aborted was not recognized by the color
