@@ -110,6 +110,7 @@ describe JenkinsApi::Client::Job do
             :assigned_node => "master"
           }
           @client.job.create_freestyle(params).to_i.should == 200
+          @client.job.delete("test_job_assigned_node").to_i.should == 302
         end
         it "Should accept block_build_when_downstream_building option" do
           params = {
