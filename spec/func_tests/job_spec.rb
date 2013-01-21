@@ -104,13 +104,13 @@ describe JenkinsApi::Client::Job do
             lambda{ @client.job.create_freestyle(params) }
           ).to raise_error
         end
-        it "Should accept assigned node option" do
+        it "Should accept restricted_node option" do
           params = {
-            :name => "test_job_assigned_node",
-            :assigned_node => "master"
+            :name => "test_job_restricted_node",
+            :restricted_node => "master"
           }
           @client.job.create_freestyle(params).to_i.should == 200
-          @client.job.delete("test_job_assigned_node").to_i.should == 302
+          @client.job.delete("test_job_restricted_node").to_i.should == 302
         end
         it "Should accept block_build_when_downstream_building option" do
           params = {
@@ -148,6 +148,14 @@ describe JenkinsApi::Client::Job do
           }
           @client.job.create_freestyle(params).to_i.should == 200
           @client.job.delete("test_job_child_projects").to_i.should == 302
+        end
+        it "Should accept notification_email option" do
+          params = {
+            :name => "test_job_notification_email",
+            :notification_email => "kannan@testdomain.com"
+          }
+          @client.job.create_freestyle(params).to_i.should == 200
+          @client.job.delete("test_job_notification_email").to_i.should == 302
         end
       end
 
