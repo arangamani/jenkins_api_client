@@ -54,7 +54,8 @@ module JenkinsApi
 
       # Restarts the Jenkins server
       #
-      # @param [Bool] force whether to force restart or wait till all jobs are completed.
+      # @param [Bool] force whether to force restart or wait till all
+      #               jobs are completed.
       #
       def restart(force = false)
         if force
@@ -64,7 +65,8 @@ module JenkinsApi
         end
       end
 
-      # This method waits till the server becomes ready after a start or restart.
+      # This method waits till the server becomes ready after a start
+      # or restart.
       #
       def wait_for_ready
         Timeout::timeout(120) do
