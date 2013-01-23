@@ -751,8 +751,9 @@ module JenkinsApi
           if overwrite
             child_projects_node.content = "#{downstream_projects}"
           else
-            child_projects_node.content = child_projects_node.content
-            child_projects_node.content << ", #{downstream_projects}"
+            to_replace = child_projects_node.content +
+              ", #{downstream_projects}"
+            child_projects_node.content = to_replace
           end
         else
           publisher_node = n_xml.xpath("//publishers").first
