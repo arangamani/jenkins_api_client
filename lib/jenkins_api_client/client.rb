@@ -89,6 +89,12 @@ module JenkinsApi
       JenkinsApi::Client::View.new(self)
     end
 
+    # Creates an instance to the BuildQueue by passing a reference to self
+    #
+    def queue
+      JenkinsApi::Client::BuildQueue.new(self)
+    end
+
     # Returns a string representing the class name
     #
     def to_s

@@ -20,17 +20,26 @@
 # THE SOFTWARE.
 #
 
-require 'jenkins_api_client/version'
-require 'jenkins_api_client/exceptions'
-require 'jenkins_api_client/client'
-require 'jenkins_api_client/job'
-require 'jenkins_api_client/node'
-require 'jenkins_api_client/system'
-require 'jenkins_api_client/view'
-require 'jenkins_api_client/build_queue'
+module JenkinsApi
+  class Client
+    class BuildQueue
 
-require 'jenkins_api_client/cli/helper'
-require 'jenkins_api_client/cli/base'
-require 'jenkins_api_client/cli/job'
-require 'jenkins_api_client/cli/node'
-require 'jenkins_api_client/cli/system'
+      # Initializes a new BuildQueue object.
+      #
+      # @param [Object] client a reference to Client
+      #
+      def initialize(client)
+        @client = client
+      end
+
+      # Returns a string representation of BuildQueue class.
+      #
+      def to_s
+        "#<JenkinsApi::Client::BuildQueue>"
+      end
+
+    end
+  end
+end
+
+
