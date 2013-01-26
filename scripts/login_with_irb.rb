@@ -1,8 +1,9 @@
 # This script provides an easier way to login to Jenkins server API.
-# It logs you in with the credentials and server details you proided and then starts an IRB
-# session so you can interactively play with the API.
+# It logs you in with the credentials and server details you proided and then
+# starts an IRB session so you can interactively play with the API.
 
-require File.expand_path('../../lib/jenkins_api_client', __FILE__)
+$LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__) + "/../lib"))
+require 'jenkins_api_client'
 require 'yaml'
 require 'irb'
 
