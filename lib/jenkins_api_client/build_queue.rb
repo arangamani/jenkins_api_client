@@ -87,15 +87,32 @@ module JenkinsApi
       end
 
       def get_causes(task_name)
-
+        causes = nil
+        details = get_details(task_name)
+        unless details.empty?
+          causes = details["actions"]["causes"]
+        end
+        causes
       end
 
       def get_reason(task_name)
-
+        reason = nil
+        details = get_details(task_name)
+        unless details.empty?
+          reason = details["why"]
+        end
+        reason
       end
 
       def get_eta(task_name)
-
+        eta = nil
+        details = get_details(task_name)
+        unless details.empty?
+          eta = Time.now - Time.at(
+            details["buildableStartMilliseconds"].to_i/1000
+          ) if details["buildableStartMilliseconds"]
+        end
+        eta
       end
 
       def get_id(task_name)
