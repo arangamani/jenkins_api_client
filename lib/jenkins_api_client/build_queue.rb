@@ -134,15 +134,30 @@ module JenkinsApi
       end
 
       def is_buildable?(task_name)
-
+        buildable = nil
+        details = get_details(task_name)
+        unless details.empty?
+          buildable = details["buildable"] == "true" ? true : false
+        end
+        buildable
       end
 
       def is_blocked?(task_name)
-
+        blocked = nil
+        details = get_details(task_name)
+        unless details.empty?
+          blocked = details["blocked"] == "true" ? true : false
+        end
+        blocked
       end
 
       def is_stuck?(task_name)
-
+        stuck = nil
+        details = get_details(task_name)
+        unless details.empty?
+          stuck = details["stuck"] == "true" ? true : false
+        end
+        stuck
       end
 
     end
