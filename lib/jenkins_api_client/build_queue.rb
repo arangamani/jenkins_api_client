@@ -38,6 +38,26 @@ module JenkinsApi
         "#<JenkinsApi::Client::BuildQueue>"
       end
 
+      # Gives the number of jobs currently in the build queue
+      def size
+        response_json = @client.api_get_request("/queue")
+        response_json["items"].size
+      end
+
+      # Lists all tasks currently in the build queue
+      #
+      def list_tasks
+        response_json = @client.api_get_request("/queue")
+        puts response_json
+        tasks = []
+        unless response_json["items"].empty?
+          response_json["items"].each do |item|
+            tasks << item["task"]["name"]
+          end
+        end
+        tasks
+      end
+
     end
   end
 end
