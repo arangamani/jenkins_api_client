@@ -48,18 +48,31 @@ module JenkinsApi
       #
       def list_tasks
         response_json = @client.api_get_request("/queue")
-        puts response_json
         tasks = []
-        unless response_json["items"].empty?
-          response_json["items"].each do |item|
-            tasks << item["task"]["name"]
-          end
+        response_json["items"].each do |item|
+          tasks << item["task"]["name"]
         end
         tasks
+      end
+
+      def get_age(task_name)
+        age = nil
+        details = get_details(task_name)
+        unless details.empty?
+          age = Time.now - Time.at(details["inQueueSince"].to_i/1000)
+        end
+        age
+      end
+
+      def get_details(task_name)
+        response_json = @client.api_get_request("/queue")
+        details = {}
+        response_json["items"].each do |item|
+          details = item if item["task"]["name"]
+        end
+        details
       end
 
     end
   end
 end
-
-
