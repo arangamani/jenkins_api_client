@@ -86,6 +86,38 @@ module JenkinsApi
         details
       end
 
+      def get_causes(task_name)
+
+      end
+
+      def get_reason(task_name)
+
+      end
+
+      def is_stuck?(task_name)
+
+      end
+
+      def get_eta(task_name)
+
+      end
+
+      def get_id(task_name)
+
+      end
+
+      def is_buildable?(task_name)
+
+      end
+
+      def is_blocked?(task_name)
+
+      end
+
+      def get_params(task_name)
+
+      end
+
     end
   end
 end
