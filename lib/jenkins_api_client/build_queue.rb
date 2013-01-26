@@ -116,11 +116,21 @@ module JenkinsApi
       end
 
       def get_id(task_name)
-
+        id = nil
+        details = get_details(task_name)
+        unless details.empty?
+          id = details["id"]
+        end
+        id
       end
 
       def get_params(task_name)
-
+        params = nil
+        details = get_details(task_name)
+        unless details.empty?
+          params = details["params"]
+        end
+        params
       end
 
       def is_buildable?(task_name)
