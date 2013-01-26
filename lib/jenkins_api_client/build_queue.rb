@@ -39,6 +39,7 @@ module JenkinsApi
       end
 
       # Gives the number of jobs currently in the build queue
+      #
       def size
         response_json = @client.api_get_request("/queue")
         response_json["items"].size
@@ -55,6 +56,12 @@ module JenkinsApi
         tasks
       end
 
+      # Gets the time number of seconds the task is in the queue
+      #
+      # @param [String] task_name Name of the task/job
+      #
+      # @return [FixNum] age in seconds
+      #
       def get_age(task_name)
         age = nil
         details = get_details(task_name)
@@ -64,6 +71,12 @@ module JenkinsApi
         age
       end
 
+      # Obtains the detail Hash from the API response
+      #
+      # @param [String] task_name Name of the task/job
+      #
+      # @return [Hash] Queue details of the specified task/job
+      #
       def get_details(task_name)
         response_json = @client.api_get_request("/queue")
         details = {}
