@@ -94,15 +94,15 @@ module JenkinsApi
 
       end
 
-      def is_stuck?(task_name)
-
-      end
-
       def get_eta(task_name)
 
       end
 
       def get_id(task_name)
+
+      end
+
+      def get_params(task_name)
 
       end
 
@@ -114,7 +114,7 @@ module JenkinsApi
 
       end
 
-      def get_params(task_name)
+      def is_stuck?(task_name)
 
       end
 
