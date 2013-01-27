@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2012 Kannan Manickam <arangamani.kannan@gmail.com>
+# Copyright (c) 2013 Kannan Manickam <arangamani.kannan@gmail.com>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -108,9 +108,8 @@ module JenkinsApi
         eta = nil
         details = get_details(task_name)
         unless details.empty?
-          eta = Time.now - Time.at(
-            details["buildableStartMilliseconds"].to_i/1000
-          ) if details["buildableStartMilliseconds"]
+          matched = details["why"].match(/.*\(ETA:(.*)\)/)
+          eta = matched[1].strip unless matched.nil?
         end
         eta
       end
