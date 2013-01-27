@@ -23,6 +23,60 @@ describe JenkinsApi::Client::Node do
 
     describe "InstanceMethods" do
 
+      describe "#initialize" do
+        it "Initializes without any exception" do
+          expect(
+            lambda{ node = JenkinsApi::Client::Node.new(@client) }
+          ).not_to raise_error
+        end
+        it "Raises an error if a reference of client is not passed" do
+          expect(
+            lambda{ node JenkinsApi::Client::Node.new() }
+          ).to raise_error
+        end
+      end
+
+      describe "#create_dump_slave" do
+        it "accepts required params and creates the slave on jenkins" do
+          params = {
+            :name => "func_test_slave",
+            :slave_host => "10.10.10.10",
+            :private_key_file => "/root/.ssh/id_rsa"
+          }
+          @client.node.create_dump_slave(params).to_i.should == 302
+          @client.node.delete(params[:name]).to_i.should == 302
+        end
+        it "fails if the slave already exists in Jenkins" do
+          params = {
+            :name => "func_test_slave",
+            :slave_host => "10.10.10.10",
+            :private_key_file => "/root/.ssh/id_rsa"
+          }
+          @client.node.create_dump_slave(params).to_i.should == 302
+          expect(
+            lambda{ @client.node.create_dump_slave(params) }
+          ).to raise_error
+          @client.node.delete(params[:name]).to_i.should == 302
+        end
+      end
+
+      describe "#delete" do
+        it "deletes the node given the name" do
+          params = {
+            :name => "func_test_slave",
+            :slave_host => "10.10.10.10",
+            :private_key_file => "/root/.ssh/id_rsa"
+          }
+          @client.node.create_dump_slave(params).to_i.should == 302
+          @client.node.delete(params[:name]).to_i.should == 302
+        end
+        it "raises an error if the slave doesn't exist in Jenkins" do
+          expect(
+            lambda{ @client.node.delete("not_there") }
+          ).to raise_error
+        end
+      end
+
       describe "#list" do
         it "Should be able to list all nodes" do
           @client.node.list.class.should == Array
@@ -87,7 +141,7 @@ describe JenkinsApi::Client::Node do
           ).not_to raise_error
         end
       end
-      
+
     end
   end
 end
