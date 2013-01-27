@@ -47,7 +47,7 @@ module JenkinsApi
 
       # Lists all tasks currently in the build queue
       #
-      def list_tasks
+      def list
         response_json = @client.api_get_request("/queue")
         tasks = []
         response_json["items"].each do |item|
