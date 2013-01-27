@@ -89,11 +89,24 @@ module JenkinsApi
         @client = client
       end
 
+      # Gives the string representation of the Object
+      #
       def to_s
         "#<JenkinsApi::Client::Node>"
       end
 
       # Creates a new node with the specified parameters
+      #
+      # @param [Hash] params parameters for creating a dump slave
+      #  * +:name+ name of the slave
+      #  * +:description+ description of the new slave
+      #  * +:executors+ number of executors
+      #  * +:remote_fs+ Remote FS root
+      #  * +:labels+ comma separated list of labels
+      #  * +:mode+ mode of the slave: normal, exclusive
+      #  * +:slave_host+ Hostname/IP of the slave
+      #  * +:slave_port+ Slave port
+      #  * +:private_key_file+ Private key file of master
       #
       def create_dump_slave(params)
 
@@ -111,11 +124,13 @@ module JenkinsApi
           :executors => 2,
           :remote_fs => "/var/jenkins",
           :labels => params[:name],
-          :slave_port => 22
+          :slave_port => 22,
+          :mode => "normal"
         }
 
         params = default_params.merge(params)
         labels = params[:labels].split(/\s*,\s*/).join(" ")
+        mode = params[:mode].upcase
 
         post_params = {
           "name" => params[:name],
@@ -126,7 +141,7 @@ module JenkinsApi
             "numExecutors" => params[:executors],
             "remoteFS" => params[:remote_fs],
             "labelString" => labels,
-            "mode" => params[:mode],
+            "mode" => mode,
             "type" => "hudson.slaves.DumbSlave$DescriptorImpl",
             "retentionStrategy" => {
               "stapler-class" => "hudson.slaves.RetentionStrategy$Always"
@@ -148,6 +163,9 @@ module JenkinsApi
       end
 
       # Deletes the specified node
+      #
+      # @params [String] node_name Name of the node to delete
+      #
       def delete(node_name)
         if list.include?(node_name)
           @client.api_post_request("/computer/#{node_name}/doDelete")
