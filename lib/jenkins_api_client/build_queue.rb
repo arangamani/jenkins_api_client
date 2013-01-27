@@ -86,6 +86,12 @@ module JenkinsApi
         details
       end
 
+      # Obtains the causes from the build queue for the specified task
+      #
+      # @param [String] task_name
+      #
+      # @return [Array] causes for the task to be in queue
+      #
       def get_causes(task_name)
         causes = nil
         details = get_details(task_name)
@@ -95,6 +101,12 @@ module JenkinsApi
         causes
       end
 
+      # Obtains the reason why the task is in queue
+      #
+      # @param [String] task_name name of the task
+      #
+      # @return [String] reason for being in queue, nil if no task found
+      #
       def get_reason(task_name)
         reason = nil
         details = get_details(task_name)
@@ -104,6 +116,13 @@ module JenkinsApi
         reason
       end
 
+      # Obtains the ETA given by Jenkins if any
+      #
+      # @param[String] task_name name of the task
+      #
+      # @return [String] ETA for the task, nil if no task found or ETA is
+      #                  not available
+      #
       def get_eta(task_name)
         eta = nil
         details = get_details(task_name)
@@ -114,6 +133,12 @@ module JenkinsApi
         eta
       end
 
+      # Obtains the ID of the task from the queue
+      #
+      # @param [String] task_name name of the task
+      #
+      # @return [String] ID of the task, nil of no task is found
+      #
       def get_id(task_name)
         id = nil
         details = get_details(task_name)
@@ -123,6 +148,12 @@ module JenkinsApi
         id
       end
 
+      # Obtains the params from the build queue
+      #
+      # @param [String] task_name name of the task
+      #
+      # @return [String] params, nil if the no task is found
+      #
       def get_params(task_name)
         params = nil
         details = get_details(task_name)
@@ -132,6 +163,12 @@ module JenkinsApi
         params
       end
 
+      # Obtains whether the task is buildable
+      #
+      # @param [String] task_name name of the task
+      #
+      # @return [TrueClass|FalseClass] buildable or not
+      #
       def is_buildable?(task_name)
         buildable = nil
         details = get_details(task_name)
@@ -141,6 +178,12 @@ module JenkinsApi
         buildable
       end
 
+      # Obtains whether the task is blocked
+      #
+      # @param [String] task_name name of the task
+      #
+      # @return [TrueClass|FalseClass] blocked or not
+      #
       def is_blocked?(task_name)
         blocked = nil
         details = get_details(task_name)
@@ -150,6 +193,12 @@ module JenkinsApi
         blocked
       end
 
+      # Obtains whether the task is stuck
+      #
+      # @param [String] task_name name of the task
+      #
+      # @return [TrueClass|FalseClass] stuck or not
+      #
       def is_stuck?(task_name)
         stuck = nil
         details = get_details(task_name)
