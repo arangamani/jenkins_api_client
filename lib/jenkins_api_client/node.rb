@@ -101,7 +101,7 @@ module JenkinsApi
           raise "The specified slave '#{params[:name]}' already exists."
         end
 
-        unless params[:name] || params[:slave_host] || params[:private_key_file]
+        unless params[:name] && params[:slave_host] && params[:private_key_file]
           raise "Name, slave host, and private key file are required for" +
             " creating a slave."
         end
