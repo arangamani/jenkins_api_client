@@ -149,9 +149,9 @@ module JenkinsApi
 
       # Deletes the specified node
       def delete(node_name)
-        begin
+        if list.include?(node_name)
           @client.api_post_request("/computer/#{node_name}/doDelete")
-        rescue JenkinsApi::Exceptions::NotFoundException
+        else
           raise "The specified node '#{node_name}' doesn't exist in Jenkins."
         end
       end
