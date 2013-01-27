@@ -110,7 +110,7 @@ module JenkinsApi
           :description => "Automatically created through jenkins_api_client",
           :executors => 2,
           :remote_fs => "/var/jenkins",
-          :label => params[:name],
+          :labels => params[:name],
           :slave_port => 22
         }
 
@@ -152,7 +152,7 @@ module JenkinsApi
         begin
           @client.api_post_request("/computer/#{node_name}/doDelete")
         rescue JenkinsApi::Exceptions::NotFoundException
-          raise "The specified node '#{node_name}' doesn't exist in Jenkins"
+          raise "The specified node '#{node_name}' doesn't exist in Jenkins."
         end
       end
 
