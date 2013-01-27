@@ -93,6 +93,69 @@ module JenkinsApi
         "#<JenkinsApi::Client::Node>"
       end
 
+      # Creates a new node with the specified parameters
+      #
+      def create_dump_slave(params)
+
+        if list.include?(params[:name])
+          raise "The specified slave '#{params[:name]}' already exists."
+        end
+
+        unless params[:name] || params[:slave_host] || params[:private_key_file]
+          raise "Name, slave host, and private key file are required for" +
+            " creating a slave."
+        end
+
+        default_params = {
+          :description => "Automatically created through jenkins_api_client",
+          :executors => 2,
+          :remote_fs => "/var/jenkins",
+          :label => params[:name],
+          :slave_port => 22
+        }
+
+        params = default_params.merge(params)
+        labels = params[:labels].split(/\s*,\s*/).join(" ")
+
+        post_params = {
+          "name" => params[:name],
+          "type" => "hudson.slaves.DumbSlave$DescriptorImpl",
+          "json" => {
+            "name" => params[:name],
+            "nodeDescription" => params[:description],
+            "numExecutors" => params[:executors],
+            "remoteFS" => params[:remote_fs],
+            "labelString" => labels,
+            "mode" => params[:mode],
+            "type" => "hudson.slaves.DumbSlave$DescriptorImpl",
+            "retentionStrategy" => {
+              "stapler-class" => "hudson.slaves.RetentionStrategy$Always"
+            },
+            "nodeProperties" => {
+              "stapler-class-bag" => "true"
+            },
+            "launcher" => {
+              "stapler-class" => "hudson.plugins.sshslaves.SSHLauncher",
+              "host" => params[:slave_host],
+              "port" => params[:slave_port],
+              "username" => params[:slave_user],
+              "privatekey" => params[:private_key_file],
+            }
+          }.to_json
+        }
+
+        @client.api_post_request("/computer/doCreateItem", post_params)
+      end
+
+      # Deletes the specified node
+      def delete(node_name)
+        begin
+          @client.api_post_request("/computer/#{node_name}/doDelete")
+        rescue JenkinsApi::Exceptions::NotFoundException
+          raise "The specified node '#{node_name}' doesn't exist in Jenkins"
+        end
+      end
+
       # This method lists all nodes
       #
       # @param [String] filter a regex to filter node names

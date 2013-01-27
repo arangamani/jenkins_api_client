@@ -137,13 +137,15 @@ module JenkinsApi
     # Sends a POST message to the Jenkins CI server with the specified URL
     #
     # @param [String] url_prefix
+    # @param [Hash] form_data form data to send with POST request
     #
-    def api_post_request(url_prefix)
+    def api_post_request(url_prefix, form_data = nil)
       http = Net::HTTP.start(@server_ip, @server_port)
       request = Net::HTTP::Post.new("#{url_prefix}")
       puts "[INFO] PUT #{url_prefix}" if @debug
       request.basic_auth @username, @password
       request.content_type = 'application/json'
+      request.set_form_data(form_data) unless form_data.nil?
       response = http.request(request)
       msg = "HTTP Code: #{response.code}, Response Body: #{response.body}"
       case response.code.to_i
