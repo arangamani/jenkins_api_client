@@ -11,7 +11,9 @@ describe JenkinsApi::Client::Node do
         ]
       }
       computer_sample_xml_filename = '../fixtures/files/computer_sample.xml'
-      @sample_computer_xml = File.read(File.expand_path(computer_sample_xml_filename , __FILE__))
+      @sample_computer_xml = File.read(
+        File.expand_path(computer_sample_xml_filename , __FILE__)
+      )
     end
 
     describe "InstanceMethods" do
@@ -26,7 +28,11 @@ describe JenkinsApi::Client::Node do
 
       describe "#list" do
         it "accepts filter and lists all nodes matching the filter" do
-          @client.should_receive(:api_get_request).and_return(@sample_json_computer_response)
+          @client.should_receive(
+            :api_get_request
+          ).and_return(
+            @sample_json_computer_response
+          )
           @node.list("slave").class.should == Array
         end
       end
@@ -36,7 +42,11 @@ describe JenkinsApi::Client::Node do
         general_attributes.each do |attribute|
           describe "#get_#{attribute}" do
             it "should get the #{attribute} attribute" do
-              @client.should_receive(:api_get_request).and_return(@sample_json_computer_response)
+              @client.should_receive(
+                :api_get_request
+              ).and_return(
+                @sample_json_computer_response
+              )
               @node.method("get_#{attribute}").call
             end
           end
@@ -48,7 +58,11 @@ describe JenkinsApi::Client::Node do
         node_properties.each do |property|
           describe "#is_#{property}?" do
             it "should get the #{property} property" do
-              @client.should_receive(:api_get_request).twice.and_return(@sample_json_computer_response)
+              @client.should_receive(
+                :api_get_request
+              ).twice.and_return(
+                @sample_json_computer_response
+              )
               @node.method("is_#{property}?").call("slave")
             end
           end
@@ -60,7 +74,11 @@ describe JenkinsApi::Client::Node do
         node_attributes.each do |attribute|
           describe "#get_node_#{attribute}" do
             it "should get the #{attribute} node attribute" do
-              @client.should_receive(:api_get_request).twice.and_return(@sample_json_computer_response)
+              @client.should_receive(
+                :api_get_request
+              ).twice.and_return(
+                @sample_json_computer_response
+              )
               @node.method("get_node_#{attribute}").call("slave")
             end
           end
@@ -69,7 +87,13 @@ describe JenkinsApi::Client::Node do
 
       describe "#get_config" do
         it "accepts the node name and obtains the config xml from the server" do
-          @client.should_receive(:get_config).with("/computer/slave/config.xml").and_return(@sample_computer_xml)
+          @client.should_receive(
+            :get_config
+          ).with(
+            "/computer/slave/config.xml"
+          ).and_return(
+            @sample_computer_xml
+          )
           @node.get_config("slave")
         end
       end
