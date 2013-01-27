@@ -109,6 +109,18 @@ describe JenkinsApi::Client do
           client.system.class.should == JenkinsApi::Client::System
         end
       end
+
+      describe "#queue" do
+        it "Should return a Client::BuildQueue object" do
+          client = JenkinsApi::Client.new(
+            :server_ip => '127.0.0.1',
+            :server_port => 8080,
+            :username => 'username',
+            :password => 'password'
+          )
+          client.queue.class.should == JenkinsApi::Client::BuildQueue
+        end
+      end
     end
 
     describe "InstanceMethods" do
