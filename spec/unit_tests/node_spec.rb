@@ -42,9 +42,70 @@ describe JenkinsApi::Client::Node do
             :private_key_file => "/root/.ssh/id_rsa"
           )
         end
+        it "fails if name is not given" do
+          expect(
+            lambda{
+              @node.create_dump_slave(
+                :slave_host => "10.10.10.10",
+                :private_key_file => "/root/.ssh/id_rsa"
+              )
+            }
+          ).to raise_error
+        end
+        it "fails if slave_host is not given" do
+          expect(
+            lambda{
+              @node.create_dump_slave(
+                :name => "test_slave",
+                :private_key_file => "/root/.ssh/id_rsa"
+              )
+            }
+          ).to raise_error
+        end
+        it "fails if private_key_file is not given" do
+          expect(
+            lambda{
+              @node.create_dump_slave(
+                :name => "test_slave",
+                :slave_host => "10.10.10.10"
+              )
+            }
+          ).to raise_error
+        end
       end
 
       describe "#delete" do
+        it "gets the node name and deletes if exists" do
+          slave_name = "slave"
+          @client.should_receive(
+            :api_get_request
+          ).with(
+            "/computer"
+          ).and_return(
+            @sample_json_computer_response
+          )
+          @client.should_receive(
+            :api_post_request
+          ).with(
+            "/computer/#{slave_name}/doDelete"
+          ).and_return(
+            "302"
+          )
+          @node.delete(slave_name).to_i.should == 302
+        end
+        it "fails if the given node doesn't exist in Jenkins" do
+          slave_name = "not_there"
+          @client.should_receive(
+            :api_get_request
+          ).with(
+            "/computer"
+          ).and_return(
+            @sample_json_computer_response
+          )
+          expect(
+            lambda{ @node.delete(slave_name) }
+          ).to raise_error
+        end
       end
 
       describe "#list" do
