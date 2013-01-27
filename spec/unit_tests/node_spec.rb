@@ -26,6 +26,27 @@ describe JenkinsApi::Client::Node do
         end
       end
 
+      describe "#create_dump_slave" do
+        it "creates a dump slave by accepting required params" do
+          @client.should_receive(
+            :api_get_request
+          ).with(
+            "/computer"
+          ).and_return(
+            @sample_json_computer_response
+          )
+          @client.should_receive(:api_post_request).and_return("302")
+          @node.create_dump_slave(
+            :name => "test_slave",
+            :slave_host => "10.10.10.10",
+            :private_key_file => "/root/.ssh/id_rsa"
+          )
+        end
+      end
+
+      describe "#delete" do
+      end
+
       describe "#list" do
         it "accepts filter and lists all nodes matching the filter" do
           @client.should_receive(
