@@ -46,6 +46,33 @@ describe JenkinsApi::Client::Node do
           @client.node.create_dump_slave(params).to_i.should == 302
           @client.node.delete(params[:name]).to_i.should == 302
         end
+        it "fails if name is missing" do
+          params = {
+            :slave_host => "10.10.10.10",
+            :private_key_file => "/root/.ssh/id_rsa"
+          }
+          expect(
+            lambda{ @client.node.create_dump_slave(params) }
+          ).to raise_error
+        end
+        it "fails if slave_host is missing" do
+          params = {
+            :name => "func_test_slave",
+            :private_key_file => "/root/.ssh/id_rsa"
+          }
+          expect(
+            lambda{ @client.node.create_dump_slave(params) }
+          ).to raise_error
+        end
+        it "fails if private_key_file is missing" do
+          params = {
+            :name => "func_test_slave",
+            :slave_host => "10.10.10.10"
+          }
+          expect(
+            lambda{ @client.node.create_dump_slave(params) }
+          ).to raise_error
+        end
         it "fails if the slave already exists in Jenkins" do
           params = {
             :name => "func_test_slave",
