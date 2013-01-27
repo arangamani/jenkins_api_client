@@ -3,12 +3,18 @@ CHANGELOG
 
 upcoming
 --------
+
+v0.7.0  [27-JAN-2012]
+---------------------
 * Fixed a bug where the ignorecase was never used in view list
 * Raise an error if the view doesnt exists while listing jobs
 * Added capability to change the mode of a node
 * Added support for giving node to restrict the job during creation
 * Added support for notification_email option when setting up a job
 * Added support for CVS provider in SCM
+* Added `create_dump_slave` and `delete` methods in Node API
+* Added BuildQueue class which is accessible by `@client.queue` method
+* Improvements in all over the code for performance and error handling
 
 v0.6.2  [13-JAN-2013]
 ---------------------
