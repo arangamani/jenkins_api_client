@@ -89,8 +89,89 @@ module JenkinsApi
         @client = client
       end
 
+      # Gives the string representation of the Object
+      #
       def to_s
         "#<JenkinsApi::Client::Node>"
+      end
+
+      # Creates a new node with the specified parameters
+      #
+      # @param [Hash] params parameters for creating a dump slave
+      #  * +:name+ name of the slave
+      #  * +:description+ description of the new slave
+      #  * +:executors+ number of executors
+      #  * +:remote_fs+ Remote FS root
+      #  * +:labels+ comma separated list of labels
+      #  * +:mode+ mode of the slave: normal, exclusive
+      #  * +:slave_host+ Hostname/IP of the slave
+      #  * +:slave_port+ Slave port
+      #  * +:private_key_file+ Private key file of master
+      #
+      def create_dump_slave(params)
+
+        if list.include?(params[:name])
+          raise "The specified slave '#{params[:name]}' already exists."
+        end
+
+        unless params[:name] && params[:slave_host] && params[:private_key_file]
+          raise "Name, slave host, and private key file are required for" +
+            " creating a slave."
+        end
+
+        default_params = {
+          :description => "Automatically created through jenkins_api_client",
+          :executors => 2,
+          :remote_fs => "/var/jenkins",
+          :labels => params[:name],
+          :slave_port => 22,
+          :mode => "normal"
+        }
+
+        params = default_params.merge(params)
+        labels = params[:labels].split(/\s*,\s*/).join(" ")
+        mode = params[:mode].upcase
+
+        post_params = {
+          "name" => params[:name],
+          "type" => "hudson.slaves.DumbSlave$DescriptorImpl",
+          "json" => {
+            "name" => params[:name],
+            "nodeDescription" => params[:description],
+            "numExecutors" => params[:executors],
+            "remoteFS" => params[:remote_fs],
+            "labelString" => labels,
+            "mode" => mode,
+            "type" => "hudson.slaves.DumbSlave$DescriptorImpl",
+            "retentionStrategy" => {
+              "stapler-class" => "hudson.slaves.RetentionStrategy$Always"
+            },
+            "nodeProperties" => {
+              "stapler-class-bag" => "true"
+            },
+            "launcher" => {
+              "stapler-class" => "hudson.plugins.sshslaves.SSHLauncher",
+              "host" => params[:slave_host],
+              "port" => params[:slave_port],
+              "username" => params[:slave_user],
+              "privatekey" => params[:private_key_file],
+            }
+          }.to_json
+        }
+
+        @client.api_post_request("/computer/doCreateItem", post_params)
+      end
+
+      # Deletes the specified node
+      #
+      # @params [String] node_name Name of the node to delete
+      #
+      def delete(node_name)
+        if list.include?(node_name)
+          @client.api_post_request("/computer/#{node_name}/doDelete")
+        else
+          raise "The specified node '#{node_name}' doesn't exist in Jenkins."
+        end
       end
 
       # This method lists all nodes
