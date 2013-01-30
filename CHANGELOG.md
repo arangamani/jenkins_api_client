@@ -4,6 +4,10 @@ CHANGELOG
 upcoming
 --------
 
+v0.7.1  [30-JAN-2012]
+---------------------
+* Fixed a bug (Issue #23) to remove the usage of "\" in Job.
+
 v0.7.0  [27-JAN-2012]
 ---------------------
 * Fixed a bug where the ignorecase was never used in view list
