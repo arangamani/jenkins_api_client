@@ -4,11 +4,15 @@ CHANGELOG
 upcoming
 --------
 
-v0.7.1  [30-JAN-2012]
+v0.7.2  [02-FEB-2013]
+---------------------
+* Fixed a minor bug in `get_console_output` of Job.
+
+v0.7.1  [30-JAN-2013]
 ---------------------
 * Fixed a bug (Issue #23) to remove the usage of "\" in Job.
 
-v0.7.0  [27-JAN-2012]
+v0.7.0  [27-JAN-2013]
 ---------------------
 * Fixed a bug where the ignorecase was never used in view list
 * Raise an error if the view doesnt exists while listing jobs
