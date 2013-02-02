@@ -318,7 +318,7 @@ module JenkinsApi
         else
           raise "Mode should either be 'text' or 'html'. You gave: #{mode}"
         end
-        get_msg = "/job/#{job_name}/#{build_num}/logText/progressice#{mode}?"
+        get_msg = "/job/#{job_name}/#{build_num}/logText/progressive#{mode}?"
         get_msg << "start=#{start}"
         api_response = @client.api_get_request(get_msg, nil, nil)
         #puts "Response: #{api_response.header['x-more-data']}"
