@@ -77,7 +77,8 @@ The following example passes the YAML file contents. An example yaml file is loc
 <tt>config/login.yml.example</tt>.
 
 ```ruby
-@client = JenkinsApi::Client.new(YAML.Load_file(File.expand_path('~/.jenkins_api_client/login.yml', __FILE__)))
+@client = JenkinsApi::Client.new(YAML.Load_file(File.expand_path(
+  "~/.jenkins_api_client/login.yml", __FILE__)))
 # The following call lists all jobs
 puts @client.job.list_all
 ```
@@ -95,7 +96,8 @@ require 'jenkins_api_client'
 jobs_to_filter = "^test_job.*"
 
 # Create an instance to jenkins_api_client
-@client = JenkinsApi::Client.new(YAML.load_file(File.expand_path('~/.jenkins_api_client/login.yml', __FILE__)))
+@client = JenkinsApi::Client.new(YAML.load_file(File.expand_path(
+  "~/.jenkins_api_client/login.yml", __FILE__)))
 
 # Get a filtered list of jobs from the server
 jobs = @client.job.list(jobs_to_filter)
@@ -106,7 +108,8 @@ jobs = @client.job.list(jobs_to_filter)
 initial_jobs = @client.job.chain(jobs, 'success', ["all"])
 
 # Now that we have the initial job(s) we can build them
-# The build function returns a code from the API which should be 302 if the build was successful
+# The build function returns a code from the API which should be 302 if
+# the build was successful
 code = @client.job.build(initial_jobs[0])
 raise "Could not build the job specified" unless code == 302
 ```
@@ -137,10 +140,10 @@ with 'failure' as the threshold, and also chain three jobs in parallel.
 ```ruby
 initial_jobs = @client.job.chain(jobs, 'failure', ["failure", "unstable"], 3)
 # We will receive three jobs as a result and we can build them all
-initial_jobs.each { |job|
+initial_jobs.each do |job|
   code = @client.job.build(job)
   raise "Unable to build job: #{job}" unless code == 302
-}
+end
 ```
 
 ### Using with command line
@@ -168,6 +171,8 @@ If you would like to contribute to this project, just do the following:
 4. Review will be done and changes will be requested.
 5. Once changes are done or no changes are required, pull request will be merged.
 6. The next release will have your changes in it.
+
+Please take a look at the issues page if you want to get started.
 
 FEATURE REQUEST:
 ----------------
