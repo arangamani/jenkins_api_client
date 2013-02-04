@@ -285,7 +285,7 @@ module JenkinsApi
         is_building = @client.api_get_request(
           "/job/#{job_name}/#{build_number}"
         )["building"]
-        if is_building == "true"
+        if is_building
           @client.api_post_request("/job/#{job_name}/#{build_number}/stop")
         end
       end
