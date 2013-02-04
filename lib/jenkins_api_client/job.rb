@@ -66,6 +66,17 @@ module JenkinsApi
       #  * +:child_threshold+ threshold for child projects.
       #      success, failure, or unstable. Default: failure.
       #
+      # @example Create a Freestype Project
+      #   create_freestyle(
+      #     :name => "test_freestyle_job",
+      #     :keep_dependencies => true,
+      #     :concurrent_build => true,
+      #     :scm_provider => "git",
+      #     :scm_url => "git://github.com./arangamani/jenkins_api_client.git",
+      #     :scm_branch => "master",
+      #     :shell_command => "bundle install\n rake func_tests"
+      #   )
+      #
       def create_freestyle(params)
         # Supported SCM providers
         supported_scm = ["git", "subversion", "cvs"]
