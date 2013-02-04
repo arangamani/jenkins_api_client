@@ -164,7 +164,7 @@ module JenkinsApi
 
       # Deletes the specified node
       #
-      # @params [String] node_name Name of the node to delete
+      # @param [String] node_name Name of the node to delete
       #
       def delete(node_name)
         if list.include?(node_name)

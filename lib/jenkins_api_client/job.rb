@@ -304,7 +304,7 @@ module JenkinsApi
       # Get progressive console output from Jenkins server for a job
       #
       # @param [String] job_name Name of the Jenkins job
-      # @param [Number] build_number Specific build number to obtain the
+      # @param [Number] build_num Specific build number to obtain the
       #                 console output from. Default is the recent build
       # @param [Number] start start offset to get only a portion of the text
       # @param [String] mode Mode of text output. 'text' or 'html'
