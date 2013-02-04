@@ -120,15 +120,21 @@ module JenkinsApi
       #
       # @param[String] task_name name of the task
       #
-      # @return [String] ETA for the task, nil if no task found or ETA is
-      #                  not available
+      # @return [String] ETA for the task, nil if no task found and N/A for
+      #                  tasks with no ETA info.
       #
       def get_eta(task_name)
         eta = nil
         details = get_details(task_name)
         unless details.empty?
           matched = details["why"].match(/.*\(ETA:(.*)\)/)
-          eta = matched[1].strip unless matched.nil?
+          if matched.nil?
+            # Task is found, but ETA information is not available
+            eta = "N/A"
+          else
+            # ETA information is available
+            eta = matched[1].strip
+          end
         end
         eta
       end
