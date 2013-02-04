@@ -108,6 +108,15 @@ module JenkinsApi
       #  * +:slave_port+ Slave port
       #  * +:private_key_file+ Private key file of master
       #
+      # @example Create a Dump Slave
+      #   create_dump_slave(
+      #     :name => "slave1",
+      #     :slave_host => "10.10.10.10",
+      #     :private_key_file => "/root/.ssh/id_rsa",
+      #     :executors => 10,
+      #     :labels => "slave, ruby"
+      #   )
+      #
       def create_dump_slave(params)
 
         if list.include?(params[:name])
