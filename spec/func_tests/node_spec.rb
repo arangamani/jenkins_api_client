@@ -19,6 +19,12 @@ describe JenkinsApi::Client::Node do
         puts "WARNING: Credentials are not set properly."
         puts e.message
       end
+
+      @client.node.create_dump_slave(
+        :name => "slave",
+        :slave_host => "10.0.0.1",
+        :private_key_file => "/root/.ssh/id_rsa"
+      ) unless @client.node.list.include?("slave")
     end
 
     describe "InstanceMethods" do
@@ -169,6 +175,10 @@ describe JenkinsApi::Client::Node do
         end
       end
 
+    end
+
+    after(:all) do
+      @client.node.delete("slave")
     end
   end
 end
