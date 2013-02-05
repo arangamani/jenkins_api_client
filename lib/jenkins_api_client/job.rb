@@ -270,6 +270,15 @@ module JenkinsApi
         @client.api_post_request("/job/#{job_name}/doDelete")
       end
 
+      # Deletes all jobs from Jenkins
+      #
+      # @note This method will remove all jobs from Jenkins. Please use with
+      #       caution.
+      #
+      def delete_all!
+        list_all.each { |job| delete(job) }
+      end
+
       # Stops a running build of a job
       # This method will stop the current/most recent build if no build number
       # is specified. The build will be stopped only if it was
