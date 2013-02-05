@@ -4,6 +4,10 @@ CHANGELOG
 upcoming
 --------
 
+v0.7.3  [05-FEB-2013]
+---------------------
+* Fixed #27 with a bug in create_view including extra character in the end of the name
+
 v0.7.2  [02-FEB-2013]
 ---------------------
 * Fixed a minor bug in `get_console_output` of Job.
