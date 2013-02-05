@@ -183,6 +183,16 @@ module JenkinsApi
         end
       end
 
+      # Deletes all slaves from Jenkins. The master will be the only node alive
+      # after the exection of this call.
+      #
+      # @note This method will remove all slaves from Jenkins. Please use with
+      #       caution.
+      #
+      def delete_all!
+        list.each { |node| delete(node) unless node == "master" }
+      end
+
       # This method lists all nodes
       #
       # @param [String] filter a regex to filter node names
