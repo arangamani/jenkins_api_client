@@ -44,7 +44,7 @@ module JenkinsApi
       #
       def create(view_name)
         post_msg = "/createView?name=#{view_name}&"
-        post_msg << "mode=hudson.model.ListView&json={\"name\":\"#{view_name}}"
+        post_msg << "mode=hudson.model.ListView&json={\"name\":\"#{view_name}"
         post_msg << "\",\"mode\":\"hudson.model.ListView\"}"
         @client.api_post_request(post_msg)
       end
