@@ -57,6 +57,15 @@ module JenkinsApi
         @client.api_post_request("/view/#{view_name}/doDelete")
       end
 
+      # Deletes all views (except the All view) in Jenkins.
+      #
+      # @note This method deletes all views (except the All view) available
+      #       in Jenkins. Please use with caution.
+      #
+      def delete_all!
+        list.each { |view| delete(view) unless view == "All"}
+      end
+
       # This method lists all views
       #
       # @param [String] filter a regex to filter view names
