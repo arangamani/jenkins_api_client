@@ -12,6 +12,10 @@
 
 :server_port: 8080
 
+# If there is a web server routing your Jenkins requests you might need this
+
+:jenkins_path: ""
+
 # The username and password to authenticate to the server
 
 :username: my_username

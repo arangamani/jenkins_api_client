@@ -32,7 +32,7 @@ module JenkinsApi
   class Client
     attr_accessor :debug
     DEFAULT_SERVER_PORT = 8080
-    VALID_PARAMS = %w(server_ip server_port username password debug)
+    VALID_PARAMS = %w(server_ip server_port jenkins_path username password debug)
 
     # Initialize a Client object with Jenkins CI server credentials
     #
@@ -115,6 +115,7 @@ module JenkinsApi
     # @param [String] url_prefix
     #
     def api_get_request(url_prefix, tree = nil, url_suffix ="/api/json")
+      url_prefix = "#{@jenkins_path}#{url_prefix}"
       http = Net::HTTP.start(@server_ip, @server_port)
       request = Net::HTTP::Get.new("#{url_prefix}#{url_suffix}")
       puts "[INFO] GET #{url_prefix}#{url_suffix}" if @debug
@@ -146,6 +147,7 @@ module JenkinsApi
     # @param [Hash] form_data form data to send with POST request
     #
     def api_post_request(url_prefix, form_data = nil)
+      url_prefix = "#{@jenkins_path}#{url_prefix}"
       http = Net::HTTP.start(@server_ip, @server_port)
       request = Net::HTTP::Post.new("#{url_prefix}")
       puts "[INFO] PUT #{url_prefix}" if @debug

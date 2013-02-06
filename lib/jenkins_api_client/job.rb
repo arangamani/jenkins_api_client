@@ -42,7 +42,7 @@ module JenkinsApi
       # @param [XML] xml
       #
       def create(job_name, xml)
-        @client.post_config("/createItem?name=#{job_name}", xml)
+        @client.post_config("/createItem?name=#{encoded_job_name(job_name)}", xml)
       end
 
       # Create a job with params given as a hash instead of the xml
@@ -267,7 +267,7 @@ module JenkinsApi
       # @param [String] job_name
       #
       def delete(job_name)
-        @client.api_post_request("/job/#{job_name}/doDelete")
+        @client.api_post_request("/job/#{encoded_job_name(job_name)}/doDelete")
       end
 
       # Deletes all jobs from Jenkins
@@ -292,10 +292,10 @@ module JenkinsApi
         raise "No builds for #{job_name}" unless build_number
         # Check and see if the build is running
         is_building = @client.api_get_request(
-          "/job/#{job_name}/#{build_number}"
+          "/job/#{encoded_job_name(job_name)}/#{build_number}"
         )["building"]
         if is_building
-          @client.api_post_request("/job/#{job_name}/#{build_number}/stop")
+          @client.api_post_request("/job/#{encoded_job_name(job_name)}/#{build_number}/stop")
         end
       end
 
@@ -338,7 +338,7 @@ module JenkinsApi
         else
           raise "Mode should either be 'text' or 'html'. You gave: #{mode}"
         end
-        get_msg = "/job/#{job_name}/#{build_num}/logText/progressive#{mode}?"
+        get_msg = "/job/#{encoded_job_name(job_name)}/#{build_num}/logText/progressive#{mode}?"
         get_msg << "start=#{start}"
         api_response = @client.api_get_request(get_msg, nil, nil)
         #puts "Response: #{api_response.header['x-more-data']}"
@@ -416,7 +416,7 @@ module JenkinsApi
       # @param [String] job_name
       #
       def list_details(job_name)
-        @client.api_get_request("/job/#{job_name}")
+        @client.api_get_request("/job/#{encoded_job_name(job_name)}")
       end
 
       # List upstream projects of a specific job
@@ -424,7 +424,7 @@ module JenkinsApi
       # @param [String] job_name
       #
       def get_upstream_projects(job_name)
-        response_json = @client.api_get_request("/job/#{job_name}")
+        response_json = @client.api_get_request("/job/#{encoded_job_name(job_name)}")
         response_json["upstreamProjects"]
       end
 
@@ -433,7 +433,7 @@ module JenkinsApi
       # @param [String] job_name
       #
       def get_downstream_projects(job_name)
-        response_json = @client.api_get_request("/job/#{job_name}")
+        response_json = @client.api_get_request("/job/#{encoded_job_name(job_name)}")
         response_json["downstreamProjects"]
       end
 
@@ -442,7 +442,7 @@ module JenkinsApi
       # @param [String] job_name
       #
       def get_builds(job_name)
-        response_json = @client.api_get_request("/job/#{job_name}")
+        response_json = @client.api_get_request("/job/#{encoded_job_name(job_name)}")
         response_json["builds"]
       end
 
@@ -480,7 +480,7 @@ module JenkinsApi
       # @return [String] status current status of the given job
       #
       def get_current_build_status(job_name)
-        response_json = @client.api_get_request("/job/#{job_name}")
+        response_json = @client.api_get_request("/job/#{encoded_job_name(job_name)}")
         color_to_status(response_json["color"])
       end
 
@@ -492,7 +492,7 @@ module JenkinsApi
       # @return [Number] build_unumber current build number of the given job
       #
       def get_current_build_number(job_name)
-        @client.api_get_request("/job/#{job_name}")['nextBuildNumber'].to_i - 1
+        @client.api_get_request("/job/#{encoded_job_name(job_name)}")['nextBuildNumber'].to_i - 1
       end
 
       # Build a job given the name of the job
@@ -502,7 +502,7 @@ module JenkinsApi
       # @return [String] response_code return code from HTTP POST
       #
       def build(job_name)
-        @client.api_post_request("/job/#{job_name}/build")
+        @client.api_post_request("/job/#{encoded_job_name(job_name)}/build")
       end
 
       # Obtain the configuration stored in config.xml of a specific job
@@ -512,7 +512,7 @@ module JenkinsApi
       # @return [String] XML Config.xml of the job
       #
       def get_config(job_name)
-        @client.get_config("/job/#{job_name}")
+        @client.get_config("/job/#{encoded_job_name(job_name)}")
       end
 
       # Post the configuration of a job given the job name and the config.xml
@@ -523,7 +523,7 @@ module JenkinsApi
       # @return [String] response_code return code from HTTP POST
       #
       def post_config(job_name, xml)
-        @client.post_config("/job/#{job_name}/config.xml", xml)
+        @client.post_config("/job/#{encoded_job_name(job_name)}/config.xml", xml)
       end
 
       # Change the description of a specific job
@@ -911,6 +911,10 @@ module JenkinsApi
           parallel = filtered_job_names.length
         end
         filtered_job_names[0..parallel-1]
+      end
+
+      def encoded_job_name(job_name)
+        URI.escape(job_name)
       end
 
     end
