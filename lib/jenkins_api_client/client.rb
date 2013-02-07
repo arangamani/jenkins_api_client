@@ -117,9 +117,14 @@ module JenkinsApi
     def api_get_request(url_prefix, tree = nil, url_suffix ="/api/json")
       url_prefix = "#{@jenkins_path}#{url_prefix}"
       http = Net::HTTP.start(@server_ip, @server_port)
-      request = Net::HTTP::Get.new("#{url_prefix}#{url_suffix}")
-      puts "[INFO] GET #{url_prefix}#{url_suffix}" if @debug
-      request = Net::HTTP::Get.new("#{url_prefix}#{url_suffix}?#{tree}") if tree
+      to_get = ""
+      if tree
+        to_get = "#{url_prefix}#{url_suffix}?#{tree}"
+      else
+        to_get = "#{url_prefix}#{url_suffix}"
+      end
+      request = Net::HTTP::Get.new(to_get)
+      puts "[INFO] GET #{to_get}" if @debug
       request.basic_auth @username, @password
       response = http.request(request)
       msg = "HTTP Code: #{response.code}, Response Body: #{response.body}"
