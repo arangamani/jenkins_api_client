@@ -101,6 +101,37 @@ describe JenkinsApi::Client::Job do
           @client.should_receive(:post_config)
           @job.create_freestyle(params)
         end
+        it "accepts individual targets for skype notification" do
+          params = {
+            :name => "test_job_with_individual_skype_target",
+            :skype_targets => "testuser"
+          }
+          @client.should_receive(:post_config)
+          @job.create_freestyle(params)
+        end
+        it "accepts group targets for skype notification" do
+          params = {
+            :name => "test_job_with_group_skype_target",
+            :skype_targets => "*testgroup"
+          }
+          @client.should_receive(:post_config)
+          @job.create_freestyle(params)
+        end
+        it "accepts complex configuration for skype notifications" do
+          params = {
+            :name => "test_job_with_complex_skype_configuration",
+            :skype_targets => "testuser *testgroup anotheruser *anothergroup",
+            :skype_strategy => "failure_and_fixed",
+            :skype_notify_on_build_start => true,
+            :skype_notify_suspects => true,
+            :skype_notify_culprits => true,
+            :skype_notify_fixers => true,
+            :skype_notify_upstream_committers => false,
+            :skype_message => "summary_and_scm_changes"
+          }
+          @client.should_receive(:post_config)
+          @job.create_freestyle(params)
+        end
       end
 
       describe "#rename" do
