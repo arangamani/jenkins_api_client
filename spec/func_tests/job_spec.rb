@@ -168,7 +168,7 @@ describe JenkinsApi::Client::Job do
             :timer => "* * * * *"
           }
           @client.job.create_freestyle(params).to_i.should == 200
-          @client.job.delete("test_job_using_timer").to_i.should == 200
+          @client.job.delete("test_job_using_timer").to_i.should == 302
         end
         it "Should accept child projects option" do
           params = {
