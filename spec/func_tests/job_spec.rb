@@ -187,6 +187,43 @@ describe JenkinsApi::Client::Job do
           @client.job.create_freestyle(params).to_i.should == 200
           @client.job.delete("test_job_notification_email").to_i.should == 302
         end
+        it "Should accept notification for individual skype targets" do
+          params = {
+            :name => "test_job_with_individual_skype_targets",
+            :skype_targets => "testuser"
+          }
+          @client.job.create_freestyle(params).to_i.should == 200
+          @client.job.delete(
+            "test_job_with_individual_skype_targets"
+          ).to_i.should == 302
+        end
+        it "Should accept notification for group skype targets" do
+          params = {
+            :name => "test_job_with_group_skype_targets",
+            :skype_targets => "*testgroup"
+          }
+          @client.job.create_freestyle(params).to_i.should == 200
+          @client.job.delete(
+            "test_job_with_group_skype_targets"
+          ).to_i.should == 302
+        end
+        it "Should accept complex skype configuration" do
+          params = {
+            :name => "test_job_with_complex_skype_configuration",
+            :skype_targets => "testuser *testgroup anotheruser *anothergroup",
+            :skype_strategy => "failure_and_fixed",
+            :skype_notify_on_build_start => true,
+            :skype_notify_suspects => true,
+            :skype_notify_culprits => true,
+            :skype_notify_fixers => true,
+            :skype_notify_upstream_committers => false,
+            :skype_message => "summary_and_scm_changes"
+          }
+          @client.job.create_freestyle(params).to_i.should == 200
+          @client.job.delete(
+            "test_job_with_complex_skype_configuration"
+          ).to_i.should == 302
+        end
       end
 
       describe "#rename" do
