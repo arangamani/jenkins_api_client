@@ -264,6 +264,7 @@ module JenkinsApi
                     "#{params[:notification_email_send_to_individuals]}")
                 }
               end
+              skype_notification(params, xml) if params[:skype_targets]
             }
             xml.buildWrappers
           }
@@ -938,6 +939,70 @@ module JenkinsApi
 
       def encoded_job_name(job_name)
         URI.escape(job_name)
+      end
+
+      private
+
+      def skype_notification(params, xml)
+        params[:skype_strategy] = case params[:skype_strategy]
+        when "all"
+          "ALL"
+        when "failure"
+          "ANY_FAILURE"
+        when "failure_and_fixed"
+          "FAILURE_AND_FIXED"
+        when "change"
+          "STATECHANGE_ONLY"
+        else
+          "STATECHANGE_ONLY"
+        end
+
+        params[:skype_notify_on_build_start] = false if params[:skype_notify_on_build_start].nil?
+        params[:skype_notify_suspects] = false if params[:skype_notify_suspects].nil?
+        params[:skype_notify_culprits] = false if params[:skype_notify_culprits].nil?
+        params[:skype_notify_fixers] = false if params[:skype_notify_fixers].nil?
+        params[:skype_notify_upstream_committers] = false if params[:skype_notify_upstream_committers].nil?
+
+        targets = params[:skype_targets].split(/\s+/)
+        xml.send("hudson.plugins.skype.im.transport.SkypePublisher") {
+          xml.targets {
+            targets.each { |target|
+              if target =~ /^\*/
+                # Group Chat
+                xml.send("hudson.plugins.im.GroupChatIMMessageTarget") {
+                  # Skipe the first * character
+                  xml.value target[1..-1]
+                  xml.notificationOnly false
+                }
+              else
+                # Individual message
+                xml.send("hudson.plugins.im.DefaultIMMessageTarget") {
+                  xml.value target
+                }
+              end
+            }
+          }
+          xml.strategy "#{params[:skype_strategy]}"
+          xml.notifyOnBuildStart params[:skype_notify_on_build_start]
+          xml.notifySuspects params[:skype_notify_suspects]
+          xml.notifyCulprits params[:skype_notify_culprits]
+          xml.notifyFixers params[:skype_notify_fixers]
+          xml.notifyUpstreamCommitters params[:skype_notify_upstream_committers]
+          notification_class = case params[:skype_message]
+          when "just_summary"
+            "hudson.plugins.im.build_notify.SummaryOnlyBuildToChatNotifier"
+          when "summary_and_scm_changes"
+            "hudson.plugins.im.build_notify.DefaultBuildToChatNotifier"
+          when "summary_and_build_parameters"
+            "hudson.plugins.im.build_notify.BuildParametersBuildToChatNotifier"
+          when "summary_scm_changes_and_failed_tests"
+            "hudson.plugins.im.build_notify.PrintFailingTestsBuildToChatNotifier"
+          else
+            "hudson.plugins.im.build_notify.DefaultBuildToChatNotifier"
+          end
+          xml.buildToChatNotifier(:class => notification_class)
+          xml.matrixMultiplier "ONLY_CONFIGURATIONS"
+        }
       end
 
     end
