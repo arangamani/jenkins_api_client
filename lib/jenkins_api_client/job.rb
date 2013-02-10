@@ -262,6 +262,20 @@ module JenkinsApi
         create(params[:name], builder.to_xml)
       end
 
+      # Rename a job given the old name and new name
+      #
+      # @param [String] old_job Name of the old job
+      # @param [String] new_job Name of the new job.
+      #
+      def rename(old_job, new_job)
+        # Obtain the configuration of the old job
+        xml = get_config(old_job)
+        # Create the new job with the configuration obtained
+        create(new_job, xml)
+        # Delete the old job
+        delete(old_job)
+      end
+
       # Delete a job given the name
       #
       # @param [String] job_name
