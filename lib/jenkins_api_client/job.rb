@@ -222,7 +222,15 @@ module JenkinsApi
               "#{params[:block_build_when_downstream_building]}")
             xml.blockBuildWhenUpstreamBuilding(
               "#{params[:block_build_when_upstream_building]}")
-            xml.triggers.vector
+            if params[:timer]
+              xml.triggers.vector {
+                xml.send("hudson.triggers.TimerTrigger") {
+                  xml.spec params[:timer]
+                }
+              }
+            else
+              xml.triggers.vector
+            end
             xml.concurrentBuild "#{params[:concurrent_build]}"
             # Shell command stuff
             xml.builders {
