@@ -272,6 +272,24 @@ module JenkinsApi
         create(params[:name], builder.to_xml)
       end
 
+      def add_skype_notification(params)
+        raise "No job name specified" unless params[:name]
+        raise "No Skype target specified" unless params[:skype_targets]
+        xml = get_config(params[:name])
+        n_xml = Nokogiri::XML(xml)
+        puts n_xml.xpath("//hudson.plugins.skype.im.transport.SkypePublisher")
+        if n_xml.xpath("//hudson.plugins.skype.im.transport.SkypePublisher").empty?
+          p_xml = Nokogiri::XML::Builder.new(:encoding => "UTF-8") { |xml|
+            skype_notification(params, xml)
+          }
+          skype_xml = Nokogiri::XML(p_xml.to_xml).xpath(
+            "//hudson.plugins.skype.im.transport.SkypePublisher"
+          ).first
+          n_xml.xpath("//publishers").first.add_child(skype_xml)
+          post_config(params[:name], n_xml.to_xml)
+        end
+      end
+
       # Rename a job given the old name and new name
       #
       # @param [String] old_job Name of the old job
