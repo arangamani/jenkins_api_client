@@ -181,6 +181,18 @@ describe JenkinsApi::Client::Job do
         end
       end
 
+      describe "#rename" do
+        it "Should accept new and old job names and rename the job" do
+          xml = @helper.create_job_xml
+          @client.job.create("old_job_rename_test", xml)
+          @client.job.rename("old_job_rename_test", "new_job_rename_test")
+          @client.job.list("old_job_rename_test").should == []
+          resp = @client.job.list("new_job_rename_test")
+          resp.size.should == 1
+          resp.first.should == "new_job_rename_test"
+        end
+      end
+
       describe "#recreate" do
         it "Should be able to re-create a job" do
           @client.job.recreate("qwerty_nonexistent_job").to_i.should == 200
