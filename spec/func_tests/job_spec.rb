@@ -190,6 +190,7 @@ describe JenkinsApi::Client::Job do
           resp = @client.job.list("new_job_rename_test")
           resp.size.should == 1
           resp.first.should == "new_job_rename_test"
+          @client.job.delete("new_job_rename_test")
         end
       end
 
