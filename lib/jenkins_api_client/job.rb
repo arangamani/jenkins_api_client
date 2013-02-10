@@ -61,6 +61,7 @@ module JenkinsApi
       #  * +:scm_branch+ branch to use in scm. Uses master by default
       #  * +:scm_tag+ tag to download from scm. Only for CVS.
       #  * +:scm_use_head_if_tag_not_found+ Only for CVS.
+      #  * +:timer+ timer for running builds periodically.
       #  * +:shell_command+ command to execute in the shell
       #  * +:child_projects+ projects to add as downstream projects
       #  * +:child_threshold+ threshold for child projects.
