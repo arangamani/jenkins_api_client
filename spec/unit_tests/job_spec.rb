@@ -93,6 +93,14 @@ describe JenkinsApi::Client::Job do
           @client.should_receive(:post_config)
           @job.create_freestyle(params)
         end
+        it "accepts timer and creates job" do
+          params = {
+            :name => "test_job_with_timer",
+            :timer => "* * * * *"
+          }
+          @client.should_receive(:post_config)
+          @job.create_freestyle(params)
+        end
       end
 
       describe "#rename" do
