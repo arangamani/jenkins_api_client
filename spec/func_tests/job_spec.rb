@@ -58,66 +58,75 @@ describe JenkinsApi::Client::Job do
       end
 
       describe "#create_freestyle" do
-        it "Should be able to create a simple freestyle job" do
-          params = {
-            :name => "test_job_name_using_params"
-          }
+
+        def test_and_validate(name, params)
           @client.job.create_freestyle(params).to_i.should == 200
-          @client.job.delete("test_job_name_using_params").to_i.should == 302
+          @client.job.list(name).include?(name).should be_true
+          @client.job.delete(name).to_i.should == 302
+          @client.job.list(name).include?(name).should be_false
+        end
+
+        it "Should be able to create a simple freestyle job" do
+          name = "test_job_name_using_params"
+          params = {
+            :name => name
+          }
+          test_and_validate(name, params)
         end
         it "Should be able to create a freestyle job with shell command" do
+          name = "test_job_using_params_shell"
           params = {
-            :name => "test_job_using_params_shell",
+            :name => name,
             :shell_command => "echo this is a free style project"
           }
-          @client.job.create_freestyle(params).to_i.should == 200
-          @client.job.delete("test_job_using_params_shell").to_i.should == 302
+          test_and_validate(name, params)
         end
         it "Should accept Git SCM provider" do
+          name = "test_job_with_git_scm"
           params = {
-            :name => "test_job_with_git_scm",
+            :name => name,
             :scm_provider => "git",
             :scm_url => "git://github.com./arangamani/jenkins_api_client.git",
             :scm_branch => "master"
           }
-          @client.job.create_freestyle(params).to_i.should == 200
-          @client.job.delete("test_job_with_git_scm").to_i.should == 302
+          test_and_validate(name, params)
         end
         it "Should accept subversion SCM provider" do
+          name = "test_job_with_subversion_scm"
           params = {
-            :name => "test_job_with_subversion_scm",
+            :name => name,
             :scm_provider => "subversion",
             :scm_url => "http://svn.freebsd.org/base/",
             :scm_branch => "master"
           }
-          @client.job.create_freestyle(params).to_i.should == 200
-          @client.job.delete("test_job_with_subversion_scm").to_i.should == 302
+          test_and_validate(name, params)
         end
         it "Should accept CVS SCM provider with branch" do
+          name = "test_job_with_cvs_scm_branch"
           params = {
-            :name => "test_job_with_cvs_scm_branch",
+            :name => name,
             :scm_provider => "cvs",
             :scm_url => "http://cvs.NetBSD.org",
             :scm_module => "src",
             :scm_branch => "MAIN"
           }
-          @client.job.create_freestyle(params).to_i.should == 200
-          @client.job.delete("test_job_with_cvs_scm_branch").to_i.should == 302
+          test_and_validate(name, params)
         end
         it "Should accept CVS SCM provider with tag" do
+          name = "test_job_with_cvs_scm_tag"
           params = {
-            :name => "test_job_with_cvs_scm_tag",
+            :name => name,
             :scm_provider => "cvs",
             :scm_url => "http://cvs.NetBSD.org",
             :scm_module => "src",
             :scm_tag => "MAIN"
           }
-          @client.job.create_freestyle(params).to_i.should == 200
-          @client.job.delete("test_job_with_cvs_scm_tag").to_i.should == 302
+          test_and_validate(name, params)
         end
         it "Should fail if unsupported SCM is specified" do
+          name = "test_job_unsupported_scm"
           params = {
-            :name => "test_job_unsupported_scm",
+            :name => name,
             :scm_provider => "non-existent",
             :scm_url => "http://non-existent.com/non-existent.non",
             :scm_branch => "master"
@@ -127,89 +136,82 @@ describe JenkinsApi::Client::Job do
           ).to raise_error
         end
         it "Should accept restricted_node option" do
+          name = "test_job_restricted_node"
           params = {
-            :name => "test_job_restricted_node",
+            :name => name,
             :restricted_node => "master"
           }
-          @client.job.create_freestyle(params).to_i.should == 200
-          @client.job.delete("test_job_restricted_node").to_i.should == 302
+          test_and_validate(name, params)
         end
         it "Should accept block_build_when_downstream_building option" do
+          name = "test_job_block_build_when_downstream_building"
           params = {
-            :name => "test_job_block_build_when_downstream_building",
+            :name => name,
             :block_build_when_downstream_building => true,
           }
-          @client.job.create_freestyle(params).to_i.should == 200
-          @client.job.delete(
-            "test_job_block_build_when_downstream_building"
-          ).to_i.should == 302
+          test_and_validate(name, params)
         end
         it "Should accept block_build_when_upstream_building option" do
+          name = "test_job_block_build_when_upstream_building"
           params = {
-            :name => "test_job_block_build_when_upstream_building",
+            :name => name,
             :block_build_when_upstream_building => true
           }
-          @client.job.create_freestyle(params).to_i.should == 200
-          @client.job.delete(
-            "test_job_block_build_when_upstream_building"
-          ).to_i.should == 302
+          test_and_validate(name, params)
         end
         it "Should accept concurrent_build option" do
+          name = "test_job_concurrent_build"
           params = {
-            :name => "test_job_concurrent_build",
+            :name => name,
             :concurrent_build => true
           }
-          @client.job.create_freestyle(params).to_i.should == 200
-          @client.job.delete("test_job_concurrent_build").to_i.should == 302
+          test_and_validate(name, params)
         end
         it "Should accept the timer option" do
+          name = "test_job_using_timer"
           params = {
-            :name => "test_job_using_timer",
+            :name => name,
             :timer => "* * * * *"
           }
-          @client.job.create_freestyle(params).to_i.should == 200
-          @client.job.delete("test_job_using_timer").to_i.should == 302
+          test_and_validate(name, params)
         end
         it "Should accept child projects option" do
+          name = "test_job_child_projects"
           params = {
-            :name => "test_job_child_projects",
+            :name => name,
             :child_projects => @job_name,
             :child_threshold => "success"
           }
-          @client.job.create_freestyle(params).to_i.should == 200
-          @client.job.delete("test_job_child_projects").to_i.should == 302
+          test_and_validate(name, params)
         end
         it "Should accept notification_email option" do
+          name = "test_job_notification_email"
           params = {
-            :name => "test_job_notification_email",
+            :name => name,
             :notification_email => "kannan@testdomain.com"
           }
-          @client.job.create_freestyle(params).to_i.should == 200
-          @client.job.delete("test_job_notification_email").to_i.should == 302
+          test_and_validate(name, params)
         end
         it "Should accept notification for individual skype targets" do
+          name = "test_job_with_individual_skype_targets"
           params = {
-            :name => "test_job_with_individual_skype_targets",
+            :name => name,
             :skype_targets => "testuser"
           }
-          @client.job.create_freestyle(params).to_i.should == 200
-          @client.job.delete(
-            "test_job_with_individual_skype_targets"
-          ).to_i.should == 302
+          test_and_validate(name, params)
         end
         it "Should accept notification for group skype targets" do
+          name = "test_job_with_group_skype_targets"
           params = {
-            :name => "test_job_with_group_skype_targets",
+            :name => name,
             :skype_targets => "*testgroup"
           }
-          @client.job.create_freestyle(params).to_i.should == 200
-          @client.job.delete(
-            "test_job_with_group_skype_targets"
-          ).to_i.should == 302
+          test_and_validate(name, params)
         end
         it "Should accept complex skype configuration" do
+          name = "test_job_with_complex_skype_configuration"
           params = {
-            :name => "test_job_with_complex_skype_configuration",
+            :name => name,
             :skype_targets => "testuser *testgroup anotheruser *anothergroup",
             :skype_strategy => "failure_and_fixed",
             :skype_notify_on_build_start => true,
@@ -219,10 +221,7 @@ describe JenkinsApi::Client::Job do
             :skype_notify_upstream_committers => false,
             :skype_message => "summary_and_scm_changes"
           }
-          @client.job.create_freestyle(params).to_i.should == 200
-          @client.job.delete(
-            "test_job_with_complex_skype_configuration"
-          ).to_i.should == 302
+          test_and_validate(name, params)
         end
       end
 
