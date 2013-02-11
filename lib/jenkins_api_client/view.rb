@@ -48,8 +48,7 @@ module JenkinsApi
           "mode" => "hudson.model.ListView",
           "json" => {
             "name" => view_name,
-            "mode" => "hudson.model.ListView",
-            "includeRegex" => "skype.*"
+            "mode" => "hudson.model.ListView"
           }.to_json
         }
         @client.api_post_request("/createView", post_params)
