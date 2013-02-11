@@ -42,16 +42,84 @@ module JenkinsApi
       #
       # @param [String] view_name
       #
-      def create(view_name)
-        post_params = {
+      def create(view_name, type = "listview")
+        mode = case type
+        when "listview"
+          "hudson.model.ListView"
+        when "myview"
+          "hudson.model.MyView"
+        end
+        initial_post_params = {
           "name" => view_name,
-          "mode" => "hudson.model.ListView",
+          "mode" => mode,
           "json" => {
             "name" => view_name,
-            "mode" => "hudson.model.ListView"
+            "mode" => mode
+          }
+        }
+        @client.api_post_request("/createView", initial_post_params)
+      end
+
+      def create_list_view(params)
+        create(params[:name], "listview")
+        status_filter = case params[:status_filter]
+        when "all_selected_jobs"
+          ""
+        when "enabled_jobs_only"
+          "1"
+        when "disabled_jobs_only"
+          "2"
+        else
+          ""
+        end
+        post_params = {
+          "name" => params[:name],
+          "mode" => "hudson.model.ListView",
+          "description" => params[:description],
+          "statusFilter" => status_filter,
+          "useincluderegex" => params[:regex] ? "on" : "",
+          "includeRegex" => params[:regex],
+          "json" => {
+            "name" => params[:name],
+            "description" => params[:description],
+            "mode" => "hudson.model.ListView",
+            "statusFilter" => "",
+            "columns" => [
+              {
+                "stapler-class" => "hudson.views.StatusColumn",
+                "kind"=> "hudson.views.StatusColumn"
+              },
+              {
+                "stapler-class" => "hudson.views.WeatherColumn",
+                "kind" => "hudson.views.WeatherColumn"
+              },
+              {
+                "stapler-class" => "hudson.views.JobColumn",
+                "kind" => "hudson.views.JobColumn"
+              },
+              {
+                "stapler-class" => "hudson.views.LastSuccessColumn",
+                "kind" => "hudson.views.LastSuccessColumn"
+              },
+              {
+                "stapler-class" => "hudson.views.LastFailureColumn",
+                "kind" => "hudson.views.LastFailureColumn"
+              },
+              {
+                "stapler-class" => "hudson.views.LastDurationColumn",
+                "kind" => "hudson.views.LastDurationColumn"
+              },
+              {
+                "stapler-class" => "hudson.views.BuildButtonColumn",
+                "kind" => "hudson.views.BuildButtonColumn"
+              }
+            ]
           }.to_json
         }
-        @client.api_post_request("/createView", post_params)
+        post_params.merge!("filterQueue" => "on") if params[:filter_queue]
+        post_params.merge!("filterExecutors" => "on") if params[:filter_executors]
+        @client.api_post_request("/view/#{params[:name]}/configSubmit",
+                                 post_params)
       end
 
       # Delete a view
