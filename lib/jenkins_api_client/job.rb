@@ -505,6 +505,17 @@ module JenkinsApi
         @client.api_post_request("/job/#{encoded_job_name(job_name)}/build")
       end
 
+      # Build a job given the name of the job
+      #
+      # @param [String] job_name
+      # @param [Hash] params
+      #
+      # @return [String] response_code return code from HTTP POST
+      #
+      def build_with_params(job_name, params={})
+        @client.api_post_request("/job/#{encoded_job_name(job_name)}/buildWithParameters", params)
+      end
+
       # Obtain the configuration stored in config.xml of a specific job
       #
       # @param [String] job_name
