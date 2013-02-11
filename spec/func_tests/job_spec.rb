@@ -225,6 +225,20 @@ describe JenkinsApi::Client::Job do
         end
       end
 
+      describe "#add_skype_notification" do
+        it "Should accept skype configuration and add to existing job" do
+          name = "skype_notification_test_job"
+          params = {
+            :name => name
+          }
+          @client.job.create_freestyle(params).to_i.should == 200
+          @client.job.add_skype_notification(
+            :name => name,
+            :skype_targets => "testuser"
+          ).to_i.should == 200
+          @client.job.delete(name).to_i.should == 302
+        end
+      end
       describe "#rename" do
         it "Should accept new and old job names and rename the job" do
           xml = @helper.create_job_xml
