@@ -134,6 +134,22 @@ describe JenkinsApi::Client::Job do
         end
       end
 
+      describe "#add_skype_notification" do
+        it "accepts skype configuration and adds to existing job" do
+          params = {
+            :name => "skype_notification_test_job"
+          }
+          @client.should_receive(:post_config)
+          @job.create_freestyle(params)
+          @client.should_receive(:get_config).and_return(@sample_job_xml)
+          @client.should_receive(:post_config)
+          @job.add_skype_notification(
+            :name => "skype_notification_test_job",
+            :skype_targets => "testuser"
+          )
+        end
+      end
+
       describe "#rename" do
         it "accepts the old and new job names and renames the job" do
           @client.should_receive(:get_config).with("/job/old_job")
