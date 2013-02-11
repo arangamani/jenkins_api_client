@@ -169,10 +169,8 @@ describe JenkinsApi::Client::Node do
 
       describe "#get_config" do
         it "accepts the node name and obtains the config xml from the server" do
-          @client.should_receive(
-            :get_config
-          ).with(
-            "/computer/slave/config.xml"
+          @client.should_receive(:get_config).with(
+            "/computer/slave"
           ).and_return(
             @sample_computer_xml
           )
