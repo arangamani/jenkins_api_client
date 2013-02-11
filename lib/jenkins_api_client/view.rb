@@ -43,10 +43,16 @@ module JenkinsApi
       # @param [String] view_name
       #
       def create(view_name)
-        post_msg = "/createView?name=#{view_name}&"
-        post_msg << "mode=hudson.model.ListView&json={\"name\":\"#{view_name}"
-        post_msg << "\",\"mode\":\"hudson.model.ListView\"}"
-        @client.api_post_request(post_msg)
+        post_params = {
+          "name" => view_name,
+          "mode" => "hudson.model.ListView",
+          "json" => {
+            "name" => view_name,
+            "mode" => "hudson.model.ListView",
+            "includeRegex" => "skype.*"
+          }.to_json
+        }
+        @client.api_post_request("/createView", post_params)
       end
 
       # Delete a view
