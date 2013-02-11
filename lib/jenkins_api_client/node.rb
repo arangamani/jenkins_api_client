@@ -268,7 +268,7 @@ module JenkinsApi
       #
       def get_config(node_name)
         node_name = "(master)" if node_name == "master"
-        @client.get_config("/computer/#{node_name}/config.xml")
+        @client.get_config("/computer/#{node_name}")
       end
 
       # Posts the given config.xml to the Jenkins node
