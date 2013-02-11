@@ -65,24 +65,23 @@ module JenkinsApi
       #  * +:shell_command+ command to execute in the shell
       #  * +:notification_email+ email for sending notification
       #  * +:skype_targets+ skype targets for sending notifications to. Use *
-      #      to specify group chats. Use space to separate multiple targets.
-      #      Example: testuser, *testgroup.
+      #    to specify group chats. Use space to separate multiple targets.
+      #    Example: testuser *testgroup.
       #  * +:skype_strategy+ skype strategy to be used for sending
-      #      notifications. Valid values: all, failure, failure_and_fixed,
-      #      change. Default: change.
+      #    notifications. Valid values: all, failure, failure_and_fixed,
+      #    change. Default: change.
       #  * +:skype_notify_on_build_start+ Default: false
       #  * +:skype_notify_suspects+ Default: false
       #  * +:skype_notify_culprits+ Default: false
       #  * +:skype_notify_fixers+ Default: false
       #  * +:skype_notify_upstream_committers+ Default: false
       #  * +:skype_message+ what should be sent as notification message. Valid:
-      #      just_summary, summary_and_scm_changes,
-      #      summary_and_build_parameters,
-      #      summary_scm_changes_and_failed_tests. Default:
-      #      summary_and_scm_changes
+      #    just_summary, summary_and_scm_changes,
+      #    summary_and_build_parameters, summary_scm_changes_and_failed_tests.
+      #    Default: summary_and_scm_changes
       #  * +:child_projects+ projects to add as downstream projects
       #  * +:child_threshold+ threshold for child projects.
-      #      success, failure, or unstable. Default: failure.
+      #    success, failure, or unstable. Default: failure.
       #
       # @example Create a Freestype Project
       #   create_freestyle(
@@ -292,23 +291,22 @@ module JenkinsApi
       # Adding skype notificaiton to a job
       #
       # @param [Hash] params parameters for adding skype notification
-      # * +:name+ name of the job to add skype notification
-      # * +:skype_targets+ skype targets for sending notifications to. Use *
-      #     to specify group chats. Use space to separate multiple targets.
-      #     Example: testuser, *testgroup.
-      # * +:skype_strategy+ skype strategy to be used for sending
-      #     notifications. Valid values: all, failure, failure_and_fixed,
-      #     change. Default: change.
-      # * +:skype_notify_on_build_start+ Default: false
-      # * +:skype_notify_suspects+ Default: false
-      # * +:skype_notify_culprits+ Default: false
-      # * +:skype_notify_fixers+ Default: false
-      # * +:skype_notify_upstream_committers+ Default: false
-      # * +:skype_message+ what should be sent as notification message. Valid:
-      #     just_summary, summary_and_scm_changes,
-      #     summary_and_build_parameters,
-      #     summary_scm_changes_and_failed_tests. Default:
-      #     summary_and_scm_changes
+      #  * +:name+ name of the job to add skype notification
+      #  * +:skype_targets+ skype targets for sending notifications to. Use *
+      #    to specify group chats. Use space to separate multiple targets.
+      #    Example: testuser, *testgroup.
+      #  * +:skype_strategy+ skype strategy to be used for sending
+      #    notifications. Valid values: all, failure, failure_and_fixed,
+      #    change. Default: change.
+      #  * +:skype_notify_on_build_start+ Default: false
+      #  * +:skype_notify_suspects+ Default: false
+      #  * +:skype_notify_culprits+ Default: false
+      #  * +:skype_notify_fixers+ Default: false
+      #  * +:skype_notify_upstream_committers+ Default: false
+      #  * +:skype_message+ what should be sent as notification message. Valid:
+      #    just_summary, summary_and_scm_changes, summary_and_build_parameters,
+      #    summary_scm_changes_and_failed_tests.
+      #    Default: summary_and_scm_changes
       #
       def add_skype_notification(params)
         raise "No job name specified" unless params[:name]
@@ -1004,7 +1002,7 @@ module JenkinsApi
       # everything is set up properly
       #
       # @param [Hash] params Parameters for adding skype notificaiton. For the
-      #               options in this params Hash refer to create_freestyle
+      # options in this params Hash refer to create_freestyle
       # @param [XML] xml Main xml to attach the skype portion.
       #
       def skype_notification(params, xml)
