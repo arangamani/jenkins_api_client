@@ -496,24 +496,19 @@ module JenkinsApi
       end
 
       # Build a job given the name of the job
-      #
-      # @param [String] job_name
-      #
-      # @return [String] response_code return code from HTTP POST
-      #
-      def build(job_name)
-        @client.api_post_request("/job/#{encoded_job_name(job_name)}/build")
-      end
-
-      # Build a job given the name of the job
+      # You can optionally pass in a list of params for Jenkins to use for parameterized builds
       #
       # @param [String] job_name
       # @param [Hash] params
       #
       # @return [String] response_code return code from HTTP POST
       #
-      def build_with_params(job_name, params={})
-        @client.api_post_request("/job/#{encoded_job_name(job_name)}/buildWithParameters", params)
+      def build(job_name, params={})
+        if params.empty?
+          @client.api_post_request("/job/#{encoded_job_name(job_name)}/build")
+        else
+          @client.api_post_request("/job/#{encoded_job_name(job_name)}/buildWithParameters", params)
+        end
       end
 
       # Obtain the configuration stored in config.xml of a specific job
