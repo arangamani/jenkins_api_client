@@ -319,6 +319,11 @@ describe JenkinsApi::Client::Job do
             "/job/test_job/build").and_return(302)
           @job.build("test_job").should == 302
         end
+        it "accepts the job name with params and builds the job" do
+          @client.should_receive(:api_post_request).with(
+              "/job/test_job/buildWithParameters",{:branch => 'feature/new-stuff'}).and_return(302)
+          @job.build("test_job",{:branch => 'feature/new-stuff'}).should == 302
+        end
       end
 
       describe "#get_config" do
