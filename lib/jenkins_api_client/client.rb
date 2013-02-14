@@ -123,6 +123,7 @@ module JenkinsApi
       else
         to_get = "#{url_prefix}#{url_suffix}"
       end
+      to_get = URI.escape(to_get)
       request = Net::HTTP::Get.new(to_get)
       puts "[INFO] GET #{to_get}" if @debug
       request.basic_auth @username, @password
@@ -152,7 +153,7 @@ module JenkinsApi
     # @param [Hash] form_data form data to send with POST request
     #
     def api_post_request(url_prefix, form_data = nil)
-      url_prefix = "#{@jenkins_path}#{url_prefix}"
+      url_prefix = URI.escape("#{@jenkins_path}#{url_prefix}")
       http = Net::HTTP.start(@server_ip, @server_port)
       request = Net::HTTP::Post.new("#{url_prefix}")
       puts "[INFO] PUT #{url_prefix}" if @debug
@@ -178,6 +179,7 @@ module JenkinsApi
     # @param [String] url_prefix
     #
     def get_config(url_prefix)
+      url_prefix = URI.escape(url_prefix)
       http = Net::HTTP.start(@server_ip, @server_port)
       request = Net::HTTP::Get.new("#{url_prefix}/config.xml")
       puts "[INFO] GET #{url_prefix}/config.xml" if @debug
@@ -192,6 +194,7 @@ module JenkinsApi
     # @param [String] xml
     #
     def post_config(url_prefix, xml)
+      url_prefix = URI.escape(url_prefix)
       http = Net::HTTP.start(@server_ip, @server_port)
       request = Net::HTTP::Post.new("#{url_prefix}")
       puts "[INFO] PUT #{url_prefix}" if @debug
