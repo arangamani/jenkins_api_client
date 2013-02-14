@@ -38,9 +38,11 @@ module JenkinsApi
         "#<JenkinsApi::Client::View>"
       end
 
-      # Create a new view
+      # Creates a new empty view of the given type
       #
-      # @param [String] view_name
+      # @param [String] view_name Name of the view to be created
+      # @param [String] type Type of view to be created. Valid options:
+      # listview, myview. Default: listview
       #
       def create(view_name, type = "listview")
         mode = case type
@@ -60,6 +62,19 @@ module JenkinsApi
         @client.api_post_request("/createView", initial_post_params)
       end
 
+      # Creates a listview by accepting the given parameters hash
+      #
+      # @param [Hash] params options to create the new view
+      # @option params [String] :name Name of the view
+      # @option params [String] :description Description of the view
+      # @option params [String] :status_filter Filter jobs based on the status.
+      #         Valid options: all_selected_jobs, enabled_jobs_only,
+      #         disabled_jobs_only. Default: all_selected_jobs
+      # @option params [TrueClass|FalseClass] :filter_queue true or false
+      # @option params [TrueClass|FalseClass] :filter_executors true or false
+      # @option params [String] :regex Regular expression to filter jobs that
+      #         are to be added to the view
+      #
       def create_list_view(params)
         create(params[:name], "listview")
         status_filter = case params[:status_filter]
@@ -77,8 +92,6 @@ module JenkinsApi
           "mode" => "hudson.model.ListView",
           "description" => params[:description],
           "statusFilter" => status_filter,
-          "useincluderegex" => params[:regex] ? "on" : "",
-          "includeRegex" => params[:regex],
           "json" => {
             "name" => params[:name],
             "description" => params[:description],
@@ -118,6 +131,8 @@ module JenkinsApi
         }
         post_params.merge!("filterQueue" => "on") if params[:filter_queue]
         post_params.merge!("filterExecutors" => "on") if params[:filter_executors]
+        post_params.merge!("useincluderegex" => "on",
+                           "includeRegex" => params[:regex]) if params[:regex]
         @client.api_post_request("/view/#{params[:name]}/configSubmit",
                                  post_params)
       end
