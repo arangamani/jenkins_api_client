@@ -4,6 +4,18 @@ CHANGELOG
 upcoming
 --------
 
+v0.8.0  [13-FEB-2013]
+---------------------
+* Added capability to send timer trigger while creating a job
+* Added rename feature for jobs
+* Added support for sending skype notification in job creation and on existing jobs
+* Added support for sending Jenkins root URL configuration. Credit: @kevinhcross
+* Added `delete_all!` methods for Job, View, and Node.
+* `get_eta` in BuildQueue will return "N/A" if the ETA is not given by Jenkins
+* Creating view accepts params Hash and more configuration through the API
+* Spaces are allowed in Job, Node, and View names. Credit: @kevinhcross
+* Support has been added to build a job with parameters. Credit: @tjhanley
+
 v0.7.3  [05-FEB-2013]
 ---------------------
 * Fixed #27 with a bug in create_view including extra character in the end of the name
