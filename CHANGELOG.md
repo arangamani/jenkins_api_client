@@ -98,7 +98,7 @@ v0.1.0  [26-OCT-2012]
 v0.0.2  [16-OCT-2012]
 ---------------------
 * Added documentation
-* Added some more smal features to Job class
+* Added some more small features to Job class
 
 v0.0.1  [15-OCT-2012]
 ---------------------
