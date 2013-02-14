@@ -4,7 +4,7 @@ CHANGELOG
 upcoming
 --------
 
-v0.8.0  [13-FEB-2013]
+v0.8.0  [14-FEB-2013]
 ---------------------
 * Added capability to send timer trigger while creating a job
 * Added rename feature for jobs
