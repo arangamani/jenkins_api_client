@@ -57,7 +57,7 @@ module JenkinsApi
           "json" => {
             "name" => view_name,
             "mode" => mode
-          }
+          }.to_json
         }
         @client.api_post_request("/createView", initial_post_params)
       end
