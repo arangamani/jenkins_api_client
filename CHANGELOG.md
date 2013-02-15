@@ -4,6 +4,10 @@ CHANGELOG
 upcoming
 --------
 
+v0.8.1  [15-FEB-2013]
+---------------------
+* Fixed a bug in creating view. Issue #42
+
 v0.8.0  [14-FEB-2013]
 ---------------------
 * Added capability to send timer trigger while creating a job
