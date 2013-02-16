@@ -45,6 +45,7 @@ describe JenkinsApi::Client::System do
         it "exits if the response body doesn't have the wait message" do
           @client.should_receive(:get_root).and_return(Net::HTTP.get_response(URI('http://example.com/index.html')))
           @client.should_receive(:debug)
+          @client.should_receive(:timeout)
           @system.wait_for_ready
         end
       end
