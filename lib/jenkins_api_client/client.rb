@@ -42,7 +42,7 @@ module JenkinsApi
       "password_base64",
       "debug",
       "timeout"
-    ]
+    ].freeze
 
     # Initialize a Client object with Jenkins CI server credentials
     #
