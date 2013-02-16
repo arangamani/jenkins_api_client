@@ -32,7 +32,8 @@ module JenkinsApi
   class Client
     attr_accessor :debug
     DEFAULT_SERVER_PORT = 8080
-    VALID_PARAMS = %w(server_ip server_port jenkins_path username password debug)
+    DEFAULT_TIMEOUT = 120
+    VALID_PARAMS = %w(server_ip server_port jenkins_path username password debug timeout)
 
     # Initialize a Client object with Jenkins CI server credentials
     #
@@ -44,13 +45,16 @@ module JenkinsApi
     #
     def initialize(args)
       args.each do |key, value|
-        instance_variable_set("@#{key}", value) if value
+        if value && VALID_PARAMS.include?(key.to_s)
+          instance_variable_set("@#{key}", value)
+        end
       end if args.is_a? Hash
      raise "Server IP is required to connect to Jenkins" unless @server_ip
      unless @username && (@password || @password_base64)
        raise "Credentials are required to connect to te Jenkins Server"
      end
      @server_port = DEFAULT_SERVER_PORT unless @server_port
+     @timeout = DEFAULT_TIMEOUT unless @timeout
      @debug = false unless @debug
 
      # Base64 decode inserts a newline character at the end. As a workaround
