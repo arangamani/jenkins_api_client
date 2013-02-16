@@ -33,7 +33,16 @@ module JenkinsApi
     attr_accessor :debug, :timeout
     DEFAULT_SERVER_PORT = 8080
     DEFAULT_TIMEOUT = 120
-    VALID_PARAMS = %w(server_ip server_port jenkins_path username password debug timeout)
+    VALID_PARAMS = [
+      "server_ip",
+      "server_port",
+      "jenkins_path",
+      "username",
+      "password",
+      "password_base64",
+      "debug",
+      "timeout"
+    ]
 
     # Initialize a Client object with Jenkins CI server credentials
     #
