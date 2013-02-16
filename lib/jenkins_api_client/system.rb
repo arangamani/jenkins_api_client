@@ -69,7 +69,7 @@ module JenkinsApi
       # or restart.
       #
       def wait_for_ready
-        Timeout::timeout(@timeout) do
+        Timeout::timeout(@client.timeout) do
           while true do
             response = @client.get_root
             puts "[INFO] Waiting for jenkins to restart..." if @client.debug

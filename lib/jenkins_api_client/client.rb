@@ -30,7 +30,7 @@ require 'base64'
 
 module JenkinsApi
   class Client
-    attr_accessor :debug
+    attr_accessor :debug, :timeout
     DEFAULT_SERVER_PORT = 8080
     DEFAULT_TIMEOUT = 120
     VALID_PARAMS = %w(server_ip server_port jenkins_path username password debug timeout)
