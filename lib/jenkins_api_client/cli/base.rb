@@ -22,7 +22,6 @@
 
 require 'thor'
 require 'thor/group'
-require "#{File.dirname(__FILE__)}/../client.rb"
 require "#{File.dirname(__FILE__)}/node.rb"
 require "#{File.dirname(__FILE__)}/job.rb"
 require "#{File.dirname(__FILE__)}/system.rb"
