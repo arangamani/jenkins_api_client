@@ -20,6 +20,7 @@ describe JenkinsApi::Client::View do
         puts e.message
       end
 
+      # Create a view that can be used for tests
       @client.view.create("general_purpose_view").to_i.should == 302
     end
 
@@ -108,34 +109,52 @@ describe JenkinsApi::Client::View do
       end
 
       describe "#delete" do
-        it "accepts the name of the view and deletes from Jenkins" do
-
+        name = "test_view_to_delete"
+        before(:all) do
+          @client.view.create(name).to_i.should == 302
         end
-      end
-
-      describe "#list" do
-        it "lists all views in Jenkins" do
-
+        it "accepts the name of the view and deletes from Jenkins" do
+          @client.view.list(name).include?(name).should be_true
+          @client.view.delete(name).to_i.should == 302
+          @client.view.list(name).include?(name).should be_false
         end
       end
 
       describe "#list_jobs" do
-        it "" do
+        it "accepts the view name and lists all jobs in the view" do
+          @client.view.list_jobs("general_purpose_view").class.should == Array
         end
       end
 
       describe "#exists?" do
-        it "" do
+        it "accepts the vie name and returns true if the view exists" do
+          @client.view.exists?("general_purpose_view").should be_true
         end
       end
 
       describe "#add_job" do
-        it "" do
+        before(:all) do
+          @client.job.create_freestyle(
+            :name => "test_job_for_view"
+          ).to_i.should == 200
+        end
+        it "accepts the job and and adds it to the specified view" do
+          @client.view.add_job(
+            "general_purpose_view",
+            "test_job_for_view"
+          ).to_i.should == 200
+          @client.view.list_jobs(
+            "general_purpose_view"
+          ).include?("test_job_for_view").should be_true
         end
       end
 
       describe "#remove_job" do
-        it "" do
+        it "accepts the job name and removes it from the specified view" do
+          @client.view.remove_job(
+            "general_purpose_view",
+            "test_job_for_view"
+          ).to_i.should == 200
         end
       end
 
