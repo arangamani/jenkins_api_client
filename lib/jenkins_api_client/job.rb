@@ -55,7 +55,7 @@ module JenkinsApi
       #  * +:block_build_when_downstream_building+ true or false
       #  * +:block_build_when_upstream_building+ true or false
       #  * +:concurrent_build+ true or false
-      #  * +:scm_provider+ type of source control system. Supported: Git, SVN
+      #  * +:scm_provider+ type of source control. Supported: Git, SVN, and CVS
       #  * +:scm_url+ remote url for scm
       #  * +:scm_module+ Module to download. Only for CVS.
       #  * +:scm_branch+ branch to use in scm. Uses master by default
