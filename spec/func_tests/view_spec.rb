@@ -150,6 +150,20 @@ describe JenkinsApi::Client::View do
       end
 
       describe "#remove_job" do
+        before(:all) do
+          unless @client.job.exists?("test_job_for_view")
+            @client.job.create_freestyle(
+              :name => "test_job_for_view"
+            ).to_i.should == 200
+          end
+          unless @client.view.list_jobs(
+            "general_purpose_view").include?("test_job_for_view")
+            @client.view.add_job(
+              "general_purpose_job",
+              "test_job_for_view"
+            ).to_i.should == 200
+          end
+        end
         it "accepts the job name and removes it from the specified view" do
           @client.view.remove_job(
             "general_purpose_view",
@@ -180,6 +194,9 @@ describe JenkinsApi::Client::View do
 
     after(:all) do
       @client.view.delete("general_purpose_view").to_i.should == 302
+      if @client.job.exists?("test_job_for_view")
+        @client.job.delete("test_job_for_view").to_i.should == 302
+      end
     end
 
   end
