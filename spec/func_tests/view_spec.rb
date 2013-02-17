@@ -39,6 +39,12 @@ describe JenkinsApi::Client::View do
           @client.view.list(name).include?(name).should be_true
           @client.view.delete(name).to_i.should == 302
         end
+        it "accepts spaces and other characters in the view name" do
+          name = "test view with spaces and {special characters}"
+          @client.view.create(name).to_i.should == 302
+          @client.view.list(name).include?(name).should be_true
+          @client.view.delete(name).to_i.should == 302
+        end
         it "accepts the name of view and creates a listview" do
           name = "test_view"
           @client.view.create(name, "listview").to_i.should == 302
