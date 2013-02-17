@@ -53,7 +53,9 @@ describe JenkinsApi::Client::Job do
       describe "#create" do
         it "Should be able to create a job by getting an xml" do
           xml = @helper.create_job_xml
-          @client.job.create("qwerty_nonexistent_job", xml).to_i.should == 200
+          name = "qwerty_nonexistent_job"
+          @client.job.create(name, xml).to_i.should == 200
+          @client.job.list(name).include?(name).should be_true
         end
       end
 
@@ -239,6 +241,7 @@ describe JenkinsApi::Client::Job do
           @client.job.delete(name).to_i.should == 302
         end
       end
+
       describe "#rename" do
         it "Should accept new and old job names and rename the job" do
           xml = @helper.create_job_xml
@@ -335,12 +338,14 @@ describe JenkinsApi::Client::Job do
         it "Should obtain the current build status for the specified job" do
           build_status = @client.job.get_current_build_status(@job_name)
           build_status.class.should == String
-          valid_build_status = ["not_run",
-                                "aborted",
-                                "success",
-                                "failure",
-                                "unstable",
-                                "running"]
+          valid_build_status = [
+            "not_run",
+            "aborted",
+            "success",
+            "failure",
+            "unstable",
+            "running"
+          ]
           valid_build_status.include?(build_status).should be_true
         end
       end
@@ -398,8 +403,11 @@ describe JenkinsApi::Client::Job do
         it "Should be able to chain jobs based on the specified criteria" do
           jobs = @client.job.list(@filter)
           jobs.class.should == Array
-          start_jobs = @client.job.chain(jobs,
-            'failure', ["not_run", "aborted", 'failure'], 3
+          start_jobs = @client.job.chain(
+            jobs,
+            'failure',
+            ["not_run", "aborted", 'failure'],
+            3
           )
           start_jobs.class.should == Array
           start_jobs.length.should == 3
