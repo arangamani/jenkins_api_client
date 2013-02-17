@@ -43,14 +43,22 @@ describe JenkinsApi::Client::Node do
       end
 
       describe "#create_dump_slave" do
+
+        def test_and_validate(params)
+          name = params[:name]
+          @client.node.create_dump_slave(params).to_i.should == 302
+          @client.node.list(name).include?(name).should be_true
+          @client.node.delete(params[:name]).to_i.should == 302
+          @client.node.list(name).include?(name).should be_false
+        end
+
         it "accepts required params and creates the slave on jenkins" do
           params = {
             :name => "func_test_slave",
             :slave_host => "10.10.10.10",
             :private_key_file => "/root/.ssh/id_rsa"
           }
-          @client.node.create_dump_slave(params).to_i.should == 302
-          @client.node.delete(params[:name]).to_i.should == 302
+          test_and_validate(params)
         end
         it "accepts spaces and other characters in node name" do
           params = {
@@ -58,8 +66,7 @@ describe JenkinsApi::Client::Node do
             :slave_host => "10.10.10.10",
             :private_key_file => "/root/.ssh/id_rsa"
           }
-          @client.node.create_dump_slave(params).to_i.should == 302
-          @client.node.delete(params[:name]).to_i.should == 302
+          test_and_validate(params)
         end
         it "fails if name is missing" do
           params = {
