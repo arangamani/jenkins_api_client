@@ -52,6 +52,15 @@ describe JenkinsApi::Client::Node do
           @client.node.create_dump_slave(params).to_i.should == 302
           @client.node.delete(params[:name]).to_i.should == 302
         end
+        it "accepts spaces and other characters in node name" do
+          params = {
+            :name => "slave with spaces and {special characters}",
+            :slave_host => "10.10.10.10",
+            :private_key_file => "/root/.ssh/id_rsa"
+          }
+          @client.node.create_dump_slave(params).to_i.should == 302
+          @client.node.delete(params[:name]).to_i.should == 302
+        end
         it "fails if name is missing" do
           params = {
             :slave_host => "10.10.10.10",
