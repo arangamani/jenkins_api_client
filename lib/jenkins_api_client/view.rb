@@ -50,6 +50,8 @@ module JenkinsApi
           "hudson.model.ListView"
         when "myview"
           "hudson.model.MyView"
+        else
+          raise "Type #{type} is not supported by Jenkins."
         end
         initial_post_params = {
           "name" => view_name,
