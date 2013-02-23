@@ -727,31 +727,6 @@ module JenkinsApi
         params_array
       end
 
-      # Obtains the threshold params used by jenkins in the XML file
-      # given the threshold
-      #
-      # @param [String] threshold success, failure, or unstable
-      #
-      # @return [String] status readable status matching the color
-      #
-      def get_threshold_params(threshold)
-        case threshold
-        when 'success'
-          name = 'SUCCESS'
-          ordinal = 0
-          color = 'BLUE'
-        when 'unstable'
-          name = 'UNSTABLE'
-          ordinal = 1
-          color = 'YELLOW'
-        when 'failure'
-          name = 'FAILURE'
-          ordinal = 2
-          color = 'RED'
-        end
-        return name, ordinal, color
-      end
-
       # Add downstream projects to a specific job given the job name,
       # projects to be added as downstream projects, and the threshold
       #
@@ -908,6 +883,32 @@ module JenkinsApi
       end
 
       private
+
+      # Obtains the threshold params used by jenkins in the XML file
+      # given the threshold
+      #
+      # @param [String] threshold success, failure, or unstable
+      #
+      # @return [String] status readable status matching the color
+      #
+      def get_threshold_params(threshold)
+        case threshold
+        when 'success'
+          name = 'SUCCESS'
+          ordinal = 0
+          color = 'BLUE'
+        when 'unstable'
+          name = 'UNSTABLE'
+          ordinal = 1
+          color = 'YELLOW'
+        when 'failure'
+          name = 'FAILURE'
+          ordinal = 2
+          color = 'RED'
+        end
+        return name, ordinal, color
+      end
+
 
       def scm_subversion(params, xml)
         xml.scm(:class => "hudson.scm.SubversionSCM",
