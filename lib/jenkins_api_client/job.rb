@@ -148,82 +148,11 @@ module JenkinsApi
             xml.properties
             # SCM related stuff
             if params[:scm_provider] == 'subversion'
-              xml.scm(:class => "hudson.scm.SubversionSCM",
-                      :plugin => "subversion@1.39") {
-                xml.locations {
-                  xml.send("hudson.scm.SubversionSCM_-ModuleLocation") {
-                    xml.remote "#{params[:scm_url]}"
-                    xml.local "."
-                  }
-                }
-                xml.excludedRegions
-                xml.includedRegions
-                xml.excludedUsers
-                xml.excludedRevprop
-                xml.excludedCommitMessages
-                xml.workspaceUpdater(:class =>
-                                     "hudson.scm.subversion.UpdateUpdater")
-              }
+              scm_subversion(params, xml)
             elsif params[:scm_provider] == "cvs"
-              xml.scm(:class => "hudson.scm.CVSSCM",
-                      :plugin => "cvs@1.6") {
-                xml.cvsroot "#{params[:scm_url]}"
-                xml.module "#{params[:scm_module]}"
-                if params[:scm_branch]
-                  xml.branch "#{params[:scm_branch]}"
-                else
-                  xml.branch "#{params[:scm_tag]}"
-                end
-                xml.canUseUpdate true
-                xml.useHeadIfNotFound(
-                  "#{params[:scm_use_head_if_tag_not_found]}")
-                xml.flatten true
-                if params[:scm_tag]
-                  xml.isTag true
-                else
-                  xml.isTag false
-                end
-                xml.excludedRegions
-              }
+              scm_cvs(params, xml)
             elsif params[:scm_provider] == "git"
-              xml.scm(:class => "hudson.plugins.git.GitSCM") {
-                xml.configVersion "2"
-                xml.userRemoteConfigs {
-                  xml.send("hudson.plugins.git.UserRemoteConfig") {
-                    xml.name
-                    xml.refspec
-                    xml.url "#{params[:scm_url]}"
-                  }
-                }
-                xml.branches {
-                  xml.send("hudson.plugins.git.BranchSpec") {
-                    xml.name "#{params[:scm_branch]}"
-                  }
-                }
-                xml.disableSubmodules "false"
-                xml.recursiveSubmodules "false"
-                xml.doGenerateSubmoduleConfigurations "false"
-                xml.authorOrCommitter "false"
-                xml.clean "false"
-                xml.wipeOutWorkspace "false"
-                xml.pruneBranches "false"
-                xml.remotePoll "false"
-                xml.ignoreNotifyCommit "false"
-                xml.useShallowClone "false"
-                xml.buildChooser(:class =>
-                                 "hudson.plugins.git.util.DefaultBuildChooser")
-                xml.gitTool "Default"
-                xml.submoduleCfg(:class => "list")
-                xml.relativeTargetDir
-                xml.reference
-                xml.excludedRegions
-                xml.excludedUsers
-                xml.gitConfigName
-                xml.gitConfigEmail
-                xml.skipTag "false"
-                xml.includedRegions
-                xml.scmName
-              }
+              scm_git(params, xml)
             else
               xml.scm(:class => "hudson.scm.NullSCM")
             end
@@ -979,6 +908,89 @@ module JenkinsApi
       end
 
       private
+
+      def scm_subversion(params, xml)
+        xml.scm(:class => "hudson.scm.SubversionSCM",
+               :plugin => "subversion@1.39") {
+         xml.locations {
+           xml.send("hudson.scm.SubversionSCM_-ModuleLocation") {
+             xml.remote "#{params[:scm_url]}"
+             xml.local "."
+           }
+         }
+         xml.excludedRegions
+         xml.includedRegions
+         xml.excludedUsers
+         xml.excludedRevprop
+         xml.excludedCommitMessages
+         xml.workspaceUpdater(:class =>
+                              "hudson.scm.subversion.UpdateUpdater")
+        }
+      end
+
+      def scm_cvs(params, xml)
+        xml.scm(:class => "hudson.scm.CVSSCM",
+                :plugin => "cvs@1.6") {
+          xml.cvsroot "#{params[:scm_url]}"
+          xml.module "#{params[:scm_module]}"
+          if params[:scm_branch]
+            xml.branch "#{params[:scm_branch]}"
+          else
+            xml.branch "#{params[:scm_tag]}"
+          end
+          xml.canUseUpdate true
+          xml.useHeadIfNotFound(
+            "#{params[:scm_use_head_if_tag_not_found]}")
+          xml.flatten true
+          if params[:scm_tag]
+            xml.isTag true
+          else
+            xml.isTag false
+          end
+          xml.excludedRegions
+        }
+      end
+
+      def scm_git(params, xml)
+        xml.scm(:class => "hudson.plugins.git.GitSCM") {
+          xml.configVersion "2"
+          xml.userRemoteConfigs {
+            xml.send("hudson.plugins.git.UserRemoteConfig") {
+              xml.name
+              xml.refspec
+              xml.url "#{params[:scm_url]}"
+            }
+          }
+          xml.branches {
+            xml.send("hudson.plugins.git.BranchSpec") {
+              xml.name "#{params[:scm_branch]}"
+            }
+          }
+          xml.disableSubmodules "false"
+          xml.recursiveSubmodules "false"
+          xml.doGenerateSubmoduleConfigurations "false"
+          xml.authorOrCommitter "false"
+          xml.clean "false"
+          xml.wipeOutWorkspace "false"
+          xml.pruneBranches "false"
+          xml.remotePoll "false"
+          xml.ignoreNotifyCommit "false"
+          xml.useShallowClone "false"
+          xml.buildChooser(:class =>
+                           "hudson.plugins.git.util.DefaultBuildChooser")
+          xml.gitTool "Default"
+          xml.submoduleCfg(:class => "list")
+          xml.relativeTargetDir
+          xml.reference
+          xml.excludedRegions
+          xml.excludedUsers
+          xml.gitConfigName
+          xml.gitConfigEmail
+          xml.skipTag "false"
+          xml.includedRegions
+          xml.scmName
+        }
+      end
 
       # Method for creating portion of xml that builds Skype notification
       # Use this option only when you have the Skype plugin installed and
