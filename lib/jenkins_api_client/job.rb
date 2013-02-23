@@ -259,27 +259,8 @@ module JenkinsApi
             }
             # Adding Downstream projects
             xml.publishers {
-              if params[:child_projects]
-                xml.send("hudson.tasks.BuildTrigger") {
-                  xml.childProjects "#{params[:child_projects]}"
-                  threshold = params[:child_threshold]
-                  name, ordinal, color = get_threshold_params(threshold)
-                  xml.threshold {
-                    xml.name "#{name}"
-                    xml.ordinal "#{ordinal}"
-                    xml.color "#{color}"
-                  }
-                }
-              end
-              if params[:notification_email]
-                xml.send("hudson.tasks.Mailer") {
-                  xml.recipients "#{params[:notification_email]}"
-                  xml.dontNotifyEveryUnstableBuild(
-                    "#{params[:notification_email_for_every_unstable]}")
-                  xml.sendToIndividuals(
-                    "#{params[:notification_email_send_to_individuals]}")
-                }
-              end
+              child_projects(params, xml) if params[:child_projects]
+              notification_email(params, xml) if params[:notification_email]
               skype_notification(params, xml) if params[:skype_targets]
             }
             xml.buildWrappers
@@ -1069,6 +1050,30 @@ module JenkinsApi
         }
       end
 
+      def notification_email(params, xml)
+        if params[:notification_email]
+          xml.send("hudson.tasks.Mailer") {
+            xml.recipients "#{params[:notification_email]}"
+            xml.dontNotifyEveryUnstableBuild(
+              "#{params[:notification_email_for_every_unstable]}")
+            xml.sendToIndividuals(
+              "#{params[:notification_email_send_to_individuals]}")
+          }
+        end
+      end
+
+      def child_projects(params, xml)
+        xml.send("hudson.tasks.BuildTrigger") {
+          xml.childProjects "#{params[:child_projects]}"
+          threshold = params[:child_threshold]
+          name, ordinal, color = get_threshold_params(threshold)
+          xml.threshold {
+            xml.name "#{name}"
+            xml.ordinal "#{ordinal}"
+            xml.color "#{color}"
+          }
+        }
+      end
     end
   end
 end
