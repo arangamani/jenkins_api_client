@@ -35,3 +35,8 @@ RSpec::Core::RakeTask.new(:func_tests) do |spec|
   spec.pattern = FileList['spec/func_tests/*_spec.rb']
   spec.rspec_opts = ['--color', '--format documentation']
 end
+
+RSpec::Core::RakeTask.new(:test) do |spec|
+  spec.pattern = FileList['spec/*/*.rb']
+  spec.rspec_opts = ['--color', '--format documentation']
+end
