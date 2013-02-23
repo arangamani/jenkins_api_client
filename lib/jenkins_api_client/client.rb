@@ -41,6 +41,7 @@ module JenkinsApi
       "password",
       "password_base64",
       "debug",
+      "csrf_enable",
       "timeout"
     ].freeze
 
@@ -65,7 +66,7 @@ module JenkinsApi
      @server_port = DEFAULT_SERVER_PORT unless @server_port
      @timeout = DEFAULT_TIMEOUT unless @timeout
      @debug = false unless @debug
-
+     @csrf_enable = false if @csrf_enable.nil?
      # Base64 decode inserts a newline character at the end. As a workaround
      # added chomp to remove newline characters. I hope nobody uses newline
      # characters at the end of their passwords :)
@@ -165,26 +166,25 @@ module JenkinsApi
     # @param [String] url_prefix
     # @param [Hash] form_data form data to send with POST request
     #
-    def api_post_request(url_prefix, form_data = nil)
+    def api_post_request(url_prefix, form_data = {})
       url_prefix = URI.escape("#{@jenkins_path}#{url_prefix}")
       http = Net::HTTP.start(@server_ip, @server_port)
       request = Net::HTTP::Post.new("#{url_prefix}")
+
+      if @csrf_enable
+        crumb_response = get_crumb
+        form_data.merge!(
+          {
+            crumb_response["crumbRequestField"] => crumb_response["crumb"],
+          }
+        )
+      end
       puts "[INFO] PUT #{url_prefix}" if @debug
       request.basic_auth @username, @password
       request.content_type = 'application/json'
-      request.set_form_data(form_data) unless form_data.nil?
+      request.set_form_data(form_data) unless form_data.empty?
       response = http.request(request)
-      msg = "HTTP Code: #{response.code}, Response Body: #{response.body}"
-      case response.code.to_i
-      when 200, 302
-        return response.code
-      when 404
-        raise Exceptions::NotFoundException.new(msg)
-      when 500
-        raise Exceptions::InternelServerErrorException.new(msg)
-      else
-        raise Exceptions::ApiException.new(msg)
-      end
+      handle_post_response(response)
     end
 
     # Obtains the configuration of a component from the Jenkins CI server
@@ -206,16 +206,77 @@ module JenkinsApi
     # @param [String] url_prefix
     # @param [String] xml
     #
-    def post_config(url_prefix, xml)
+    def post_config(url_prefix, xml, form_data = {})
       url_prefix = URI.escape(url_prefix)
       http = Net::HTTP.start(@server_ip, @server_port)
       request = Net::HTTP::Post.new("#{url_prefix}")
       puts "[INFO] PUT #{url_prefix}" if @debug
+
+      if @csrf_enable
+        crumb_response = get_crumb
+        form_data.merge!(
+          {
+            "mode" => "hudson.model.FreeStyleProject",
+            #"mode" => "",
+            crumb_response["crumbRequestField"] => crumb_response["crumb"],
+          }
+        )
+      end
       request.basic_auth @username, @password
       request.body = xml
       request.content_type = 'application/xml'
+      request.set_form_data(form_data) unless form_data.empty?
+      puts "DEBUG: Crumb: #{form_data.inspect}"
       response = http.request(request)
-      response.code
+      puts "DEBUG: response: #{response.inspect}"
+      handle_post_response(response)
+    end
+
+    # Obtains the jenkins version from the API
+    #
+    # @return Jenkins version
+    #
+    def get_jenkins_version
+      response = get_root
+      response["X-Jenkins"]
+    end
+
+    def get_hudson_version
+      response = get_root
+      response["X-Hudson"]
+    end
+
+    def get_server_date
+      response = get_root
+      response["Date"]
+    end
+
+    #private
+
+    def get_crumb
+      begin
+        response = api_get_request("/crumbIssuer")
+      rescue Exceptions::NotFoundException
+        raise "You've asked to enable CSRF protection, but it looks like" +
+          " your Jenkins server doesn't have this setting enabled. Please" +
+          " change the Jenkins server setting or client configuration."
+      end
+    end
+
+    def handle_post_response(response)
+      msg = "HTTP Code: #{response.code}"
+      msg << " Response Body: #{response.body}" if @debug
+      case response.code.to_i
+      when 200, 302
+        return response.code
+      when 404
+        raise Exceptions::NotFoundException.new(msg)
+      when 500
+        raise Exceptions::InternelServerErrorException.new(msg)
+      else
+        raise Exceptions::ApiException.new(msg)
+      end
+
     end
 
   end
