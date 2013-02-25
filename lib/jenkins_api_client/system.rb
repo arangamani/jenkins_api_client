@@ -65,6 +65,12 @@ module JenkinsApi
         end
       end
 
+      # Reload the Jenkins server
+      #
+      def reload()
+        @client.api_post_request("/reload")
+      end
+
       # This method waits till the server becomes ready after a start
       # or restart.
       #
