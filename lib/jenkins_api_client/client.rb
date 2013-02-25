@@ -27,6 +27,7 @@ require 'nokogiri'
 require 'active_support/core_ext'
 require 'active_support/builder'
 require 'base64'
+require 'open3'
 
 module JenkinsApi
   class Client
@@ -216,6 +217,18 @@ module JenkinsApi
       request.content_type = 'application/xml'
       response = http.request(request)
       response.code
+    end
+
+    # Execute the Jenkins CLI
+    #
+    # @param [String] CLI command name
+    # @param [Array] the arguments for the command 
+    #
+    def cli_exec(cli, args=[])
+      base_dir = File.dirname(__FILE__)
+      server_url = "http://#{@server_ip}:#{@server_port}/#{@jenkins_path}"
+      cmd = "java -jar #{base_dir}/jenkins-cli.jar -s #{server_url} " + cli + " --username #{@username} --password #{@password} " + args.join(' ')
+      Open3.popen3(cmd)
     end
 
   end
