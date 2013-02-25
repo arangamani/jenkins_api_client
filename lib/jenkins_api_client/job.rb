@@ -148,82 +148,14 @@ module JenkinsApi
             xml.properties
             # SCM related stuff
             if params[:scm_provider] == 'subversion'
-              xml.scm(:class => "hudson.scm.SubversionSCM",
-                      :plugin => "subversion@1.39") {
-                xml.locations {
-                  xml.send("hudson.scm.SubversionSCM_-ModuleLocation") {
-                    xml.remote "#{params[:scm_url]}"
-                    xml.local "."
-                  }
-                }
-                xml.excludedRegions
-                xml.includedRegions
-                xml.excludedUsers
-                xml.excludedRevprop
-                xml.excludedCommitMessages
-                xml.workspaceUpdater(:class =>
-                                     "hudson.scm.subversion.UpdateUpdater")
-              }
+              # Build subversion related XML portion
+              scm_subversion(params, xml)
             elsif params[:scm_provider] == "cvs"
-              xml.scm(:class => "hudson.scm.CVSSCM",
-                      :plugin => "cvs@1.6") {
-                xml.cvsroot "#{params[:scm_url]}"
-                xml.module "#{params[:scm_module]}"
-                if params[:scm_branch]
-                  xml.branch "#{params[:scm_branch]}"
-                else
-                  xml.branch "#{params[:scm_tag]}"
-                end
-                xml.canUseUpdate true
-                xml.useHeadIfNotFound(
-                  "#{params[:scm_use_head_if_tag_not_found]}")
-                xml.flatten true
-                if params[:scm_tag]
-                  xml.isTag true
-                else
-                  xml.isTag false
-                end
-                xml.excludedRegions
-              }
+              # Build CVS related XML portion
+              scm_cvs(params, xml)
             elsif params[:scm_provider] == "git"
-              xml.scm(:class => "hudson.plugins.git.GitSCM") {
-                xml.configVersion "2"
-                xml.userRemoteConfigs {
-                  xml.send("hudson.plugins.git.UserRemoteConfig") {
-                    xml.name
-                    xml.refspec
-                    xml.url "#{params[:scm_url]}"
-                  }
-                }
-                xml.branches {
-                  xml.send("hudson.plugins.git.BranchSpec") {
-                    xml.name "#{params[:scm_branch]}"
-                  }
-                }
-                xml.disableSubmodules "false"
-                xml.recursiveSubmodules "false"
-                xml.doGenerateSubmoduleConfigurations "false"
-                xml.authorOrCommitter "false"
-                xml.clean "false"
-                xml.wipeOutWorkspace "false"
-                xml.pruneBranches "false"
-                xml.remotePoll "false"
-                xml.ignoreNotifyCommit "false"
-                xml.useShallowClone "false"
-                xml.buildChooser(:class =>
-                                 "hudson.plugins.git.util.DefaultBuildChooser")
-                xml.gitTool "Default"
-                xml.submoduleCfg(:class => "list")
-                xml.relativeTargetDir
-                xml.reference
-                xml.excludedRegions
-                xml.excludedUsers
-                xml.gitConfigName
-                xml.gitConfigEmail
-                xml.skipTag "false"
-                xml.includedRegions
-                xml.scmName
-              }
+              # Build Git related XML portion
+              scm_git(params, xml)
             else
               xml.scm(:class => "hudson.scm.NullSCM")
             end
@@ -259,27 +191,11 @@ module JenkinsApi
             }
             # Adding Downstream projects
             xml.publishers {
-              if params[:child_projects]
-                xml.send("hudson.tasks.BuildTrigger") {
-                  xml.childProjects "#{params[:child_projects]}"
-                  threshold = params[:child_threshold]
-                  name, ordinal, color = get_threshold_params(threshold)
-                  xml.threshold {
-                    xml.name "#{name}"
-                    xml.ordinal "#{ordinal}"
-                    xml.color "#{color}"
-                  }
-                }
-              end
-              if params[:notification_email]
-                xml.send("hudson.tasks.Mailer") {
-                  xml.recipients "#{params[:notification_email]}"
-                  xml.dontNotifyEveryUnstableBuild(
-                    "#{params[:notification_email_for_every_unstable]}")
-                  xml.sendToIndividuals(
-                    "#{params[:notification_email_send_to_individuals]}")
-                }
-              end
+              # Build portion of XML that adds child projects
+              child_projects(params, xml) if params[:child_projects]
+              # Build portion of XML that adds email notification
+              notification_email(params, xml) if params[:notification_email]
+              # Build portion of XML that adds skype notification
               skype_notification(params, xml) if params[:skype_targets]
             }
             xml.buildWrappers
@@ -817,31 +733,6 @@ module JenkinsApi
         params_array
       end
 
-      # Obtains the threshold params used by jenkins in the XML file
-      # given the threshold
-      #
-      # @param [String] threshold success, failure, or unstable
-      #
-      # @return [String] status readable status matching the color
-      #
-      def get_threshold_params(threshold)
-        case threshold
-        when 'success'
-          name = 'SUCCESS'
-          ordinal = 0
-          color = 'BLUE'
-        when 'unstable'
-          name = 'UNSTABLE'
-          ordinal = 1
-          color = 'YELLOW'
-        when 'failure'
-          name = 'FAILURE'
-          ordinal = 2
-          color = 'RED'
-        end
-        return name, ordinal, color
-      end
-
       # Add downstream projects to a specific job given the job name,
       # projects to be added as downstream projects, and the threshold
       #
@@ -999,6 +890,130 @@ module JenkinsApi
 
       private
 
+      # Obtains the threshold params used by jenkins in the XML file
+      # given the threshold
+      #
+      # @param [String] threshold success, failure, or unstable
+      #
+      # @return [String] status readable status matching the color
+      #
+      def get_threshold_params(threshold)
+        case threshold
+        when 'success'
+          name = 'SUCCESS'
+          ordinal = 0
+          color = 'BLUE'
+        when 'unstable'
+          name = 'UNSTABLE'
+          ordinal = 1
+          color = 'YELLOW'
+        when 'failure'
+          name = 'FAILURE'
+          ordinal = 2
+          color = 'RED'
+        end
+        return name, ordinal, color
+      end
+
+      # This private method builds portion of XML that adds subversion SCM
+      # to a Job
+      #
+      # @param [Hash] params parameters to be used for building XML
+      # @param [XML] xml Nokogiri XML object
+      #
+      def scm_subversion(params, xml)
+        xml.scm(:class => "hudson.scm.SubversionSCM",
+               :plugin => "subversion@1.39") {
+         xml.locations {
+           xml.send("hudson.scm.SubversionSCM_-ModuleLocation") {
+             xml.remote "#{params[:scm_url]}"
+             xml.local "."
+           }
+         }
+         xml.excludedRegions
+         xml.includedRegions
+         xml.excludedUsers
+         xml.excludedRevprop
+         xml.excludedCommitMessages
+         xml.workspaceUpdater(:class =>
+                              "hudson.scm.subversion.UpdateUpdater")
+        }
+      end
+
+      # This private method builds portion of XML that adds CVS SCM to a Job
+      #
+      # @param [Hash] params parameters to be used for building XML
+      # @param [XML] xml Nokogiri XML object
+      #
+      def scm_cvs(params, xml)
+        xml.scm(:class => "hudson.scm.CVSSCM",
+                :plugin => "cvs@1.6") {
+          xml.cvsroot "#{params[:scm_url]}"
+          xml.module "#{params[:scm_module]}"
+          if params[:scm_branch]
+            xml.branch "#{params[:scm_branch]}"
+          else
+            xml.branch "#{params[:scm_tag]}"
+          end
+          xml.canUseUpdate true
+          xml.useHeadIfNotFound(
+            "#{params[:scm_use_head_if_tag_not_found]}")
+          xml.flatten true
+          if params[:scm_tag]
+            xml.isTag true
+          else
+            xml.isTag false
+          end
+          xml.excludedRegions
+        }
+      end
+
+      # This private method adds portion of XML that adds Git SCM to a Job
+      #
+      # @param [Hash] params parameters to be used for building XML
+      # @param [XML] xml Nokogiri XML object
+      #
+      def scm_git(params, xml)
+        xml.scm(:class => "hudson.plugins.git.GitSCM") {
+          xml.configVersion "2"
+          xml.userRemoteConfigs {
+            xml.send("hudson.plugins.git.UserRemoteConfig") {
+              xml.name
+              xml.refspec
+              xml.url "#{params[:scm_url]}"
+            }
+          }
+          xml.branches {
+            xml.send("hudson.plugins.git.BranchSpec") {
+              xml.name "#{params[:scm_branch]}"
+            }
+          }
+          xml.disableSubmodules "false"
+          xml.recursiveSubmodules "false"
+          xml.doGenerateSubmoduleConfigurations "false"
+          xml.authorOrCommitter "false"
+          xml.clean "false"
+          xml.wipeOutWorkspace "false"
+          xml.pruneBranches "false"
+          xml.remotePoll "false"
+          xml.ignoreNotifyCommit "false"
+          xml.useShallowClone "false"
+          xml.buildChooser(:class =>
+                           "hudson.plugins.git.util.DefaultBuildChooser")
+          xml.gitTool "Default"
+          xml.submoduleCfg(:class => "list")
+          xml.relativeTargetDir
+          xml.reference
+          xml.excludedRegions
+          xml.excludedUsers
+          xml.gitConfigName
+          xml.gitConfigEmail
+          xml.skipTag "false"
+          xml.includedRegions
+          xml.scmName
+        }
+      end
+
       # Method for creating portion of xml that builds Skype notification
       # Use this option only when you have the Skype plugin installed and
       # everything is set up properly
@@ -1069,6 +1084,42 @@ module JenkinsApi
         }
       end
 
+      # This private method builds portion of XML that adds notification email
+      # to a Job.
+      #
+      # @param [Hash] params parameters to be used for building XML
+      # @param [XML] xml Nokogiri XML object
+      #
+      def notification_email(params, xml)
+        if params[:notification_email]
+          xml.send("hudson.tasks.Mailer") {
+            xml.recipients "#{params[:notification_email]}"
+            xml.dontNotifyEveryUnstableBuild(
+              "#{params[:notification_email_for_every_unstable]}")
+            xml.sendToIndividuals(
+              "#{params[:notification_email_send_to_individuals]}")
+          }
+        end
+      end
+
+      # This private method builds portion of XML that adds child projects
+      # to a Job.
+      #
+      # @param [Hash] params parameters to be used for building XML
+      # @param [XML] xml Nokogiri XML object
+      #
+      def child_projects(params, xml)
+        xml.send("hudson.tasks.BuildTrigger") {
+          xml.childProjects "#{params[:child_projects]}"
+          threshold = params[:child_threshold]
+          name, ordinal, color = get_threshold_params(threshold)
+          xml.threshold {
+            xml.name "#{name}"
+            xml.ordinal "#{ordinal}"
+            xml.color "#{color}"
+          }
+        }
+      end
     end
   end
 end
