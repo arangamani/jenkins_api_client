@@ -65,11 +65,11 @@ module JenkinsApi
      @server_port = DEFAULT_SERVER_PORT unless @server_port
      @timeout = DEFAULT_TIMEOUT unless @timeout
      @debug = false unless @debug
-     @crumbs_enabled = use_crumbs?
      # Base64 decode inserts a newline character at the end. As a workaround
      # added chomp to remove newline characters. I hope nobody uses newline
      # characters at the end of their passwords :)
      @password = Base64.decode64(@password_base64).chomp if @password_base64
+     @crumbs_enabled = use_crumbs?
     end
 
     # This method toggles the debug parameter in run time
@@ -233,12 +233,12 @@ module JenkinsApi
     end
 
     def use_crumbs?
-      json = api_get_request("/")
+      json = api_get_request("")
       json["useCrumbs"]
     end
 
     def use_securit?
-      json = api_get_request("/")
+      json = api_get_request("")
       json["useSecurity"]
     end
 
