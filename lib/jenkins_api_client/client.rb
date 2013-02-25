@@ -65,7 +65,7 @@ module JenkinsApi
      @server_port = DEFAULT_SERVER_PORT unless @server_port
      @timeout = DEFAULT_TIMEOUT unless @timeout
      @debug = false unless @debug
-     @crumbs_enabled = use_crumbs
+     @crumbs_enabled = use_crumbs?
      # Base64 decode inserts a newline character at the end. As a workaround
      # added chomp to remove newline characters. I hope nobody uses newline
      # characters at the end of their passwords :)
