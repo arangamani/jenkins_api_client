@@ -41,7 +41,6 @@ module JenkinsApi
       "password",
       "password_base64",
       "debug",
-      "csrf_enable",
       "timeout"
     ].freeze
 
@@ -66,7 +65,7 @@ module JenkinsApi
      @server_port = DEFAULT_SERVER_PORT unless @server_port
      @timeout = DEFAULT_TIMEOUT unless @timeout
      @debug = false unless @debug
-     @csrf_enable = false if @csrf_enable.nil?
+     @crumbs_enabled = use_crumbs
      # Base64 decode inserts a newline character at the end. As a workaround
      # added chomp to remove newline characters. I hope nobody uses newline
      # characters at the end of their passwords :)
@@ -171,7 +170,7 @@ module JenkinsApi
       http = Net::HTTP.start(@server_ip, @server_port)
       request = Net::HTTP::Post.new("#{url_prefix}")
 
-      if @csrf_enable
+      if @crumbs_enabled
         crumb_response = get_crumb
         form_data.merge!(
           {
@@ -212,7 +211,8 @@ module JenkinsApi
       request = Net::HTTP::Post.new("#{url_prefix}")
       puts "[INFO] PUT #{url_prefix}" if @debug
 
-      if @csrf_enable
+      puts "POSTING: #{xml}"
+      if @crumbs_enabled
         crumb_response = get_crumb
         form_data.merge!(
           {
@@ -230,6 +230,16 @@ module JenkinsApi
       response = http.request(request)
       puts "DEBUG: response: #{response.inspect}"
       handle_post_response(response)
+    end
+
+    def use_crumbs?
+      json = api_get_request("/")
+      json["useCrumbs"]
+    end
+
+    def use_securit?
+      json = api_get_request("/")
+      json["useSecurity"]
     end
 
     # Obtains the jenkins version from the API
