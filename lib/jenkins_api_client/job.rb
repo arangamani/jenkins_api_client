@@ -148,10 +148,13 @@ module JenkinsApi
             xml.properties
             # SCM related stuff
             if params[:scm_provider] == 'subversion'
+              # Build subversion related XML portion
               scm_subversion(params, xml)
             elsif params[:scm_provider] == "cvs"
+              # Build CVS related XML portion
               scm_cvs(params, xml)
             elsif params[:scm_provider] == "git"
+              # Build Git related XML portion
               scm_git(params, xml)
             else
               xml.scm(:class => "hudson.scm.NullSCM")
@@ -188,8 +191,11 @@ module JenkinsApi
             }
             # Adding Downstream projects
             xml.publishers {
+              # Build portion of XML that adds child projects
               child_projects(params, xml) if params[:child_projects]
+              # Build portion of XML that adds email notification
               notification_email(params, xml) if params[:notification_email]
+              # Build portion of XML that adds skype notification
               skype_notification(params, xml) if params[:skype_targets]
             }
             xml.buildWrappers
@@ -909,7 +915,12 @@ module JenkinsApi
         return name, ordinal, color
       end
 
-
+      # This private method builds portion of XML that adds subversion SCM
+      # to a Job
+      #
+      # @param [Hash] params parameters to be used for building XML
+      # @param [XML] xml Nokogiri XML object
+      #
       def scm_subversion(params, xml)
         xml.scm(:class => "hudson.scm.SubversionSCM",
                :plugin => "subversion@1.39") {
@@ -929,6 +940,11 @@ module JenkinsApi
         }
       end
 
+      # This private method builds portion of XML that adds CVS SCM to a Job
+      #
+      # @param [Hash] params parameters to be used for building XML
+      # @param [XML] xml Nokogiri XML object
+      #
       def scm_cvs(params, xml)
         xml.scm(:class => "hudson.scm.CVSSCM",
                 :plugin => "cvs@1.6") {
@@ -952,6 +968,11 @@ module JenkinsApi
         }
       end
 
+      # This private method adds portion of XML that adds Git SCM to a Job
+      #
+      # @param [Hash] params parameters to be used for building XML
+      # @param [XML] xml Nokogiri XML object
+      #
       def scm_git(params, xml)
         xml.scm(:class => "hudson.plugins.git.GitSCM") {
           xml.configVersion "2"
@@ -1063,6 +1084,12 @@ module JenkinsApi
         }
       end
 
+      # This private method builds portion of XML that adds notification email
+      # to a Job.
+      #
+      # @param [Hash] params parameters to be used for building XML
+      # @param [XML] xml Nokogiri XML object
+      #
       def notification_email(params, xml)
         if params[:notification_email]
           xml.send("hudson.tasks.Mailer") {
@@ -1075,6 +1102,12 @@ module JenkinsApi
         end
       end
 
+      # This private method builds portion of XML that adds child projects
+      # to a Job.
+      #
+      # @param [Hash] params parameters to be used for building XML
+      # @param [XML] xml Nokogiri XML object
+      #
       def child_projects(params, xml)
         xml.send("hudson.tasks.BuildTrigger") {
           xml.childProjects "#{params[:child_projects]}"
