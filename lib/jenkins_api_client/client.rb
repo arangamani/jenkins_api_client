@@ -224,10 +224,10 @@ module JenkinsApi
     # @param [String] CLI command name
     # @param [Array] the arguments for the command 
     #
-    def cli_exec(cli, args=[])
+    def cli_exec(command, args=[])
       base_dir = File.dirname(__FILE__)
       server_url = "http://#{@server_ip}:#{@server_port}/#{@jenkins_path}"
-      cmd = "java -jar #{base_dir}/jenkins-cli.jar -s #{server_url} " + cli + " --username #{@username} --password #{@password} " + args.join(' ')
+      cmd = "java -jar #{base_dir}/jenkins-cli.jar -s #{server_url} " + command + " --username #{@username} --password #{@password} " + args.join(' ')
       Open3.popen3(cmd)
     end
 
