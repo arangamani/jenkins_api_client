@@ -67,7 +67,7 @@ module JenkinsApi
 
       # Reload the Jenkins server
       #
-      def reload()
+      def reload
         @client.api_post_request("/reload")
       end
 
