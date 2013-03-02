@@ -40,6 +40,12 @@ module JenkinsApi
         @client.system.cancel_quiet_down
       end
 
+      desc "reload", "Reload Jenkins server"
+      def reload
+        @client = Helper.setup(parent_options)
+        @client.system.reload
+      end
+
       desc "restart", "Restarts the Jenkins server"
       method_option :force, :type => :boolean, :aliases => "-s",
         :desc => "Force restart"
