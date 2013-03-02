@@ -49,6 +49,13 @@ describe JenkinsApi::Client::System do
           @client.system.wait_for_ready.should == true
         end
       end
+
+      describe "#reload" do
+        it "Should be able to reload a Jenkins server" do
+          @client.system.reload.to_i.should == 302
+        end
+      end
+
     end
 
   end

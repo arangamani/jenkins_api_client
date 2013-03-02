@@ -41,6 +41,13 @@ describe JenkinsApi::Client::System do
         end
       end
 
+      describe "#reload" do
+        it "sends a reload request to the server" do
+          @client.should_receive(:api_post_request).with("/reload")
+          @system.reload
+        end
+      end
+
       describe "#wait_for_ready" do
         it "exits if the response body doesn't have the wait message" do
           @client.should_receive(:get_root).and_return(Net::HTTP.get_response(URI('http://example.com/index.html')))
