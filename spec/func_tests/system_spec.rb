@@ -54,6 +54,9 @@ describe JenkinsApi::Client::System do
         it "Should be able to reload a Jenkins server" do
           @client.system.reload.to_i.should == 302
         end
+        it "Should be able to wait after a force restart" do
+          @client.system.wait_for_ready.should == true
+        end
       end
 
     end
