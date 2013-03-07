@@ -28,9 +28,54 @@ require 'jenkins_api_client/node'
 require 'jenkins_api_client/system'
 require 'jenkins_api_client/view'
 require 'jenkins_api_client/build_queue'
+require 'jenkins_api_client/configuration'
 
 require 'jenkins_api_client/cli/helper'
 require 'jenkins_api_client/cli/base'
 require 'jenkins_api_client/cli/job'
 require 'jenkins_api_client/cli/node'
 require 'jenkins_api_client/cli/system'
+
+module Jenkins
+  module Configuration
+    VALID_PARAMS = [
+      "server_ip",
+      "username",
+      "password"
+    ]
+
+    attr_accessor *VALID_PARAMS
+
+    def configure
+      yield self
+    end
+
+    def params
+      params = {}
+      VALID_PARAMS.each{|k| params[k] = send(k)}
+      params
+    end
+  end
+end
+
+module JenkinsJob
+  extend Jenkins::Configuration
+    class << self
+      def new(params={})
+        JenkinsApi::Client.new(params).job
+      end
+
+      def put
+        puts params.inspect
+      end
+
+      def method_missing(method, *args, &block)
+        return super unless new(params).respond_to?(method)
+        new(params).send(method, *args, &block)
+      end
+
+      def respond_to?(method, include_private=false)
+        new(params).respond_to?(method, include_private) || super(method, include_private)
+      end
+    end
+end
