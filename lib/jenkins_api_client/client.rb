@@ -192,7 +192,7 @@ module JenkinsApi
     # @param [String] url_prefix
     #
     def get_config(url_prefix)
-      url_prefix = URI.escape(url_prefix)
+      url_prefix = URI.escape("#{@jenkins_path}#{url_prefix}")
       http = Net::HTTP.start(@server_ip, @server_port)
       request = Net::HTTP::Get.new("#{url_prefix}/config.xml")
       puts "[INFO] GET #{url_prefix}/config.xml" if @debug
@@ -207,7 +207,7 @@ module JenkinsApi
     # @param [String] xml
     #
     def post_config(url_prefix, xml)
-      url_prefix = URI.escape(url_prefix)
+      url_prefix = URI.escape("#{@jenkins_path}#{url_prefix}")
       http = Net::HTTP.start(@server_ip, @server_port)
       request = Net::HTTP::Post.new("#{url_prefix}")
       puts "[INFO] PUT #{url_prefix}" if @debug
