@@ -141,23 +141,7 @@ module JenkinsApi
       puts "[INFO] GET #{to_get}" if @debug
       request.basic_auth @username, @password
       response = http.request(request)
-      msg = "HTTP Code: #{response.code}, Response Body: #{response.body}"
-      case response.code.to_i
-      when 200
-        if url_suffix =~ /json/
-          return JSON.parse(response.body)
-        else
-          return response
-        end
-      when 401
-        raise Exceptions::UnautherizedException.new(msg)
-      when 404
-        raise Exceptions::NotFoundException.new(msg)
-      when 500
-        raise Exceptions::InternelServerErrorException.new(msg)
-      else
-        raise Exceptions::ApiException.new(msg)
-      end
+      handle_exception(response, "body", url_suffix =~ /json/)
     end
 
     # Sends a POST message to the Jenkins CI server with the specified URL
@@ -174,17 +158,7 @@ module JenkinsApi
       request.content_type = 'application/json'
       request.set_form_data(form_data) unless form_data.nil?
       response = http.request(request)
-      msg = "HTTP Code: #{response.code}, Response Body: #{response.body}"
-      case response.code.to_i
-      when 200, 302
-        return response.code
-      when 404
-        raise Exceptions::NotFoundException.new(msg)
-      when 500
-        raise Exceptions::InternelServerErrorException.new(msg)
-      else
-        raise Exceptions::ApiException.new(msg)
-      end
+      handle_exception(response)
     end
 
     # Obtains the configuration of a component from the Jenkins CI server
@@ -198,7 +172,7 @@ module JenkinsApi
       puts "[INFO] GET #{url_prefix}/config.xml" if @debug
       request.basic_auth @username, @password
       response = http.request(request)
-      response.body
+      handle_exception(response, "body")
     end
 
     # Posts the given xml configuration to the url given
@@ -215,7 +189,7 @@ module JenkinsApi
       request.body = xml
       request.content_type = 'application/xml'
       response = http.request(request)
-      response.code
+      handle_exception(response)
     end
 
     # Obtain the version of Jenkins CI server
@@ -243,6 +217,30 @@ module JenkinsApi
     def get_server_date
       response = get_root
       response["Date"]
+    end
+
+    private
+
+    def handle_exception(response, to_send = "code", send_json = false)
+      msg = "HTTP Code: #{response.code}, Response Body: #{response.body}"
+      case response.code.to_i
+      when 200, 302
+        if to_send == "body" && send_json
+          return JSON.parse(response.body)
+        elsif to_send == "body"
+          return response.body
+        elsif to_send == "code"
+          return response.code
+        end
+      when 401
+        raise Exceptions::UnautherizedException.new
+      when 404
+        raise Exceptions::NotFoundException.new
+      when 500
+        raise Exceptions::InternelServerErrorException.new
+      else
+        raise Exceptions::ApiException.new
+      end
     end
 
   end

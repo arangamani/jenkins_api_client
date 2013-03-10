@@ -36,13 +36,17 @@ module JenkinsApi
 
     class NotFoundException < ApiException
       def initialize(message = "")
-        super("Requested page not found on the Jenkins CI server. #{message}")
+        super("Requested component is not found on the Jenkins CI server." +
+              " #{message}")
       end
     end
 
     class InternelServerErrorException < ApiException
       def initialize(message = "")
-        super("Internel Server Error. #{message}")
+        super("Internel Server Error. Perhaps the in-memory configuration of" +
+              " Jenkins is different from the disk configuration." +
+              " Please try to reload the configuration #{message}"
+             )
       end
     end
   end
