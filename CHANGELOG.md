@@ -4,6 +4,18 @@ CHANGELOG
 upcoming
 --------
 
+v0.9.0  [10-MAR-2013]
+---------------------
+* Added capability to send email notification to existing jobs
+* Removed warnings from client.rb
+* Refactored and improved exception handling
+* A bug is fixed in client which allows only the valid params as options. Credit: @Niarfe
+* Added a timeout parameter for waiting for jenkins to become ready. Credit: @Niarfe
+* Added function to reload jenkins. Credit: @missedone
+* Fixed a bug where jenkins_path was missing in get_config and post_config. Credit: @cylol
+* Added capability to obtain jenkins version and other useful information
+* Added new tests for various cases, and other code improvements
+
 v0.8.1  [15-FEB-2013]
 ---------------------
 * Fixed a bug in creating view. Issue #42
