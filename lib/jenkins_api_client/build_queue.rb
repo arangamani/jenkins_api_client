@@ -60,7 +60,7 @@ module JenkinsApi
       #
       # @param [String] task_name Name of the task/job
       #
-      # @return [FixNum] age in seconds
+      # @return [Fixnum] age in seconds
       #
       def get_age(task_name)
         age = nil
@@ -121,7 +121,7 @@ module JenkinsApi
 
       # Obtains the ETA given by Jenkins if any
       #
-      # @param[String] task_name name of the task
+      # @param [String] task_name name of the task
       #
       # @return [String] ETA for the task, nil if no task found and N/A for
       #                  tasks with no ETA info.

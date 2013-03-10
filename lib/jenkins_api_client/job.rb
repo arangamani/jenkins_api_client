@@ -338,7 +338,7 @@ module JenkinsApi
       # @return [Hash] response
       #   * +output+ Console output of the job
       #   * +size+ Size of the text. This can be used as 'start' for the
-      #            next call to get progressive output
+      #   next call to get progressive output
       #   * +more+ More data available for the job. 'true' if available
       #            and nil otherwise
       #
