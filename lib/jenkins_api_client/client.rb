@@ -218,5 +218,32 @@ module JenkinsApi
       response.code
     end
 
+    # Obtain the version of Jenkins CI server
+    #
+    # @return [String] Version of Jenkins
+    #
+    def get_jenkins_version
+      response = get_root
+      response["X-Jenkins"]
+    end
+
+    # Obtain the Hudson version of the CI server
+    #
+    # @return [String] Version of Hudson on Jenkins server
+    #
+    def get_hudson_version
+      response = get_root
+      response["X-Hudson"]
+    end
+
+    # Obtain the date of the Jenkins server
+    #
+    # @return [String] Server date
+    #
+    def get_server_date
+      response = get_root
+      response["Date"]
+    end
+
   end
 end
