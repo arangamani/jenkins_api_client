@@ -111,7 +111,7 @@ module JenkinsApi
         end
         params[:concurrent_build] = false if params[:concurrent_build].nil?
         if params[:notification_email]
-          if params[:notification_email_for_every_unstable_build].nil?
+          if params[:notification_email_for_every_unstable].nil?
             params[:notification_email_for_every_unstable] = false
           end
           if params[:notification_email_send_to_individuals].nil?
@@ -204,6 +204,30 @@ module JenkinsApi
         create(params[:name], builder.to_xml)
       end
 
+      # Adding email notification to a job
+      #
+      # @param [Hash] params parameters to add email notification
+      # @option params [String] :name Name of the job
+      # @option params [String] :notification_email Email address to send
+      # @option params [TrueClass|FalseClass] :notification_email_for_every_unstable
+      # Send email notification email for every unstable build
+      def add_email_notification(params)
+        raise "No job name specified" unless params[:name]
+        raise "No email address specified" unless params[:notification_email]
+        xml = get_config(params[:name])
+        n_xml = Nokogiri::XML(xml)
+        if n_xml.xpath("//hudson.tasks.Mailer").empty?
+          p_xml = Nokogiri::XML::Builder.new(:encoding => "UTF-8") { |xml|
+            notification_email(params, xml)
+          }
+          email_xml = Nokogiri::XML(p_xml.to_xml).xpath(
+            "//hudson.tasks.Mailer"
+          ).first
+          n_xml.xpath("//publishers").first.add_child(email_xml)
+          post_config(params[:name], n_xml.to_xml)
+        end
+      end
+
       # Adding skype notificaiton to a job
       #
       # @param [Hash] params parameters for adding skype notification
@@ -229,7 +253,6 @@ module JenkinsApi
         raise "No Skype target specified" unless params[:skype_targets]
         xml = get_config(params[:name])
         n_xml = Nokogiri::XML(xml)
-        puts n_xml.xpath("//hudson.plugins.skype.im.transport.SkypePublisher")
         if n_xml.xpath("//hudson.plugins.skype.im.transport.SkypePublisher").empty?
           p_xml = Nokogiri::XML::Builder.new(:encoding => "UTF-8") { |xml|
             skype_notification(params, xml)
