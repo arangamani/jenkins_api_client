@@ -60,7 +60,26 @@ describe JenkinsApi::Client do
           end
         end
       end
+      describe "#get_jenkins_version" do
+        it "Should the jenkins version" do
+          @client.get_jenkins_version.class.should == String
+        end
+      end
 
+      describe "#get_hudson_version" do
+        it "Should get the hudson version" do
+          @client.get_hudson_version.class.should == String
+        end
+      end
+
+      describe "#get_server_date" do
+        it "Should return the server date" do
+          @client.get_server_date.class.should == String
+        end
+      end
+    end
+
+    describe "SubClassAccessorMethods" do
       describe "#job" do
         it "Should return a job object on call" do
           @client.job.class.should == JenkinsApi::Client::Job
@@ -85,21 +104,9 @@ describe JenkinsApi::Client do
         end
       end
 
-      describe "#get_jenkins_version" do
-        it "Should the jenkins version" do
-          @client.get_jenkins_version.class.should == String
-        end
-      end
-
-      describe "#get_hudson_version" do
-        it "Should get the hudson version" do
-          @client.get_hudson_version.class.should == String
-        end
-      end
-
-      describe "#get_server_date" do
-        it "Should return the server date" do
-          @client.get_server_date.class.should == String
+      describe "#queue" do
+        it "Should return a build queue object on call" do
+          @client.queue.class.should == JenkinsApi::Client::BuildQueue
         end
       end
     end

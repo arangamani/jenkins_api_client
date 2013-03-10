@@ -26,41 +26,6 @@ describe JenkinsApi::Client do
       end
     end
 
-    describe "#debug" do
-      it "The default for debug should be false" do
-        client = JenkinsApi::Client.new(
-          :server_ip => '127.0.0.1',
-          :server_port => 8080,
-          :username => 'username',
-          :password => 'password'
-        )
-        client.debug.should == false
-      end
-
-      it "Should be able to set the debug value" do
-        client = JenkinsApi::Client.new(
-          :server_ip => '127.0.0.1',
-          :server_port => 8080,
-          :username => 'username',
-          :password => 'password',
-          :debug => true
-          )
-        client.debug.should == true
-      end
-
-      it "Should be able to toggle the debug value" do
-        client = JenkinsApi::Client.new(
-          :server_ip => '127.0.0.1',
-          :server_port => 8080,
-          :username => 'username',
-          :password => 'password',
-          :debug => true
-          )
-        client.toggle_debug
-        client.debug.should == false
-      end
-    end
-
     describe "#SubClassAccessorMethods" do
       describe "#job" do
         it "Should return a Client::Job object" do
@@ -124,6 +89,41 @@ describe JenkinsApi::Client do
     end
 
     describe "InstanceMethods" do
+      describe "#debug" do
+        it "The default for debug should be false" do
+          client = JenkinsApi::Client.new(
+            :server_ip => '127.0.0.1',
+            :server_port => 8080,
+            :username => 'username',
+            :password => 'password'
+          )
+          client.debug.should == false
+        end
+
+        it "Should be able to set the debug value" do
+          client = JenkinsApi::Client.new(
+            :server_ip => '127.0.0.1',
+            :server_port => 8080,
+            :username => 'username',
+            :password => 'password',
+            :debug => true
+            )
+          client.debug.should == true
+        end
+
+        it "Should be able to toggle the debug value" do
+          client = JenkinsApi::Client.new(
+            :server_ip => '127.0.0.1',
+            :server_port => 8080,
+            :username => 'username',
+            :password => 'password',
+            :debug => true
+            )
+          client.toggle_debug
+          client.debug.should == false
+        end
+      end
+
       describe "#getroot" do
         it "is defined with no parameters" do
           expect(
@@ -160,6 +160,30 @@ describe JenkinsApi::Client do
         it "is defined and should accept url_prefix and xml" do
           expect(
             lambda { @client.post_config("/some/prefix", "<tag></tag>") }
+          ).not_to raise_error(NoMethodError)
+        end
+      end
+
+      describe "#get_jenkins_version" do
+        it "is defined and accepts no parameters" do
+          expect(
+            lambda { @client.get_jenkins_version }
+          ).not_to raise_error(NoMethodError)
+        end
+      end
+
+      describe "#get_hudson_version" do
+        it "is defined and accepts no parameters" do
+          expect(
+            lambda { @client.get_hudson_version }
+          ).not_to raise_error(NoMethodError)
+        end
+      end
+
+      describe "#get_server_date" do
+        it "is defined and accepts no parameters" do
+          expect(
+            lambda { @client.get_server_date }
           ).not_to raise_error(NoMethodError)
         end
       end
