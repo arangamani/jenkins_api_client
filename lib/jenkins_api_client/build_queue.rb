@@ -95,7 +95,6 @@ module JenkinsApi
       def get_causes(task_name)
         causes = nil
         details = get_details(task_name)
-        puts "Details: #{details.inspect}"
         unless details.empty?
           causes = []
           details["actions"].each do |action|
