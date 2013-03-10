@@ -227,12 +227,23 @@ describe JenkinsApi::Client::Job do
         end
       end
 
+      describe "#add_email_notification" do
+        it "Should accept email address and add to existing job" do
+          name = "email_notification_test_job"
+          params = {:name => name}
+          @client.job.create_freestyle(params).to_i.should == 200
+          @client.job.add_email_notification(
+            :name => name,
+            :notification_email => "testuser@testdomain.com"
+          ).to_i.should == 200
+          @client.job.delete(name).to_i.should == 302
+        end
+      end
+
       describe "#add_skype_notification" do
         it "Should accept skype configuration and add to existing job" do
           name = "skype_notification_test_job"
-          params = {
-            :name => name
-          }
+          params = {:name => name}
           @client.job.create_freestyle(params).to_i.should == 200
           @client.job.add_skype_notification(
             :name => name,
