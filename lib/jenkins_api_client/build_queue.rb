@@ -95,8 +95,12 @@ module JenkinsApi
       def get_causes(task_name)
         causes = nil
         details = get_details(task_name)
+        puts "Details: #{details.inspect}"
         unless details.empty?
-          causes = details["actions"]["causes"]
+          causes = []
+          details["actions"].each do |action|
+            causes << action["causes"]
+          end
         end
         causes
       end
@@ -179,7 +183,7 @@ module JenkinsApi
         buildable = nil
         details = get_details(task_name)
         unless details.empty?
-          buildable = details["buildable"] == "true" ? true : false
+          buildable = details["buildable"]
         end
         buildable
       end
@@ -194,7 +198,7 @@ module JenkinsApi
         blocked = nil
         details = get_details(task_name)
         unless details.empty?
-          blocked = details["blocked"] == "true" ? true : false
+          blocked = details["blocked"]
         end
         blocked
       end
@@ -209,7 +213,7 @@ module JenkinsApi
         stuck = nil
         details = get_details(task_name)
         unless details.empty?
-          stuck = details["stuck"] == "true" ? true : false
+          stuck = details["stuck"]
         end
         stuck
       end
