@@ -23,7 +23,8 @@
 module JenkinsApi
   class Client
     # This class communicates with Jenkins "/view" API and used to create,
-    # delete, update, and various other operations permitted on the Jenkins API
+    # delete, update, and various other operations permitted on the Jenkins
+    # API.
     class View
 
       # Initializes a new view object

@@ -24,7 +24,7 @@ module JenkinsApi
   class Client
     # This classes communicates with the Build Queue API exposed by Jenkins at
     # "/queue" that gives information about jobs/tasks in the queue and their
-    # details
+    # details,
     class BuildQueue
 
       # Initializes a new BuildQueue object.

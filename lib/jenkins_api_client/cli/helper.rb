@@ -25,7 +25,7 @@ require 'fileutils'
 module JenkinsApi
   module CLI
     # This is the helper class that sets up the credentials from the command
-    # line parameters given and initializes the Jenkins API Client
+    # line parameters given and initializes the Jenkins API Client.
     class Helper
       # Sets up the credentials and initializes the Jenkins API Client
       #

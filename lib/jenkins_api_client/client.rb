@@ -29,15 +29,18 @@ require 'active_support/builder'
 require 'base64'
 
 # The main module that contains the Client class and all subclasses that
-# communicate with the Jenkins's Remote Access API
+# communicate with the Jenkins's Remote Access API.
 module JenkinsApi
   # This is the client class that acts as the bridge between the subclasses and
   # Jnekins. This class contains methods that performs GET and POST requests
-  # for various operations
+  # for various operations.
   class Client
     attr_accessor :debug, :timeout
+    # Default port to be used to connect to Jenkins
     DEFAULT_SERVER_PORT = 8080
+    # Default timeout in seconds to be used while performing operations
     DEFAULT_TIMEOUT = 120
+    # Parameters that are permitted as options while initializing the client
     VALID_PARAMS = [
       "server_ip",
       "server_port",

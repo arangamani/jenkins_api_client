@@ -21,9 +21,10 @@
 #
 
 module JenkinsApi
-  # This module contains classes that define exceptions for various catories
+  # This module contains classes that define exceptions for various catories.
   module Exceptions
-    # This is the base class for Exceptions that is inherited from RuntimeError
+    # This is the base class for Exceptions that is inherited from
+    # RuntimeError.
     class ApiException < RuntimeError
       def initialize(message = "")
         super("Error: #{message}")

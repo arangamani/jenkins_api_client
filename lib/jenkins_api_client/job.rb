@@ -23,7 +23,7 @@
 module JenkinsApi
   class Client
     # This class communicates with the Jenkins "/job" API to obtain details
-    # about jobs, creating, deleting, building, and various other operations
+    # about jobs, creating, deleting, building, and various other operations.
     class Job
 
       # Initialize the Job object and store the reference to Client object
