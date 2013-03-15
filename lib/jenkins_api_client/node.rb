@@ -22,6 +22,8 @@
 
 module JenkinsApi
   class Client
+    # This class communicates with Jenkins "/computer" API to obtain details
+    # about nodes or slaves connected to the Jenkins
     class Node
 
       # General attributes of a node.

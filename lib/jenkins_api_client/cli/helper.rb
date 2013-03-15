@@ -24,7 +24,15 @@ require 'fileutils'
 
 module JenkinsApi
   module CLI
+    # This is the helper class that sets up the credentials from the command
+    # line parameters given and initializes the Jenkins API Client
     class Helper
+      # Sets up the credentials and initializes the Jenkins API Client
+      #
+      # @param [Hash] options Options obtained from the command line
+      #
+      # @return [JenkinsApi::Client] A new Client object
+      #
       def self.setup(options)
         if options[:username] && options[:server_ip] && \
           (options[:password] || options[:password_base64])

@@ -24,6 +24,8 @@ require 'timeout'
 
 module JenkinsApi
   class Client
+    # This class is used to communicate with Jenkins and performing some admin
+    # level operations such as restarting and reloading Jenkins
     class System
 
       # Initializes a new System object.

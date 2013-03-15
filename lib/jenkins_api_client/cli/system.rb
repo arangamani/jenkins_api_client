@@ -25,6 +25,7 @@ require 'thor/group'
 
 module JenkinsApi
   module CLI
+    # This class provides various command line operations to System class
     class System < Thor
       include Thor::Actions
 

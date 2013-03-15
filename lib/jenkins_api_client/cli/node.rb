@@ -26,6 +26,7 @@ require 'terminal-table'
 
 module JenkinsApi
   module CLI
+    # This class provides various command line operations for the Node class
     class Node < Thor
       include Thor::Actions
       include Terminal
