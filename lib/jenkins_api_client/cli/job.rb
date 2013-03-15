@@ -33,6 +33,8 @@ module JenkinsApi
       method_option :status, :aliases => "-t", :desc => "Status to filter"
       method_option :filter, :aliases => "-f",
         :desc => "Regular expression to filter jobs"
+      # CLI command to list all jobs in Jenkins or the ones matched by status
+      # or a regular expression
       def list
         @client = Helper.setup(parent_options)
         if options[:filter] && options[:status]
@@ -48,24 +50,37 @@ module JenkinsApi
       end
 
       desc "recreate JOB", "Recreate a specified job"
+      # CLI command to recreate a job on Jenkins
       def recreate(job)
         @client = Helper.setup(parent_options)
         @client.job.recreate(job)
       end
 
       desc "build JOB", "Build a job"
+      # CLI command to build a job given the name of the job
+      #
+      # @param [String] job Name of the job
+      #
       def build(job)
         @client = Helper.setup(parent_options)
         @client.job.build(job)
       end
 
       desc "status JOB", "Get the current build status of a job"
+      # CLI command to get the status of a job
+      #
+      # @param [String] job Name of the job
+      #
       def status(job)
         @client = Helper.setup(parent_options)
         puts @client.job.get_current_build_status(job)
       end
 
       desc "delete JOB", "Delete the job"
+      # CLI command to delete a job
+      #
+      # @param [String] job Name of the job
+      #
       def delete(job)
         @client = Helper.setup(parent_options)
         puts @client.job.delete(job)
@@ -74,6 +89,10 @@ module JenkinsApi
       desc "console JOB", "Print the progressive console output of a job"
       method_option :sleep, :aliases => "-z",
         :desc => "Time to wait between querying the API for console output"
+      # CLI command to obtain console output for a job
+      #
+      # @param [String] job Name of the job
+      #
       def console(job)
         @client = Helper.setup(parent_options)
         # If debug is enabled, disable it. It shouldn't interfere
@@ -101,6 +120,10 @@ module JenkinsApi
 
       desc "restrict JOB", "Restricts a job to a specific node"
       method_option :node, :aliases => "-n", :desc => "Node to be restricted to"
+      # CLI command to restrict a job to a node
+      #
+      # @param [String] job Name of the job
+      #
       def restrict(job)
         @client = Helper.setup(parent_options)
         if options[:node]

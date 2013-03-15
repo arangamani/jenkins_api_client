@@ -48,6 +48,7 @@ module JenkinsApi
       map "-v" => :version
 
       desc "version", "Shows current version"
+      # CLI command that returns the version of Jenkins API Client
       def version
         puts JenkinsApi::Client::VERSION
       end

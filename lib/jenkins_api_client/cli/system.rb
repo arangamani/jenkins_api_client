@@ -30,18 +30,21 @@ module JenkinsApi
       include Thor::Actions
 
       desc "quietdown", "Puts the Jenkins server in Quiet down mode"
+      # CLI command that puts Jenkins in Quiet Down mode
       def quietdown
         @client = Helper.setup(parent_options)
         @client.system.quiet_down
       end
 
       desc "cancel_quietdown", "Cancels the Quiet down mode of Jenkins server"
+      # CLI command that cancels Jenkins from Quiet Down mode
       def cancel_quietdown
         @client = Helper.setup(parent_options)
         @client.system.cancel_quiet_down
       end
 
       desc "reload", "Reload Jenkins server"
+      # CLI command to reload Jenkins configuration from disk
       def reload
         @client = Helper.setup(parent_options)
         @client.system.reload
@@ -50,6 +53,7 @@ module JenkinsApi
       desc "restart", "Restarts the Jenkins server"
       method_option :force, :type => :boolean, :aliases => "-s",
         :desc => "Force restart"
+      # CLI command to (force) restart Jenkins
       def restart
         @client = Helper.setup(parent_options)
         force = options[:force] ? true : false

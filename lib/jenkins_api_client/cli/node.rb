@@ -34,6 +34,8 @@ module JenkinsApi
       desc "list", "List all nodes"
       method_option :filter, :aliases => "-f",
         :desc => "Regular expression to filter jobs"
+      # CLI command that lists all nodes/slaves available in Jenkins or the
+      # ones matching the filter provided
       def list
         @client = Helper.setup(parent_options)
         if options[:filter]
@@ -44,6 +46,7 @@ module JenkinsApi
       end
 
       desc "print_general_attributes", "Prints general attributes of nodes"
+      # CLI command that prints the general attribtues of nodes
       def print_general_attributes
         @client = Helper.setup(parent_options)
         general_attributes = Client::Node::GENERAL_ATTRIBUTES
@@ -56,6 +59,10 @@ module JenkinsApi
       end
 
       desc "print_node_attributes NODE", "Prints attributes specific to a node"
+      # CLI command to print the attributes specific to a node
+      #
+      # @param [String] node Name of the node
+      #
       def print_node_attributes(node)
         @client = Helper.setup(parent_options)
         node_attributes = Client::Node::NODE_ATTRIBUTES
@@ -69,6 +76,10 @@ module JenkinsApi
       end
 
       desc "print_node_properties NODE", "Prints properties of a node"
+      # CLI command to print the properties of a specific node
+      #
+      # @param [String] node Name of the node
+      #
       def print_node_properties(node)
         @client = Helper.setup(parent_options)
         node_properties = Client::Node::NODE_PROPERTIES
