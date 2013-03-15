@@ -28,7 +28,12 @@ require 'active_support/core_ext'
 require 'active_support/builder'
 require 'base64'
 
+# The main module that contains the Client class and all subclasses that
+# communicate with the Jenkins's Remote Access API.
 module JenkinsApi
+  # This is the client class that acts as the bridge between the subclasses and
+  # Jnekins. This class contains methods that performs GET and POST requests
+  # for various operations.
   class Client
     attr_accessor :debug, :timeout
     DEFAULT_SERVER_PORT = 8080
@@ -52,24 +57,30 @@ module JenkinsApi
     #  * the +:username+ param is the username used for connecting to the server
     #  * the +:password+ param is the password for connecting to the CI server
     #
+    # @return [JenkinsApi::Client] a client object to Jenkins API
+    #
+    # @raise [ArgumentError] when required options are not provided.
+    #
     def initialize(args)
       args.each do |key, value|
         if value && VALID_PARAMS.include?(key.to_s)
           instance_variable_set("@#{key}", value)
         end
       end if args.is_a? Hash
-     raise "Server IP is required to connect to Jenkins" unless @server_ip
-     unless @username && (@password || @password_base64)
-       raise "Credentials are required to connect to te Jenkins Server"
-     end
-     @server_port = DEFAULT_SERVER_PORT unless @server_port
-     @timeout = DEFAULT_TIMEOUT unless @timeout
-     @debug = false unless @debug
+      unless @server_ip
+        raise ArgumentError, "Server IP is required to connect to Jenkins"
+      end
+      unless @username && (@password || @password_base64)
+        raise ArgumentError, "Credentials are required to connect to Jenkins"
+      end
+      @server_port = DEFAULT_SERVER_PORT unless @server_port
+      @timeout = DEFAULT_TIMEOUT unless @timeout
+      @debug = false unless @debug
 
-     # Base64 decode inserts a newline character at the end. As a workaround
-     # added chomp to remove newline characters. I hope nobody uses newline
-     # characters at the end of their passwords :)
-     @password = Base64.decode64(@password_base64).chomp if @password_base64
+      # Base64 decode inserts a newline character at the end. As a workaround
+      # added chomp to remove newline characters. I hope nobody uses newline
+      # characters at the end of their passwords :)
+      @password = Base64.decode64(@password_base64).chomp if @password_base64
     end
 
     # This method toggles the debug parameter in run time
@@ -80,11 +91,15 @@ module JenkinsApi
 
     # Creates an instance to the Job class by passing a reference to self
     #
+    # @return [JenkinsApi::Client::Job] An object to Job subclass
+    #
     def job
       JenkinsApi::Client::Job.new(self)
     end
 
     # Creates an instance to the System class by passing a reference to self
+    #
+    # @return [JenkinsApi::Client::System] An object to System subclass
     #
     def system
       JenkinsApi::Client::System.new(self)
@@ -92,11 +107,15 @@ module JenkinsApi
 
     # Creates an instance to the Node class by passing a reference to self
     #
+    # @return [JenkinsApi::Client::Node] An object to Node subclass
+    #
     def node
       JenkinsApi::Client::Node.new(self)
     end
 
     # Creates an instance to the View class by passing a reference to self
+    #
+    # @return [JenkinsApi::Client::View] An object to View subclass
     #
     def view
       JenkinsApi::Client::View.new(self)
@@ -104,11 +123,15 @@ module JenkinsApi
 
     # Creates an instance to the BuildQueue by passing a reference to self
     #
+    # @return [JenkinsApi::Client::BuildQueue] An object to BuildQueue subclass
+    #
     def queue
       JenkinsApi::Client::BuildQueue.new(self)
     end
 
     # Returns a string representing the class name
+    #
+    # @return [String] string representation of class name
     #
     def to_s
       "#<JenkinsApi::Client>"
@@ -116,6 +139,9 @@ module JenkinsApi
 
     # Obtains the root of Jenkins server. This function is used to see if
     # Jenkins is running
+    #
+    # @return [Net::HTTP::Response] Response from Jenkins for "/"
+    #
     def get_root
       http = Net::HTTP.start(@server_ip, @server_port)
       request = Net::HTTP::Get.new("/")
@@ -125,7 +151,11 @@ module JenkinsApi
 
     # Sends a GET request to the Jenkins CI server with the specified URL
     #
-    # @param [String] url_prefix
+    # @param [String] url_prefix The prefix to use in the URL
+    # @param [String] tree A specific JSON tree to optimize the API call
+    # @param [String] url_suffix The suffix to be used in the URL
+    #
+    # @return [String, JSON] JSON response from Jenkins
     #
     def api_get_request(url_prefix, tree = nil, url_suffix ="/api/json")
       url_prefix = "#{@jenkins_path}#{url_prefix}"
@@ -146,8 +176,10 @@ module JenkinsApi
 
     # Sends a POST message to the Jenkins CI server with the specified URL
     #
-    # @param [String] url_prefix
-    # @param [Hash] form_data form data to send with POST request
+    # @param [String] url_prefix The prefix to be used in the URL
+    # @param [Hash] form_data Form data to send with POST request
+    #
+    # @return [String] Response code form Jenkins Response
     #
     def api_post_request(url_prefix, form_data = nil)
       url_prefix = URI.escape("#{@jenkins_path}#{url_prefix}")
@@ -163,7 +195,9 @@ module JenkinsApi
 
     # Obtains the configuration of a component from the Jenkins CI server
     #
-    # @param [String] url_prefix
+    # @param [String] url_prefix The prefix to be used in the URL
+    #
+    # @return [String] XML configuration obtained from Jenkins
     #
     def get_config(url_prefix)
       url_prefix = URI.escape("#{@jenkins_path}#{url_prefix}")
@@ -177,8 +211,10 @@ module JenkinsApi
 
     # Posts the given xml configuration to the url given
     #
-    # @param [String] url_prefix
-    # @param [String] xml
+    # @param [String] url_prefix The prefix to be used in the URL
+    # @param [String] xml The XML configuration to be sent to Jenkins
+    #
+    # @return [String] Response code returned from Jenkins
     #
     def post_config(url_prefix, xml)
       url_prefix = URI.escape("#{@jenkins_path}#{url_prefix}")
@@ -221,6 +257,28 @@ module JenkinsApi
 
     private
 
+    # Private method that handles the exception and raises with proper error
+    # message with the type of exception and returns the required values if no
+    # exceptions are raised.
+    #
+    # @param [Net::HTTP::Response] response Response from Jenkins
+    # @param [String] to_send What should be returned as a response. Allowed
+    # values: "code" and "body".
+    # @param [Boolean] send_json Boolean value used to determine whether to
+    # load the JSON or send the response as is.
+    #
+    # @return [String, JSON] Response returned whether loaded JSON or raw
+    # string
+    #
+    # @raise [Exceptions::UnauthorizedException] When invalid credentials are
+    # provided to connect to Jenkins
+    # @raise [Exceptions::NotFoundException] When the requested page on Jenkins
+    # is found
+    # @raise [Exceptions::InternelServerErrorException] When Jenkins returns a
+    # 500 Internel Server Error
+    # @raise [Exceptions::ApiException] Any other exception returned from
+    # Jenkins that are not categorized in the API Client.
+    #
     def handle_exception(response, to_send = "code", send_json = false)
       msg = "HTTP Code: #{response.code}, Response Body: #{response.body}"
       case response.code.to_i

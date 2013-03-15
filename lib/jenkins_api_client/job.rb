@@ -211,6 +211,7 @@ module JenkinsApi
       # @option params [String] :notification_email Email address to send
       # @option params [TrueClass|FalseClass] :notification_email_for_every_unstable
       # Send email notification email for every unstable build
+      #
       def add_email_notification(params)
         raise "No job name specified" unless params[:name]
         raise "No email address specified" unless params[:notification_email]
