@@ -163,6 +163,14 @@ describe JenkinsApi::Client do
           ).not_to raise_error(NoMethodError)
         end
       end
+
+      describe "#exec_cli" do
+        it "is defined and should execute the CLI" do
+          expect(
+            lambda { @client.exec_cli("version") }
+          ).not_to raise_error(NoMethodError)
+        end
+      end
     end
   end
 
