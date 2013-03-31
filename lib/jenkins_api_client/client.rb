@@ -27,7 +27,7 @@ require 'nokogiri'
 require 'active_support/core_ext'
 require 'active_support/builder'
 require 'base64'
-require 'open3'
+require "mixlib/shellout"
 
 module JenkinsApi
   class Client
@@ -228,7 +228,17 @@ module JenkinsApi
       base_dir = File.dirname(__FILE__)
       server_url = "http://#{@server_ip}:#{@server_port}/#{@jenkins_path}"
       cmd = "java -jar #{base_dir}/../../java_deps/jenkins-cli.jar -s #{server_url} #{command} --username #{@username} --password #{@password} " + args.join(' ')
-      Open3.popen3(cmd)
+      java_cmd = Mixlib::ShellOut.new(cmd)
+
+      # Run the command
+      java_cmd.run_command
+      if java_cmd.stderr.empty?
+        java_cmd.stdout.chomp
+      else
+        # The stderr has a stack trace of the Java program. We'll already have a stack trace for Ruby.
+        # So I don't think we want both :) The first line has a descriptive message of what the error is.
+        raise Exceptions::CLIException.new(java_cmd.stderr.split("\n").first)
+      end
     end
 
   end

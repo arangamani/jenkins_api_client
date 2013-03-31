@@ -170,6 +170,11 @@ describe JenkinsApi::Client do
             lambda { @client.exec_cli("version") }
           ).not_to raise_error(NoMethodError)
         end
+        it "is defined and should failed to execute the non-exists command" do
+          expect(
+            lambda { @client.exec_cli("command_not_exists") }
+          ).to raise_error(JenkinsApi::Exceptions::CLIException)
+        end
       end
     end
   end
