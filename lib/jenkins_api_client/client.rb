@@ -24,8 +24,8 @@ require 'rubygems'
 require 'json'
 require 'net/http'
 require 'nokogiri'
-require 'active_support/core_ext'
-require 'active_support/builder'
+#require 'active_support/core_ext'
+#require 'active_support/builder'
 require 'base64'
 
 # The main module that contains the Client class and all subclasses that
