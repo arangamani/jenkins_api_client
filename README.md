@@ -147,6 +147,21 @@ initial_jobs.each do |job|
 end
 ```
 
+### Running Jenkins CLI
+To running [Jenkins CLI](https://wiki.jenkins-ci.org/display/JENKINS/Jenkins+CLI)
+
+```ruby
+@client = JenkinsApi::Client.new(:server_ip => '0.0.0.0',
+         :username => 'somename', :password => 'secret password')
+# The following call will return the version of Jenkins instance
+puts @client.exec_cli("version")
+```
+
+Before you run the CLI, please make sure the following requirements are fulfilled:
+* JRE/JDK 6 (or above) is installed, and 'java' is on the $PATH environment variable
+* The ```jenkins_api_client/java_deps/jenkins-cli.jar``` is required as the client to run the CLI. You can retrieve the available commands via accessing the URL: ```http://<server>:<port>/cli```
+* (Optional) required if you run the Groovy Script through CLI, make sure the *user* have the privilige to run script
+
 ### Using with command line
 Command line interface is supported only from version 0.2.0.
 See help using <tt>jenkinscli help</tt>

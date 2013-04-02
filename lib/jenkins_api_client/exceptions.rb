@@ -58,5 +58,11 @@ module JenkinsApi
              )
       end
     end
+
+    class CLIException < ApiException
+      def initialize(message = "")
+        super("Execute CLI Error. #{message}")
+      end
+    end
   end
 end

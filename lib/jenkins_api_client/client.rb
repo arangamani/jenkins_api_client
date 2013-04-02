@@ -27,6 +27,7 @@ require 'nokogiri'
 #require 'active_support/core_ext'
 #require 'active_support/builder'
 require 'base64'
+require "mixlib/shellout"
 
 # The main module that contains the Client class and all subclasses that
 # communicate with the Jenkins's Remote Access API.
@@ -256,6 +257,28 @@ module JenkinsApi
     def get_server_date
       response = get_root
       response["Date"]
+    end
+
+    # Execute the Jenkins CLI
+    #
+    # @param [String] CLI command name
+    # @param [Array] the arguments for the command
+    #
+    def exec_cli(command, args=[])
+      base_dir = File.dirname(__FILE__)
+      server_url = "http://#{@server_ip}:#{@server_port}/#{@jenkins_path}"
+      cmd = "java -jar #{base_dir}/../../java_deps/jenkins-cli.jar -s #{server_url} #{command} --username #{@username} --password #{@password} " + args.join(' ')
+      java_cmd = Mixlib::ShellOut.new(cmd)
+
+      # Run the command
+      java_cmd.run_command
+      if java_cmd.stderr.empty?
+        java_cmd.stdout.chomp
+      else
+        # The stderr has a stack trace of the Java program. We'll already have a stack trace for Ruby.
+        # So I don't think we want both :) The first line has a descriptive message of what the error is.
+        raise Exceptions::CLIException.new(java_cmd.stderr.split("\n").first)
+      end
     end
 
     private
