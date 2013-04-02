@@ -4,6 +4,11 @@ CHANGELOG
 upcoming
 --------
 
+v0.9.1  [01-APR-2013]
+---------------------
+* Removed the dependency of ActiveSupport and Builder as they were not being
+* used.
+
 v0.9.0  [10-MAR-2013]
 ---------------------
 * Added capability to send email notification to existing jobs
