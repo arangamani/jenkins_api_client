@@ -59,6 +59,7 @@ module JenkinsApi
       end
     end
 
+    # Exception occurred while running java CLI commands
     class CLIException < ApiException
       def initialize(message = "")
         super("Execute CLI Error. #{message}")
