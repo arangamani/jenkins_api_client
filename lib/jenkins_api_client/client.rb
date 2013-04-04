@@ -261,13 +261,21 @@ module JenkinsApi
 
     # Execute the Jenkins CLI
     #
-    # @param [String] CLI command name
-    # @param [Array] the arguments for the command
+    # @param command [String] command name
+    # @param args [Array] the arguments for the command
     #
-    def exec_cli(command, args=[])
+    # @return [String] command output from the CLI
+    #
+    # @raise [Exceptions::CLIException] if there are issues in running the
+    #   commands using CLI
+    #
+    def exec_cli(command, args = [])
       base_dir = File.dirname(__FILE__)
       server_url = "http://#{@server_ip}:#{@server_port}/#{@jenkins_path}"
-      cmd = "java -jar #{base_dir}/../../java_deps/jenkins-cli.jar -s #{server_url} #{command} --username #{@username} --password #{@password} " + args.join(' ')
+      cmd = "java -jar #{base_dir}/../../java_deps/jenkins-cli.jar" +
+        " -s #{server_url} #{command}" +
+        " --username #{@username} --password #{@password} " +
+        args.join(' ')
       java_cmd = Mixlib::ShellOut.new(cmd)
 
       # Run the command
@@ -275,8 +283,9 @@ module JenkinsApi
       if java_cmd.stderr.empty?
         java_cmd.stdout.chomp
       else
-        # The stderr has a stack trace of the Java program. We'll already have a stack trace for Ruby.
-        # So I don't think we want both :) The first line has a descriptive message of what the error is.
+        # The stderr has a stack trace of the Java program. We'll already have
+        # a stack trace for Ruby. So just display a descriptive message for the
+        # error thrown by the CLI.
         raise Exceptions::CLIException.new(java_cmd.stderr.split("\n").first)
       end
     end
