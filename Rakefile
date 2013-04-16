@@ -40,3 +40,5 @@ RSpec::Core::RakeTask.new(:test) do |spec|
   spec.pattern = FileList['spec/*/*.rb']
   spec.rspec_opts = ['--color', '--format documentation']
 end
+
+task :default => [:unit_tests]
