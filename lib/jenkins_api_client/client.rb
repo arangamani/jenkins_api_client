@@ -158,10 +158,11 @@ module JenkinsApi
     # @param [String] url_prefix The prefix to use in the URL
     # @param [String] tree A specific JSON tree to optimize the API call
     # @param [String] url_suffix The suffix to be used in the URL
+    # @param [Boolean] raw_response Return complete Response object instead of JSON body of response
     #
     # @return [String, JSON] JSON response from Jenkins
     #
-    def api_get_request(url_prefix, tree = nil, url_suffix ="/api/json")
+    def api_get_request(url_prefix, tree = nil, url_suffix ="/api/json", raw_response = false)
       url_prefix = "#{@jenkins_path}#{url_prefix}"
       http = Net::HTTP.start(@server_ip, @server_port)
       to_get = ""
@@ -175,7 +176,11 @@ module JenkinsApi
       puts "[INFO] GET #{to_get}" if @debug
       request.basic_auth @username, @password
       response = http.request(request)
-      handle_exception(response, "body", url_suffix =~ /json/)
+      if raw_response
+        response
+      else
+        handle_exception(response, "body", url_suffix =~ /json/)
+      end
     end
 
     # Sends a POST message to the Jenkins CI server with the specified URL

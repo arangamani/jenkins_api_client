@@ -199,7 +199,7 @@ describe JenkinsApi::Client::Job do
         it "accepts the job name and the obtains the console output" do
           msg = "/job/test_job/1/logText/progressiveText?start=0"
           @client.should_receive(:api_get_request).
-                  with(msg, nil, nil).
+                  with(msg, nil, nil, true).
                   and_return(Net::HTTP.get_response(URI('http://example.com/index.html')))
           @job.get_console_output('test_job', 1, 0, 'text')
         end
