@@ -21,6 +21,7 @@ matrix:
     - rvm: jruby-18mode
     - rvm: jruby-19mode
     - rvm: jruby-head
+    - rvm: ree
 script: bundle exec rake unit_tests
 notifications:
   email: false
