@@ -11,11 +11,6 @@ rvm:
   - jruby-head
   - 1.8.7
   - ree
-jdk:
-  - openjdk6
-  - openjdk7
-  - oraclejdk6
-  - oraclejdk7
 matrix:
   allow_failures:
     - rvm: jruby-18mode
