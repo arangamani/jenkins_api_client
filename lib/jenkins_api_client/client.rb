@@ -45,6 +45,8 @@ module JenkinsApi
     VALID_PARAMS = [
       "server_ip",
       "server_port",
+      "proxy_ip",
+      "proxy_port",
       "jenkins_path",
       "username",
       "password",
@@ -76,6 +78,9 @@ module JenkinsApi
       end
       unless @username && (@password || @password_base64)
         raise ArgumentError, "Credentials are required to connect to Jenkins"
+      end
+      if @proxy_ip.nil? ^ @proxy_port.nil?
+        raise ArgumentError, "Proxy IP and port must both be specified or both left nil"
       end
       @server_port = DEFAULT_SERVER_PORT unless @server_port
       @timeout = DEFAULT_TIMEOUT unless @timeout
@@ -140,6 +145,19 @@ module JenkinsApi
     def to_s
       "#<JenkinsApi::Client>"
     end
+    
+    # Connects to the Jenkins server, sends the specified request and returns
+    # the response.
+    #
+    # @param [Net::HTTPRequest] request The request object to send
+    #
+    # @return [Net::HTTPResponse] Response from Jenkins
+    def make_http_request( request )
+      Net::HTTP.start(@server_ip, @server_port, @proxy_ip, @proxy_port) do |http|
+        return http.request(request)
+      end
+    end
+    protected :make_http_request
 
     # Obtains the root of Jenkins server. This function is used to see if
     # Jenkins is running
@@ -147,10 +165,9 @@ module JenkinsApi
     # @return [Net::HTTP::Response] Response from Jenkins for "/"
     #
     def get_root
-      http = Net::HTTP.start(@server_ip, @server_port)
       request = Net::HTTP::Get.new("/")
       request.basic_auth @username, @password
-      http.request(request)
+      make_http_request( request )
     end
 
     # Sends a GET request to the Jenkins CI server with the specified URL
@@ -163,7 +180,6 @@ module JenkinsApi
     #
     def api_get_request(url_prefix, tree = nil, url_suffix ="/api/json")
       url_prefix = "#{@jenkins_path}#{url_prefix}"
-      http = Net::HTTP.start(@server_ip, @server_port)
       to_get = ""
       if tree
         to_get = "#{url_prefix}#{url_suffix}?#{tree}"
@@ -174,7 +190,7 @@ module JenkinsApi
       request = Net::HTTP::Get.new(to_get)
       puts "[INFO] GET #{to_get}" if @debug
       request.basic_auth @username, @password
-      response = http.request(request)
+      response = make_http_request( request )
       handle_exception(response, "body", url_suffix =~ /json/)
     end
 
@@ -187,13 +203,12 @@ module JenkinsApi
     #
     def api_post_request(url_prefix, form_data = nil)
       url_prefix = URI.escape("#{@jenkins_path}#{url_prefix}")
-      http = Net::HTTP.start(@server_ip, @server_port)
       request = Net::HTTP::Post.new("#{url_prefix}")
       puts "[INFO] PUT #{url_prefix}" if @debug
       request.basic_auth @username, @password
       request.content_type = 'application/json'
       request.set_form_data(form_data) unless form_data.nil?
-      response = http.request(request)
+      response = make_http_request( request )
       handle_exception(response)
     end
 
@@ -205,11 +220,10 @@ module JenkinsApi
     #
     def get_config(url_prefix)
       url_prefix = URI.escape("#{@jenkins_path}#{url_prefix}")
-      http = Net::HTTP.start(@server_ip, @server_port)
       request = Net::HTTP::Get.new("#{url_prefix}/config.xml")
       puts "[INFO] GET #{url_prefix}/config.xml" if @debug
       request.basic_auth @username, @password
-      response = http.request(request)
+      response = make_http_request( request )
       handle_exception(response, "body")
     end
 
@@ -222,13 +236,12 @@ module JenkinsApi
     #
     def post_config(url_prefix, xml)
       url_prefix = URI.escape("#{@jenkins_path}#{url_prefix}")
-      http = Net::HTTP.start(@server_ip, @server_port)
       request = Net::HTTP::Post.new("#{url_prefix}")
       puts "[INFO] PUT #{url_prefix}" if @debug
       request.basic_auth @username, @password
       request.body = xml
       request.content_type = 'application/xml'
-      response = http.request(request)
+      response = make_http_request( request )
       handle_exception(response)
     end
 
