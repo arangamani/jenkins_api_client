@@ -42,7 +42,7 @@ begin
   unless client_opts.has_key?(:username)
     client_opts[:username] = prompt_for_username()
   end
-  unless client_opts.has_key?(:password)
+  unless client_opts.has_key?(:password) or client_opts.has_key?(:password_base64)
     client_opts[:password] = prompt_for_password()
   end
   
