@@ -50,7 +50,8 @@ module JenkinsApi
       "password",
       "password_base64",
       "debug",
-      "timeout"
+      "timeout",
+      "ssl"
     ].freeze
 
     # Initialize a Client object with Jenkins CI server credentials
@@ -60,6 +61,7 @@ module JenkinsApi
     #  * the +:server_port+ param is the port on which the Jenkins listens
     #  * the +:username+ param is the username used for connecting to the server
     #  * the +:password+ param is the password for connecting to the CI server
+    #  * the +:ssl+ param indicates if Jenkins is accessible over HTTPS (defaults to false)
     #
     # @return [JenkinsApi::Client] a client object to Jenkins API
     #
@@ -79,6 +81,7 @@ module JenkinsApi
       end
       @server_port = DEFAULT_SERVER_PORT unless @server_port
       @timeout = DEFAULT_TIMEOUT unless @timeout
+      @ssl ||= false
       @debug = false unless @debug
 
       # Base64 decode inserts a newline character at the end. As a workaround
@@ -147,7 +150,7 @@ module JenkinsApi
     # @return [Net::HTTP::Response] Response from Jenkins for "/"
     #
     def get_root
-      http = Net::HTTP.start(@server_ip, @server_port)
+      http = Net::HTTP.start(@server_ip, @server_port, :use_ssl => @ssl)
       request = Net::HTTP::Get.new("/")
       request.basic_auth @username, @password
       http.request(request)
@@ -163,7 +166,7 @@ module JenkinsApi
     #
     def api_get_request(url_prefix, tree = nil, url_suffix ="/api/json")
       url_prefix = "#{@jenkins_path}#{url_prefix}"
-      http = Net::HTTP.start(@server_ip, @server_port)
+      http = Net::HTTP.start(@server_ip, @server_port, :use_ssl => @ssl)
       to_get = ""
       if tree
         to_get = "#{url_prefix}#{url_suffix}?#{tree}"
@@ -187,7 +190,7 @@ module JenkinsApi
     #
     def api_post_request(url_prefix, form_data = nil)
       url_prefix = URI.escape("#{@jenkins_path}#{url_prefix}")
-      http = Net::HTTP.start(@server_ip, @server_port)
+      http = Net::HTTP.start(@server_ip, @server_port, :use_ssl => @ssl)
       request = Net::HTTP::Post.new("#{url_prefix}")
       puts "[INFO] PUT #{url_prefix}" if @debug
       request.basic_auth @username, @password
@@ -205,7 +208,7 @@ module JenkinsApi
     #
     def get_config(url_prefix)
       url_prefix = URI.escape("#{@jenkins_path}#{url_prefix}")
-      http = Net::HTTP.start(@server_ip, @server_port)
+      http = Net::HTTP.start(@server_ip, @server_port, :use_ssl => @ssl)
       request = Net::HTTP::Get.new("#{url_prefix}/config.xml")
       puts "[INFO] GET #{url_prefix}/config.xml" if @debug
       request.basic_auth @username, @password
@@ -222,7 +225,7 @@ module JenkinsApi
     #
     def post_config(url_prefix, xml)
       url_prefix = URI.escape("#{@jenkins_path}#{url_prefix}")
-      http = Net::HTTP.start(@server_ip, @server_port)
+      http = Net::HTTP.start(@server_ip, @server_port, :use_ssl => @ssl)
       request = Net::HTTP::Post.new("#{url_prefix}")
       puts "[INFO] PUT #{url_prefix}" if @debug
       request.basic_auth @username, @password
