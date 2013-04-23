@@ -321,5 +321,27 @@ module JenkinsApi
       end
     end
 
+    def handle_exception(response, to_send = "code", send_json = false)
+      msg = "HTTP Code: #{response.code}, Response Body: #{response.body}"
+      case response.code.to_i
+      when 200, 302
+        if to_send == "body" && send_json
+          return JSON.parse(response.body)
+        elsif to_send == "body"
+          return response.body
+        elsif to_send == "code"
+          return response.code
+        end
+      when 401
+        raise Exceptions::UnautherizedException.new
+      when 404
+        raise Exceptions::NotFoundException.new
+      when 500
+        raise Exceptions::InternelServerErrorException.new
+      else
+        raise Exceptions::ApiException.new
+      end
+    end
+
   end
 end
