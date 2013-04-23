@@ -27,7 +27,8 @@ require 'nokogiri'
 #require 'active_support/core_ext'
 #require 'active_support/builder'
 require 'base64'
-require "mixlib/shellout"
+require 'mixlib/shellout'
+require 'uri'
 
 # The main module that contains the Client class and all subclasses that
 # communicate with the Jenkins's Remote Access API.
@@ -246,11 +247,10 @@ module JenkinsApi
           }
         )
       end
-      request = Net::HTTP::Post.new("#{url_prefix}")
+      request = Net::HTTP::Post.new("#{url_prefix}?" + URI.encode_www_form( form_data ))
       request.basic_auth @username, @password
       request.body = xml
       request.content_type = 'application/xml'
-      request.uri.query = URI.encode_www_form(form_data)
       # request.set_form_data(form_data) unless form_data.empty?
       puts "DEBUG: Crumb: #{form_data.inspect}"
       response = http.request(request)
