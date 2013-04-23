@@ -11,13 +11,13 @@ describe JenkinsApi::Client::Job do
     before(:all) do
       @helper = JenkinsApiSpecHelper::Helper.new
       @creds_file = '~/.jenkins_api_client/spec.yml'
+      @creds = YAML.load_file(File.expand_path(@creds_file, __FILE__))
       @job_name_prefix = 'awesome_rspec_test_job'
       @filter = "^#{@job_name_prefix}.*"
       @job_name = ''
+      @create_response = @creds[:csrf_enable] ? 302 : 200
       begin
-        @client = JenkinsApi::Client.new(
-          YAML.load_file(File.expand_path(@creds_file, __FILE__))
-        )
+        @client = JenkinsApi::Client.new(@creds)
       rescue Exception => e
         puts "WARNING: Credentials are not set properly."
         puts e.message
@@ -54,7 +54,7 @@ describe JenkinsApi::Client::Job do
         it "Should be able to create a job by getting an xml" do
           xml = @helper.create_job_xml
           name = "qwerty_nonexistent_job"
-          @client.job.create(name, xml).to_i.should == 200
+          @client.job.create(name, xml).to_i.should == @create_response
           @client.job.list(name).include?(name).should be_true
         end
       end
@@ -62,7 +62,7 @@ describe JenkinsApi::Client::Job do
       describe "#create_freestyle" do
 
         def test_and_validate(name, params)
-          @client.job.create_freestyle(params).to_i.should == 200
+          @client.job.create_freestyle(params).to_i.should == @create_response
           @client.job.list(name).include?(name).should be_true
           @client.job.delete(name).to_i.should == 302
           @client.job.list(name).include?(name).should be_false
@@ -243,12 +243,14 @@ describe JenkinsApi::Client::Job do
       describe "#add_skype_notification" do
         it "Should accept skype configuration and add to existing job" do
           name = "skype_notification_test_job"
-          params = {:name => name}
-          @client.job.create_freestyle(params).to_i.should == 200
+          params = {
+            :name => name
+          }
+          @client.job.create_freestyle(params).to_i.should == @create_response
           @client.job.add_skype_notification(
             :name => name,
             :skype_targets => "testuser"
-          ).to_i.should == 200
+          ).to_i.should == @create_response
           @client.job.delete(name).to_i.should == 302
         end
       end
@@ -268,7 +270,7 @@ describe JenkinsApi::Client::Job do
 
       describe "#recreate" do
         it "Should be able to re-create a job" do
-          @client.job.recreate("qwerty_nonexistent_job").to_i.should == 200
+          @client.job.recreate("qwerty_nonexistent_job").to_i.should == @create_response
         end
       end
 
@@ -276,7 +278,7 @@ describe JenkinsApi::Client::Job do
         it "Should be able to change the description of a job" do
           @client.job.change_description("qwerty_nonexistent_job",
             "The description has been changed by the spec test"
-          ).to_i.should == 200
+          ).to_i.should == @create_response
         end
       end
 
@@ -396,9 +398,9 @@ describe JenkinsApi::Client::Job do
 
       describe "#restrict_to_node" do
         it "Should be able to restrict a job to a node" do
-          @client.job.restrict_to_node(@job_name, 'master').to_i.should == 200
+          @client.job.restrict_to_node(@job_name, 'master').to_i.should == @create_response
           # Run it again to make sure that the replace existing node works
-          @client.job.restrict_to_node(@job_name, 'master').to_i.should == 200
+          @client.job.restrict_to_node(@job_name, 'master').to_i.should == @create_response
         end
       end
 
