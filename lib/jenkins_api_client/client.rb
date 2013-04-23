@@ -233,7 +233,6 @@ module JenkinsApi
     def post_config(url_prefix, xml, form_data = {})
       url_prefix = URI.escape(url_prefix)
       http = Net::HTTP.start(@server_ip, @server_port, :use_ssl => @ssl)
-      request = Net::HTTP::Post.new("#{url_prefix}")
       puts "[INFO] PUT #{url_prefix}" if @debug
 
       puts "POSTING: #{xml}"
@@ -247,10 +246,12 @@ module JenkinsApi
           }
         )
       end
+      request = Net::HTTP::Post.new("#{url_prefix}")
       request.basic_auth @username, @password
       request.body = xml
       request.content_type = 'application/xml'
-      request.set_form_data(form_data) unless form_data.empty?
+      request.uri.query = URI.encode_www_form(form_data)
+      # request.set_form_data(form_data) unless form_data.empty?
       puts "DEBUG: Crumb: #{form_data.inspect}"
       response = http.request(request)
       puts "DEBUG: response: #{response.inspect}"
