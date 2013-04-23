@@ -24,7 +24,7 @@ describe JenkinsApi::Client do
           end
         ).not_to raise_error
       end
-      
+
       it "initializes with proxy args without exception" do
         expect(
           lambda do
@@ -34,7 +34,7 @@ describe JenkinsApi::Client do
               :username => 'username',
               :password => 'password',
               :proxy_ip => '127.0.0.1',
-              :proxy_port => 8081,
+              :proxy_port => 8081
             )
           end
         ).not_to raise_error
