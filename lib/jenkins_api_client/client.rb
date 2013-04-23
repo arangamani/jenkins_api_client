@@ -335,7 +335,7 @@ module JenkinsApi
       when 500
         raise Exceptions::InternelServerErrorException.new
       else
-        raise Exceptions::ApiException.new
+        raise Exceptions::ApiException.new msg
       end
     end
 
