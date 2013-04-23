@@ -24,6 +24,21 @@ describe JenkinsApi::Client do
           end
         ).not_to raise_error
       end
+      
+      it "initializes with proxy args without exception" do
+        expect(
+          lambda do
+            JenkinsApi::Client.new(
+              :server_ip => '127.0.0.1',
+              :server_port => 8080,
+              :username => 'username',
+              :password => 'password',
+              :proxy_ip => '127.0.0.1',
+              :proxy_port => 8081,
+            )
+          end
+        ).not_to raise_error
+      end
     end
 
     describe "#SubClassAccessorMethods" do
@@ -234,6 +249,34 @@ describe JenkinsApi::Client do
               :server_port => 8080,
               :username => 'username',
               :bogus => 'password'
+            })
+          end
+        ).to raise_error
+      end
+
+      it "Should fail if proxy_ip is specified but proxy_port is not" do
+        expect(
+          lambda do
+            JenkinsApi::Client.new({
+              :bogus => '127.0.0.1',
+              :server_port => 8080,
+              :username => 'username',
+              :password => 'password',
+              :proxy_ip => '127.0.0.1',
+            })
+          end
+        ).to raise_error
+      end
+
+      it "Should fail if proxy_port is specified but proxy_ip is not" do
+        expect(
+          lambda do
+            JenkinsApi::Client.new({
+              :bogus => '127.0.0.1',
+              :server_port => 8080,
+              :username => 'username',
+              :password => 'password',
+              :proxy_port => 8081,
             })
           end
         ).to raise_error
