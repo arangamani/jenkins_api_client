@@ -24,8 +24,6 @@ require 'rubygems'
 require 'json'
 require 'net/http'
 require 'nokogiri'
-#require 'active_support/core_ext'
-#require 'active_support/builder'
 require 'base64'
 require "mixlib/shellout"
 
@@ -145,7 +143,7 @@ module JenkinsApi
     def to_s
       "#<JenkinsApi::Client>"
     end
-    
+
     # Connects to the Jenkins server, sends the specified request and returns
     # the response.
     #
