@@ -50,7 +50,8 @@ module JenkinsApi
       "password",
       "password_base64",
       "debug",
-      "timeout"
+      "timeout",
+      "ssl"
     ].freeze
 
     # Initialize a Client object with Jenkins CI server credentials
@@ -60,6 +61,8 @@ module JenkinsApi
     #  * the +:server_port+ param is the port on which the Jenkins listens
     #  * the +:username+ param is the username used for connecting to the server
     #  * the +:password+ param is the password for connecting to the CI server
+    #  * the +:ssl+ param indicates if Jenkins is accessible over HTTPS
+    #    (defaults to false)
     #
     # @return [JenkinsApi::Client] a client object to Jenkins API
     #
@@ -78,10 +81,12 @@ module JenkinsApi
         raise ArgumentError, "Credentials are required to connect to Jenkins"
       end
       if @proxy_ip.nil? ^ @proxy_port.nil?
-        raise ArgumentError, "Proxy IP and port must both be specified or both left nil"
+        raise ArgumentError, "Proxy IP and port must both be specified or" +
+          " both left nil"
       end
       @server_port = DEFAULT_SERVER_PORT unless @server_port
       @timeout = DEFAULT_TIMEOUT unless @timeout
+      @ssl ||= false
       @debug = false unless @debug
 
       # Base64 decode inserts a newline character at the end. As a workaround
@@ -151,7 +156,9 @@ module JenkinsApi
     #
     # @return [Net::HTTPResponse] Response from Jenkins
     def make_http_request( request )
-      Net::HTTP.start(@server_ip, @server_port, @proxy_ip, @proxy_port) do |http|
+      Net::HTTP.start(
+        @server_ip, @server_port, @proxy_ip, @proxy_port, :use_ssl => @ssl
+      ) do |http|
         return http.request(request)
       end
     end
@@ -165,7 +172,7 @@ module JenkinsApi
     def get_root
       request = Net::HTTP::Get.new("/")
       request.basic_auth @username, @password
-      make_http_request( request )
+      make_http_request(request)
     end
 
     # Sends a GET request to the Jenkins CI server with the specified URL
@@ -173,11 +180,13 @@ module JenkinsApi
     # @param [String] url_prefix The prefix to use in the URL
     # @param [String] tree A specific JSON tree to optimize the API call
     # @param [String] url_suffix The suffix to be used in the URL
-    # @param [Boolean] raw_response Return complete Response object instead of JSON body of response
+    # @param [Boolean] raw_response Return complete Response object instead of
+    #   JSON body of response
     #
     # @return [String, JSON] JSON response from Jenkins
     #
-    def api_get_request(url_prefix, tree = nil, url_suffix ="/api/json", raw_response = false)
+    def api_get_request(url_prefix, tree = nil, url_suffix ="/api/json",
+                        raw_response = false)
       url_prefix = "#{@jenkins_path}#{url_prefix}"
       to_get = ""
       if tree
@@ -189,7 +198,7 @@ module JenkinsApi
       request = Net::HTTP::Get.new(to_get)
       puts "[INFO] GET #{to_get}" if @debug
       request.basic_auth @username, @password
-      response = make_http_request( request )
+      response = make_http_request(request)
       if raw_response
         response
       else
@@ -211,7 +220,7 @@ module JenkinsApi
       request.basic_auth @username, @password
       request.content_type = 'application/json'
       request.set_form_data(form_data) unless form_data.nil?
-      response = make_http_request( request )
+      response = make_http_request(request)
       handle_exception(response)
     end
 
@@ -226,7 +235,7 @@ module JenkinsApi
       request = Net::HTTP::Get.new("#{url_prefix}/config.xml")
       puts "[INFO] GET #{url_prefix}/config.xml" if @debug
       request.basic_auth @username, @password
-      response = make_http_request( request )
+      response = make_http_request(request)
       handle_exception(response, "body")
     end
 
@@ -244,7 +253,7 @@ module JenkinsApi
       request.basic_auth @username, @password
       request.body = xml
       request.content_type = 'application/xml'
-      response = make_http_request( request )
+      response = make_http_request(request)
       handle_exception(response)
     end
 
