@@ -360,7 +360,8 @@ module JenkinsApi
         end
         get_msg = "/job/#{job_name}/#{build_num}/logText/progressive#{mode}?"
         get_msg << "start=#{start}"
-        api_response = @client.api_get_request(get_msg, nil, nil)
+        raw_response = true
+        api_response = @client.api_get_request(get_msg, nil, nil, raw_response)
         #puts "Response: #{api_response.header['x-more-data']}"
         response = {}
         response['output'] = api_response.body
