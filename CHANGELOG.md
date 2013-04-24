@@ -4,10 +4,17 @@ CHANGELOG
 upcoming
 --------
 
+v0.10.0  [24-APR-2013]
+----------------------
+* new function to execute jenkins CLI `cli_exec`. Credit: @missedone
+* Add ability to use http proxy. Credit: @woodbusy
+* prompt the user for credentials when using irb login script. @woodbusy
+* bugfix for job.console_output. Credit: @drnic
+* add ssl support. Credit: @madisp
+
 v0.9.1  [01-APR-2013]
 ---------------------
-* Removed the dependency of ActiveSupport and Builder as they were not being
-* used.
+* Removed the dependency of ActiveSupport and Builder as they were not being used.
 
 v0.9.0  [10-MAR-2013]
 ---------------------
