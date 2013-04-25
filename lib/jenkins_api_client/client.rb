@@ -350,6 +350,8 @@ module JenkinsApi
         elsif to_send == "code"
           return response.code
         end
+      when 400
+        raise Exceptions::NothingSubmitted.new
       when 401
         raise Exceptions::UnautherizedException.new
       when 404
