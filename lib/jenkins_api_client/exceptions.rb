@@ -31,6 +31,14 @@ module JenkinsApi
       end
     end
 
+    # This exception class handles cases where parameters are expected
+    # but not provided.
+    class NothingSubmitted < ApiException
+      def initialize(message = "")
+        super("Nothing is submitted. #{message}")
+      end
+    end
+
     # This exception class handles cases where invalid credentials are provided
     # to connect to the Jenkins
     class UnautherizedException < ApiException
