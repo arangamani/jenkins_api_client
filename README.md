@@ -11,7 +11,7 @@ Client libraries for communicating with a Jenkins CI server and programatically 
 
 IRC Channel: ##jenkins-api-client
 
-Mailing list: jenkins.api.client@librelist.com
+Mailing list: jenkins_api_client@googlegroups.com
 
 Google Group: https://groups.google.com/group/jenkins_api_client
 
