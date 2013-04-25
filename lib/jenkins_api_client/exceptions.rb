@@ -39,6 +39,14 @@ module JenkinsApi
       end
     end
 
+    # This exception class handles cases where a job not able to be created
+    # because it already exists
+    class JobAlreadyExistsWithName < ApiException
+      def initialize(message = "")
+        super("Job already exists with that name. #{message}")
+      end
+    end
+
     # This exception class handles cases where invalid credentials are provided
     # to connect to the Jenkins
     class UnautherizedException < ApiException
