@@ -341,6 +341,7 @@ module JenkinsApi
     #
     def handle_exception(response, to_send = "code", send_json = false)
       msg = "HTTP Code: #{response.code}, Response Body: #{response.body}"
+      puts msg if @debug
       case response.code.to_i
       when 200, 302
         if to_send == "body" && send_json
