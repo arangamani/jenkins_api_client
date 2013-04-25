@@ -352,7 +352,14 @@ module JenkinsApi
           return response.code
         end
       when 400
-        raise Exceptions::NothingSubmitted.new
+        case response.body
+        when /A job already exists with the name/
+          raise Exceptions::JobAlreadyExistsWithName.new
+        when /Nothing is submitted/
+          raise Exceptions::NothingSubmitted.new
+        else
+          raise Exceptions::ApiException.new("Error code 400")
+        end
       when 401
         raise Exceptions::UnautherizedException.new
       when 404
@@ -360,7 +367,7 @@ module JenkinsApi
       when 500
         raise Exceptions::InternelServerErrorException.new
       else
-        raise Exceptions::ApiException.new
+        raise Exceptions::ApiException.new("Error code #{response.code}")
       end
     end
 
