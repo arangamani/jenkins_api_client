@@ -13,6 +13,8 @@ IRC Channel: ##jenkins-api-client
 
 Mailing list: jenkins.api.client@librelist.com
 
+Google Group: https://groups.google.com/group/jenkins_api_client
+
 OVERVIEW:
 ---------
 This project is a simple API client for interacting with Jenkins Continuous Integration server.
