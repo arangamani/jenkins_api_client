@@ -24,6 +24,7 @@ module JenkinsApi
   class Client
     # This class communicates with Jenkins "/computer" API to obtain details
     # about nodes or slaves connected to the Jenkins.
+    #
     class Node
 
       # General attributes of a node.
@@ -31,9 +32,9 @@ module JenkinsApi
       # These methods are defined using define_method and are prefixed
       # with get_.
       #
-      # def get_busyExecutors
-      # def get_displayName
-      # def get_totalExecutors
+      #   def get_busyExecutors
+      #   def get_displayName
+      #   def get_totalExecutors
       #
       GENERAL_ATTRIBUTES = [
         "busyExecutors",
@@ -45,12 +46,12 @@ module JenkinsApi
       # The following methods are defined to be called on the node object
       # and are prefixed with is_ and end with ? as they return true or false.
       #
-      # def is_idle?(node_name)
-      # def is_jnlpAgent?(node_name)
-      # def is_launchSupported?(node_name)
-      # def is_manualLaunchAllowed?(node_name)
-      # def is_offline?(node_name)
-      # def is_temporarilyOffline?(node_name)
+      #   def is_idle?(node_name)
+      #   def is_jnlpAgent?(node_name)
+      #   def is_launchSupported?(node_name)
+      #   def is_manualLaunchAllowed?(node_name)
+      #   def is_offline?(node_name)
+      #   def is_temporarilyOffline?(node_name)
       #
       NODE_PROPERTIES = [
         "idle",
@@ -65,13 +66,13 @@ module JenkinsApi
       # The following methods are defined using define_method.
       # These methods are prefixed with get_node_.
       #
-      # def get_node_numExecutors(node_name)
-      # def get_node_icon(node_name)
-      # def get_node_displayName(node_name)
-      # def get_node_loadStatistics(node_name)
-      # def get_node_monitorData(node_name)
-      # def get_node_offlineCause(node_name)
-      # def get_node_oneOffExecutors(node_name)
+      #   def get_node_numExecutors(node_name)
+      #   def get_node_icon(node_name)
+      #   def get_node_displayName(node_name)
+      #   def get_node_loadStatistics(node_name)
+      #   def get_node_monitorData(node_name)
+      #   def get_node_offlineCause(node_name)
+      #   def get_node_oneOffExecutors(node_name)
       #
       NODE_ATTRIBUTES = [
         "numExecutors",

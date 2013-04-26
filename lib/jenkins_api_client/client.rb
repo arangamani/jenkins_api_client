@@ -29,10 +29,12 @@ require "mixlib/shellout"
 
 # The main module that contains the Client class and all subclasses that
 # communicate with the Jenkins's Remote Access API.
+#
 module JenkinsApi
   # This is the client class that acts as the bridge between the subclasses and
   # Jnekins. This class contains methods that performs GET and POST requests
   # for various operations.
+  #
   class Client
     attr_accessor :debug, :timeout
     # Default port to be used to connect to Jenkins
@@ -157,6 +159,7 @@ module JenkinsApi
     # @param [Net::HTTPRequest] request The request object to send
     #
     # @return [Net::HTTPResponse] Response from Jenkins
+    #
     def make_http_request( request )
       Net::HTTP.start(
         @server_ip, @server_port, @proxy_ip, @proxy_port, :use_ssl => @ssl
@@ -325,21 +328,21 @@ module JenkinsApi
     #
     # @param [Net::HTTP::Response] response Response from Jenkins
     # @param [String] to_send What should be returned as a response. Allowed
-    # values: "code" and "body".
+    #   values: "code" and "body".
     # @param [Boolean] send_json Boolean value used to determine whether to
-    # load the JSON or send the response as is.
+    #   load the JSON or send the response as is.
     #
     # @return [String, JSON] Response returned whether loaded JSON or raw
-    # string
+    #   string
     #
     # @raise [Exceptions::UnauthorizedException] When invalid credentials are
-    # provided to connect to Jenkins
+    #   provided to connect to Jenkins
     # @raise [Exceptions::NotFoundException] When the requested page on Jenkins
-    # is found
+    #   is found
     # @raise [Exceptions::InternelServerErrorException] When Jenkins returns a
-    # 500 Internel Server Error
+    #   500 Internel Server Error
     # @raise [Exceptions::ApiException] Any other exception returned from
-    # Jenkins that are not categorized in the API Client.
+    #   Jenkins that are not categorized in the API Client.
     #
     def handle_exception(response, to_send = "code", send_json = false)
       msg = "HTTP Code: #{response.code}, Response Body: #{response.body}"

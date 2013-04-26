@@ -22,9 +22,11 @@
 
 module JenkinsApi
   # This module contains classes that define exceptions for various catories.
+  #
   module Exceptions
     # This is the base class for Exceptions that is inherited from
     # RuntimeError.
+    #
     class ApiException < RuntimeError
       def initialize(message = "")
         super("Error: #{message}")
@@ -33,6 +35,7 @@ module JenkinsApi
 
     # This exception class handles cases where parameters are expected
     # but not provided.
+    #
     class NothingSubmitted < ApiException
       def initialize(message = "")
         super("Nothing is submitted. #{message}")
@@ -40,7 +43,8 @@ module JenkinsApi
     end
 
     # This exception class handles cases where a job not able to be created
-    # because it already exists
+    # because it already exists.
+    #
     class JobAlreadyExistsWithName < ApiException
       def initialize(message = "")
         super("Job already exists with that name. #{message}")
@@ -48,7 +52,8 @@ module JenkinsApi
     end
 
     # This exception class handles cases where invalid credentials are provided
-    # to connect to the Jenkins
+    # to connect to the Jenkins.
+    #
     class UnautherizedException < ApiException
       def initialize(message = "")
         super("Invalid credentials are provided. #{message}")
@@ -56,7 +61,8 @@ module JenkinsApi
     end
 
     # This exception class handles cases where a requested page is not found on
-    # the Jenkins API
+    # the Jenkins API.
+    #
     class NotFoundException < ApiException
       def initialize(message = "")
         super("Requested component is not found on the Jenkins CI server." +
@@ -65,7 +71,8 @@ module JenkinsApi
     end
 
     # This exception class handles cases where the Jenkins API returns with a
-    # 500 Internel Server Error
+    # 500 Internel Server Error.
+    #
     class InternelServerErrorException < ApiException
       def initialize(message = "")
         super("Internel Server Error. Perhaps the in-memory configuration of" +
@@ -76,6 +83,7 @@ module JenkinsApi
     end
 
     # Exception occurred while running java CLI commands
+    #
     class CLIException < ApiException
       def initialize(message = "")
         super("Execute CLI Error. #{message}")

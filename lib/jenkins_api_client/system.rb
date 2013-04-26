@@ -26,6 +26,7 @@ module JenkinsApi
   class Client
     # This class is used to communicate with Jenkins and performing some admin
     # level operations such as restarting and reloading Jenkins.
+    #
     class System
 
       # Initializes a new System object.
@@ -81,11 +82,12 @@ module JenkinsApi
           while true do
             response = @client.get_root
             puts "[INFO] Waiting for jenkins to restart..." if @client.debug
-            if (response.body =~ /Please wait while Jenkins is restarting/ || response.body =~ /Please wait while Jenkins is getting ready to work/)
+            if (response.body =~ /Please wait while Jenkins is restarting/ ||
+              response.body =~ /Please wait while Jenkins is getting ready to work/)
               sleep 30
               redo
             else
-               return true
+              return true
             end
           end
         end
