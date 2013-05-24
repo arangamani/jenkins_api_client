@@ -275,12 +275,7 @@ module JenkinsApi
       # @param [String] new_job Name of the new job.
       #
       def rename(old_job, new_job)
-        # Obtain the configuration of the old job
-        xml = get_config(old_job)
-        # Create the new job with the configuration obtained
-        create(new_job, xml)
-        # Delete the old job
-        delete(old_job)
+        @client.api_post_request("/job/#{old_job}/doRename?newName=#{new_job}")
       end
 
       # Delete a job given the name

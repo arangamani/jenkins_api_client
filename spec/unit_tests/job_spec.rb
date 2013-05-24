@@ -168,12 +168,8 @@ describe JenkinsApi::Client::Job do
 
       describe "#rename" do
         it "accepts the old and new job names and renames the job" do
-          @client.should_receive(:get_config).with("/job/old_job")
           @client.should_receive(:api_post_request).with(
-            "/job/old_job/doDelete"
-          )
-          @client.should_receive(:post_config).with(
-            "/createItem?name=new_job", nil
+            "/job/old_job/doRename?newName=new_job"
           )
           @job.rename("old_job", "new_job")
         end
