@@ -43,6 +43,7 @@ module JenkinsApi
     DEFAULT_TIMEOUT = 120
     # Parameters that are permitted as options while initializing the client
     VALID_PARAMS = [
+      "server_url",
       "server_ip",
       "server_port",
       "proxy_ip",
@@ -61,10 +62,12 @@ module JenkinsApi
     # @param [Hash] args
     #  * the +:server_ip+ param is the IP address of the Jenkins CI server
     #  * the +:server_port+ param is the port on which the Jenkins listens
+    #  * the +:server_url+ param is the full URL address of the Jenkins CI server (http/https)
     #  * the +:username+ param is the username used for connecting to the server
     #  * the +:password+ param is the password for connecting to the CI server
     #  * the +:proxy_ip+ param is the proxy IP address
     #  * the +:proxy_port+ param is the proxy port
+    #  $ the +:jenkins_path+ param is the optional context path for Jenkins
     #  * the +:ssl+ param indicates if Jenkins is accessible over HTTPS
     #    (defaults to false)
     #
@@ -78,8 +81,8 @@ module JenkinsApi
           instance_variable_set("@#{key}", value)
         end
       end if args.is_a? Hash
-      unless @server_ip
-        raise ArgumentError, "Server IP is required to connect to Jenkins"
+      unless @server_ip || @server_url
+        raise ArgumentError, "Server IP or Server URL is required to connect to Jenkins"
       end
       unless @username && (@password || @password_base64)
         raise ArgumentError, "Credentials are required to connect to Jenkins"
@@ -88,9 +91,11 @@ module JenkinsApi
         raise ArgumentError, "Proxy IP and port must both be specified or" +
           " both left nil"
       end
+      @server_uri = URI.parse(@server_url) if @server_url
       @server_port = DEFAULT_SERVER_PORT unless @server_port
       @timeout = DEFAULT_TIMEOUT unless @timeout
       @ssl ||= false
+      @ssl = @server_uri.scheme == "https" if @server_uri
       @debug = false unless @debug
 
       # Base64 decode inserts a newline character at the end. As a workaround
@@ -161,10 +166,17 @@ module JenkinsApi
     # @return [Net::HTTPResponse] Response from Jenkins
     #
     def make_http_request( request )
-      Net::HTTP.start(
-        @server_ip, @server_port, @proxy_ip, @proxy_port, :use_ssl => @ssl
-      ) do |http|
+      if @server_url
+        http = Net::HTTP.new(@server_uri.host, @server_uri.port)
+        http.use_ssl = true if @ssl
+        http.verify_mode = OpenSSL::SSL::VERIFY_NONE if @ssl
         return http.request(request)
+      else
+        Net::HTTP.start(
+          @server_ip, @server_port, @proxy_ip, @proxy_port, :use_ssl => @ssl
+        ) do |http|
+          return http.request(request)
+        end
       end
     end
     protected :make_http_request
