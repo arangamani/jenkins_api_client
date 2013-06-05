@@ -67,7 +67,7 @@ module JenkinsApi
     #  * the +:password+ param is the password for connecting to the CI server
     #  * the +:proxy_ip+ param is the proxy IP address
     #  * the +:proxy_port+ param is the proxy port
-    #  $ the +:jenkins_path+ param is the optional context path for Jenkins
+    #  * the +:jenkins_path+ param is the optional context path for Jenkins
     #  * the +:ssl+ param indicates if Jenkins is accessible over HTTPS
     #    (defaults to false)
     #
