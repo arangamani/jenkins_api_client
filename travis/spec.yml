@@ -1,0 +1,10 @@
+# Test credentials
+
+# Server IP Address
+:server_ip: 127.0.0.1
+# Username
+:username: testuser
+# Password
+:password: testpassword
+# Timeout in seconds
+:timeout: 300

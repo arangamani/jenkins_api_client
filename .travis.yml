@@ -1,23 +1,45 @@
 language: ruby
 rvm:
   - 2.0.0
-  - 1.9.3
-  - 1.9.2
-  - jruby-18mode
-  - jruby-19mode
-  - rbx-18mode
-  - rbx-19mode
-  - ruby-head
-  - jruby-head
-  - 1.8.7
-  - ree
-matrix:
-  allow_failures:
-    - rvm: jruby-18mode
-    - rvm: jruby-19mode
-    - rvm: jruby-head
-    - rvm: ree
-script: bundle exec rake unit_tests
+#  - 1.9.3
+#  - 1.9.2
+#  - jruby-18mode
+#  - jruby-19mode
+#  - rbx-18mode
+#  - rbx-19mode
+#  - ruby-head
+#  - jruby-head
+#  - 1.8.7
+#  - ree
+#matrix:
+#  allow_failures:
+#    - rvm: jruby-18mode
+#    - rvm: jruby-19mode
+#    - rvm: jruby-head
+#    - rvm: ree
+before_install:
+  - travis/setup.sh
+#  - pwd
+#  - wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
+#  - sudo sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
+#  - sudo apt-get update -qq
+#  - sudo apt-get install -qq jenkins
+#  - echo `sudo service jenkins status`
+#  - sudo service jenkins stop
+#  - sudo cp -f travis/jenkins_config.xml /var/lib/jenkins/config.xml
+#  - sudo mkdir -p /var/lib/jenkins/users/testuser
+#  - sudo cp -f travis/user_config.xml /var/lib/jenkins/users/testuser/config.xml
+#  - sudo service jenkins start
+#  - sudo mkdir ~/.jenkins_api_client
+#  - sudo cp -f travis/spec.yml ~/.jenkins_api_client/spec.yml
+#  - echo `sudo service jenkins status`
+#  - sleep 60
+#  - cat /var/log/jenkins/jenkins.log
+#  - curl 127.0.0.1:8080
+
+script:
+  - bundle exec rake unit_tests
+  - bundle exec rake func_tests
 notifications:
   email: false
   irc:
