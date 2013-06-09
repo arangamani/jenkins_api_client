@@ -4,6 +4,12 @@ CHANGELOG
 upcoming
 --------
 
+v0.11.0  [09-JUN-2013]
+----------------------
+* A new input argument `server_url` is supported which accepts the jenkins URL instead of IP address and Port. Credit: @dieterdemeyer
+* When renaming the job, preserve the job history. Credit: @rubytester
+* Various exception handling improvements. Credit: @drnic
+
 v0.10.0  [24-APR-2013]
 ----------------------
 * new function to execute jenkins CLI `cli_exec`. Credit: @missedone
