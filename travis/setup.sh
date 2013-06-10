@@ -12,7 +12,7 @@ sudo cp -f travis/jenkins_config.xml /var/lib/jenkins/config.xml
 sudo mkdir -p /var/lib/jenkins/users/testuser
 sudo cp -f travis/user_config.xml /var/lib/jenkins/users/testuser/config.xml
 sudo service jenkins start
-# Jenkins takes a bit to get dressed up become ready, so be patient...
+# Jenkins takes a bit to get dressed up and become ready, so be patient...
 sleep 60
 cat /var/log/jenkins/jenkins.log
 echo `sudo service jenkins status`
