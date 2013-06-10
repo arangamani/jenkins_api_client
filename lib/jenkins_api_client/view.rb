@@ -165,7 +165,7 @@ module JenkinsApi
       # @param [String] filter a regex to filter view names
       # @param [Bool] ignorecase whether to be case sensitive or not
       #
-      def list(filter = nil, ignorecase = true)
+      def list(filter = "", ignorecase = true)
         view_names = []
         response_json = @client.api_get_request("/")
         response_json["views"].each { |view|
