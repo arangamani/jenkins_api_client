@@ -16,6 +16,8 @@ Gem::Specification.new do |s|
   s.files = [
     ".gitignore",
     ".jenkins.yml",
+    ".ruby-gemset",
+    ".ruby-version",
     ".travis.yml",
     "CHANGELOG.md",
     "Gemfile",
@@ -25,7 +27,7 @@ Gem::Specification.new do |s|
     "bin/jenkinscli",
     "config/login.yml.example",
     "java_deps/jenkins-cli.jar",
-    "jenkins_api_client.gemspec",
+    "jenkins_api_client_maestro.gemspec",
     "lib/jenkins_api_client.rb",
     "lib/jenkins_api_client/build_queue.rb",
     "lib/jenkins_api_client/cli/base.rb",
