@@ -5,7 +5,7 @@ require 'rake'
 require 'jeweler'
 
 Jeweler::Tasks.new do |gemspec|
-  gemspec.name             = 'jenkins_api_client'
+  gemspec.name             = 'jenkins_api_client_maestro'
   gemspec.version          = JenkinsApi::Client::VERSION
   gemspec.platform         = Gem::Platform::RUBY
   gemspec.date             = Time.now.utc.strftime("%Y-%m-%d")
@@ -15,7 +15,7 @@ Jeweler::Tasks.new do |gemspec|
   gemspec.extra_rdoc_files = ['CHANGELOG.rdoc', 'LICENSE', 'README.rdoc']
   gemspec.authors          = [ 'Kannan Manickam' ]
   gemspec.email            = [ 'arangamani.kannan@gmail.com' ]
-  gemspec.homepage         = 'https://github.com/arangamani/jenkins_api_client'
+  gemspec.homepage         = 'https://github.com/maestrodev/jenkins_api_client'
   gemspec.summary          = 'Jenkins JSON API Client'
   gemspec.description      = %{
 This is a simple and easy-to-use Jenkins Api client with features focused on

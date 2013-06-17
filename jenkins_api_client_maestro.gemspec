@@ -4,16 +4,13 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{jenkins_api_client}
+  s.name = "jenkins_api_client_maestro"
   s.version = "0.11.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kannan Manickam"]
-  s.date = %q{2013-06-09}
-  s.default_executable = %q{jenkinscli}
-  s.description = %q{
-This is a simple and easy-to-use Jenkins Api client with features focused on
-automating Job configuration programaticaly and so forth}
+  s.date = "2013-06-17"
+  s.description = "\nThis is a simple and easy-to-use Jenkins Api client with features focused on\nautomating Job configuration programaticaly and so forth"
   s.email = ["arangamani.kannan@gmail.com"]
   s.executables = ["jenkinscli"]
   s.files = [
@@ -58,19 +55,22 @@ automating Job configuration programaticaly and so forth}
     "spec/unit_tests/node_spec.rb",
     "spec/unit_tests/spec_helper.rb",
     "spec/unit_tests/system_spec.rb",
-    "spec/unit_tests/view_spec.rb"
+    "spec/unit_tests/view_spec.rb",
+    "travis/jenkins_config.xml",
+    "travis/setup.sh",
+    "travis/spec.yml",
+    "travis/user_config.xml"
   ]
-  s.homepage = %q{https://github.com/arangamani/jenkins_api_client}
+  s.homepage = "https://github.com/maestrodev/jenkins_api_client"
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.6}
-  s.summary = %q{Jenkins JSON API Client}
+  s.rubygems_version = "1.8.24"
+  s.summary = "Jenkins JSON API Client"
 
   if s.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
-    if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<nokogiri>, [">= 0"])
+    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
+      s.add_runtime_dependency(%q<nokogiri>, ["~> 1.5.0"])
       s.add_runtime_dependency(%q<thor>, [">= 0.16.0"])
       s.add_runtime_dependency(%q<json>, [">= 0"])
       s.add_runtime_dependency(%q<terminal-table>, [">= 1.4.0"])
@@ -80,7 +80,7 @@ automating Job configuration programaticaly and so forth}
       s.add_development_dependency(%q<simplecov>, [">= 0"])
       s.add_development_dependency(%q<rspec>, [">= 0"])
     else
-      s.add_dependency(%q<nokogiri>, [">= 0"])
+      s.add_dependency(%q<nokogiri>, ["~> 1.5.0"])
       s.add_dependency(%q<thor>, [">= 0.16.0"])
       s.add_dependency(%q<json>, [">= 0"])
       s.add_dependency(%q<terminal-table>, [">= 1.4.0"])
@@ -91,7 +91,7 @@ automating Job configuration programaticaly and so forth}
       s.add_dependency(%q<rspec>, [">= 0"])
     end
   else
-    s.add_dependency(%q<nokogiri>, [">= 0"])
+    s.add_dependency(%q<nokogiri>, ["~> 1.5.0"])
     s.add_dependency(%q<thor>, [">= 0.16.0"])
     s.add_dependency(%q<json>, [">= 0"])
     s.add_dependency(%q<terminal-table>, [">= 1.4.0"])
