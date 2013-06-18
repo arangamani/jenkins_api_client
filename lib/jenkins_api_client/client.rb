@@ -187,8 +187,9 @@ module JenkinsApi
       case response
         when Net::HTTPRedirection then
           # If we got a redirect request, follow it (if flag set), but don't go any deeper
-          # (only one redirect supported - don't wnt to follow our tail)
-          response = make_http_request(Net::HTTP::Get.new(response['location']), false) if follow_redirect
+          # (only one redirect supported - don't want to follow our tail)
+          redir_uri = URI.parse(response['location'])
+          response = make_http_request(Net::HTTP::Get.new(redir_uri.path), false) if follow_redirect
       end
       return response
     end
@@ -241,12 +242,14 @@ module JenkinsApi
     #
     # @return [String] Response code form Jenkins Response
     #
-    def api_post_request(url_prefix, form_data = nil)
+    def api_post_request(url_prefix, form_data = {})
+      # Added form_data default {} instead of nil to help with proxies that
+      # barf with empty post
       url_prefix = URI.escape("#{@jenkins_path}#{url_prefix}")
       request = Net::HTTP::Post.new("#{url_prefix}")
-      puts "[INFO] PUT #{url_prefix}" if @debug
+      puts "[INFO] POST #{url_prefix}" if @debug
       request.content_type = 'application/json'
-      request.set_form_data(form_data) unless form_data.nil?
+      request.set_form_data(form_data)
       response = make_http_request(request)
       handle_exception(response)
     end
