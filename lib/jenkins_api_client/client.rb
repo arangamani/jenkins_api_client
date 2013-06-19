@@ -280,7 +280,7 @@ module JenkinsApi
     def post_config(url_prefix, xml)
       url_prefix = URI.escape("#{@jenkins_path}#{url_prefix}")
       request = Net::HTTP::Post.new("#{url_prefix}")
-      puts "[INFO] PUT #{url_prefix}" if @debug
+      puts "[INFO] POST #{url_prefix}" if @debug
       request.body = xml
       request.content_type = 'application/xml'
       response = make_http_request(request)
