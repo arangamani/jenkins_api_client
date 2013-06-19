@@ -190,7 +190,7 @@ module JenkinsApi
           # (only one redirect supported - don't want to follow our tail)
           if follow_redirect
             redir_uri = URI.parse(response['location'])
-            response = make_http_request(Net::HTTP::Get.new(redir_uri.path, false)
+            response = make_http_request(Net::HTTP::Get.new(redir_uri.path, false))
           end
       end
       return response
