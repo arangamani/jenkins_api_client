@@ -374,8 +374,8 @@ module JenkinsApi
       puts msg if @debug
       case response.code.to_i
       # As of Jenkins version 1.519, the job builds return a 201 status code
-      # with a Location HTTP header with the pointing to the URL of teh item
-      # in the queue.
+      # with a Location HTTP header with the pointing the URL of the item in
+      # the queue.
       when 200, 201, 302
         if to_send == "body" && send_json
           return JSON.parse(response.body)
