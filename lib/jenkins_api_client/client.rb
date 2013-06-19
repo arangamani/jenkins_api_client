@@ -54,7 +54,8 @@ module JenkinsApi
       "password_base64",
       "debug",
       "timeout",
-      "ssl"
+      "ssl",
+      "follow_redirects"
     ].freeze
 
     # Initialize a Client object with Jenkins CI server credentials
@@ -63,13 +64,15 @@ module JenkinsApi
     #  * the +:server_ip+ param is the IP address of the Jenkins CI server
     #  * the +:server_port+ param is the port on which the Jenkins listens
     #  * the +:server_url+ param is the full URL address of the Jenkins CI server (http/https)
-    #  * the +:username+ param is the username used for connecting to the server
-    #  * the +:password+ param is the password for connecting to the CI server
+    #  * the +:username+ param is the username used for connecting to the server (optional)
+    #  * the +:password+ param is the password for connecting to the CI server (optional)
     #  * the +:proxy_ip+ param is the proxy IP address
     #  * the +:proxy_port+ param is the proxy port
     #  * the +:jenkins_path+ param is the optional context path for Jenkins
     #  * the +:ssl+ param indicates if Jenkins is accessible over HTTPS
     #    (defaults to false)
+    #  * the +:follow_redirects+ param will cause the client to follow a redirect
+    #    (jenkins can return a 30x when starting a build)
     #
     # @return [JenkinsApi::Client] a client object to Jenkins API
     #
@@ -84,8 +87,9 @@ module JenkinsApi
       unless @server_ip || @server_url
         raise ArgumentError, "Server IP or Server URL is required to connect to Jenkins"
       end
-      unless @username && (@password || @password_base64)
-        raise ArgumentError, "Credentials are required to connect to Jenkins"
+      # Username/password are optional as some jenkins servers do not require auth
+      if @username && !(@password || @password_base64)
+        raise ArgumentError, "If username is provided, password is required"
       end
       if @proxy_ip.nil? ^ @proxy_port.nil?
         raise ArgumentError, "Proxy IP and port must both be specified or" +
@@ -165,19 +169,31 @@ module JenkinsApi
     #
     # @return [Net::HTTPResponse] Response from Jenkins
     #
-    def make_http_request( request )
+    def make_http_request( request, follow_redirect = @follow_redirects )
+      request.basic_auth @username, @password if @username
+
       if @server_url
         http = Net::HTTP.new(@server_uri.host, @server_uri.port)
         http.use_ssl = true if @ssl
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE if @ssl
-        return http.request(request)
+        response = http.request(request)
       else
         Net::HTTP.start(
           @server_ip, @server_port, @proxy_ip, @proxy_port, :use_ssl => @ssl
         ) do |http|
-          return http.request(request)
+          response = http.request(request)
         end
       end
+      case response
+        when Net::HTTPRedirection then
+          # If we got a redirect request, follow it (if flag set), but don't go any deeper
+          # (only one redirect supported - don't want to follow our tail)
+          if follow_redirect
+            redir_uri = URI.parse(response['location'])
+            response = make_http_request(Net::HTTP::Get.new(redir_uri.path, false))
+          end
+      end
+      return response
     end
     protected :make_http_request
 
@@ -188,7 +204,6 @@ module JenkinsApi
     #
     def get_root
       request = Net::HTTP::Get.new("/")
-      request.basic_auth @username, @password
       make_http_request(request)
     end
 
@@ -214,7 +229,6 @@ module JenkinsApi
       to_get = URI.escape(to_get)
       request = Net::HTTP::Get.new(to_get)
       puts "[INFO] GET #{to_get}" if @debug
-      request.basic_auth @username, @password
       response = make_http_request(request)
       if raw_response
         response
@@ -230,13 +244,14 @@ module JenkinsApi
     #
     # @return [String] Response code form Jenkins Response
     #
-    def api_post_request(url_prefix, form_data = nil)
+    def api_post_request(url_prefix, form_data = {})
+      # Added form_data default {} instead of nil to help with proxies
+      # that barf with empty post
       url_prefix = URI.escape("#{@jenkins_path}#{url_prefix}")
       request = Net::HTTP::Post.new("#{url_prefix}")
-      puts "[INFO] PUT #{url_prefix}" if @debug
-      request.basic_auth @username, @password
+      puts "[INFO] POST #{url_prefix}" if @debug
       request.content_type = 'application/json'
-      request.set_form_data(form_data) unless form_data.nil?
+      request.set_form_data(form_data)
       response = make_http_request(request)
       handle_exception(response)
     end
@@ -251,7 +266,6 @@ module JenkinsApi
       url_prefix = URI.escape("#{@jenkins_path}#{url_prefix}")
       request = Net::HTTP::Get.new("#{url_prefix}/config.xml")
       puts "[INFO] GET #{url_prefix}/config.xml" if @debug
-      request.basic_auth @username, @password
       response = make_http_request(request)
       handle_exception(response, "body")
     end
@@ -266,8 +280,7 @@ module JenkinsApi
     def post_config(url_prefix, xml)
       url_prefix = URI.escape("#{@jenkins_path}#{url_prefix}")
       request = Net::HTTP::Post.new("#{url_prefix}")
-      puts "[INFO] PUT #{url_prefix}" if @debug
-      request.basic_auth @username, @password
+      puts "[INFO] POST #{url_prefix}" if @debug
       request.body = xml
       request.content_type = 'application/xml'
       response = make_http_request(request)

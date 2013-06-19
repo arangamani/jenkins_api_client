@@ -25,6 +25,17 @@ describe JenkinsApi::Client do
         ).not_to raise_error
       end
 
+      it "initialize without exception if username/password not specified" do
+        expect(
+          lambda do
+            JenkinsApi::Client.new({
+              :server_ip => '127.0.0.1',
+              :server_port => 8080
+            })
+          end
+        ).not_to raise_error
+      end
+
       it "initializes with server_url without exception" do
         expect(
           lambda do
@@ -50,6 +61,20 @@ describe JenkinsApi::Client do
             )
           end
         ).not_to raise_error
+      end
+
+      it "errors on bad proxy args" do
+        expect(
+          lambda do
+            JenkinsApi::Client.new(
+              :server_ip => '127.0.0.1',
+              :server_port => 8080,
+              :username => 'username',
+              :password => 'password',
+              :proxy_ip => '127.0.0.1'
+            )
+          end
+        ).to raise_error
       end
     end
 
@@ -235,19 +260,6 @@ describe JenkinsApi::Client do
               :bogus_url => 'http://localhost',
               :server_port => 8080,
               :username => 'username',
-              :password => 'password'
-            })
-          end
-        ).to raise_error
-      end
-
-      it "Should fail if username is missing" do
-        expect(
-          lambda do
-            JenkinsApi::Client.new({
-              :server_ip => '127.0.0.1',
-              :server_port => 8080,
-              :bogus => 'username',
               :password => 'password'
             })
           end
