@@ -62,6 +62,20 @@ describe JenkinsApi::Client do
           end
         ).not_to raise_error
       end
+
+      it "errors on bad proxy args" do
+        expect(
+          lambda do
+            JenkinsApi::Client.new(
+              :server_ip => '127.0.0.1',
+              :server_port => 8080,
+              :username => 'username',
+              :password => 'password',
+              :proxy_ip => '127.0.0.1'
+            )
+          end
+        ).to raise_error
+      end
     end
 
     describe "#SubClassAccessorMethods" do
