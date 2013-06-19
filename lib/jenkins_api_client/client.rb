@@ -166,10 +166,11 @@ module JenkinsApi
     # the response.
     #
     # @param [Net::HTTPRequest] request The request object to send
+    # @param [Boolean] follow_redirect whether to follow redirects or not
     #
     # @return [Net::HTTPResponse] Response from Jenkins
     #
-    def make_http_request( request, follow_redirect = @follow_redirects )
+    def make_http_request(request, follow_redirect = @follow_redirects)
       request.basic_auth @username, @password if @username
 
       if @server_url
@@ -186,11 +187,14 @@ module JenkinsApi
       end
       case response
         when Net::HTTPRedirection then
-          # If we got a redirect request, follow it (if flag set), but don't go any deeper
-          # (only one redirect supported - don't want to follow our tail)
+          # If we got a redirect request, follow it (if flag set), but don't
+          # go any deeper (only one redirect supported - don't want to follow
+          # our tail)
           if follow_redirect
             redir_uri = URI.parse(response['location'])
-            response = make_http_request(Net::HTTP::Get.new(redir_uri.path, false))
+            response = make_http_request(
+              Net::HTTP::Get.new(redir_uri.path, false)
+            )
           end
       end
       return response
