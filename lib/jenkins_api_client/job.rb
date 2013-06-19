@@ -479,7 +479,10 @@ module JenkinsApi
           "unstable"
         when /anime/
           "running"
-        when "grey"
+        # In the recent version of Jenkins (> 1.517), jobs that are not built
+        # yet have a color of "notbuilt" instead of "grey". Include that to the
+        # not_run condition so it is backward compatible.
+        when "grey", "notbuilt"
           "not_run"
         when "aborted"
           "aborted"
