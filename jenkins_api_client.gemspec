@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{jenkins_api_client}
-  s.version = "0.11.0"
+  s.version = "0.12.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kannan Manickam"]
-  s.date = %q{2013-06-09}
+  s.date = %q{2013-06-19}
   s.default_executable = %q{jenkinscli}
   s.description = %q{
 This is a simple and easy-to-use Jenkins Api client with features focused on
@@ -58,7 +58,11 @@ automating Job configuration programaticaly and so forth}
     "spec/unit_tests/node_spec.rb",
     "spec/unit_tests/spec_helper.rb",
     "spec/unit_tests/system_spec.rb",
-    "spec/unit_tests/view_spec.rb"
+    "spec/unit_tests/view_spec.rb",
+    "travis/jenkins_config.xml",
+    "travis/setup.sh",
+    "travis/spec.yml",
+    "travis/user_config.xml"
   ]
   s.homepage = %q{https://github.com/arangamani/jenkins_api_client}
   s.require_paths = ["lib"]
@@ -70,7 +74,7 @@ automating Job configuration programaticaly and so forth}
     s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<nokogiri>, [">= 0"])
+      s.add_runtime_dependency(%q<nokogiri>, ["~> 1.5.0"])
       s.add_runtime_dependency(%q<thor>, [">= 0.16.0"])
       s.add_runtime_dependency(%q<json>, [">= 0"])
       s.add_runtime_dependency(%q<terminal-table>, [">= 1.4.0"])
@@ -80,7 +84,7 @@ automating Job configuration programaticaly and so forth}
       s.add_development_dependency(%q<simplecov>, [">= 0"])
       s.add_development_dependency(%q<rspec>, [">= 0"])
     else
-      s.add_dependency(%q<nokogiri>, [">= 0"])
+      s.add_dependency(%q<nokogiri>, ["~> 1.5.0"])
       s.add_dependency(%q<thor>, [">= 0.16.0"])
       s.add_dependency(%q<json>, [">= 0"])
       s.add_dependency(%q<terminal-table>, [">= 1.4.0"])
@@ -91,7 +95,7 @@ automating Job configuration programaticaly and so forth}
       s.add_dependency(%q<rspec>, [">= 0"])
     end
   else
-    s.add_dependency(%q<nokogiri>, [">= 0"])
+    s.add_dependency(%q<nokogiri>, ["~> 1.5.0"])
     s.add_dependency(%q<thor>, [">= 0.16.0"])
     s.add_dependency(%q<json>, [">= 0"])
     s.add_dependency(%q<terminal-table>, [">= 1.4.0"])
