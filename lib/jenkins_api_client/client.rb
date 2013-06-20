@@ -85,10 +85,15 @@ module JenkinsApi
           instance_variable_set("@#{key}", value)
         end
       end if args.is_a? Hash
+
+      # Server IP or Server URL must be specifiec
       unless @server_ip || @server_url
-        raise ArgumentError, "Server IP or Server URL is required to connect to Jenkins"
+        raise ArgumentError, "Server IP or Server URL is required to connect" +
+          " to Jenkins"
       end
-      # Username/password are optional as some jenkins servers do not require auth
+
+      # Username/password are optional as some jenkins servers do not require
+      # authentication
       if @username && !(@password || @password_base64)
         raise ArgumentError, "If username is provided, password is required"
       end
@@ -96,17 +101,24 @@ module JenkinsApi
         raise ArgumentError, "Proxy IP and port must both be specified or" +
           " both left nil"
       end
+
       @server_uri = URI.parse(@server_url) if @server_url
       @server_port = DEFAULT_SERVER_PORT unless @server_port
       @timeout = DEFAULT_TIMEOUT unless @timeout
       @ssl ||= false
       @ssl = @server_uri.scheme == "https" if @server_uri
       @debug = false unless @debug
+
       # Base64 decode inserts a newline character at the end. As a workaround
       # added chomp to remove newline characters. I hope nobody uses newline
       # characters at the end of their passwords :)
       @password = Base64.decode64(@password_base64).chomp if @password_base64
-      @crumbs_enabled = use_crumbs?
+
+      # No connections are made to the Jenkins server during initialize to
+      # allow the unit tests to behave normally as mocking is simpler this way.
+      # If this variable is nil, the first POST request will query the API and
+      # populate this variable.
+      @crumbs_enabled = nil
     end
 
     # This method toggles the debug parameter in run time
@@ -250,6 +262,9 @@ module JenkinsApi
     # @return [String] Response code form Jenkins Response
     #
     def api_post_request(url_prefix, form_data = {})
+      # Identify whether to use crumbs if this is the first POST request.
+      @crumbs_enabled = use_crumbs? if @crumbs_enabled.nil?
+
       # Added form_data default {} instead of nil to help with proxies
       # that barf with empty post
       url_prefix = URI.escape("#{@jenkins_path}#{url_prefix}")
@@ -287,6 +302,8 @@ module JenkinsApi
     # @return [String] Response code returned from Jenkins
     #
     def post_config(url_prefix, xml)
+      # Identify whether to use crumbs if this is the first POST request.
+      @crumbs_enabled = use_crumbs? if @crumbs_enabled.nil?
       url_prefix = URI.escape("#{@jenkins_path}#{url_prefix}")
       request = Net::HTTP::Post.new("#{url_prefix}")
       puts "[INFO] POST #{url_prefix}" if @debug
@@ -301,13 +318,13 @@ module JenkinsApi
     end
 
     def use_crumbs?
-      json = api_get_request("")
-      json["useCrumbs"]
+      response = api_get_request("")
+      response["useCrumbs"]
     end
 
     def use_security?
-      json = api_get_request("")
-      json["useSecurity"]
+      response = api_get_request("")
+      response["useSecurity"]
     end
 
     # Obtains the jenkins version from the API
@@ -315,7 +332,7 @@ module JenkinsApi
     # @return Jenkins version
     #
     def get_jenkins_version
-      response = get_root
+      response = api_get_request("")
       response["X-Jenkins"]
     end
 
@@ -324,7 +341,7 @@ module JenkinsApi
     # @return [String] Version of Hudson on Jenkins server
     #
     def get_hudson_version
-      response = get_root
+      response = api_get_request("")
       response["X-Hudson"]
     end
 
@@ -333,35 +350,45 @@ module JenkinsApi
     # @return [String] Server date
     #
     def get_server_date
-      response = get_root
+      response = api_get_request("")
       response["Date"]
     end
 
-    #private
+    # Execute the Jenkins CLI
+    #
+    # @param command [String] command name
+    # @param args [Array] the arguments for the command
+    #
+    # @return [String] command output from the CLI
+    #
+    # @raise [Exceptions::CLIException] if there are issues in running the
+    #   commands using CLI
+    #
+    def exec_cli(command, args = [])
+      base_dir = File.dirname(__FILE__)
+      server_url = "http://#{@server_ip}:#{@server_port}/#{@jenkins_path}"
+      cmd = "java -jar #{base_dir}/../../java_deps/jenkins-cli.jar" +
+        " -s #{server_url} #{command}" +
+        " --username #{@username} --password #{@password} " +
+        args.join(' ')
+      java_cmd = Mixlib::ShellOut.new(cmd)
 
-    def get_crumb
-      begin
-        response = api_get_request("/crumbIssuer")
-      rescue Exceptions::NotFoundException
-        raise "You've asked to enable CSRF protection, but it looks like" +
-          " your Jenkins server doesn't have this setting enabled. Please" +
-          " change the Jenkins server setting or client configuration."
+      # Run the command
+      java_cmd.run_command
+      if java_cmd.stderr.empty?
+        java_cmd.stdout.chomp
+      else
+        # The stderr has a stack trace of the Java program. We'll already have
+        # a stack trace for Ruby. So just display a descriptive message for the
+        # error thrown by the CLI.
+        raise Exceptions::CLIException.new(java_cmd.stderr.split("\n").first)
       end
     end
 
-    def handle_post_response(response)
-      msg = "HTTP Code: #{response.code}"
-      msg << " Response Body: #{response.body}" if @debug
-      case response.code.to_i
-      when 200, 302
-        return response.code
-      when 404
-        raise Exceptions::NotFoundException.new(msg)
-      when 500
-        raise Exceptions::InternelServerErrorException.new(msg)
-      else
-        raise Exceptions::ApiException.new(msg)
-      end
+    private
+
+    def get_crumb
+      api_get_request("/crumbIssuer")
     end
 
     # Private method that handles the exception and raises with proper error
