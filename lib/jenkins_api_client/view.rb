@@ -25,6 +25,7 @@ module JenkinsApi
     # This class communicates with Jenkins "/view" API and used to create,
     # delete, update, and various other operations permitted on the Jenkins
     # API.
+    #
     class View
 
       # Initializes a new view object
@@ -164,7 +165,7 @@ module JenkinsApi
       # @param [String] filter a regex to filter view names
       # @param [Bool] ignorecase whether to be case sensitive or not
       #
-      def list(filter = nil, ignorecase = true)
+      def list(filter = "", ignorecase = true)
         view_names = []
         response_json = @client.api_get_request("/")
         response_json["views"].each { |view|

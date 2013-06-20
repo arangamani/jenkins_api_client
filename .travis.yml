@@ -2,22 +2,25 @@ language: ruby
 rvm:
   - 2.0.0
   - 1.9.3
-  - 1.9.2
   - jruby-18mode
   - jruby-19mode
   - rbx-18mode
   - rbx-19mode
-  - ruby-head
-  - jruby-head
   - 1.8.7
   - ree
 matrix:
   allow_failures:
     - rvm: jruby-18mode
     - rvm: jruby-19mode
-    - rvm: jruby-head
+    - rvm: rbx-18mode
+    - rvm: rbx-19mode
     - rvm: ree
-script: bundle exec rake unit_tests
+before_install:
+  - travis/setup.sh
+
+script:
+  - bundle exec rake unit_tests
+  - bundle exec rake func_tests
 notifications:
   email: false
   irc:

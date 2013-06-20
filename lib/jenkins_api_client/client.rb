@@ -24,18 +24,18 @@ require 'rubygems'
 require 'json'
 require 'net/http'
 require 'nokogiri'
-#require 'active_support/core_ext'
-#require 'active_support/builder'
 require 'base64'
 require 'mixlib/shellout'
 require 'uri'
 
 # The main module that contains the Client class and all subclasses that
 # communicate with the Jenkins's Remote Access API.
+#
 module JenkinsApi
   # This is the client class that acts as the bridge between the subclasses and
   # Jnekins. This class contains methods that performs GET and POST requests
   # for various operations.
+  #
   class Client
     attr_accessor :debug, :timeout
     # Default port to be used to connect to Jenkins
@@ -44,15 +44,19 @@ module JenkinsApi
     DEFAULT_TIMEOUT = 120
     # Parameters that are permitted as options while initializing the client
     VALID_PARAMS = [
+      "server_url",
       "server_ip",
       "server_port",
+      "proxy_ip",
+      "proxy_port",
       "jenkins_path",
       "username",
       "password",
       "password_base64",
       "debug",
       "timeout",
-      "ssl"
+      "ssl",
+      "follow_redirects"
     ].freeze
 
     # Initialize a Client object with Jenkins CI server credentials
@@ -60,9 +64,16 @@ module JenkinsApi
     # @param [Hash] args
     #  * the +:server_ip+ param is the IP address of the Jenkins CI server
     #  * the +:server_port+ param is the port on which the Jenkins listens
-    #  * the +:username+ param is the username used for connecting to the server
-    #  * the +:password+ param is the password for connecting to the CI server
-    #  * the +:ssl+ param indicates if Jenkins is accessible over HTTPS (defaults to false)
+    #  * the +:server_url+ param is the full URL address of the Jenkins CI server (http/https)
+    #  * the +:username+ param is the username used for connecting to the server (optional)
+    #  * the +:password+ param is the password for connecting to the CI server (optional)
+    #  * the +:proxy_ip+ param is the proxy IP address
+    #  * the +:proxy_port+ param is the proxy port
+    #  * the +:jenkins_path+ param is the optional context path for Jenkins
+    #  * the +:ssl+ param indicates if Jenkins is accessible over HTTPS
+    #    (defaults to false)
+    #  * the +:follow_redirects+ param will cause the client to follow a redirect
+    #    (jenkins can return a 30x when starting a build)
     #
     # @return [JenkinsApi::Client] a client object to Jenkins API
     #
@@ -74,13 +85,22 @@ module JenkinsApi
           instance_variable_set("@#{key}", value)
         end
       end if args.is_a? Hash
-      raise "Server IP is required to connect to Jenkins" unless @server_ip
-      unless @username && (@password || @password_base64)
-        raise "Credentials are required to connect to te Jenkins Server"
+      unless @server_ip || @server_url
+        raise ArgumentError, "Server IP or Server URL is required to connect to Jenkins"
       end
+      # Username/password are optional as some jenkins servers do not require auth
+      if @username && !(@password || @password_base64)
+        raise ArgumentError, "If username is provided, password is required"
+      end
+      if @proxy_ip.nil? ^ @proxy_port.nil?
+        raise ArgumentError, "Proxy IP and port must both be specified or" +
+          " both left nil"
+      end
+      @server_uri = URI.parse(@server_url) if @server_url
       @server_port = DEFAULT_SERVER_PORT unless @server_port
       @timeout = DEFAULT_TIMEOUT unless @timeout
       @ssl ||= false
+      @ssl = @server_uri.scheme == "https" if @server_uri
       @debug = false unless @debug
       # Base64 decode inserts a newline character at the end. As a workaround
       # added chomp to remove newline characters. I hope nobody uses newline
@@ -143,16 +163,53 @@ module JenkinsApi
       "#<JenkinsApi::Client>"
     end
 
+    # Connects to the Jenkins server, sends the specified request and returns
+    # the response.
+    #
+    # @param [Net::HTTPRequest] request The request object to send
+    # @param [Boolean] follow_redirect whether to follow redirects or not
+    #
+    # @return [Net::HTTPResponse] Response from Jenkins
+    #
+    def make_http_request(request, follow_redirect = @follow_redirects)
+      request.basic_auth @username, @password if @username
+
+      if @server_url
+        http = Net::HTTP.new(@server_uri.host, @server_uri.port)
+        http.use_ssl = true if @ssl
+        http.verify_mode = OpenSSL::SSL::VERIFY_NONE if @ssl
+        response = http.request(request)
+      else
+        Net::HTTP.start(
+          @server_ip, @server_port, @proxy_ip, @proxy_port, :use_ssl => @ssl
+        ) do |http|
+          response = http.request(request)
+        end
+      end
+      case response
+        when Net::HTTPRedirection then
+          # If we got a redirect request, follow it (if flag set), but don't
+          # go any deeper (only one redirect supported - don't want to follow
+          # our tail)
+          if follow_redirect
+            redir_uri = URI.parse(response['location'])
+            response = make_http_request(
+              Net::HTTP::Get.new(redir_uri.path, false)
+            )
+          end
+      end
+      return response
+    end
+    protected :make_http_request
+
     # Obtains the root of Jenkins server. This function is used to see if
     # Jenkins is running
     #
     # @return [Net::HTTP::Response] Response from Jenkins for "/"
     #
     def get_root
-      http = Net::HTTP.start(@server_ip, @server_port, :use_ssl => @ssl)
       request = Net::HTTP::Get.new("/")
-      request.basic_auth @username, @password
-      http.request(request)
+      make_http_request(request)
     end
 
     # Sends a GET request to the Jenkins CI server with the specified URL
@@ -160,12 +217,14 @@ module JenkinsApi
     # @param [String] url_prefix The prefix to use in the URL
     # @param [String] tree A specific JSON tree to optimize the API call
     # @param [String] url_suffix The suffix to be used in the URL
+    # @param [Boolean] raw_response Return complete Response object instead of
+    #   JSON body of response
     #
     # @return [String, JSON] JSON response from Jenkins
     #
-    def api_get_request(url_prefix, tree = nil, url_suffix ="/api/json")
+    def api_get_request(url_prefix, tree = nil, url_suffix ="/api/json",
+                        raw_response = false)
       url_prefix = "#{@jenkins_path}#{url_prefix}"
-      http = Net::HTTP.start(@server_ip, @server_port, :use_ssl => @ssl)
       to_get = ""
       if tree
         to_get = "#{url_prefix}#{url_suffix}?#{tree}"
@@ -175,9 +234,12 @@ module JenkinsApi
       to_get = URI.escape(to_get)
       request = Net::HTTP::Get.new(to_get)
       puts "[INFO] GET #{to_get}" if @debug
-      request.basic_auth @username, @password
-      response = http.request(request)
-      handle_exception(response, "body", url_suffix =~ /json/)
+      response = make_http_request(request)
+      if raw_response
+        response
+      else
+        handle_exception(response, "body", url_suffix =~ /json/)
+      end
     end
 
     # Sends a POST message to the Jenkins CI server with the specified URL
@@ -188,24 +250,19 @@ module JenkinsApi
     # @return [String] Response code form Jenkins Response
     #
     def api_post_request(url_prefix, form_data = {})
+      # Added form_data default {} instead of nil to help with proxies
+      # that barf with empty post
       url_prefix = URI.escape("#{@jenkins_path}#{url_prefix}")
-      http = Net::HTTP.start(@server_ip, @server_port, :use_ssl => @ssl)
       request = Net::HTTP::Post.new("#{url_prefix}")
-
+      puts "[INFO] POST #{url_prefix}" if @debug
+      request.content_type = 'application/json'
       if @crumbs_enabled
         crumb_response = get_crumb
-        form_data.merge!(
-          {
-            crumb_response["crumbRequestField"] => crumb_response["crumb"],
-          }
-        )
+        request[crumb_response['crumbRequestField']] = crumb_response['crumb']
       end
-      puts "[INFO] PUT #{url_prefix}" if @debug
-      request.basic_auth @username, @password
-      request.content_type = 'application/json'
-      request.set_form_data(form_data) unless form_data.empty?
-      response = http.request(request)
-      handle_post_response(response)
+      request.set_form_data(form_data)
+      response = make_http_request(request)
+      handle_exception(response)
     end
 
     # Obtains the configuration of a component from the Jenkins CI server
@@ -216,11 +273,9 @@ module JenkinsApi
     #
     def get_config(url_prefix)
       url_prefix = URI.escape("#{@jenkins_path}#{url_prefix}")
-      http = Net::HTTP.start(@server_ip, @server_port, :use_ssl => @ssl)
       request = Net::HTTP::Get.new("#{url_prefix}/config.xml")
       puts "[INFO] GET #{url_prefix}/config.xml" if @debug
-      request.basic_auth @username, @password
-      response = http.request(request)
+      response = make_http_request(request)
       handle_exception(response, "body")
     end
 
@@ -231,25 +286,18 @@ module JenkinsApi
     #
     # @return [String] Response code returned from Jenkins
     #
-    def post_config(url_prefix, xml, form_data = {})
-      url_prefix = URI.escape(url_prefix)
-      http = Net::HTTP.start(@server_ip, @server_port, :use_ssl => @ssl)
-      puts "[INFO] PUT #{url_prefix}" if @debug
-
-      puts "POSTING: #{xml}"
+    def post_config(url_prefix, xml)
+      url_prefix = URI.escape("#{@jenkins_path}#{url_prefix}")
       request = Net::HTTP::Post.new("#{url_prefix}")
-      request.basic_auth @username, @password
+      puts "[INFO] POST #{url_prefix}" if @debug
       request.body = xml
       request.content_type = 'application/xml'
       if @crumbs_enabled
         crumb_response = get_crumb
         request[crumb_response['crumbRequestField']] = crumb_response['crumb']
       end
-      # request.set_form_data(form_data) unless form_data.empty?
-      puts "DEBUG: Crumb: #{form_data.inspect}"
-      response = http.request(request)
-      puts "DEBUG: response: #{response.inspect}"
-      handle_post_response(response)
+      response = make_http_request(request)
+      handle_exception(response)
     end
 
     def use_crumbs?
@@ -257,7 +305,7 @@ module JenkinsApi
       json["useCrumbs"]
     end
 
-    def use_securit?
+    def use_security?
       json = api_get_request("")
       json["useSecurity"]
     end
@@ -316,16 +364,51 @@ module JenkinsApi
       end
     end
 
+    # Private method that handles the exception and raises with proper error
+    # message with the type of exception and returns the required values if no
+    # exceptions are raised.
+    #
+    # @param [Net::HTTP::Response] response Response from Jenkins
+    # @param [String] to_send What should be returned as a response. Allowed
+    #   values: "code" and "body".
+    # @param [Boolean] send_json Boolean value used to determine whether to
+    #   load the JSON or send the response as is.
+    #
+    # @return [String, JSON] Response returned whether loaded JSON or raw
+    #   string
+    #
+    # @raise [Exceptions::UnauthorizedException] When invalid credentials are
+    #   provided to connect to Jenkins
+    # @raise [Exceptions::NotFoundException] When the requested page on Jenkins
+    #   is found
+    # @raise [Exceptions::InternelServerErrorException] When Jenkins returns a
+    #   500 Internel Server Error
+    # @raise [Exceptions::ApiException] Any other exception returned from
+    #   Jenkins that are not categorized in the API Client.
+    #
     def handle_exception(response, to_send = "code", send_json = false)
       msg = "HTTP Code: #{response.code}, Response Body: #{response.body}"
+      puts msg if @debug
       case response.code.to_i
-      when 200, 302
+      # As of Jenkins version 1.519, the job builds return a 201 status code
+      # with a Location HTTP header with the pointing the URL of the item in
+      # the queue.
+      when 200, 201, 302
         if to_send == "body" && send_json
           return JSON.parse(response.body)
         elsif to_send == "body"
           return response.body
         elsif to_send == "code"
           return response.code
+        end
+      when 400
+        case response.body
+        when /A job already exists with the name/
+          raise Exceptions::JobAlreadyExistsWithName.new
+        when /Nothing is submitted/
+          raise Exceptions::NothingSubmitted.new
+        else
+          raise Exceptions::ApiException.new("Error code 400")
         end
       when 401
         raise Exceptions::UnautherizedException.new
@@ -334,7 +417,7 @@ module JenkinsApi
       when 500
         raise Exceptions::InternelServerErrorException.new
       else
-        raise Exceptions::ApiException.new
+        raise Exceptions::ApiException.new("Error code #{response.code}")
       end
     end
 

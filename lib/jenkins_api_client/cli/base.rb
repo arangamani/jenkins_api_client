@@ -28,9 +28,11 @@ require "#{File.dirname(__FILE__)}/system.rb"
 
 module JenkinsApi
   # This is the base module for all command line interface for Jenkins API.
+  #
   module CLI
     # This is the base class for the command line interface which adds other
     # classes as subcommands to the CLI.
+    #
     class Base < Thor
 
       class_option :username, :aliases => "-u", :desc => "Name of Jenkins user"

@@ -369,7 +369,9 @@ describe JenkinsApi::Client::Job do
             @job_name
           ).should_not == "running"
           response = @client.job.build(@job_name)
-          response.to_i.should == 302
+          # As of Jenkins version 1.519 the job build responds with a 201
+          # status code.
+          [201, 302].should include(response.to_i)
           # Sleep for 6 seconds so we don't hit the Jenkins quiet period (5
           # seconds)
           sleep 6

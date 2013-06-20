@@ -11,7 +11,9 @@ Client libraries for communicating with a Jenkins CI server and programatically 
 
 IRC Channel: ##jenkins-api-client
 
-Mailing list: jenkins.api.client@librelist.com
+Mailing list: jenkins_api_client@googlegroups.com
+
+Google Group: https://groups.google.com/group/jenkins_api_client
 
 OVERVIEW:
 ---------
@@ -56,10 +58,13 @@ You will see the that it entered IRB session and you can play with the API clien
 
 ### Authentication
 
+Supplying credentials to the client is optional, as not all Jenkins instances require authentication.
 This project supports two types of password-based authentication. You can just you the plain
 password by using <tt>password</tt> parameter. If you don't prefer leaving plain passwords in the
 credentials file, you can encode your password in base64 format and use <tt>password_base64</tt>
 parameter to specify the password either in the arguments or in the credentials file.
+To use the client without credentials, just leave out the <tt>username</tt> and <tt>password</tt> parameters. The
+<tt>password</tt> parameter is only required if <tt>username</tt> is specified.
 
 ### Basic Usage
 

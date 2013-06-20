@@ -4,20 +4,57 @@ CHANGELOG
 upcoming
 --------
 
+v0.12.0  [18-JUN-2013]
+----------------------
+* Authentication is now optional as not all Jenkins instances have
+  authentication enabled by default. Credit: @dougforpres
+* Ability to retrieve build details so that more than just (`lamp color`) is
+  available. Credit: @dougforpres
+* Ability to retrieve build test-results for those builds that have them.
+  Credit: @dougforpres
+* Option to follow any 301/302 responses. This allows POST to build to follow
+  the redirect and end up with a 200 response. Credit: @dougforpres
+* Minor change to the POST requests handling where jenkins instances with a
+  proxy returns 411 if no form data is specified. Fixed by sending an empty
+  hash. Credit: @dougforpres
+* As of Jenkins release 1.519, the job build returns a 201 code instead of 302.
+  This was resulting in an exception and the exception handling is modified to
+  handle this condition.
+* The jobs that are not built yet have a new color (`notbuilt`) in the recent
+  version of jenkins (> 1.517) whih resulted in `invalid` status. This is fixed.
+
+v0.11.0  [09-JUN-2013]
+----------------------
+* A new input argument `server_url` is supported which accepts the jenkins URL
+  instead of IP address and Port. Credit: @dieterdemeyer
+* When renaming the job, preserve the job history. Credit: @rubytester
+* Various exception handling improvements. Credit: @drnic
+
+v0.10.0  [24-APR-2013]
+----------------------
+* new function to execute jenkins CLI `cli_exec`. Credit: @missedone
+* Add ability to use http proxy. Credit: @woodbusy
+* prompt the user for credentials when using irb login script. @woodbusy
+* bugfix for job.console_output. Credit: @drnic
+* add ssl support. Credit: @madisp
+
 v0.9.1  [01-APR-2013]
 ---------------------
 * Removed the dependency of ActiveSupport and Builder as they were not being
-* used.
+  used.
 
 v0.9.0  [10-MAR-2013]
 ---------------------
 * Added capability to send email notification to existing jobs
 * Removed warnings from client.rb
 * Refactored and improved exception handling
-* A bug is fixed in client which allows only the valid params as options. Credit: @Niarfe
-* Added a timeout parameter for waiting for jenkins to become ready. Credit: @Niarfe
+* A bug is fixed in client which allows only the valid params as options.
+  Credit: @Niarfe
+* Added a timeout parameter for waiting for jenkins to become ready.
+  Credit: @Niarfe
 * Added function to reload jenkins. Credit: @missedone
-* Fixed a bug where jenkins_path was missing in get_config and post_config. Credit: @cylol
+* Fixed a bug where jenkins_path was missing in get_config and post_config.
+  Credit: @cylol
 * Added capability to obtain jenkins version and other useful information
 * Added new tests for various cases, and other code improvements
 
@@ -29,7 +66,8 @@ v0.8.0  [14-FEB-2013]
 ---------------------
 * Added capability to send timer trigger while creating a job
 * Added rename feature for jobs
-* Added support for sending skype notification in job creation and on existing jobs
+* Added support for sending skype notification in job creation and on existing
+  jobs
 * Added support for sending Jenkins root URL configuration. Credit: @kevinhcross
 * Added `delete_all!` methods for Job, View, and Node.
 * `get_eta` in BuildQueue will return "N/A" if the ETA is not given by Jenkins
@@ -39,7 +77,8 @@ v0.8.0  [14-FEB-2013]
 
 v0.7.3  [05-FEB-2013]
 ---------------------
-* Fixed #27 with a bug in create_view including extra character in the end of the name
+* Fixed #27 with a bug in create_view including extra character in the end of
+  the name
 
 v0.7.2  [02-FEB-2013]
 ---------------------
@@ -63,24 +102,29 @@ v0.7.0  [27-JAN-2013]
 
 v0.6.2  [13-JAN-2013]
 ---------------------
-* Fixed a bug where running job previously aborted was not recognized by the color
+* Fixed a bug where running job previously aborted was not recognized by the
+  color
 
 v0.6.1  [13-JAN-2013]
 ---------------------
-* Fixed a bug where the last few lines of console output was missed in the CLI when using the `jenkinscli job console` command.
+* Fixed a bug where the last few lines of console output was missed in the CLI
+  when using the `jenkinscli job console` command.
 
 v0.6.0  [12-JAN-2013]
 ---------------------
 * Added functionality to get progressive console output from Jenkins.
-* Added CLI command `console` for printing progressive console output on terminal.
-* Fixed a bug with `get_current_build_number` not returning the recent running build number.
+* Added CLI command `console` for printing progressive console output on
+  terminal.
+* Fixed a bug with `get_current_build_number` not returning the recent running
+  build number.
 
 v0.5.0  [22-DEC-2012]
 ---------------------
 * Added functionality to create jobs with params.
 * Added View class and added methods accessing List Views of Jenkins server.
 * Added functionality to abort a running job.
-* Deprecated `list_running` of Job class. `list_by_status('running')` is suggested.
+* Deprecated `list_running` of Job class. `list_by_status('running')` is
+  suggested.
 
 v0.4.0  [07-DEC-2012]
 ---------------------

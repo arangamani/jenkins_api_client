@@ -24,6 +24,7 @@ module JenkinsApi
   class Client
     # This class communicates with the Jenkins "/job" API to obtain details
     # about jobs, creating, deleting, building, and various other operations.
+    #
     class Job
 
       # Initialize the Job object and store the reference to Client object
@@ -274,12 +275,7 @@ module JenkinsApi
       # @param [String] new_job Name of the new job.
       #
       def rename(old_job, new_job)
-        # Obtain the configuration of the old job
-        xml = get_config(old_job)
-        # Create the new job with the configuration obtained
-        create(new_job, xml)
-        # Delete the old job
-        delete(old_job)
+        @client.api_post_request("/job/#{old_job}/doRename?newName=#{new_job}")
       end
 
       # Delete a job given the name
@@ -360,7 +356,8 @@ module JenkinsApi
         end
         get_msg = "/job/#{job_name}/#{build_num}/logText/progressive#{mode}?"
         get_msg << "start=#{start}"
-        api_response = @client.api_get_request(get_msg, nil, nil)
+        raw_response = true
+        api_response = @client.api_get_request(get_msg, nil, nil, raw_response)
         #puts "Response: #{api_response.header['x-more-data']}"
         response = {}
         response['output'] = api_response.body
@@ -482,7 +479,10 @@ module JenkinsApi
           "unstable"
         when /anime/
           "running"
-        when "grey"
+        # In the recent version of Jenkins (> 1.517), jobs that are not built
+        # yet have a color of "notbuilt" instead of "grey". Include that to the
+        # not_run condition so it is backward compatible.
+        when "grey", "notbuilt"
           "not_run"
         when "aborted"
           "aborted"
@@ -550,6 +550,32 @@ module JenkinsApi
       #
       def post_config(job_name, xml)
         @client.post_config("/job/#{job_name}/config.xml", xml)
+      end
+
+      # Obtain the test results for a specific build of a job
+      #
+      # @param [String] job_name
+      # @param [Number] build_num
+      #
+      def get_test_results(job_name, build_num)
+        build_num = get_current_build_number(job_name) if build_num == 0
+
+        @client.api_get_request("/job/#{job_name}/#{build_num}/testReport")
+      rescue Exceptions::NotFoundException
+        # Not found is acceptable, as not all builds will have test results
+        # and this is what jenkins throws at us in that case
+        nil
+      end
+
+      # Obtain detailed build info for a job
+      #
+      # @param [String] job_name
+      # @param [Number] build_num
+      #
+      def get_build_details(job_name, build_num)
+        build_num = get_current_build_number(job_name) if build_num == 0
+
+        @client.api_get_request("/job/#{job_name}/#{build_num}/")
       end
 
       # Change the description of a specific job
