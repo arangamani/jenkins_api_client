@@ -332,7 +332,7 @@ module JenkinsApi
     # @return Jenkins version
     #
     def get_jenkins_version
-      response = api_get_request("")
+      response = get_root
       response["X-Jenkins"]
     end
 
@@ -341,7 +341,7 @@ module JenkinsApi
     # @return [String] Version of Hudson on Jenkins server
     #
     def get_hudson_version
-      response = api_get_request("")
+      response = get_root
       response["X-Hudson"]
     end
 
@@ -350,7 +350,7 @@ module JenkinsApi
     # @return [String] Server date
     #
     def get_server_date
-      response = api_get_request("")
+      response = get_root
       response["Date"]
     end
 
