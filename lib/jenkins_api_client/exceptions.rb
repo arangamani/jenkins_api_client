@@ -82,6 +82,18 @@ module JenkinsApi
       end
     end
 
+    # This exception class handles cases where the Jenkins is getting restarted
+    # or reloaded where the response code returned is 503
+    #
+    class ServiceUnavailableException < ApiException
+      def initialize(message = "")
+        super("Jenkins is being reloaded or restarted. Please wait till" +
+              " Jenkins is completely back online. This can be" +
+              " programatically achieved by System#wait_for_ready #{message}"
+             )
+      end
+    end
+
     # Exception occurred while running java CLI commands
     #
     class CLIException < ApiException

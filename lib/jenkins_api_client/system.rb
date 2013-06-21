@@ -61,17 +61,31 @@ module JenkinsApi
       #               jobs are completed.
       #
       def restart(force = false)
-        if force
-          @client.api_post_request("/restart")
-        else
-          @client.api_post_request("/safeRestart")
+        begin
+          if force
+            @client.api_post_request("/restart")
+          else
+            @client.api_post_request("/safeRestart")
+          end
+        # If the CSRF protection is enabled, Jenkins responds with a 503
+        # Service Unavailable response code for the restart call. Just rescue
+        # the exception and return the response code as it is.
+        rescue Exceptions::ServiceUnavailableException
+          "503"
         end
       end
 
       # Reload the Jenkins server
       #
       def reload
-        @client.api_post_request("/reload")
+        begin
+          @client.api_post_request("/reload")
+        # If the CSRF protection is enabled, Jenkins responds with a 503
+        # Service Unavailable response code for the restart call. Just rescue
+        # the exception and return the response code as it is.
+        rescue Exceptions::ServiceUnavailableException
+          "503"
+        end
       end
 
       # This method waits till the server becomes ready after a start

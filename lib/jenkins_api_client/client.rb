@@ -443,6 +443,8 @@ module JenkinsApi
         raise Exceptions::NotFoundException.new
       when 500
         raise Exceptions::InternelServerErrorException.new
+      when 503
+        raise Exceptions::ServiceUnavailableException.new
       else
         raise Exceptions::ApiException.new("Error code #{response.code}")
       end

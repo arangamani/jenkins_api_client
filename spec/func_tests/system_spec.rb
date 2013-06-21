@@ -10,7 +10,7 @@ describe JenkinsApi::Client::System do
   context "With properly initialized client" do
     before(:all) do
       @creds_file = '~/.jenkins_api_client/spec.yml'
-      @valid_post_responses = [200, 201, 302]
+      @valid_post_responses = [200, 201, 302, 503]
       begin
         @client = JenkinsApi::Client.new(
           YAML.load_file(File.expand_path(@creds_file, __FILE__))
