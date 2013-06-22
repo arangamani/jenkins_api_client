@@ -60,6 +60,18 @@ module JenkinsApi
       end
     end
 
+    # This exception class handles cases where invalid credentials are provided
+    # to connect to the Jenkins.
+    #
+    class ForbiddenException < ApiException
+      def initialize(message = "")
+        super("The Crumb was expired or not sent to the server." +
+              " Perhaps the CSRF protection was not enabled on the server" +
+              " when the client was initialized. Please re-initialize the" +
+              " client. #{message}")
+      end
+    end
+
     # This exception class handles cases where a requested page is not found on
     # the Jenkins API.
     #
@@ -67,6 +79,15 @@ module JenkinsApi
       def initialize(message = "")
         super("Requested component is not found on the Jenkins CI server." +
               " #{message}")
+      end
+    end
+
+    # This exception class handles cases where a requested page is not found on
+    # the Jenkins API.
+    #
+    class CrumbNotFoundException < NotFoundException
+      def initialize(message = "")
+        super("No crumb available on the server. #{message}")
       end
     end
 
