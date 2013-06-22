@@ -21,6 +21,8 @@ before_install:
 script:
   - bundle exec rake unit_tests
   - bundle exec rake func_tests
+  - travis/setup_crumb.sh
+  - bundle exec rake func_tests
 notifications:
   email: false
   irc:
