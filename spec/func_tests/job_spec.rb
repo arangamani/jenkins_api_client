@@ -379,6 +379,16 @@ describe JenkinsApi::Client::Job do
         end
       end
 
+      describe "#disable" do
+        it "Should disable the specified job" do
+          @client.job.list_details(@job_name)['buildable'].should == "true"
+          response = @client.job.disable(@job_name)
+          response.to_i.should == 302
+          sleep 3
+          @client.job.list_details(@job_name)['buildable'].should == "false"
+        end
+      end
+
       describe "#stop" do
         it "Should be able to abort a recent build of a running job" do
           @client.job.get_current_build_status(
