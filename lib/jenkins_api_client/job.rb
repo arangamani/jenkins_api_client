@@ -528,6 +528,22 @@ module JenkinsApi
         end
       end
 
+      # Enable a job given the name of the job
+      #
+      # @param [String] job_name
+      #
+      def enable(job_name)
+        @client.api_post_request("/job/#{job_name}/enable")
+      end
+
+      # Disable a job given the name of the job
+      #
+      # @param [String] job_name
+      #
+      def disable(job_name)
+        @client.api_post_request("/job/#{job_name}/disable")
+      end
+
       # Obtain the configuration stored in config.xml of a specific job
       #
       # @param [String] job_name
