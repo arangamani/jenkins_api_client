@@ -340,6 +340,22 @@ describe JenkinsApi::Client::Job do
         end
       end
 
+      describe "#enable" do
+        it "accepts the job name and enables the job" do
+          @client.should_receive(:api_post_request).with(
+            "/job/test_job/enable").and_return(302)
+          @job.enable("test_job").should == 302
+        end
+      end
+
+      describe "#disable" do
+        it "accepts the job name and disables the job" do
+          @client.should_receive(:api_post_request).with(
+            "/job/test_job/disable").and_return(302)
+          @job.disable("test_job").should == 302
+        end
+      end
+
       describe "#get_config" do
         it "accepts the job name and obtains its config.xml" do
           @client.should_receive(:get_config).with(
