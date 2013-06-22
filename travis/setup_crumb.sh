@@ -6,7 +6,6 @@ sudo cp -f travis/jenkins_config_with_crumb.xml /var/lib/jenkins/config.xml
 sudo service jenkins restart
 # Jenkins takes a bit to get ready - so wait
 sleep 60
-cat /var/log/jenkins/jenkins.log
 echo `sudo service jenkins status`
 
-echo "Crumb is enabled on jenkins"
+echo "Crumbs support is enabled on jenkins"
