@@ -326,6 +326,16 @@ module JenkinsApi
         create(job_name, job_xml)
       end
 
+      # Copy a job
+      #
+      # @param [String] from_job_name
+      # @param [String] to_job_name
+      #
+      def copy(from_job_name, to_job_name=nil)
+        to_job_name = "copy_of_#{from_job_name}" if to_job_name.nil?
+        @client.api_post_request("/createItem?name=#{to_job_name}&mode=copy&from=#{from_job_name}")
+      end
+
       # Get progressive console output from Jenkins server for a job
       #
       # @param [String] job_name Name of the Jenkins job
