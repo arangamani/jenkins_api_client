@@ -380,12 +380,16 @@ describe JenkinsApi::Client::Job do
       end
 
       describe "#disable" do
-        it "Should disable the specified job" do
+        it "Should disable the specified job and then enable it again" do
           @client.job.list_details(@job_name)['buildable'].should == true
           response = @client.job.disable(@job_name)
           response.to_i.should == 302
           sleep 3
           @client.job.list_details(@job_name)['buildable'].should == false
+          response = @client.job.enable(@job_name)
+          response.to_i.should == 302
+          sleep 3
+          @client.job.list_details(@job_name)['buildable'].should == true
         end
       end
 
