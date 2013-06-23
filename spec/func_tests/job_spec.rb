@@ -11,13 +11,13 @@ describe JenkinsApi::Client::Job do
     before(:all) do
       @helper = JenkinsApiSpecHelper::Helper.new
       @creds_file = '~/.jenkins_api_client/spec.yml'
+      @creds = YAML.load_file(File.expand_path(@creds_file, __FILE__))
       @job_name_prefix = 'awesome_rspec_test_job'
       @filter = "^#{@job_name_prefix}.*"
       @job_name = ''
+      @valid_post_responses = [200, 201, 302]
       begin
-        @client = JenkinsApi::Client.new(
-          YAML.load_file(File.expand_path(@creds_file, __FILE__))
-        )
+        @client = JenkinsApi::Client.new(@creds)
       rescue Exception => e
         puts "WARNING: Credentials are not set properly."
         puts e.message
@@ -54,7 +54,9 @@ describe JenkinsApi::Client::Job do
         it "Should be able to create a job by getting an xml" do
           xml = @helper.create_job_xml
           name = "qwerty_nonexistent_job"
-          @client.job.create(name, xml).to_i.should == 200
+          @valid_post_responses.should include(
+            @client.job.create(name, xml).to_i
+          )
           @client.job.list(name).include?(name).should be_true
         end
       end
@@ -62,9 +64,13 @@ describe JenkinsApi::Client::Job do
       describe "#create_freestyle" do
 
         def test_and_validate(name, params)
-          @client.job.create_freestyle(params).to_i.should == 200
+          @valid_post_responses.should include(
+            @client.job.create_freestyle(params).to_i
+          )
           @client.job.list(name).include?(name).should be_true
-          @client.job.delete(name).to_i.should == 302
+          @valid_post_responses.should include(
+            @client.job.delete(name).to_i
+          )
           @client.job.list(name).include?(name).should be_false
         end
 
@@ -231,25 +237,39 @@ describe JenkinsApi::Client::Job do
         it "Should accept email address and add to existing job" do
           name = "email_notification_test_job"
           params = {:name => name}
-          @client.job.create_freestyle(params).to_i.should == 200
-          @client.job.add_email_notification(
-            :name => name,
-            :notification_email => "testuser@testdomain.com"
-          ).to_i.should == 200
-          @client.job.delete(name).to_i.should == 302
+          @valid_post_responses.should include(
+            @client.job.create_freestyle(params).to_i
+          )
+          @valid_post_responses.should include(
+            @client.job.add_email_notification(
+              :name => name,
+              :notification_email => "testuser@testdomain.com"
+            ).to_i
+          )
+          @valid_post_responses.should include(
+            @client.job.delete(name).to_i
+          )
         end
       end
 
       describe "#add_skype_notification" do
         it "Should accept skype configuration and add to existing job" do
           name = "skype_notification_test_job"
-          params = {:name => name}
-          @client.job.create_freestyle(params).to_i.should == 200
-          @client.job.add_skype_notification(
-            :name => name,
-            :skype_targets => "testuser"
-          ).to_i.should == 200
-          @client.job.delete(name).to_i.should == 302
+          params = {
+            :name => name
+          }
+          @valid_post_responses.should include(
+            @client.job.create_freestyle(params).to_i
+          )
+          @valid_post_responses.should include(
+            @client.job.add_skype_notification(
+              :name => name,
+              :skype_targets => "testuser"
+            ).to_i
+          )
+          @valid_post_responses.should include(
+            @client.job.delete(name).to_i
+          )
         end
       end
 
@@ -268,21 +288,26 @@ describe JenkinsApi::Client::Job do
 
       describe "#recreate" do
         it "Should be able to re-create a job" do
-          @client.job.recreate("qwerty_nonexistent_job").to_i.should == 200
+          @valid_post_responses.should include(
+            @client.job.recreate("qwerty_nonexistent_job").to_i
+          )
         end
       end
 
       describe "#change_description" do
         it "Should be able to change the description of a job" do
-          @client.job.change_description("qwerty_nonexistent_job",
-            "The description has been changed by the spec test"
-          ).to_i.should == 200
+          @valid_post_responses.should include(
+            @client.job.change_description("qwerty_nonexistent_job",
+            "The description has been changed by the spec test").to_i
+          )
         end
       end
 
       describe "#delete" do
         it "Should be able to delete a job" do
-          @client.job.delete("qwerty_nonexistent_job").to_i.should == 302
+          @valid_post_responses.should include(
+            @client.job.delete("qwerty_nonexistent_job").to_i
+          )
         end
       end
 
@@ -369,7 +394,7 @@ describe JenkinsApi::Client::Job do
           response = @client.job.build(@job_name)
           # As of Jenkins version 1.519 the job build responds with a 201
           # status code.
-          [201, 302].should include(response.to_i)
+          @valid_post_responses.should include(response.to_i)
           # Sleep for 6 seconds so we don't hit the Jenkins quiet period (5
           # seconds)
           sleep 6
@@ -404,7 +429,9 @@ describe JenkinsApi::Client::Job do
           sleep 6
           @client.job.get_current_build_status(@job_name).should == "running"
           sleep 5
-          @client.job.stop_build(@job_name).to_i.should == 302
+          @valid_post_responses.should include(
+            @client.job.stop_build(@job_name).to_i
+          )
           sleep 5
           @client.job.get_current_build_status(@job_name).should == "aborted"
         end
@@ -412,9 +439,13 @@ describe JenkinsApi::Client::Job do
 
       describe "#restrict_to_node" do
         it "Should be able to restrict a job to a node" do
-          @client.job.restrict_to_node(@job_name, 'master').to_i.should == 200
+          @valid_post_responses.should include(
+            @client.job.restrict_to_node(@job_name, 'master').to_i
+          )
           # Run it again to make sure that the replace existing node works
-          @client.job.restrict_to_node(@job_name, 'master').to_i.should == 200
+          @valid_post_responses.should include(
+            @client.job.restrict_to_node(@job_name, 'master').to_i
+          )
         end
       end
 

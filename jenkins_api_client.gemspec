@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kannan Manickam"]
-  s.date = %q{2013-06-19}
+  s.date = %q{2013-06-20}
   s.default_executable = %q{jenkinscli}
   s.description = %q{
 This is a simple and easy-to-use Jenkins Api client with features focused on
@@ -21,6 +21,7 @@ automating Job configuration programaticaly and so forth}
     ".jenkins.yml",
     ".travis.yml",
     "CHANGELOG.md",
+    "CONTRIBUTORS.md",
     "Gemfile",
     "LICENCE",
     "README.md",
