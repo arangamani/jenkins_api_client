@@ -48,6 +48,13 @@ describe JenkinsApi::Client::System do
         end
       end
 
+      describe "#list_users" do
+        it "sends a request to list the users" do
+          @client.should_receive(:api_get_request).with("/asynchPeople")
+          @system.list_users
+        end
+      end
+
       describe "#wait_for_ready" do
         it "exits if the response body doesn't have the wait message" do
           @client.should_receive(:get_root).and_return(Net::HTTP.get_response(URI('http://example.com/index.html')))

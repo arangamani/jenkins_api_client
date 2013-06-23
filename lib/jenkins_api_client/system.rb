@@ -74,6 +74,17 @@ module JenkinsApi
         @client.api_post_request("/reload")
       end
 
+      # List all users known to Jenkins by their Full Name
+      #
+      def list_users
+        users = @client.api_get_request("/asynchPeople")
+        names = []
+        users['users'].each { |user|
+          names << user['user']['fullName']
+        } unless users.nil?
+        return names
+      end
+
       # This method waits till the server becomes ready after a start
       # or restart.
       #

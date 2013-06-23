@@ -72,6 +72,12 @@ describe JenkinsApi::Client::System do
         end
       end
 
+      describe "#list_users" do
+        it "Should be able to get a list of users" do
+          @client.system.list_users.size == 1
+        end
+      end
+
     end
 
   end
