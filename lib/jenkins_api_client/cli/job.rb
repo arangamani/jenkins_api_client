@@ -89,20 +89,15 @@ module JenkinsApi
       desc "console JOB", "Print the progressive console output of a job"
       method_option :sleep, :aliases => "-z",
         :desc => "Time to wait between querying the API for console output"
-      # CLI command to obtain console output for a job
+      # CLI command to obtain console output for a job. Make sure the log
+      # location is set to something other than STDOUT. By default it is set to
+      # STDOUT. If the log messages are printed on the same console, the
+      # console output will get garbled.
       #
       # @param [String] job Name of the job
       #
       def console(job)
         @client = Helper.setup(parent_options)
-        # If debug is enabled, disable it. It shouldn't interfere
-        # with console output.
-        debug_changed = false
-        if @client.debug == true
-          @client.debug = false
-          debug_changed = true
-        end
-
         # Print progressive console output
         response = @client.job.get_console_output(job)
         puts response['output'] unless response['more']
@@ -114,8 +109,6 @@ module JenkinsApi
         end
         # Print the last few lines
         puts response['output'] unless response['output'].chomp.empty?
-        # Change the debug back if we changed it now
-        @client.toggle_debug if debug_changed
       end
 
       desc "restrict JOB", "Restricts a job to a specific node"
