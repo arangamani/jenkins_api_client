@@ -84,6 +84,7 @@ module JenkinsApi
       # List all users known to Jenkins by their Full Name
       #
       def list_users
+        @logger.info "Obtaining the list of users from jenkins"
         users = @client.api_get_request("/asynchPeople")
         names = []
         users['users'].each { |user|

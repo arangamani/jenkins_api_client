@@ -310,6 +310,7 @@ module JenkinsApi
       # @param [String] job_name
       #
       def wipe_out_workspace(job_name)
+        @logger.info "Wiping out the workspace of job '#{job_name}'"
         @client.api_post_request("/job/#{job_name}/doWipeOutWorkspace")
       end
 
@@ -353,7 +354,10 @@ module JenkinsApi
       #
       def copy(from_job_name, to_job_name=nil)
         to_job_name = "copy_of_#{from_job_name}" if to_job_name.nil?
-        @client.api_post_request("/createItem?name=#{to_job_name}&mode=copy&from=#{from_job_name}")
+        @logger.info "Copying job '#{from_job_name}' to '#{to_job_name}'"
+        @client.api_post_request(
+          "/createItem?name=#{to_job_name}&mode=copy&from=#{from_job_name}"
+        )
       end
 
       # Get progressive console output from Jenkins server for a job
