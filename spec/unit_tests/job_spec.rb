@@ -134,6 +134,21 @@ describe JenkinsApi::Client::Job do
         end
       end
 
+      describe "#copy" do
+        it "accepts the from and to job names and copies the from job to the to job" do
+          @client.should_receive(:api_post_request).with(
+            "/createItem?name=new_job&mode=copy&from=old_job"
+          )
+          @job.copy("old_job", "new_job")
+        end
+        it "accepts the from job name and copies the from job to the copy_of_from job" do
+          @client.should_receive(:api_post_request).with(
+            "/createItem?name=copy_of_old_job&mode=copy&from=old_job"
+          )
+          @job.copy("old_job")
+        end
+      end
+
       describe "#add_email_notification" do
         it "accepts email address and adds to existing job" do
           params = {

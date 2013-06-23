@@ -233,6 +233,25 @@ describe JenkinsApi::Client::Job do
         end
       end
 
+      describe "#copy" do
+        it "accepts the from and to job names and copies the from job to the to job" do
+          xml = @helper.create_job_xml
+          @client.job.create("from_job_copy_test", xml)
+          @client.job.copy("from_job_copy_test", "to_job_copy_test")
+          @client.job.list(".*_job_copy_test").should == ['from_job_copy_test', 'to_job_copy_test']
+          @client.job.delete("from_job_copy_test")
+          @client.job.delete("to_job_copy_test")
+        end
+        it "accepts the from job name and copies the from job to the copy_of_from job" do
+          xml = @helper.create_job_xml
+          @client.job.create("from_job_copy_test", xml)
+          @client.job.copy("from_job_copy_test")
+          @client.job.list(".*_job_copy_test").should == ['copy_of_from_job_copy_test', 'from_job_copy_test']
+          @client.job.delete("from_job_copy_test")
+          @client.job.delete("copy_of_from_job_copy_test")
+        end
+      end
+
       describe "#add_email_notification" do
         it "Should accept email address and add to existing job" do
           name = "email_notification_test_job"
