@@ -180,6 +180,16 @@ module JenkinsApi
       "#<JenkinsApi::Client>"
     end
 
+    # Overrides the inspect method to get rid of the credentials being shown in
+    # the in interactive IRB sessions. Just print the important variables.
+    #
+    def inspect
+      "#<JenkinsApi::Client:0x#{(self.__id__ * 2).to_s(16)}" +
+        " @ssl=#{@ssl.inspect}, @debug=#{@debug.inspect}," +
+        " @crumbs_enabled=#{@crumbs_enabled.inspect}," +
+        " @timeout=#{@timeout.inspect}>"
+    end
+
     # Connects to the Jenkins server, sends the specified request and returns
     # the response.
     #
