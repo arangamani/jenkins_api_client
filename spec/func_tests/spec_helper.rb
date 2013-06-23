@@ -10,13 +10,8 @@ require 'pp'
 require 'yaml'
 require 'nokogiri'
 
-#RSpec.configure do |config|
-#  config.mock_with :flexmock
-#end
-
 module JenkinsApiSpecHelper
   class Helper
-
     def create_job_xml
       builder = Nokogiri::XML::Builder.new(:encoding => 'UTF-8') { |xml|
         xml.project {
@@ -33,7 +28,7 @@ module JenkinsApiSpecHelper
           xml.concurrentBuild "false"
           xml.builders {
             xml.send("hudson.tasks.Shell") {
-              xml.command "\necho 'going to take a nice nap'\nsleep 10\necho 'took a nice nap'"
+              xml.command "\necho 'going to take a nice nap'\nsleep 15\necho 'took a nice nap'"
             }
           }
           xml.publishers
@@ -42,6 +37,5 @@ module JenkinsApiSpecHelper
       }
       builder.to_xml
     end
-
   end
 end

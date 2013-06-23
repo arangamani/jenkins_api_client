@@ -60,6 +60,18 @@ module JenkinsApi
       end
     end
 
+    # This exception class handles cases where invalid credentials are provided
+    # to connect to the Jenkins.
+    #
+    class ForbiddenException < ApiException
+      def initialize(message = "")
+        super("The Crumb was expired or not sent to the server." +
+              " Perhaps the CSRF protection was not enabled on the server" +
+              " when the client was initialized. Please re-initialize the" +
+              " client. #{message}")
+      end
+    end
+
     # This exception class handles cases where a requested page is not found on
     # the Jenkins API.
     #
@@ -67,6 +79,15 @@ module JenkinsApi
       def initialize(message = "")
         super("Requested component is not found on the Jenkins CI server." +
               " #{message}")
+      end
+    end
+
+    # This exception class handles cases where a requested page is not found on
+    # the Jenkins API.
+    #
+    class CrumbNotFoundException < NotFoundException
+      def initialize(message = "")
+        super("No crumb available on the server. #{message}")
       end
     end
 
@@ -78,6 +99,18 @@ module JenkinsApi
         super("Internel Server Error. Perhaps the in-memory configuration of" +
               " Jenkins is different from the disk configuration." +
               " Please try to reload the configuration #{message}"
+             )
+      end
+    end
+
+    # This exception class handles cases where the Jenkins is getting restarted
+    # or reloaded where the response code returned is 503
+    #
+    class ServiceUnavailableException < ApiException
+      def initialize(message = "")
+        super("Jenkins is being reloaded or restarted. Please wait till" +
+              " Jenkins is completely back online. This can be" +
+              " programatically achieved by System#wait_for_ready #{message}"
              )
       end
     end

@@ -10,6 +10,7 @@ describe JenkinsApi::Client::Node do
   context "With properly initialized client" do
     before(:all) do
       @creds_file = '~/.jenkins_api_client/spec.yml'
+      @valid_post_responses = [200, 201, 302]
       @node_name = 'master'
       begin
         @client = JenkinsApi::Client.new(
@@ -46,9 +47,13 @@ describe JenkinsApi::Client::Node do
 
         def test_and_validate(params)
           name = params[:name]
-          @client.node.create_dump_slave(params).to_i.should == 302
+          @valid_post_responses.should include(
+            @client.node.create_dump_slave(params).to_i
+          )
           @client.node.list(name).include?(name).should be_true
-          @client.node.delete(params[:name]).to_i.should == 302
+          @valid_post_responses.should include(
+            @client.node.delete(params[:name]).to_i
+          )
           @client.node.list(name).include?(name).should be_false
         end
 
@@ -101,11 +106,15 @@ describe JenkinsApi::Client::Node do
             :slave_host => "10.10.10.10",
             :private_key_file => "/root/.ssh/id_rsa"
           }
-          @client.node.create_dump_slave(params).to_i.should == 302
+          @valid_post_responses.should include(
+            @client.node.create_dump_slave(params).to_i
+          )
           expect(
             lambda{ @client.node.create_dump_slave(params) }
           ).to raise_error
-          @client.node.delete(params[:name]).to_i.should == 302
+          @valid_post_responses.should include(
+            @client.node.delete(params[:name]).to_i
+          )
         end
       end
 
@@ -116,8 +125,12 @@ describe JenkinsApi::Client::Node do
             :slave_host => "10.10.10.10",
             :private_key_file => "/root/.ssh/id_rsa"
           }
-          @client.node.create_dump_slave(params).to_i.should == 302
-          @client.node.delete(params[:name]).to_i.should == 302
+          @valid_post_responses.should include(
+            @client.node.create_dump_slave(params).to_i
+          )
+          @valid_post_responses.should include(
+            @client.node.delete(params[:name]).to_i
+          )
         end
         it "raises an error if the slave doesn't exist in Jenkins" do
           expect(
@@ -167,8 +180,12 @@ describe JenkinsApi::Client::Node do
 
       describe "#change_mode" do
         it "changes the mode of the given slave to the given mode" do
-          @client.node.change_mode("slave", "exclusive").to_i.should == 200
-          @client.node.change_mode("slave", "normal").to_i.should == 200
+          @valid_post_responses.should include(
+            @client.node.change_mode("slave", "exclusive").to_i
+          )
+          @valid_post_responses.should include(
+            @client.node.change_mode("slave", "normal").to_i
+          )
         end
       end
 
