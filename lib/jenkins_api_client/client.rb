@@ -95,8 +95,8 @@ module JenkinsApi
     #   The location for the log file (Defaults to STDOUT)
     # @option args [Fixnum] :log_level
     #   The level for messages to be logged. Should be one of:
-    #   Logger::DEBUG (0), Logger::INFO (1), Logger::ERROR (2),
-    #   Logger::FATAL (3) (Defaults to Logger::INFO)
+    #   Logger::DEBUG (0), Logger::INFO (1), Logger::WARN (2), Logger::ERROR
+    #   (2), Logger::FATAL (3) (Defaults to Logger::INFO)
     #
     # @return [JenkinsApi::Client] a client object to Jenkins API
     #

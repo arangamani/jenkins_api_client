@@ -208,10 +208,10 @@ there are two new input arguments used during the initialization of Client.
    '/var/log/jenkins_api_client.log'. The default for this values is STDOUT.
    This will print the log messages on the console itself.
 2. `:log_level` - This argument specifies the level of messages to be logged.
-   It should be one of Logger::DEBUG (0), Logger::INFO (1), Logger::ERROR (2),
-   Logger::FATAL (3). It can be specified either using the constants available
-   in the Logger class or using these integers provided here. The default for
-   this argument is Logger::INFO (1)
+   It should be one of Logger::DEBUG (0), Logger::INFO (1), Logger::WARN (2),
+   Logger::ERROR (3), Logger::FATAL (4). It can be specified either using the
+   constants available in the Logger class or using these integers provided
+   here. The default for this argument is Logger::INFO (1)
 
 CONTRIBUTING:
 -------------
