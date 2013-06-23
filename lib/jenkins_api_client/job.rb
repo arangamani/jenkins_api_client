@@ -300,7 +300,7 @@ module JenkinsApi
       # @param [String] job_name
       #
       def wipe_out_workspace(job_name)
-        @client.api_post_request("/job/#{job_name}/wipeOutWorkspace")
+        @client.api_post_request("/job/#{job_name}/doWipeOutWorkspace")
       end
 
       # Stops a running build of a job
