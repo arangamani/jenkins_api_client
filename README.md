@@ -213,6 +213,22 @@ there are two new input arguments used during the initialization of Client.
    constants available in the Logger class or using these integers provided
    here. The default for this argument is Logger::INFO (1)
 
+If you want customization on the functionality Logger provides such as leave n
+old log files, open the log file in append mode, create your own logger and
+then set that in the client.
+
+#### Examples
+
+```ruby
+  @client = JenkinsApi::Client.new(...)
+  # Create a logger which ages logfile once it reaches a certain size. Leave 10
+  “old log files” and each file is about 1,024,000 bytes.
+  @client.logger = Logger.new('foo.log', 10, 1024000)
+```
+Please refer to [Ruby
+Logger](http://www.ruby-doc.org/stdlib-1.9.3/libdoc/logger/rdoc/Logger.html)
+for more information.
+
 CONTRIBUTING:
 -------------
 
