@@ -489,7 +489,10 @@ module JenkinsApi
           "unstable"
         when /anime/
           "running"
-        when "grey"
+        # In the recent version of Jenkins (> 1.517), jobs that are not built
+        # yet have a color of "notbuilt" instead of "grey". Include that to the
+        # not_run condition so it is backward compatible.
+        when "grey", "notbuilt"
           "not_run"
         when "aborted"
           "aborted"
@@ -573,6 +576,32 @@ module JenkinsApi
       #
       def post_config(job_name, xml)
         @client.post_config("/job/#{job_name}/config.xml", xml)
+      end
+
+      # Obtain the test results for a specific build of a job
+      #
+      # @param [String] job_name
+      # @param [Number] build_num
+      #
+      def get_test_results(job_name, build_num)
+        build_num = get_current_build_number(job_name) if build_num == 0
+
+        @client.api_get_request("/job/#{job_name}/#{build_num}/testReport")
+      rescue Exceptions::NotFoundException
+        # Not found is acceptable, as not all builds will have test results
+        # and this is what jenkins throws at us in that case
+        nil
+      end
+
+      # Obtain detailed build info for a job
+      #
+      # @param [String] job_name
+      # @param [Number] build_num
+      #
+      def get_build_details(job_name, build_num)
+        build_num = get_current_build_number(job_name) if build_num == 0
+
+        @client.api_get_request("/job/#{job_name}/#{build_num}/")
       end
 
       # Change the description of a specific job

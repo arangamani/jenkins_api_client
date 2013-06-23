@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson>
+  <disabledAdministrativeMonitors/>
+  <version>1.517</version>
+  <numExecutors>10</numExecutors>
+  <mode>NORMAL</mode>
+  <useSecurity>true</useSecurity>
+  <authorizationStrategy class="hudson.security.GlobalMatrixAuthorizationStrategy">
+    <permission>hudson.model.Computer.Configure:testuser</permission>
+    <permission>hudson.model.Computer.Connect:testuser</permission>
+    <permission>hudson.model.Computer.Create:testuser</permission>
+    <permission>hudson.model.Computer.Delete:testuser</permission>
+    <permission>hudson.model.Computer.Disconnect:testuser</permission>
+    <permission>hudson.model.Hudson.Administer:testuser</permission>
+    <permission>hudson.model.Hudson.ConfigureUpdateCenter:testuser</permission>
+    <permission>hudson.model.Hudson.Read:testuser</permission>
+    <permission>hudson.model.Hudson.RunScripts:testuser</permission>
+    <permission>hudson.model.Hudson.UploadPlugins:testuser</permission>
+    <permission>hudson.model.Item.Build:testuser</permission>
+    <permission>hudson.model.Item.Cancel:testuser</permission>
+    <permission>hudson.model.Item.Configure:testuser</permission>
+    <permission>hudson.model.Item.Create:testuser</permission>
+    <permission>hudson.model.Item.Delete:testuser</permission>
+    <permission>hudson.model.Item.Discover:testuser</permission>
+    <permission>hudson.model.Item.Read:testuser</permission>
+    <permission>hudson.model.Item.Workspace:testuser</permission>
+    <permission>hudson.model.View.Configure:testuser</permission>
+    <permission>hudson.model.View.Create:testuser</permission>
+    <permission>hudson.model.View.Delete:testuser</permission>
+    <permission>hudson.model.View.Read:testuser</permission>
+  </authorizationStrategy>
+  <securityRealm class="hudson.security.HudsonPrivateSecurityRealm">
+    <disableSignup>false</disableSignup>
+    <enableCaptcha>false</enableCaptcha>
+  </securityRealm>
+  <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$DefaultProjectNamingStrategy"/>
+  <workspaceDir>${JENKINS_HOME}/workspace/${ITEM_FULLNAME}</workspaceDir>
+  <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
+  <markupFormatter class="hudson.markup.RawHtmlMarkupFormatter">
+    <disableSyntaxHighlighting>false</disableSyntaxHighlighting>
+  </markupFormatter>
+  <jdks/>
+  <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
+  <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
+  <clouds/>
+  <slaves/>
+  <quietPeriod>5</quietPeriod>
+  <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
+  <views>
+    <hudson.model.AllView>
+      <owner class="hudson" reference="../../.."/>
+      <name>All</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+    </hudson.model.AllView>
+  </views>
+  <primaryView>All</primaryView>
+  <slaveAgentPort>0</slaveAgentPort>
+  <label></label>
+  <crumbIssuer class="hudson.security.csrf.DefaultCrumbIssuer">
+    <excludeClientIPFromCrumb>false</excludeClientIPFromCrumb>
+    <PROXY__HEADER>X-Forwarded-For</PROXY__HEADER>
+  </crumbIssuer>
+  <nodeProperties/>
+ <globalNodeProperties/>
+</hudson>
