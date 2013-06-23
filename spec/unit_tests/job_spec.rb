@@ -185,7 +185,7 @@ describe JenkinsApi::Client::Job do
       describe "#wipe_out_workspace" do
         it "accepts the job name and wipes out the workspace of the job" do
           @client.should_receive(:api_post_request).with(
-            "/job/test_job/wipeOutWorkspace"
+            "/job/test_job/doWipeOutWorkspace"
           )
           @job.wipe_out_workspace('test_job')
         end
