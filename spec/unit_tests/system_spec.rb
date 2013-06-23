@@ -1,15 +1,24 @@
 require File.expand_path('../spec_helper', __FILE__)
+require 'logger'
 
 describe JenkinsApi::Client::System do
   context "With properly initialized Client" do
     before do
+      mock_logger = Logger.new "/dev/null"
+      mock_timeout = 300
       @client = mock
+      @client.should_receive(:logger).and_return(mock_logger)
+      @client.should_receive(:timeout).and_return(mock_timeout)
       @system = JenkinsApi::Client::System.new(@client)
     end
 
     describe "InstanceMethods" do
       describe "#initialize" do
         it "initializes by receiving an instance of client object" do
+          mock_logger = Logger.new "/dev/null"
+          mock_timeout = 300
+          @client.should_receive(:logger).and_return(mock_logger)
+          @client.should_receive(:timeout).and_return(mock_timeout)
           expect(
             lambda{ JenkinsApi::Client::System.new(@client) }
           ).not_to raise_error
@@ -58,8 +67,6 @@ describe JenkinsApi::Client::System do
       describe "#wait_for_ready" do
         it "exits if the response body doesn't have the wait message" do
           @client.should_receive(:get_root).and_return(Net::HTTP.get_response(URI('http://example.com/index.html')))
-          @client.should_receive(:debug)
-          @client.should_receive(:timeout)
           @system.wait_for_ready
         end
       end

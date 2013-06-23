@@ -27,13 +27,6 @@ describe JenkinsApi::Client do
 
     describe "InstanceMethods" do
 
-      describe "#debug" do
-        it "Should be able to toggle the debug value" do
-          value = @client.debug
-          @client.toggle_debug.should_not == value
-        end
-      end
-
       describe "#initialize" do
         it "Should be able to initialize with valid credentials" do
           client1 = JenkinsApi::Client.new(

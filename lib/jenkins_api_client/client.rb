@@ -27,6 +27,7 @@ require 'nokogiri'
 require 'base64'
 require 'mixlib/shellout'
 require 'uri'
+require 'logger'
 
 # The main module that contains the Client class and all subclasses that
 # communicate with the Jenkins's Remote Access API.
@@ -37,7 +38,7 @@ module JenkinsApi
   # for various operations.
   #
   class Client
-    attr_accessor :debug, :timeout
+    attr_accessor :timeout, :logger
     # Default port to be used to connect to Jenkins
     DEFAULT_SERVER_PORT = 8080
     # Default timeout in seconds to be used while performing operations
@@ -53,7 +54,8 @@ module JenkinsApi
       "username",
       "password",
       "password_base64",
-      "debug",
+      "log_location",
+      "log_level",
       "timeout",
       "ssl",
       "follow_redirects"
@@ -61,19 +63,40 @@ module JenkinsApi
 
     # Initialize a Client object with Jenkins CI server credentials
     #
-    # @param [Hash] args
-    #  * the +:server_ip+ param is the IP address of the Jenkins CI server
-    #  * the +:server_port+ param is the port on which the Jenkins listens
-    #  * the +:server_url+ param is the full URL address of the Jenkins CI server (http/https)
-    #  * the +:username+ param is the username used for connecting to the server (optional)
-    #  * the +:password+ param is the password for connecting to the CI server (optional)
-    #  * the +:proxy_ip+ param is the proxy IP address
-    #  * the +:proxy_port+ param is the proxy port
-    #  * the +:jenkins_path+ param is the optional context path for Jenkins
-    #  * the +:ssl+ param indicates if Jenkins is accessible over HTTPS
-    #    (defaults to false)
-    #  * the +:follow_redirects+ param will cause the client to follow a redirect
-    #    (jenkins can return a 30x when starting a build)
+    # @param args [Hash] Arguments to connect to Jenkins server
+    #
+    # @option args [String] :server_ip
+    #   the IP address of the Jenkins CI server
+    # @option args [String] :server_port
+    #   the port on which the Jenkins listens
+    # @option args [String] :server_url
+    #   the full URL address of the Jenkins CI server (http/https)
+    # @option args [String] :username
+    #   the username used for connecting to the server (optional)
+    # @option args [String] :password
+    #   the password for connecting to the CI server (optional)
+    # @option args [String] :password_base64
+    #   the password with base64 encoded format for connecting to the CI
+    #   server (optional)
+    # @option args [String] :proxy_ip
+    #   the proxy IP address
+    # @option args [String] :proxy_port
+    #   the proxy port
+    # @option args [String] :jenkins_path
+    #   the optional context path for Jenkins
+    # @option args [Boolean] :ssl
+    #   indicates if Jenkins is accessible over HTTPS (defaults to false)
+    # @option args [Boolean] :follow_redirects
+    #   This argument causes the client to follow a redirect (jenkins can
+    #   return a 30x when starting a build)
+    # @option args [Fixnum] :timeout
+    #   This argument sets the timeout for the jenkins system to become ready
+    # @option args [String] :log_location
+    #   The location for the log file (Defaults to STDOUT)
+    # @option args [Fixnum] :log_level
+    #   The level for messages to be logged. Should be one of:
+    #   Logger::DEBUG (0), Logger::INFO (1), Logger::ERROR (2),
+    #   Logger::FATAL (3) (Defaults to Logger::INFO)
     #
     # @return [JenkinsApi::Client] a client object to Jenkins API
     #
@@ -107,7 +130,13 @@ module JenkinsApi
       @timeout = DEFAULT_TIMEOUT unless @timeout
       @ssl ||= false
       @ssl = @server_uri.scheme == "https" if @server_uri
-      @debug = false unless @debug
+
+      # Setting log options
+      @log_location = STDOUT unless @log_location
+      @log_level = Logger::INFO unless @log_level
+      @logger = Logger.new(@log_location)
+      @logger.level = @log_level
+
 
       # Base64 decode inserts a newline character at the end. As a workaround
       # added chomp to remove newline characters. I hope nobody uses newline
@@ -124,12 +153,6 @@ module JenkinsApi
       @crumb = {}
       # This is the number of times to refetch the crumb if it ever expires.
       @crumb_max_retries = 3
-    end
-
-    # This method toggles the debug parameter in run time
-    #
-    def toggle_debug
-      @debug = @debug == false ? true : false
     end
 
     # Creates an instance to the Job class by passing a reference to self
@@ -185,8 +208,12 @@ module JenkinsApi
     #
     def inspect
       "#<JenkinsApi::Client:0x#{(self.__id__ * 2).to_s(16)}" +
-        " @ssl=#{@ssl.inspect}, @debug=#{@debug.inspect}," +
+        " @ssl=#{@ssl.inspect}," +
+        " @log_location=#{@log_location.inspect}," +
+        " @log_level=#{@log_level.inspect}," +
         " @crumbs_enabled=#{@crumbs_enabled.inspect}," +
+        " @follow_redirects=#{@follow_redirects.inspect}," +
+        " @jenkins_path=#{@jenkins_path.inspect}," +
         " @timeout=#{@timeout.inspect}>"
     end
 
@@ -260,7 +287,7 @@ module JenkinsApi
       end
       to_get = URI.escape(to_get)
       request = Net::HTTP::Get.new(to_get)
-      puts "[INFO] GET #{to_get}" if @debug
+      @logger.info "GET #{to_get}"
       response = make_http_request(request)
       if raw_response
         response
@@ -287,7 +314,7 @@ module JenkinsApi
         # that barf with empty post
         url_prefix = URI.escape("#{@jenkins_path}#{url_prefix}")
         request = Net::HTTP::Post.new("#{url_prefix}")
-        puts "[INFO] POST #{url_prefix}" if @debug
+        @logger.info "POST #{url_prefix}"
         request.content_type = 'application/json'
         if @crumbs_enabled
           request[@crumb["crumbRequestField"]] = @crumb["crumb"]
@@ -296,9 +323,9 @@ module JenkinsApi
         response = make_http_request(request)
         handle_exception(response)
       rescue Exceptions::ForbiddenException
-        puts "[INFO] Crumb expired. Refetching from the server. Trying" +
+        @logger.info "Crumb expired. Refetching from the server. Trying" +
           " #{@crumb_max_retries - retries + 1} out of #{@crumb_max_retries}" +
-          " times..." if @debug
+          " times..."
         @crumb = get_crumb
         retries -= 1
         retries > 0 ? retry : raise
@@ -314,7 +341,7 @@ module JenkinsApi
     def get_config(url_prefix)
       url_prefix = URI.escape("#{@jenkins_path}#{url_prefix}")
       request = Net::HTTP::Get.new("#{url_prefix}/config.xml")
-      puts "[INFO] GET #{url_prefix}/config.xml" if @debug
+      @logger.info "GET #{url_prefix}/config.xml"
       response = make_http_request(request)
       handle_exception(response, "body")
     end
@@ -335,7 +362,7 @@ module JenkinsApi
 
         url_prefix = URI.escape("#{@jenkins_path}#{url_prefix}")
         request = Net::HTTP::Post.new("#{url_prefix}")
-        puts "[INFO] POST #{url_prefix}" if @debug
+        @logger.info "POST #{url_prefix}"
         request.body = xml
         request.content_type = 'application/xml'
         if @crumbs_enabled
@@ -344,9 +371,9 @@ module JenkinsApi
         response = make_http_request(request)
         handle_exception(response)
       rescue Exceptions::ForbiddenException
-        puts "[INFO] Crumb expired. Refetching from the server. Trying" +
+        @logger.info "Crumb expired. Refetching from the server. Trying" +
           " #{@crumb_max_retries - retries + 1} out of #{@crumb_max_retries}" +
-          " times..." if @debug
+          " times..."
         @crumb = get_crumb
         retries -= 1
         retries > 0 ? retry : raise
@@ -425,6 +452,7 @@ module JenkinsApi
 
     def get_crumb
       begin
+        @logger.debug "Obtaining crumb from the jenkins server"
         api_get_request("/crumbIssuer")
       rescue Exceptions::NotFoundException
         raise Exceptions::CrumbNotFoundException, "CSRF protection is not" +
@@ -458,7 +486,7 @@ module JenkinsApi
     #
     def handle_exception(response, to_send = "code", send_json = false)
       msg = "HTTP Code: #{response.code}, Response Body: #{response.body}"
-      puts msg if @debug
+      @logger.debug msg
       case response.code.to_i
       # As of Jenkins version 1.519, the job builds return a 201 status code
       # with a Location HTTP header with the pointing the URL of the item in

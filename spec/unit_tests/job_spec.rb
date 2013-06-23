@@ -1,11 +1,14 @@
 require File.expand_path('../spec_helper', __FILE__)
 require 'net/http'
+require 'logger'
 
 describe JenkinsApi::Client::Job do
   context "With properly initialized Client and all methods defined" do
 
     before do
+      mock_logger = Logger.new "/dev/null"
       @client = mock
+      @client.should_receive(:logger).and_return(mock_logger)
       @job = JenkinsApi::Client::Job.new(@client)
       @sample_json_response = {
         "jobs" => [
@@ -459,7 +462,6 @@ describe JenkinsApi::Client::Job do
 
       describe "#unchain" do
         it "accepts the job names and unchains them" do
-          @client.should_receive(:debug).and_return(false)
           @client.should_receive(:get_config).with(
             "/job/test_job").and_return(@sample_job_xml)
           @client.should_receive(:post_config)
@@ -469,7 +471,6 @@ describe JenkinsApi::Client::Job do
 
       describe "#chain" do
         it "accepts the job names and other options and chains them" do
-          @client.should_receive(:debug).and_return(false)
           @client.should_receive(:get_config).with(
             "/job/test_job").and_return(@sample_job_xml)
           @client.should_receive(:post_config)

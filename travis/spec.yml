@@ -8,3 +8,7 @@
 :password: testpassword
 # Timeout in seconds
 :timeout: 300
+# Log location
+:log_location: "/var/log/jenkins_api_client.log"
+# Log level (Logger::DEBUG)
+:log_level: 0
