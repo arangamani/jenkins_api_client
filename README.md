@@ -210,7 +210,8 @@ there are two new input arguments used during the initialization of Client.
 2. `:log_level` - This argument specifies the level of messages to be logged.
    It should be one of Logger::DEBUG (0), Logger::INFO (1), Logger::ERROR (2),
    Logger::FATAL (3). It can be specified either using the constants available
-   in the Logger class or using these integers provided here.
+   in the Logger class or using these integers provided here. The default for
+   this argument is Logger::INFO (1)
 
 CONTRIBUTING:
 -------------
