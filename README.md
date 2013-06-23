@@ -222,7 +222,7 @@ then set that in the client.
 ```ruby
   @client = JenkinsApi::Client.new(...)
   # Create a logger which ages logfile once it reaches a certain size. Leave 10
-  “old log files” and each file is about 1,024,000 bytes.
+  # “old log files” and each file is about 1,024,000 bytes.
   @client.logger = Logger.new('foo.log', 10, 1024000)
 ```
 Please refer to [Ruby
