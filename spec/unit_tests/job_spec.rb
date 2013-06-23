@@ -197,6 +197,15 @@ describe JenkinsApi::Client::Job do
         end
       end
 
+      describe "#wipe_out_workspace" do
+        it "accepts the job name and wipes out the workspace of the job" do
+          @client.should_receive(:api_post_request).with(
+            "/job/test_job/doWipeOutWorkspace"
+          )
+          @job.wipe_out_workspace('test_job')
+        end
+      end
+
       describe "#stop_build" do
         it "accepts the job name and build number and stops the build" do
           @client.should_receive(:api_get_request).twice.and_return(

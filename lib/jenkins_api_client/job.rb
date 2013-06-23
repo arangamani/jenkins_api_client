@@ -295,6 +295,14 @@ module JenkinsApi
         list_all.each { |job| delete(job) }
       end
 
+      # Wipe out the workspace for a job given the name
+      #
+      # @param [String] job_name
+      #
+      def wipe_out_workspace(job_name)
+        @client.api_post_request("/job/#{job_name}/doWipeOutWorkspace")
+      end
+
       # Stops a running build of a job
       # This method will stop the current/most recent build if no build number
       # is specified. The build will be stopped only if it was

@@ -330,6 +330,17 @@ describe JenkinsApi::Client::Job do
         end
       end
 
+      describe "#wipe_out_workspace" do
+        it "Should be able to wipe out the workspace of a job" do
+          xml = @helper.create_job_xml
+          @client.job.create("wipeout_job_test", xml)
+          @valid_post_responses.should include(
+            @client.job.wipe_out_workspace("wipeout_job_test").to_i
+          )
+          @client.job.delete("wipeout_job_test")
+        end
+      end
+
       describe "#list_all" do
         it "Should list all jobs" do
           @client.job.list_all.class.should == Array
