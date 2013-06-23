@@ -21,7 +21,7 @@ v0.12.0  [18-JUN-2013]
   This was resulting in an exception and the exception handling is modified to
   handle this condition.
 * The jobs that are not built yet have a new color (`notbuilt`) in the recent
-  version of jenkins (> 1.517) whih resulted in `invalid` status. This is fixed.
+  version of jenkins (> 1.517) which resulted in `invalid` status. This is fixed.
 
 v0.11.0  [09-JUN-2013]
 ----------------------

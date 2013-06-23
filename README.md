@@ -193,7 +193,7 @@ There are three ways for authentication using command line interface
 
 ### Debug
 
-As of v0.13.0, this debug parameter is removed. Use the logger instead. See te
+As of v0.13.0, this debug parameter is removed. Use the logger instead. See the
 next section for more information about this option.
 
 ### Logger
