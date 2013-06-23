@@ -1,6 +1,5 @@
 require File.expand_path('../spec_helper', __FILE__)
 require 'net/http'
-require 'logger'
 
 describe JenkinsApi::Client::Job do
   context "With properly initialized Client and all methods defined" do

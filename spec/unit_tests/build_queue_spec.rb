@@ -4,6 +4,8 @@ describe JenkinsApi::Client::BuildQueue do
   context "With properly initialized Client" do
     before do
       @client = mock
+      mock_logger = Logger.new "/dev/null"
+      @client.should_receive(:logger).and_return(mock_logger)
       @queue = JenkinsApi::Client::BuildQueue.new(@client)
       @sample_queue_json = {
         "items" => [
@@ -38,6 +40,8 @@ describe JenkinsApi::Client::BuildQueue do
     describe "InstanceMethods" do
       describe "#initialize" do
         it "initializes by receiving an instance of client object" do
+          mock_logger = Logger.new "/dev/null"
+          @client.should_receive(:logger).and_return(mock_logger)
           expect(
             lambda{ JenkinsApi::Client::BuildQueue.new(@client) }
           ).not_to raise_error

@@ -7,7 +7,8 @@ describe JenkinsApi::Client do
         :server_ip => '127.0.0.1',
         :server_port => 8080,
         :username => 'username',
-        :password => 'password'
+        :password => 'password',
+        :log_location => '/dev/null'
       )
     end
 

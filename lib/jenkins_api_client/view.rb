@@ -34,6 +34,7 @@ module JenkinsApi
       #
       def initialize(client)
         @client = client
+        @logger = @client.logger
       end
 
       # Return a string representation of the object
@@ -49,6 +50,7 @@ module JenkinsApi
       # listview, myview. Default: listview
       #
       def create(view_name, type = "listview")
+        @logger.info "Creating a view '#{view_name}' of type '#{type}'"
         mode = case type
         when "listview"
           "hudson.model.ListView"
@@ -83,6 +85,7 @@ module JenkinsApi
       #
       def create_list_view(params)
         create(params[:name], "listview")
+        @logger.debug "Creating a list view with params: #{params.inspect}"
         status_filter = case params[:status_filter]
         when "all_selected_jobs"
           ""
@@ -148,6 +151,7 @@ module JenkinsApi
       # @param [String] view_name
       #
       def delete(view_name)
+        @logger.info "Deleting view '#{view_name}'"
         @client.api_post_request("/view/#{view_name}/doDelete")
       end
 
@@ -157,6 +161,7 @@ module JenkinsApi
       #       in Jenkins. Please use with caution.
       #
       def delete_all!
+        @logger.info "Deleting all views from jenkins"
         list.each { |view| delete(view) unless view == "All"}
       end
 
@@ -166,6 +171,7 @@ module JenkinsApi
       # @param [Bool] ignorecase whether to be case sensitive or not
       #
       def list(filter = "", ignorecase = true)
+        @logger.info "Obtaining views based on filter '#{filter}'"
         view_names = []
         response_json = @client.api_get_request("/")
         response_json["views"].each { |view|
@@ -193,6 +199,7 @@ module JenkinsApi
       # @return [Array] job_names list of jobs in the specified view
       #
       def list_jobs(view_name)
+        @logger.info "Obtaining the jobs present in view '#{view_name}'"
         job_names = []
         raise "The view #{view_name} doesn't exists on the server"\
           unless exists?(view_name)
@@ -209,6 +216,7 @@ module JenkinsApi
       # @param [String] job_name
       #
       def add_job(view_name, job_name)
+        @logger.info "Adding job '#{job_name}' to view '#{view_name}'"
         post_msg = "/view/#{view_name}/addJobToView?name=#{job_name}"
         @client.api_post_request(post_msg)
       end
@@ -219,6 +227,7 @@ module JenkinsApi
       # @param [String] job_name
       #
       def remove_job(view_name, job_name)
+        @logger.info "Removing job '#{job_name}' from view '#{view_name}'"
         post_msg = "/view/#{view_name}/removeJobFromView?name=#{job_name}"
         @client.api_post_request(post_msg)
       end
@@ -228,6 +237,7 @@ module JenkinsApi
       # @param [String] view_name
       #
       def get_config(view_name)
+        @logger.info "Obtaining the configuration of view '#{view_name}'"
         @client.get_config("/view/#{view_name}")
       end
 
@@ -237,6 +247,7 @@ module JenkinsApi
       # @param [String] xml
       #
       def post_config(view_name, xml)
+        @logger.info "Posting the configuration of view '#{view_name}'"
         @client.post_config("/view/#{view_name}/config.xml", xml)
       end
 

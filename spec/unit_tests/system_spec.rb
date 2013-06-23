@@ -1,5 +1,4 @@
 require File.expand_path('../spec_helper', __FILE__)
-require 'logger'
 
 describe JenkinsApi::Client::System do
   context "With properly initialized Client" do

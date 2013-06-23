@@ -3,7 +3,9 @@ require File.expand_path('../spec_helper', __FILE__)
 describe JenkinsApi::Client::View do
   context "With properly initialized Client" do
     before do
+      mock_logger = Logger.new "/dev/null"
       @client = mock
+      @client.should_receive(:logger).and_return(mock_logger)
       @view = JenkinsApi::Client::View.new(@client)
       @sample_views_json = {
         "views" => [
@@ -22,6 +24,8 @@ describe JenkinsApi::Client::View do
     describe "InstanceMethods" do
       describe "#initialize" do
         it "initializes by receiving an instane of client object" do
+          mock_logger = Logger.new "/dev/null"
+          @client.should_receive(:logger).and_return(mock_logger)
           expect(
             lambda { JenkinsApi::Client::View.new(@client) }
           ).not_to raise_error

@@ -4,6 +4,8 @@ describe JenkinsApi::Client::Node do
   context "With properly initialized Client" do
     before do
       @client = mock
+      mock_logger = Logger.new "/dev/null"
+      @client.should_receive(:logger).and_return(mock_logger)
       @node = JenkinsApi::Client::Node.new(@client)
       @sample_json_computer_response = {
         "computer" => [
@@ -20,6 +22,8 @@ describe JenkinsApi::Client::Node do
 
       describe "#initialize" do
         it "initializes by receiving an instance of client object" do
+          mock_logger = Logger.new "/dev/null"
+          @client.should_receive(:logger).and_return(mock_logger)
           expect(
             lambda{ JenkinsApi::Client::Node.new(@client) }
           ).not_to raise_error
