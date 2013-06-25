@@ -1,4 +1,5 @@
 require File.expand_path('../spec_helper', __FILE__)
+require "logger"
 
 describe JenkinsApi::Client do
   context "With valid credentials given" do
@@ -10,6 +11,7 @@ describe JenkinsApi::Client do
         :password => 'password',
         :log_location => '/dev/null'
       )
+      @client.logger = Logger.new "/dev/null"
     end
 
     describe "#initialize" do

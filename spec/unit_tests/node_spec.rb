@@ -32,13 +32,6 @@ describe JenkinsApi::Client::Node do
 
       describe "#create_dump_slave" do
         it "creates a dump slave by accepting required params" do
-          @client.should_receive(
-            :api_get_request
-          ).with(
-            "/computer"
-          ).and_return(
-            @sample_json_computer_response
-          )
           @client.should_receive(:api_post_request).and_return("302")
           @node.create_dump_slave(
             :name => "test_slave",
