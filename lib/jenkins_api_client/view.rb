@@ -83,7 +83,13 @@ module JenkinsApi
       # @option params [String] :regex Regular expression to filter jobs that
       #         are to be added to the view
       #
+      # @raise [ArgumentError] if the required parameter +:name+ is not
+      #   specified
+      #
       def create_list_view(params)
+        # Name is a required parameter. Raise an error if not specified
+        raise ArgumentError, "Name is required for creating view" \
+          unless params.is_a?(Hash) && params[:name]
         create(params[:name], "listview")
         @logger.debug "Creating a list view with params: #{params.inspect}"
         status_filter = case params[:status_filter]

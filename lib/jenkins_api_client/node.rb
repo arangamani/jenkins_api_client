@@ -123,8 +123,8 @@ module JenkinsApi
       #
       def create_dump_slave(params)
         unless params[:name] && params[:slave_host] && params[:private_key_file]
-          raise "Name, slave host, and private key file are required for" +
-            " creating a slave."
+          raise ArgumentError, "Name, slave host, and private key file are" +
+            " required for creating a slave."
         end
 
         @logger.info "Creating a dump slave '#{params[:name]}'"

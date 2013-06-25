@@ -104,7 +104,8 @@ module JenkinsApi
         supported_scm = ["git", "subversion", "cvs"]
 
         # Set default values for params that are not specified.
-        raise 'Job name must be specified' unless params[:name]
+        raise ArgumentError, "Job name must be specified" \
+          unless params.is_a?(Hash) && params[:name]
         if params[:keep_dependencies].nil?
           params[:keep_dependencies] = false
         end
