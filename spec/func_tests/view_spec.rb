@@ -81,6 +81,19 @@ describe JenkinsApi::Client::View do
             lambda { @client.view.create(name, "awesomeview") }
           ).to raise_error
         end
+        it "raises proper error if the view already exists" do
+          name = "duplicate_view"
+          @valid_post_responses.should include(
+            @client.view.create(name, "listview").to_i
+          )
+          @client.view.list(name).include?(name).should be_true
+          expect(
+            lambda { @client.view.create(name, "listview") }
+          ).to raise_error(JenkinsApi::Exceptions::ViewAlreadyExists)
+          @valid_post_responses.should include(
+            @client.view.delete(name).to_i
+          )
+        end
       end
 
       describe "#create_list_view" do

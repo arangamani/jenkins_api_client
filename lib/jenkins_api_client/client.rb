@@ -459,10 +459,12 @@ module JenkinsApi
         @logger.debug "Obtaining crumb from the jenkins server"
         api_get_request("/crumbIssuer")
       rescue Exceptions::NotFoundException
-        raise Exceptions::CrumbNotFoundException, "CSRF protection is not" +
-          " enabled on the server at the moment. Perhaps the client was" +
-          " initialized when the CSRF setting was enabled. Please" +
-          " re-initialize the client."
+        raise Exceptions::CrumbNotFoundException.new(
+          @logger,
+          "CSRF protection is not enabled on the server at the moment." +
+          " Perhaps the client was initialized when the CSRF setting was" +
+          " enabled. Please re-initialize the client."
+        )
       end
     end
 
@@ -506,17 +508,17 @@ module JenkinsApi
       when 400
         case response.body
         when /A job already exists with the name ['"](.*)['"]</
-          raise Exceptions::JobAlreadyExistsWithName.new(
+          raise Exceptions::JobAlreadyExists.new(
             @logger,
             "Job with name '#{$1}' already exists"
         )
         when /A view already exists with the name ['"](.*)['"]</
-          raise Exceptions::ViewAlreadyExistsWithName.new(
+          raise Exceptions::ViewAlreadyExists.new(
             @logger,
             "View with name '#{$1}' already exists"
         )
         when /Slave called ['"](.*)['"] already exists</
-          raise Exceptions::NodeAlreadyExistsWithName.new(
+          raise Exceptions::NodeAlreadyExists.new(
             @logger,
             "Slave with name '#{$1}' already exists"
         )

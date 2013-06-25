@@ -111,7 +111,7 @@ describe JenkinsApi::Client::Node do
           )
           expect(
             lambda{ @client.node.create_dump_slave(params) }
-          ).to raise_error
+          ).to raise_error(JenkinsApi::Exceptions::NodeAlreadyExists)
           @valid_post_responses.should include(
             @client.node.delete(params[:name]).to_i
           )
