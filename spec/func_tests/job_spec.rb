@@ -245,22 +245,41 @@ describe JenkinsApi::Client::Job do
           }
           test_and_validate(name, params)
         end
+        it "Should raise an error if the input parameters is not a Hash" do
+          expect(
+            lambda {
+              @client.job.create_freestyle("a_string")
+            }
+          ).to raise_error(ArgumentError)
+        end
+        it "Should raise an error if the required name paremeter is missing" do
+          expect(
+            lambda {
+              @client.job.create_freestyle(:shell_command => "sleep 60")
+            }
+          ).to raise_error(ArgumentError)
+        end
       end
 
       describe "#copy" do
-        it "accepts the from and to job names and copies the from job to the to job" do
+        it "accepts the from and to job name and copies the job" do
           xml = @helper.create_job_xml
           @client.job.create("from_job_copy_test", xml)
           @client.job.copy("from_job_copy_test", "to_job_copy_test")
-          @client.job.list(".*_job_copy_test").should == ['from_job_copy_test', 'to_job_copy_test']
+          @client.job.list(".*_job_copy_test").should == [
+            "from_job_copy_test", "to_job_copy_test"
+          ]
           @client.job.delete("from_job_copy_test")
           @client.job.delete("to_job_copy_test")
         end
-        it "accepts the from job name and copies the from job to the copy_of_from job" do
+        it "accepts the from job name and copies the from job to the" +
+          " copy_of_from job" do
           xml = @helper.create_job_xml
           @client.job.create("from_job_copy_test", xml)
           @client.job.copy("from_job_copy_test")
-          @client.job.list(".*_job_copy_test").should == ['copy_of_from_job_copy_test', 'from_job_copy_test']
+          @client.job.list(".*_job_copy_test").should == [
+            "copy_of_from_job_copy_test", "from_job_copy_test"
+          ]
           @client.job.delete("from_job_copy_test")
           @client.job.delete("copy_of_from_job_copy_test")
         end

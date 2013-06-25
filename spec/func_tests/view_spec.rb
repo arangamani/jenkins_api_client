@@ -148,6 +148,20 @@ describe JenkinsApi::Client::View do
           }
           test_and_validate(params)
         end
+        it "raises an error when the input parameters is not a Hash" do
+          expect(
+            lambda {
+              @client.view.create_list_view("a_string")
+            }
+          ).to raise_error(ArgumentError)
+        end
+        it "raises an error when the required name paremeter is missing" do
+          expect(
+            lambda {
+              @client.view.create_list_view(:description => "awesomeview")
+            }
+          ).to raise_error(ArgumentError)
+        end
       end
 
       describe "#delete" do
