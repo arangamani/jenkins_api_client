@@ -204,7 +204,8 @@ module JenkinsApi
     end
 
     # Overrides the inspect method to get rid of the credentials being shown in
-    # the in interactive IRB sessions. Just print the important variables.
+    # the in interactive IRB sessions and also when the `inspect` method is
+    # called. Just print the important variables.
     #
     def inspect
       "#<JenkinsApi::Client:0x#{(self.__id__ * 2).to_s(16)}" +
@@ -501,25 +502,44 @@ module JenkinsApi
         end
       when 400
         case response.body
-        when /A job already exists with the name/
-          raise Exceptions::JobAlreadyExistsWithName.new
+        when /A job already exists with the name ['"](.*)['"]</
+          raise Exceptions::JobAlreadyExistsWithName.new(
+            @logger,
+            "Job with name '#{$1}' already exists"
+        )
+        when /A view already exists with the name ['"](.*)['"]</
+          raise Exceptions::ViewAlreadyExistsWithName.new(
+            @logger,
+            "View with name '#{$1}' already exists"
+        )
+        when /Slave called ['"](.*)['"] already exists</
+          raise Exceptions::NodeAlreadyExistsWithName.new(
+            @logger,
+            "Slave with name '#{$1}' already exists"
+        )
         when /Nothing is submitted/
-          raise Exceptions::NothingSubmitted.new
+          raise Exceptions::NothingSubmitted.new @logger
         else
-          raise Exceptions::ApiException.new("Error code 400")
+          raise Exceptions::ApiException.new(
+            @logger,
+            "Unknown API Exception with Error code 400"
+          )
         end
       when 401
-        raise Exceptions::UnautherizedException.new
+        raise Exceptions::UnautherizedException.new @logger
       when 403
-        raise Exceptions::ForbiddenException.new
+        raise Exceptions::ForbiddenException.new @logger
       when 404
-        raise Exceptions::NotFoundException.new
+        raise Exceptions::NotFoundException.new @logger
       when 500
-        raise Exceptions::InternelServerErrorException.new
+        raise Exceptions::InternelServerErrorException.new @logger
       when 503
-        raise Exceptions::ServiceUnavailableException.new
+        raise Exceptions::ServiceUnavailableException.new @logger
       else
-        raise Exceptions::ApiException.new("Error code #{response.code}")
+        raise Exceptions::ApiException.new(
+          @logger,
+          "Error code #{response.code}"
+        )
       end
     end
 

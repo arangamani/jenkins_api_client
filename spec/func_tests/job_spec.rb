@@ -59,6 +59,20 @@ describe JenkinsApi::Client::Job do
           )
           @client.job.list(name).include?(name).should be_true
         end
+        it "Should raise proper exception when the job already exists" do
+          xml = @helper.create_job_xml
+          name = "the_duplicate_job"
+          @valid_post_responses.should include(
+            @client.job.create(name, xml).to_i
+          )
+          @client.job.list(name).include?(name).should be_true
+          expect(
+            lambda { @client.job.create(name, xml) }
+          ).to raise_error(JenkinsApi::Exceptions::JobAlreadyExists)
+          @valid_post_responses.should include(
+            @client.job.delete(name).to_i
+          )
+        end
       end
 
       describe "#create_freestyle" do
