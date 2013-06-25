@@ -80,7 +80,7 @@ describe JenkinsApi::Client::Node do
           }
           expect(
             lambda{ @client.node.create_dump_slave(params) }
-          ).to raise_error
+          ).to raise_error(ArgumentError)
         end
         it "fails if slave_host is missing" do
           params = {
@@ -89,7 +89,7 @@ describe JenkinsApi::Client::Node do
           }
           expect(
             lambda{ @client.node.create_dump_slave(params) }
-          ).to raise_error
+          ).to raise_error(ArgumentError)
         end
         it "fails if private_key_file is missing" do
           params = {
@@ -98,7 +98,7 @@ describe JenkinsApi::Client::Node do
           }
           expect(
             lambda{ @client.node.create_dump_slave(params) }
-          ).to raise_error
+          ).to raise_error(ArgumentError)
         end
         it "fails if the slave already exists in Jenkins" do
           params = {
