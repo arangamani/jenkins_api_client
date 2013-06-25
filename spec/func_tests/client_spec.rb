@@ -43,14 +43,15 @@ describe JenkinsApi::Client do
         end
 
         it "Should fail if wrong credentials are given" do
-          begin
-            client2 = JenkinsApi::Client.new(:server_ip => @server_ip,
-                                             :username => 'stranger',
-                                             :password => 'hacked')
-            client2.job.list_all
-          rescue Exception => e
-            e.class.should == JenkinsApi::Exceptions::UnautherizedException
-          end
+          client2 = JenkinsApi::Client.new(
+            :server_ip => @server_ip,
+            :username => 'stranger',
+            :password => 'hacked',
+            :log_location => '/dev/null'
+          )
+          expect(
+            lambda { client2.job.list_all }
+          ).to raise_error(JenkinsApi::Exceptions::UnautherizedException)
         end
       end
       describe "#get_jenkins_version" do
