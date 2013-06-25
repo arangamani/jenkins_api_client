@@ -23,6 +23,7 @@
 require 'rubygems'
 require 'json'
 require 'net/http'
+require 'net/https'
 require 'nokogiri'
 require 'base64'
 require 'mixlib/shellout'
@@ -229,18 +230,26 @@ module JenkinsApi
     def make_http_request(request, follow_redirect = @follow_redirects)
       request.basic_auth @username, @password if @username
 
-      if @server_url
-        http = Net::HTTP.new(@server_uri.host, @server_uri.port)
-        http.use_ssl = true if @ssl
-        http.verify_mode = OpenSSL::SSL::VERIFY_NONE if @ssl
-        response = http.request(request)
+      if @server_uri
+        host = @server_uri.host
+        port = @server_uri.port
       else
-        Net::HTTP.start(
-          @server_ip, @server_port, @proxy_ip, @proxy_port, :use_ssl => @ssl
-        ) do |http|
-          response = http.request(request)
-        end
+        host = @server_ip
+        port = @server_port
       end
+
+      if @proxy_ip
+        http = Net::HTTP::Proxy(@proxy_ip, @proxy_port).new(host, port)
+      else
+        http = Net::HTTP.new(host, port)
+      end
+
+      if @ssl
+        http.use_ssl = true
+        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      end
+
+      response = http.request(request)
       case response
         when Net::HTTPRedirection then
           # If we got a redirect request, follow it (if flag set), but don't
