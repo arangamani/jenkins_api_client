@@ -77,33 +77,43 @@ describe JenkinsApi::Client::Job do
 
       describe "#create_freestyle" do
 
-        def test_and_validate(name, params)
+        def test_and_validate(name, params, config_line = nil)
           @valid_post_responses.should include(
             @client.job.create_freestyle(params).to_i
           )
           @client.job.list(name).include?(name).should be_true
+          # Test for the existense of the given line in the config.xml of the
+          # job created
+          unless config_line.nil?
+            config = @client.job.get_config(name)
+            config.should =~ /#{config_line}/
+          end
           @valid_post_responses.should include(
             @client.job.delete(name).to_i
           )
           @client.job.list(name).include?(name).should be_false
         end
 
-        it "Should be able to create a simple freestyle job" do
+        it "Should create a freestyle job with just name" do
           name = "test_job_name_using_params"
           params = {
             :name => name
           }
           test_and_validate(name, params)
         end
-        it "Should be able to create a freestyle job with shell command" do
+        it "Should create a freestyle job with shell command" do
           name = "test_job_using_params_shell"
           params = {
             :name => name,
             :shell_command => "echo this is a free style project"
           }
-          test_and_validate(name, params)
+          test_and_validate(
+            name,
+            params,
+            "<command>echo this is a free style project</command>"
+          )
         end
-        it "Should accept Git SCM provider" do
+        it "Should create a freestyle job with Git SCM provider" do
           name = "test_job_with_git_scm"
           params = {
             :name => name,
@@ -111,9 +121,13 @@ describe JenkinsApi::Client::Job do
             :scm_url => "git://github.com./arangamani/jenkins_api_client.git",
             :scm_branch => "master"
           }
-          test_and_validate(name, params)
+          test_and_validate(
+            name,
+            params,
+            "<url>git://github.com./arangamani/jenkins_api_client.git</url>"
+          )
         end
-        it "Should accept subversion SCM provider" do
+        it "Should create a freestyle job with SVN SCM provider" do
           name = "test_job_with_subversion_scm"
           params = {
             :name => name,
@@ -121,9 +135,13 @@ describe JenkinsApi::Client::Job do
             :scm_url => "http://svn.freebsd.org/base/",
             :scm_branch => "master"
           }
-          test_and_validate(name, params)
+          test_and_validate(
+            name,
+            params,
+            "<remote>http://svn.freebsd.org/base/</remote>"
+          )
         end
-        it "Should accept CVS SCM provider with branch" do
+        it "Should create a freestyle job with CVS SCM provider with branch" do
           name = "test_job_with_cvs_scm_branch"
           params = {
             :name => name,
@@ -132,9 +150,13 @@ describe JenkinsApi::Client::Job do
             :scm_module => "src",
             :scm_branch => "MAIN"
           }
-          test_and_validate(name, params)
+          test_and_validate(
+            name,
+            params,
+            "<cvsroot>http://cvs.NetBSD.org</cvsroot>"
+          )
         end
-        it "Should accept CVS SCM provider with tag" do
+        it "Should create a freestyle job with CVS SCM provider with tag" do
           name = "test_job_with_cvs_scm_tag"
           params = {
             :name => name,
@@ -143,9 +165,13 @@ describe JenkinsApi::Client::Job do
             :scm_module => "src",
             :scm_tag => "MAIN"
           }
-          test_and_validate(name, params)
+          test_and_validate(
+            name,
+            params,
+            "<cvsroot>http://cvs.NetBSD.org</cvsroot>"
+          )
         end
-        it "Should fail if unsupported SCM is specified" do
+        it "Should raise an error if unsupported SCM is specified" do
           name = "test_job_unsupported_scm"
           params = {
             :name => name,
@@ -157,7 +183,7 @@ describe JenkinsApi::Client::Job do
             lambda{ @client.job.create_freestyle(params) }
           ).to raise_error
         end
-        it "Should accept restricted_node option" do
+        it "Should create a freestyle job with restricted_node option" do
           name = "test_job_restricted_node"
           params = {
             :name => name,
@@ -165,7 +191,8 @@ describe JenkinsApi::Client::Job do
           }
           test_and_validate(name, params)
         end
-        it "Should accept block_build_when_downstream_building option" do
+        it "Should create a freestyle job with" +
+          " block_build_when_downstream_building option" do
           name = "test_job_block_build_when_downstream_building"
           params = {
             :name => name,
@@ -173,7 +200,8 @@ describe JenkinsApi::Client::Job do
           }
           test_and_validate(name, params)
         end
-        it "Should accept block_build_when_upstream_building option" do
+        it "Should create a freestyle job with" +
+          " block_build_when_upstream_building option" do
           name = "test_job_block_build_when_upstream_building"
           params = {
             :name => name,
@@ -181,7 +209,7 @@ describe JenkinsApi::Client::Job do
           }
           test_and_validate(name, params)
         end
-        it "Should accept concurrent_build option" do
+        it "Should create a freestyle job with concurrent_build option" do
           name = "test_job_concurrent_build"
           params = {
             :name => name,
@@ -189,7 +217,7 @@ describe JenkinsApi::Client::Job do
           }
           test_and_validate(name, params)
         end
-        it "Should accept the timer option" do
+        it "Should create a freestyle job with timer option" do
           name = "test_job_using_timer"
           params = {
             :name => name,
@@ -197,7 +225,7 @@ describe JenkinsApi::Client::Job do
           }
           test_and_validate(name, params)
         end
-        it "Should accept child projects option" do
+        it "Should create a freestyle job with child projects option" do
           name = "test_job_child_projects"
           params = {
             :name => name,
@@ -206,7 +234,7 @@ describe JenkinsApi::Client::Job do
           }
           test_and_validate(name, params)
         end
-        it "Should accept notification_email option" do
+        it "Should create a freestyle job with notification_email option" do
           name = "test_job_notification_email"
           params = {
             :name => name,
@@ -214,7 +242,8 @@ describe JenkinsApi::Client::Job do
           }
           test_and_validate(name, params)
         end
-        it "Should accept notification for individual skype targets" do
+        it "Should create a freestyle job with notification for" +
+          " individual skype targets" do
           name = "test_job_with_individual_skype_targets"
           params = {
             :name => name,
@@ -222,7 +251,8 @@ describe JenkinsApi::Client::Job do
           }
           test_and_validate(name, params)
         end
-        it "Should accept notification for group skype targets" do
+        it "Should create a freestyle job with notification for" +
+          " group skype targets" do
           name = "test_job_with_group_skype_targets"
           params = {
             :name => name,
@@ -230,7 +260,8 @@ describe JenkinsApi::Client::Job do
           }
           test_and_validate(name, params)
         end
-        it "Should accept complex skype configuration" do
+        it "Should create a freestyle job with complex skype" +
+          " configuration" do
           name = "test_job_with_complex_skype_configuration"
           params = {
             :name => name,
