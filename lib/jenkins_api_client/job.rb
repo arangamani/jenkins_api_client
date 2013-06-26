@@ -629,7 +629,7 @@ module JenkinsApi
         @logger.info "Obtaining the test results of '#{job_name}'" +
           " Build ##{build_num}"
         @client.api_get_request("/job/#{job_name}/#{build_num}/testReport")
-      rescue Exceptions::NotFoundException
+      rescue Exceptions::NotFound
         # Not found is acceptable, as not all builds will have test results
         # and this is what jenkins throws at us in that case
         nil

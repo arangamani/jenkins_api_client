@@ -490,12 +490,12 @@ module JenkinsApi
     # @return [String, JSON] Response returned whether loaded JSON or raw
     #   string
     #
-    # @raise [Exceptions::UnauthorizedException] When invalid credentials are
+    # @raise [Exceptions::Unauthorized] When invalid credentials are
     #   provided to connect to Jenkins
-    # @raise [Exceptions::NotFoundException] When the requested page on Jenkins
-    #   is found
-    # @raise [Exceptions::InternelServerErrorException] When Jenkins returns a
-    #   500 Internel Server Error
+    # @raise [Exceptions::NotFound] When the requested page on Jenkins is not
+    #   found
+    # @raise [Exceptions::InternalServerError] When Jenkins returns a 500
+    #   Internal Server Error
     # @raise [Exceptions::ApiException] Any other exception returned from
     #   Jenkins that are not categorized in the API Client.
     #
@@ -540,15 +540,15 @@ module JenkinsApi
           )
         end
       when 401
-        raise Exceptions::UnautherizedException.new @logger
+        raise Exceptions::Unauthorized.new @logger
       when 403
-        raise Exceptions::ForbiddenException.new @logger
+        raise Exceptions::Forbidden.new @logger
       when 404
-        raise Exceptions::NotFoundException.new @logger
+        raise Exceptions::NotFound.new @logger
       when 500
-        raise Exceptions::InternelServerErrorException.new @logger
+        raise Exceptions::InternelServerError.new @logger
       when 503
-        raise Exceptions::ServiceUnavailableException.new @logger
+        raise Exceptions::ServiceUnavailable.new @logger
       else
         raise Exceptions::ApiException.new(
           @logger,
