@@ -31,7 +31,7 @@ module JenkinsApi
     #
     class ApiException < RuntimeError
       def initialize(logger, message = "", log_level = Logger::ERROR)
-        logger.add(log_level) { message }
+        logger.add(log_level) { "#{self.class}: #{message}" }
         super(message)
       end
     end
