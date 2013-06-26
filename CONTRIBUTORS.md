@@ -10,3 +10,4 @@ Thank you very much to all who contributed to this project.
 * [madisp](https://github.com/madisp)
 * [rubytester](https://github.com/rubytester)
 * [dougforpres](https://github.com/dougforpres)
+* [brettporter](https://github.com/brettporter)
