@@ -4,6 +4,12 @@ CHANGELOG
 upcoming
 --------
 
+v0.12.1  [25-JUN-2013]
+----------------------
+* Fixed a bug where the SSL support was not working properly with Ruby
+  1.8.7/JRuby 1.6. Credit: @brettporter (For more info:
+  https://github.com/arangamani/jenkins_api_client/pull/85)
+
 v0.12.0  [18-JUN-2013]
 ----------------------
 * Authentication is now optional as not all Jenkins instances have
