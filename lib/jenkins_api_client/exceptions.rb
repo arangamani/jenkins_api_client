@@ -54,7 +54,6 @@ module JenkinsApi
         super(logger, message)
       end
     end
-
     # Support for backward compatibility
     JobAlreadyExistsWithName = JobAlreadyExists
 
@@ -73,17 +72,18 @@ module JenkinsApi
     # This exception class handles cases where invalid credentials are provided
     # to connect to the Jenkins.
     #
-    class UnautherizedException < ApiException
+    class Unauthorized < ApiException
       def initialize(logger, message = "", log_level = Logger::ERROR)
         msg = "Invalid credentials are provided. #{message}"
         super(logger, msg, Logger::FATAL)
       end
     end
+    UnauthorizedException = Unauthorized
 
     # This exception class handles cases where invalid credentials are provided
     # to connect to the Jenkins.
     #
-    class ForbiddenException < ApiException
+    class Forbidden < ApiException
       def initialize(logger, message = "", log_level = Logger::ERROR)
         msg = "The Crumb was expired or not sent to the server." +
               " Perhaps the CSRF protection was not enabled on the server" +
@@ -92,24 +92,49 @@ module JenkinsApi
         super(logger, msg)
       end
     end
+    # Support for backward compatibility
+    ForbiddenException = Forbidden
 
     # This exception class handles cases where a requested page is not found on
     # the Jenkins API.
     #
-    class NotFoundException < ApiException
+    class NotFound < ApiException
       def initialize(logger, message = "", log_level = Logger::ERROR)
-        msg = "Requested component is not found on the Jenkins CI server." +
-          " #{message}"
+        msg = "Requested component is not found on the Jenkins CI server." \
+          if message.empty?
+        super(logger, msg)
+      end
+    end
+    # Support for backward compatibility
+    NotFoundException = NotFound
+
+    # This exception class handles cases where a requested page is not found on
+    # the Jenkins API.
+    #
+    class CrumbNotFound < NotFound
+      def initialize(logger, message = "", log_level = Logger::ERROR)
+        msg = "No crumb available on the server. #{message}"
         super(logger, msg)
       end
     end
 
-    # This exception class handles cases where a requested page is not found on
-    # the Jenkins API.
-    #
-    class CrumbNotFoundException < NotFoundException
+    class JobNotFound < NotFound
       def initialize(logger, message = "", log_level = Logger::ERROR)
-        msg = "No crumb available on the server. #{message}"
+        msg = "The specified job is not found" if message.empty?
+        super(logger, msg)
+      end
+    end
+
+    class ViewNotFound < NotFound
+      def initialize(logger, message = "", log_level = Logger::ERROR)
+        msg = "The specified view is not found" if message.empty?
+        super(logger, msg)
+      end
+    end
+
+    class NodeNotFound < NotFound
+      def initialize(logger, message = "", log_level = Logger::ERROR)
+        msg = "The specified node is not found" if message.empty?
         super(logger, msg)
       end
     end
@@ -117,7 +142,7 @@ module JenkinsApi
     # This exception class handles cases where the Jenkins API returns with a
     # 500 Internel Server Error.
     #
-    class InternelServerErrorException < ApiException
+    class InternalServerError < ApiException
       def initialize(logger, message = "", log_level = Logger::ERROR)
         msg = "Internel Server Error. Perhaps the in-memory configuration of" +
               " Jenkins is different from the disk configuration." +
@@ -125,11 +150,13 @@ module JenkinsApi
         super(logger, msg)
       end
     end
+    # Support for backward compatibility
+    InternalServerErrorException = InternalServerError
 
     # This exception class handles cases where the Jenkins is getting restarted
     # or reloaded where the response code returned is 503
     #
-    class ServiceUnavailableException < ApiException
+    class ServiceUnavailable < ApiException
       def initialize(logger, message = "", log_level = Logger::ERROR)
         msg = "Jenkins is being reloaded or restarted. Please wait till" +
               " Jenkins is completely back online. This can be" +
@@ -137,14 +164,18 @@ module JenkinsApi
         super(logger, msg)
       end
     end
+    # Support for backward compatibility
+    ServiceUnavailableException = ServiceUnavailable
 
     # Exception occurred while running java CLI commands
     #
-    class CLIException < ApiException
+    class CLIError < ApiException
       def initialize(logger, message = "", log_level = Logger::ERROR)
         msg = "Execute CLI Error. #{message}"
         super(logger, msg)
       end
     end
+    # Support for backward compatibility
+    CLIException = CLIError
   end
 end
