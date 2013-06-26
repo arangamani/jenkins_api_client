@@ -51,7 +51,7 @@ describe JenkinsApi::Client do
           )
           expect(
             lambda { client2.job.list_all }
-          ).to raise_error(JenkinsApi::Exceptions::UnautherizedException)
+          ).to raise_error(JenkinsApi::Exceptions::UnauthorizedException)
         end
       end
       describe "#get_jenkins_version" do
