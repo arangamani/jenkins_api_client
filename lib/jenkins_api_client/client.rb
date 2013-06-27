@@ -300,7 +300,7 @@ module JenkinsApi
       @logger.info "GET #{to_get}"
       response = make_http_request(request)
       if raw_response
-        response
+        handle_exception(response, "raw")
       else
         handle_exception(response, "body", url_suffix =~ /json/)
       end
@@ -483,7 +483,7 @@ module JenkinsApi
     #
     # @param [Net::HTTP::Response] response Response from Jenkins
     # @param [String] to_send What should be returned as a response. Allowed
-    #   values: "code" and "body".
+    #   values: "code", "body", and "raw".
     # @param [Boolean] send_json Boolean value used to determine whether to
     #   load the JSON or send the response as is.
     #
@@ -513,6 +513,8 @@ module JenkinsApi
           return response.body
         elsif to_send == "code"
           return response.code
+        elsif to_send == "raw"
+          return response
         end
       when 400
         case response.body
@@ -546,7 +548,7 @@ module JenkinsApi
       when 404
         raise Exceptions::NotFound.new @logger
       when 500
-        raise Exceptions::InternelServerError.new @logger
+        raise Exceptions::InternalServerError.new @logger
       when 503
         raise Exceptions::ServiceUnavailable.new @logger
       else
