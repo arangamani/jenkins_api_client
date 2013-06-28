@@ -139,6 +139,7 @@ module JenkinsApi
       @jenkins_path.gsub!(/\/$/,"") # remove trailing slash if there is one
       @server_port = DEFAULT_SERVER_PORT unless @server_port
       @timeout = DEFAULT_TIMEOUT unless @timeout
+      @ssl ||= false
 
       # Setting log options
       @log_location = STDOUT unless @log_location
