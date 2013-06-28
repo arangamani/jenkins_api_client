@@ -518,29 +518,20 @@ module JenkinsApi
           return response
         end
       when 400
-        case response.body
-        when /A job already exists with the name ['"](.*)['"]</
-          raise Exceptions::JobAlreadyExists.new(
-            @logger,
-            "Job with name '#{$1}' already exists"
-        )
-        when /A view already exists with the name ['"](.*)['"]</
-          raise Exceptions::ViewAlreadyExists.new(
-            @logger,
-            "View with name '#{$1}' already exists"
-        )
-        when /Slave called ['"](.*)['"] already exists</
-          raise Exceptions::NodeAlreadyExists.new(
-            @logger,
-            "Slave with name '#{$1}' already exists"
-        )
+        matched = response.body.match(/<p>(.*)<\/p>/)
+        api_message = matched[1] unless matched.nil?
+        @logger.debug "API message: #{api_message}"
+        case api_message
+        when /A job already exists with the name/
+          raise Exceptions::JobAlreadyExists.new(@logger, api_message)
+        when /A view already exists with the name/
+          raise Exceptions::ViewAlreadyExists.new(@logger, api_message)
+        when /Slave called .* already exists/
+          raise Exceptions::NodeAlreadyExists.new(@logger, api_message)
         when /Nothing is submitted/
-          raise Exceptions::NothingSubmitted.new @logger
+          raise Exceptions::NothingSubmitted.new(@logger, api_message)
         else
-          raise Exceptions::ApiException.new(
-            @logger,
-            "Unknown API Exception with Error code 400"
-          )
+          raise Exceptions::ApiException.new(@logger, api_message)
         end
       when 401
         raise Exceptions::Unauthorized.new @logger
