@@ -109,7 +109,7 @@ module JenkinsApi
           instance_variable_set("@#{key}", value)
         end
       end if args.is_a? Hash
-
+      
       # Server IP or Server URL must be specifiec
       unless @server_ip || @server_url
         raise ArgumentError, "Server IP or Server URL is required to connect" +
@@ -125,12 +125,21 @@ module JenkinsApi
         raise ArgumentError, "Proxy IP and port must both be specified or" +
           " both left nil"
       end
+      
+      # Get info from the server_url, if we got one
+      if @server_url
+        server_uri = URI.parse(@server_url)
+        @server_ip = server_uri.host
+        @server_port = server_uri.port
+        @ssl = server_uri.scheme == "https"
+        @jenkins_path = server_uri.path
+      end
 
-      @server_uri = URI.parse(@server_url) if @server_url
+      @jenkins_path ||= ""
+      @jenkins_path.gsub!(/\/$/,"") # remove trailing slash if there is one
       @server_port = DEFAULT_SERVER_PORT unless @server_port
       @timeout = DEFAULT_TIMEOUT unless @timeout
       @ssl ||= false
-      @ssl = @server_uri.scheme == "https" if @server_uri
 
       # Setting log options
       @log_location = STDOUT unless @log_location
@@ -230,18 +239,10 @@ module JenkinsApi
     def make_http_request(request, follow_redirect = @follow_redirects)
       request.basic_auth @username, @password if @username
 
-      if @server_uri
-        host = @server_uri.host
-        port = @server_uri.port
-      else
-        host = @server_ip
-        port = @server_port
-      end
-
       if @proxy_ip
-        http = Net::HTTP::Proxy(@proxy_ip, @proxy_port).new(host, port)
+        http = Net::HTTP::Proxy(@proxy_ip, @proxy_port).new(@server_ip, @server_port)
       else
-        http = Net::HTTP.new(host, port)
+        http = Net::HTTP.new(@server_ip, @server_port)
       end
 
       if @ssl
