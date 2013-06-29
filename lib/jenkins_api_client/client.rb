@@ -109,7 +109,7 @@ module JenkinsApi
           instance_variable_set("@#{key}", value)
         end
       end if args.is_a? Hash
-      
+
       # Server IP or Server URL must be specifiec
       unless @server_ip || @server_url
         raise ArgumentError, "Server IP or Server URL is required to connect" +
@@ -125,7 +125,7 @@ module JenkinsApi
         raise ArgumentError, "Proxy IP and port must both be specified or" +
           " both left nil"
       end
-      
+
       # Get info from the server_url, if we got one
       if @server_url
         server_uri = URI.parse(@server_url)
@@ -203,6 +203,15 @@ module JenkinsApi
     #
     def queue
       JenkinsApi::Client::BuildQueue.new(self)
+    end
+
+    # Creates an instance to the PluginManager by passing a reference to self
+    #
+    # @return [JenkinsApi::Client::PluginManager] an object to PluginManager
+    #  subclass
+    #
+    def plugin
+      JenkinsApi::Client::PluginManager.new(self)
     end
 
     # Returns a string representing the class name
