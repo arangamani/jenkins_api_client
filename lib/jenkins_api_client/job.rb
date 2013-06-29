@@ -563,18 +563,40 @@ module JenkinsApi
       # You can optionally pass in a list of params for Jenkins to use for
       # parameterized builds
       #
-      # @param [String] job_name
-      # @param [Hash] params
+      # @param [String] job_name the name of the job
+      # @param [Hash] params the parameters for parameterized builds
+      # @param [Boolean] get_build_number whether to wait and obtain the build
+      #   number
       #
-      # @return [String] response_code return code from HTTP POST
+      # @return [String] the response code from the build POST request if
+      #   get_build_number is not requested and the build number if the
+      #   get_build_number is requested
+      # "location"=>["http://198.61.228.244:8080/queue/item/4/"]
       #
-      def build(job_name, params={})
-        @logger.info "Building job '#{job_name}'"
-        if params.empty?
-          @client.api_post_request("/job/#{job_name}/build")
+      def build(job_name, params={}, get_build_number = false)
+        msg = "Building job '#{job_name}'"
+        msg << " with parameters: #{params.inspect}" unless params.empty?
+        @logger.info msg
+        build_endpoint = params.empty? ? "build" : "buildWithParameters"
+        raw_response = get_build_number
+        response =@client.api_post_request(
+          "/job/#{job_name}/#{build_endpoint}",
+          params,
+          raw_response
+        )
+        if get_build_number
+          if response["location"]
+            task_id = response["location"].match(/\/item\/(\d*)\//)[1]
+            @logger.debug "Queue task ID for job '#{job_name}': #{task_id}"
+            while @client.queue.get_item_by_id(task_id)["executable"].nil?
+              sleep 5
+            end
+            @client.queue.get_item_by_id(task_id)["executable"]["number"]
+          else
+            nil
+          end
         else
-          @logger.debug "Build parameters for '#{job_name}': #{params.inspect}"
-          @client.api_post_request("/job/#{job_name}/buildWithParameters", params)
+          response
         end
       end
 
