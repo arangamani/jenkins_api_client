@@ -137,11 +137,35 @@ module JenkinsApi
         Hash[availables.map { |plugin| [plugin["name"], plugin["version"]] }]
       end
 
+      # List the available updates for plugins from jenkins update center
+      # along with their version numbers
+      #
+      # @return [Hash<String, String>] available plugin updates and their
+      #   versions. returns an empty if no plugins are available.
+      #
+      # @example Listing available plugin updates from jenkins
+      #   >> @client.plugin.list_updates
+      #   => {
+      #        "ldap" => "1.5",
+      #        "ssh-slaves" => "0.27",
+      #        "subversion" => "1".50
+      #      }
+      #
+      def list_updates
+        updates = @client.api_get_request(
+          "/updateCenter/coreSource",
+          "tree=updates[name,version]"
+        )["updates"]
+        Hash[updates.map { |plugin| [plugin["name"], plugin["version"]] }]
+      end
+
       # Installs a specific plugin or list of plugins. This method will install
       # the latest available plugins that jenkins reports. The installation
       # might not take place right away for some plugins and they might require
       # restart of jenkins instances. This method makes a single POST request
-      # for the installation of multiple plugins.
+      # for the installation of multiple plugins. Updating plugins can be done
+      # the same way. When the install action is issued, it gets the latest
+      # version of the plugin if the plugin is outdated.
       #
       # @see Client.api_post_request
       # @see .restart_required?
@@ -171,6 +195,7 @@ module JenkinsApi
         plugins.each { |plugin| form_data["plugin.#{plugin}.default"] = "on" }
         @client.api_post_request("/pluginManager/install", form_data)
       end
+      alias_method :update, :install
 
       # Uninstalls the specified plugin or list of plugins. Only the user
       # installed plugins can be uninstalled. The plugins installed by default
