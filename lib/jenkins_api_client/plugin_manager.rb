@@ -67,6 +67,41 @@ module JenkinsApi
         Hash[plugins.map { |plugin| [plugin["shortName"], plugin["version"]] }]
       end
 
+      # Lists the installed plugins in Jenkins based on the provided criteria.
+      #
+      # @param criteria [String] the criteria to be filtered on. Available
+      #   criteria: "active", "bundled", "deleted", "downgradable", "enabled",
+      #   "hasUpdate", "pinned". The criteria are self explanatory.
+      #
+      # @return [Hash<String, String>] bundled plugins and their versions.
+      #   returns an empty hash if there are no bundled plugins in jenkins.
+      #
+      # @example Listing bundled plugins from jenkins
+      #   >> @client.plugin.list_by_criteria("downgradable")
+      #   => {
+      #        "mailer" => "1.5",
+      #        "external-monitor-job" => "1.1",
+      #        "ldap" => "1.2"
+      #      }
+      #
+      def list_by_criteria(criteria)
+        supported_criteria = [
+          "active", "bundled", "deleted", "downgradable", "enabled",
+          "hasUpdate", "pinned"
+        ].freeze
+        unless supported_criteria.include?(criteria)
+          raise ArgumentError, "Criteria '#{criteria}' is not supported." +
+            " Supported criteria: #{supported_criteria.inspect}"
+        end
+        plugins = @client.api_get_request(
+          "/pluginManager",
+          "tree=plugins[shortName,version,#{criteria}]"
+        )["plugins"]
+        Hash[plugins.map do |plugin|
+          [plugin["shortName"], plugin["version"]] if plugin[criteria]
+        end]
+      end
+
       # List the available plugins from jenkins update center along with their
       # version numbers
       #
