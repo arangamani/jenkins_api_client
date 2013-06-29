@@ -97,6 +97,11 @@ module JenkinsApi
         details
       end
 
+      def get_item_by_id(task_id)
+        @logger.info "Obtaining the details of task with ID '#{task_id}'"
+        @client.api_get_request("/queue/item/#{task_id}")
+      end
+
       # Obtains the causes from the build queue for the specified task
       #
       # @param [String] task_name
