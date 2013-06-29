@@ -153,11 +153,37 @@ module JenkinsApi
       def install(plugins)
         # Convert the input argument to an array if it is not already an array
         plugins = [plugins] unless plugins.is_a?(Array)
+        @logger.info "Installing plugins: #{plugins.inspect}"
 
         # Build the form data to post to jenkins
         form_data = {}
         plugins.each { |plugin| form_data["plugin.#{plugin}.default"] = "on" }
         @client.api_post_request("/pluginManager/install", form_data)
+      end
+
+      # Uninstalls the specified plugin or list of plugins. Only the user
+      # installed plugins can be uninstalled. The plugins installed by default
+      # by jenkins (also known as bundled plugins) cannot be uninstalled. The
+      # call will succeed but the plugins wil still remain in jenkins installed.
+      # This method makes a POST request for every plugin requested - so it
+      # might lead to some delay if a big list is provided.
+      #
+      # @see Client.api_post_request
+      # @see .restart_required?
+      # @see System.restart
+      # @see .install
+      #
+      # @param plugins [String, Array] a single plugin or list of plugins to be
+      #   uninstalled
+      #
+      def uninstall(plugins)
+        plugins = [plugins] unless plugins.is_a?(Array)
+        @logger.info "Uninstalling plugins: #{plugins.inspect}"
+        plugins.each do |plugin|
+          @client.api_post_request(
+            "/pluginManager/plugin/#{plugin}/doUninstall"
+          )
+        end
       end
 
       # Whether restart required for the completion of plugin installations
