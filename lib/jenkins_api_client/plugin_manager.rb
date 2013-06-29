@@ -90,6 +90,53 @@ module JenkinsApi
         )
         response.empty? ? response : response["availables"]
       end
+
+      # Installs a specific plugin or list of plugins. This method will install
+      # the latest available plugins that jenkins reports. The installation
+      # might not take place right away for some plugins and they might require
+      # restart of jenkins instances.
+      #
+      # @see Client.api_post_request
+      # @see .restart_required?
+      # @see System.restart
+      #
+      # @param plugins [String, Array] a single plugin or a list of plugins to
+      #   be installed
+      #
+      # @return [String] the HTTP code from the plugin install POST request
+      #
+      # @example Installing a plugin and restart jenkins if required
+      #   >> @client.plugin.install "s3"
+      #   => "302" # Response code from plugin installation POST
+      #   >> @client.plugin.restart_required?
+      #   => true # A restart is required for the installation completion
+      #   >> @client.system.restart(true)
+      #   => "302" # A force restart is performed
+      #
+      def install(plugins)
+        # Convert the input argument to an array if it is not already an array
+        plugins = [plugins] unless plugins.is_a?(Array)
+
+        # Build the form data to post to jenkins
+        form_data = {}
+        plugins.each { |plugin| form_data["plugin.#{plugin}.default"] = "on" }
+        @client.api_post_request("/pluginManager/install", form_data)
+      end
+
+      # Whether restart required for the completion of plugin installations
+      #
+      # @see Client.api_get_request
+      #
+      # @return [Boolean] whether restart is required for the completion for
+      #   plugin installations.
+      #
+      def restart_required?
+        response = @client.api_get_request(
+          "/updateCenter",
+          "tree=restartRequiredForCompletion"
+        )
+        response["restartRequiredForCompletion"]
+      end
     end
   end
 end
