@@ -64,7 +64,7 @@ module JenkinsApi
           "/pluginManager",
           "tree=plugins[shortName,version]"
         )
-        response.empty? ? response : response["plugins"]
+        response["plugins"]
       end
 
       # List the available plugins from jenkins update center along with their
@@ -88,17 +88,19 @@ module JenkinsApi
           "/updateCenter/coreSource",
           "tree=availables[name,version]"
         )
-        response.empty? ? response : response["availables"]
+        response["availables"]
       end
 
       # Installs a specific plugin or list of plugins. This method will install
       # the latest available plugins that jenkins reports. The installation
       # might not take place right away for some plugins and they might require
-      # restart of jenkins instances.
+      # restart of jenkins instances. This method makes a single POST request
+      # for the installation of multiple plugins.
       #
       # @see Client.api_post_request
       # @see .restart_required?
       # @see System.restart
+      # @see .uninstall
       #
       # @param plugins [String, Array] a single plugin or a list of plugins to
       #   be installed
