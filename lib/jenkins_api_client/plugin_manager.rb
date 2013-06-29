@@ -39,7 +39,7 @@ module JenkinsApi
         @logger = @client.logger
       end
 
-      # Returns a string representation of BuildQueue class.
+      # Returns a string representation of PluginManager class.
       #
       def to_s
         "#<JenkinsApi::Client::PluginManager>"
@@ -47,6 +47,9 @@ module JenkinsApi
 
       # Obtains the list of installed plugins from Jenkins along with their
       # version numbers.
+      #
+      # @param skip_bundled [Boolean] whether to skip the bundled plugins (came
+      #   with jenkins installation)
       #
       # @return [Hash<String, String>] installed plugins and their versions.
       #   returns an empty hash if there are no plugins installed in jenkins.
@@ -58,13 +61,21 @@ module JenkinsApi
       #        "external-monitor-job" => "1.1",
       #        "ldap" => "1.2"
       #      }
+      #   >> @client.plugin.list_installed(true)
+      #   => {}
       #
-      def list_installed
+      def list_installed(skip_bundled = false)
         plugins = @client.api_get_request(
           "/pluginManager",
           "tree=plugins[shortName,version]"
         )["plugins"]
-        Hash[plugins.map { |plugin| [plugin["shortName"], plugin["version"]] }]
+        installed =
+          Hash[plugins.map { |plugin| [plugin["shortName"], plugin["version"]] }]
+        if skip_bundled
+          bundled = list_by_criteria("bundled")
+          bundled.keys.each { |plugin| installed.delete(plugin) }
+        end
+        installed
       end
 
       # Lists the installed plugins in Jenkins based on the provided criteria.
@@ -186,19 +197,21 @@ module JenkinsApi
         end
       end
 
-      # Whether restart required for the completion of plugin installations
+      # Whether restart required for the completion of plugin
+      # installations/uninstallations
       #
       # @see Client.api_get_request
       #
       # @return [Boolean] whether restart is required for the completion for
-      #   plugin installations.
+      #   plugin installations/uninstallations.
       #
       def restart_required?
         response = @client.api_get_request(
           "/updateCenter",
           "tree=restartRequiredForCompletion"
         )
-        response["restartRequiredForCompletion"]
+        response["restartRequiredForCompletion"] ||
+          !list_by_criteria("deleted").empty?
       end
     end
   end
