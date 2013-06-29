@@ -53,18 +53,18 @@ module JenkinsApi
       #
       # @example Listing installed plugins from jenkins
       #   >> @client.plugin.list_installed
-      #   => [
-      #        {"shortName"=>"mailer", "version"=>"1.5"},
-      #        {"shortName"=>"external-monitor-job", "version"=>"1.1"},
-      #        {"shortName"=>"ldap", "version"=>"1.2"}
-      #      ]
+      #   => {
+      #        "mailer" => "1.5",
+      #        "external-monitor-job" => "1.1",
+      #        "ldap" => "1.2"
+      #      }
       #
       def list_installed
-        response = @client.api_get_request(
+        plugins = @client.api_get_request(
           "/pluginManager",
           "tree=plugins[shortName,version]"
-        )
-        response["plugins"]
+        )["plugins"]
+        Hash[plugins.map { |plugin| [plugin["shortName"], plugin["version"]] }]
       end
 
       # List the available plugins from jenkins update center along with their
@@ -75,20 +75,20 @@ module JenkinsApi
       #
       # @example Listing available plugins from jenkins
       #   >> @client.plugin.list_available
-      #   => [
-      #        {"name"=>"accurev", "version"=>"0.6.18"},
-      #        {"name"=>"active-directory", "version"=>"1.33"},
-      #        {"name"=>"AdaptivePlugin", "version"=>"0.1"},
+      #   => {
+      #        "accurev" => "0.6.18",
+      #        "active-directory" => "1.33",
+      #        "AdaptivePlugin" => "0.1",
       #        ...
-      #        {"name"=>"zubhium", "version"=>"0.1.6"}
-      #      ]
+      #        "zubhium" => "0.1.6"
+      #      }
       #
       def list_available
-        response = @client.api_get_request(
+        availables = @client.api_get_request(
           "/updateCenter/coreSource",
           "tree=availables[name,version]"
-        )
-        response["availables"]
+        )["availables"]
+        Hash[availables.map { |plugin| [plugin["name"], plugin["version"]] }]
       end
 
       # Installs a specific plugin or list of plugins. This method will install
