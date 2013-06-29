@@ -278,6 +278,7 @@ module JenkinsApi
     # @return [Net::HTTP::Response] Response from Jenkins for "/"
     #
     def get_root
+      @logger.info "GET /"
       request = Net::HTTP::Get.new("/")
       make_http_request(request)
     end
