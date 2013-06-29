@@ -315,7 +315,7 @@ module JenkinsApi
     #
     # @return [String] Response code form Jenkins Response
     #
-    def api_post_request(url_prefix, form_data = {})
+    def api_post_request(url_prefix, form_data = {}, raw_response = false)
       retries = @crumb_max_retries
       begin
         # Identify whether to use crumbs if this is the first POST request.
@@ -333,7 +333,11 @@ module JenkinsApi
         end
         request.set_form_data(form_data)
         response = make_http_request(request)
-        handle_exception(response)
+        if raw_response
+          handle_exception(response, "raw")
+        else
+          handle_exception(response)
+        end
       rescue Exceptions::ForbiddenException
         @logger.info "Crumb expired. Refetching from the server. Trying" +
           " #{@crumb_max_retries - retries + 1} out of #{@crumb_max_retries}" +
