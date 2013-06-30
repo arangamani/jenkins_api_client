@@ -97,6 +97,12 @@ module JenkinsApi
         details
       end
 
+      # Obtain the item in the queue provided the ID of the task
+      #
+      # @param task_id [String] the ID of the task
+      #
+      # @return [Hash] the details of the item in the queue
+      #
       def get_item_by_id(task_id)
         @logger.info "Obtaining the details of task with ID '#{task_id}'"
         @client.api_get_request("/queue/item/#{task_id}")
