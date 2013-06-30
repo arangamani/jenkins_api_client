@@ -549,7 +549,10 @@ module JenkinsApi
       when 404
         raise Exceptions::NotFound.new @logger
       when 500
-        raise Exceptions::InternalServerError.new @logger
+        matched = response.body.match(/Exception: (.*)<br>/)
+        api_message = matched[1] unless matched.nil?
+        @logger.debug "API message: #{api_message}"
+        raise Exceptions::InternalServerError.new(@logger, api_message)
       when 503
         raise Exceptions::ServiceUnavailable.new @logger
       else
