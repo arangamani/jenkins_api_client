@@ -104,6 +104,69 @@ describe JenkinsApi::Client::PluginManager do
           ]).to_i.should == 302
         end
       end
+
+      describe "#uninstall" do
+        it "uninstalls a single plugin given as a string" do
+          @client.should_receive(:api_post_request).
+            with("/pluginManager/plugin/awesome-plugin/doUninstall").
+            and_return("302")
+          @plugin.uninstall("awesome-plugin")
+        end
+        it "uninstalls multiple plugins given as array" do
+          plugins = ["awesome-plugin-1", "awesome-plugin-2", "awesome-plugin-3"]
+          plugins.each do |plugin|
+            @client.should_receive(:api_post_request).
+              with("/pluginManager/plugin/#{plugin}/doUninstall").
+              and_return("302")
+          end
+          @plugin.uninstall(plugins)
+        end
+      end
+
+      describe "#enable" do
+        it "enables a single plugin given as a string" do
+          @client.should_receive(:api_post_request).
+            with("/pluginManager/plugin/awesome-plugin/makeEnabled").
+            and_return("302")
+          @plugin.enable("awesome-plugin")
+        end
+        it "enables multiple plugins given as array" do
+          plugins = ["awesome-plugin-1", "awesome-plugin-2", "awesome-plugin-3"]
+          plugins.each do |plugin|
+            @client.should_receive(:api_post_request).
+              with("/pluginManager/plugin/#{plugin}/makeEnabled").
+              and_return("302")
+          end
+          @plugin.enable(plugins)
+        end
+      end
+
+      describe "#disable" do
+        it "disables a single plugin given as a string" do
+          @client.should_receive(:api_post_request).
+            with("/pluginManager/plugin/awesome-plugin/makeDisabled").
+            and_return("302")
+          @plugin.disable("awesome-plugin")
+        end
+        it "disabless multiple plugins given as array" do
+          plugins = ["awesome-plugin-1", "awesome-plugin-2", "awesome-plugin-3"]
+          plugins.each do |plugin|
+            @client.should_receive(:api_post_request).
+              with("/pluginManager/plugin/#{plugin}/makeDisabled").
+              and_return("302")
+          end
+          @plugin.disable(plugins)
+        end
+      end
+
+      describe "#restart_required?" do
+        it "checks if restart is required after plugin install/uninstall" do
+          @client.should_receive(:api_get_request).
+            with("/updateCenter", "tree=restartRequiredForCompletion").
+            and_return({"restartRequiredForCompletion" => true})
+          @plugin.restart_required?.should == true
+        end
+      end
     end
   end
 end
