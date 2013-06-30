@@ -571,7 +571,6 @@ module JenkinsApi
       # @return [String] the response code from the build POST request if
       #   get_build_number is not requested and the build number if the
       #   get_build_number is requested
-      # "location"=>["http://198.61.228.244:8080/queue/item/4/"]
       #
       def build(job_name, params={}, get_build_number = false)
         msg = "Building job '#{job_name}'"
@@ -584,6 +583,9 @@ module JenkinsApi
           params,
           raw_response
         )
+        # If get_build_number is enabled, obtain the queue ID from the location
+        # header and wait till the build is moved to one of the executors and a
+        # build number is assigned
         if get_build_number
           if response["location"]
             task_id = response["location"].match(/\/item\/(\d*)\//)[1]
