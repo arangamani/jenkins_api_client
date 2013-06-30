@@ -222,6 +222,46 @@ module JenkinsApi
         end
       end
 
+      # @todo Write description
+      #
+      # @see Client.api_post_request
+      # @see .restart_required?
+      # @see System.restart
+      # @see .disable
+      #
+      # @param plugins [String, Array] a single plugin or list of plugins to be
+      #   uninstalled
+      #
+      def enable(plugins)
+        plugins = [plugins] unless plugins.is_a?(Array)
+        @logger.info "Uninstalling plugins: #{plugins.inspect}"
+        plugins.each do |plugin|
+          @client.api_post_request(
+            "/pluginManager/plugin/#{plugin}/makeEnabled"
+          )
+        end
+      end
+
+      # @todo Write description
+      #
+      # @see Client.api_post_request
+      # @see .restart_required?
+      # @see System.restart
+      # @see .enable
+      #
+      # @param plugins [String, Array] a single plugin or list of plugins to be
+      #   uninstalled
+      #
+      def disable(plugins)
+        plugins = [plugins] unless plugins.is_a?(Array)
+        @logger.info "Uninstalling plugins: #{plugins.inspect}"
+        plugins.each do |plugin|
+          @client.api_post_request(
+            "/pluginManager/plugin/#{plugin}/makeDisabled"
+          )
+        end
+      end
+
       # Whether restart required for the completion of plugin
       # installations/uninstallations
       #
