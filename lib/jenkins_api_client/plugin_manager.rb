@@ -67,14 +67,12 @@ module JenkinsApi
       def list_installed(skip_bundled = false)
         plugins = @client.api_get_request(
           "/pluginManager",
-          "tree=plugins[shortName,version]"
+          "tree=plugins[shortName,version,bundled]"
         )["plugins"]
-        installed =
-          Hash[plugins.map { |plugin| [plugin["shortName"], plugin["version"]] }]
-        if skip_bundled
-          bundled = list_by_criteria("bundled")
-          bundled.keys.each { |plugin| installed.delete(plugin) }
-        end
+        installed = Hash[plugins.map do |plugin|
+          [plugin["shortName"], plugin["version"]] \
+            if !(skip_bundled && plugin["bundled"])
+        end]
         installed
       end
 
