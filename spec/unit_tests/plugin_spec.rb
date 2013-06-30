@@ -85,8 +85,8 @@ describe JenkinsApi::Client::PluginManager do
           @client.should_receive(:api_post_request).
             with("/pluginManager/install",
               {"plugin.awesome-plugin.default" => "on"}
-            ).and_return("302")
-          @plugin.install("awesome-plugin").to_i.should == 302
+            )
+          @plugin.install("awesome-plugin")
         end
         it "installs multiple plugins given as an array" do
           @client.should_receive(:api_post_request).
@@ -96,28 +96,26 @@ describe JenkinsApi::Client::PluginManager do
                 "plugin.awesome-plugin-2.default" => "on",
                 "plugin.awesome-plugin-3.default" => "on"
               }
-            ).and_return("302")
+            )
           @plugin.install([
             "awesome-plugin-1",
             "awesome-plugin-2",
             "awesome-plugin-3"
-          ]).to_i.should == 302
+          ])
         end
       end
 
       describe "#uninstall" do
         it "uninstalls a single plugin given as a string" do
           @client.should_receive(:api_post_request).
-            with("/pluginManager/plugin/awesome-plugin/doUninstall").
-            and_return("302")
+            with("/pluginManager/plugin/awesome-plugin/doUninstall")
           @plugin.uninstall("awesome-plugin")
         end
         it "uninstalls multiple plugins given as array" do
           plugins = ["awesome-plugin-1", "awesome-plugin-2", "awesome-plugin-3"]
           plugins.each do |plugin|
             @client.should_receive(:api_post_request).
-              with("/pluginManager/plugin/#{plugin}/doUninstall").
-              and_return("302")
+              with("/pluginManager/plugin/#{plugin}/doUninstall")
           end
           @plugin.uninstall(plugins)
         end
@@ -126,16 +124,14 @@ describe JenkinsApi::Client::PluginManager do
       describe "#enable" do
         it "enables a single plugin given as a string" do
           @client.should_receive(:api_post_request).
-            with("/pluginManager/plugin/awesome-plugin/makeEnabled").
-            and_return("302")
+            with("/pluginManager/plugin/awesome-plugin/makeEnabled")
           @plugin.enable("awesome-plugin")
         end
         it "enables multiple plugins given as array" do
           plugins = ["awesome-plugin-1", "awesome-plugin-2", "awesome-plugin-3"]
           plugins.each do |plugin|
             @client.should_receive(:api_post_request).
-              with("/pluginManager/plugin/#{plugin}/makeEnabled").
-              and_return("302")
+              with("/pluginManager/plugin/#{plugin}/makeEnabled")
           end
           @plugin.enable(plugins)
         end
@@ -144,16 +140,14 @@ describe JenkinsApi::Client::PluginManager do
       describe "#disable" do
         it "disables a single plugin given as a string" do
           @client.should_receive(:api_post_request).
-            with("/pluginManager/plugin/awesome-plugin/makeDisabled").
-            and_return("302")
+            with("/pluginManager/plugin/awesome-plugin/makeDisabled")
           @plugin.disable("awesome-plugin")
         end
         it "disabless multiple plugins given as array" do
           plugins = ["awesome-plugin-1", "awesome-plugin-2", "awesome-plugin-3"]
           plugins.each do |plugin|
             @client.should_receive(:api_post_request).
-              with("/pluginManager/plugin/#{plugin}/makeDisabled").
-              and_return("302")
+              with("/pluginManager/plugin/#{plugin}/makeDisabled")
           end
           @plugin.disable(plugins)
         end
