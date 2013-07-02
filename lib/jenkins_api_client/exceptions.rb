@@ -177,5 +177,14 @@ module JenkinsApi
     end
     # Support for backward compatibility
     CLIException = CLIError
+
+    # Exception when a particular plugin is not found
+    #
+    class PluginNotFound < NotFound
+      def initialize(logger, message = "", log_level = Logger::ERROR)
+        message = "The specified plugin is not found" if message.empty?
+        super(logger, message)
+      end
+    end
   end
 end

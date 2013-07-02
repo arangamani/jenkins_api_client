@@ -46,13 +46,23 @@ module JenkinsApi
       end
 
       # Obtains the list of installed plugins from Jenkins along with their
-      # version numbers.
+      # version numbers with optional filters
       #
-      # @param skip_bundled [Boolean] whether to skip the bundled plugins (came
-      #   with jenkins installation)
+      # @param filters [Hash] optional filters to apply. Use symbols for filter
+      #   keys
       #
-      # @return [Hash<String, String>] installed plugins and their versions.
-      #   returns an empty hash if there are no plugins installed in jenkins.
+      # @option filters [Boolean] :active filter active/non-active plugins
+      # @option filters [Boolean] :bundled filter bundled/non-bundled plugins
+      # @option filters [Boolean] :deleted filter deleted/available plugins
+      # @option filters [Boolean] :downgradable filter downgradable plugins
+      # @option filters [Boolean] :enabled filter enabled/disabled plugins
+      # @option filters [Boolean] :hasUpdate filter plugins that has update
+      #   available. Note that 'U' is capitalized in hasUpdate.
+      # @option filters [Boolean] :pinned filter pinned/un-pinned plugins
+      #
+      # @return [Hash<String, String>] installed plugins and their versions
+      #   matching the filter provided. returns an empty hash if there are no
+      #   plugins matched the filters or no plugins are installed in jenkins.
       #
       # @example Listing installed plugins from jenkins
       #   >> @client.plugin.list_installed
@@ -64,16 +74,73 @@ module JenkinsApi
       #   >> @client.plugin.list_installed(true)
       #   => {}
       #
-      def list_installed(skip_bundled = false)
+      # @example Listing installed plugins based on filters provided
+      #   >> @client.plugin.list_installed(
+      #        :active => true, :deleted => false, :bundled => false
+      #      )
+      #   => {
+      #        "sourcemonitor"=>"0.2", "sms-notification"=>"1.0",
+      #        "jquery"=>"1.7.2-1", "simple-theme-plugin"=>"0.3",
+      #        "jquery-ui"=>"1.0.2", "analysis-core"=>"1.49"
+      #      }
+      #
+      def list_installed(filters = {})
+        supported_filters = [
+          :active, :bundled, :deleted, :downgradable, :enabled, :hasUpdate,
+          :pinned
+        ]
+        unless filters.keys.all? { |filter| supported_filters.include?(filter) }
+          raise ArgumentError, "Unsupported filters specified." +
+            " Supported filters: #{supported_filters.inspect}"
+        end
+        tree_filters = filters.empty? ? "" : ",#{filters.keys.join(",")}"
         plugins = @client.api_get_request(
           "/pluginManager",
-          "tree=plugins[shortName,version,bundled]"
+          "tree=plugins[shortName,version#{tree_filters}]"
         )["plugins"]
         installed = Hash[plugins.map do |plugin|
-          [plugin["shortName"], plugin["version"]] \
-            if !(skip_bundled && plugin["bundled"])
+          if filters.keys.all? { |key| plugin[key.to_s] == filters[key] }
+            [plugin["shortName"], plugin["version"]]
+          end
         end]
         installed
+      end
+
+      # Obtains the details of a single installed plugin
+      #
+      # @param plugin [String] the plugin ID of the desired plugin
+      #
+      # @return [Hash] the details of the given installed plugin
+      #
+      # @example Obtain the information of an installed plugin
+      #   >> @client.plugin.get_installed_info "ldap"
+      #   => {
+      #        "active"=>false, "backupVersion"=>"1.2", "bundled"=>true,
+      #        "deleted"=>false, "dependencies"=>[], "downgradable"=>true,
+      #        "enabled"=>false, "hasUpdate"=>false, "longName"=>"LDAP Plugin",
+      #        "pinned"=>true, "shortName"=>"ldap",
+      #        "supportsDynamicLoad"=>"MAYBE",
+      #        "url"=>"http://wiki.jenkins-ci.org/display/JENKINS/LDAP+Plugin",
+      #        "version"=>"1.5"
+      #      }
+      #
+      def get_installed_info(plugin)
+        @logger.info "Obtaining the details of plugin: #{plugin}"
+        plugins = @client.api_get_request(
+          "/pluginManager",
+          "depth=1"
+        )["plugins"]
+        matched_plugin = plugins.select do |a_plugin|
+          a_plugin["shortName"] == plugin
+        end
+        if matched_plugin.empty?
+          raise Exceptions::PluginNotFound.new(
+            @logger,
+            "Plugin '#{plugin}' is not found"
+          )
+        else
+          matched_plugin.first
+        end
       end
 
       # Lists the installed plugins in Jenkins based on the provided criteria.
