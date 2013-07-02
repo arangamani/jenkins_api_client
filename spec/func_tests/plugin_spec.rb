@@ -77,6 +77,50 @@ describe JenkinsApi::Client::PluginManager do
         end
       end
 
+      describe "#disable, #restart_required?" do
+        it "disables a single plugin given as a string" do
+          @client.plugin.disable(@test_plugin)
+          # Plugin installation might take a bit
+          sleep 5
+          @client.system.restart(true)
+          @client.system.wait_for_ready
+          @client.plugin.list_installed(:active => false).keys.
+            should include(@test_plugin)
+        end
+        it "disables multiple plugins given as an array" do
+          @client.plugin.disable(@test_plugins)
+          # Plugin installation might take a bit
+          sleep 5
+          @client.system.restart(true)
+          @client.system.wait_for_ready
+          installed = @client.plugin.list_installed(:active => false).keys
+          @test_plugins.all? { |plugin| installed.include?(plugin) }.
+            should == true
+        end
+      end
+
+      describe "#enable, #restart_required?" do
+        it "enables a single plugin given as a string" do
+          @client.plugin.enable(@test_plugin)
+          # Plugin installation might take a bit
+          sleep 5
+          @client.system.restart(true)
+          @client.system.wait_for_ready
+          @client.plugin.list_installed(:active => true).keys.
+            should include(@test_plugin)
+        end
+        it "enables multiple plugins given as an array" do
+          @client.plugin.enable(@test_plugins)
+          # Plugin installation might take a bit
+          sleep 5
+          @client.system.restart(true)
+          @client.system.wait_for_ready
+          installed = @client.plugin.list_installed(:active => true).keys
+          @test_plugins.all? { |plugin| installed.include?(plugin) }.
+            should == true
+        end
+      end
+
       describe "#uninstall, #restart_required?" do
         it "uninstalls a single plugin given as a string" do
           @client.plugin.uninstall(@test_plugin)
