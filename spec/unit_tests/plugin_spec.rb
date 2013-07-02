@@ -27,37 +27,36 @@ describe JenkinsApi::Client::PluginManager do
       describe "#list_installed" do
         it "lists all installed plugins in jenkins" do
           @client.should_receive(:api_get_request).
-            with("/pluginManager", "tree=plugins[shortName,version,bundled]").
+            with("/pluginManager", "tree=plugins[shortName,version]").
             and_return(@installed_plugins)
           plugins = @plugin.list_installed
           plugins.class.should == Hash
           plugins.size.should == @installed_plugins["plugins"].size
         end
-        it "lists all installed plugins except bundled ones in jenkins" do
-          @client.should_receive(:api_get_request).
-            with("/pluginManager", "tree=plugins[shortName,version,bundled]").
-            and_return(@installed_plugins)
-          @plugin.list_installed(true).class.should == Hash
-        end
-      end
-
-      describe "#list_by_criteria" do
-        supported_criteria = [
-          "active", "bundled", "deleted", "downgradable", "enabled",
-          "hasUpdate", "pinned"
+        supported_filters = [
+          :active, :bundled, :deleted, :downgradable, :enabled,
+          :hasUpdate, :pinned
         ]
-        supported_criteria.each do |criteria|
-          it "lists all installed plugins matching criteria '#{criteria}'" do
+        supported_filters.each do |filter|
+          it "lists all installed plugins matching filter '#{filter}'" do
             @client.should_receive(:api_get_request).
               with("/pluginManager",
-                "tree=plugins[shortName,version,#{criteria}]"
+                "tree=plugins[shortName,version,#{filter}]"
               ).and_return(@installed_plugins)
-            plugins = @plugin.list_by_criteria(criteria).class.should == Hash
+            @plugin.list_installed(filter => true).class.should == Hash
           end
         end
-        it "raises an error if unsupported criteria is specified" do
+        it "lists all installed plugins matching multiple filters" do
+          @client.should_receive(:api_get_request).
+            with("/pluginManager",
+                 "tree=plugins[shortName,version,bundled,deleted]").
+            and_return(@installed_plugins)
+          @plugin.list_installed(:bundled => true, :deleted => true).class.
+            should == Hash
+        end
+        it "raises an error if unsupported filter is specified" do
           expect(
-            lambda { @plugin.list_by_criteria("unsupported") }
+            lambda { @plugin.list_installed(:unsupported => true) }
           ).to raise_error(ArgumentError)
         end
       end
