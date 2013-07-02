@@ -354,7 +354,7 @@ module JenkinsApi
           "tree=restartRequiredForCompletion"
         )
         response["restartRequiredForCompletion"] ||
-          !list_by_criteria("deleted").empty?
+          !list_installed(:deleted => true).empty?
       end
     end
   end

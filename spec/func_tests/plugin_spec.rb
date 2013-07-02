@@ -28,24 +28,18 @@ describe JenkinsApi::Client::PluginManager do
         it "lists all installed plugins in jenkins" do
           @client.plugin.list_installed.class.should == Hash
         end
-        it "lists all installed plugins except bundled ones in jenkins" do
-          @client.plugin.list_installed(true).class.should == Hash
-        end
-      end
-
-      describe "#list_by_criteria" do
-        supported_criteria = [
-          "active", "bundled", "deleted", "downgradable", "enabled",
-          "hasUpdate", "pinned"
+        supported_filters = [
+          :active, :bundled, :deleted, :downgradable, :enabled,
+          :hasUpdate, :pinned
         ]
-        supported_criteria.each do |criteria|
-          it "lists all installed plugins matching criteria '#{criteria}'" do
-            @client.plugin.list_by_criteria(criteria).class.should == Hash
+        supported_filters.each do |filter|
+          it "lists all installed plugins matching filter '#{filter}'" do
+            @client.plugin.list_installed(filter => true).class.should == Hash
           end
         end
-        it "raises an error if unsupported criteria is specified" do
+        it "raises an error if unsupported filter is specified" do
           expect(
-            lambda { @client.plugin.list_by_criteria("unsupported") }
+            lambda { @client.plugin.list_installed(:unsupported => true) }
           ).to raise_error(ArgumentError)
         end
       end
@@ -62,7 +56,7 @@ describe JenkinsApi::Client::PluginManager do
         end
       end
 
-      describe "#install" do
+      describe "#install, #restart_required?" do
         it "installs a single plugin given as a string" do
           @client.plugin.install(@test_plugin)
           # Plugin installation might take a bit
@@ -83,7 +77,7 @@ describe JenkinsApi::Client::PluginManager do
         end
       end
 
-      describe "#uninstall" do
+      describe "#uninstall, #restart_required?" do
         it "uninstalls a single plugin given as a string" do
           @client.plugin.uninstall(@test_plugin)
           # Plugin uninstallation might take a bit
