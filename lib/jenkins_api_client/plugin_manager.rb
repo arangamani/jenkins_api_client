@@ -287,7 +287,53 @@ module JenkinsApi
         end
       end
 
-      # @todo Write description
+      # Downgrades the specified plugin or list of plugins. This method makes s
+      # POST request for every plugin specified - so it might lead to some
+      # delay if a big list is provided.
+      #
+      # @see Client.api_post_request
+      # @see .restart_required?
+      # @see System.restart
+      # @see .install
+      #
+      # @param [String, Array] a single plugin or list of plugins to be
+      #   downgraded
+      #
+      def downgrade(plugins)
+        plugins = [plugins] unless plugins.is_a?(Array)
+        @logger.info "Downgrading plugins: #{plugins.inspect}"
+        plugins.each do |plugin|
+          @client.api_post_request(
+            "/updateCenter/plugin/#{plugin}/downgrade"
+          )
+        end
+      end
+
+      # Requests the Jenkins plugin manager to check for updates by connecting
+      # to the update site.
+      #
+      # @see .list_updates
+      #
+      def check_for_updates
+        @client.api_post_request("/pluginManager/checkUpdates")
+      end
+
+      # Unpins the specified plugin or list of plugins. This method makes a
+      # POST request for every plugin specified - so it might lead to some
+      # delay if a big list is provided.
+      def unpin(plugins)
+        plugins = [plugins] unless plugins.is_a?(Array)
+        @logger.info "Unpining plugins: #{plugins.inspect}"
+        plugins.each do |plugin|
+          @client.api_post_request(
+            "/pluginManager/plugin/#{plugin}/unpin"
+          )
+        end
+      end
+
+      # Enables the specified plugin or list of plugins. This method makes a
+      # POST request for every plugin specified - so it might lead to some
+      # delay if a big list is provided.
       #
       # @see Client.api_post_request
       # @see .restart_required?
@@ -299,7 +345,7 @@ module JenkinsApi
       #
       def enable(plugins)
         plugins = [plugins] unless plugins.is_a?(Array)
-        @logger.info "Uninstalling plugins: #{plugins.inspect}"
+        @logger.info "Enabling plugins: #{plugins.inspect}"
         plugins.each do |plugin|
           @client.api_post_request(
             "/pluginManager/plugin/#{plugin}/makeEnabled"
@@ -307,7 +353,9 @@ module JenkinsApi
         end
       end
 
-      # @todo Write description
+      # Disables the specified plugin or list of plugins. This method makes a
+      # POST request for every plugin specified - so it might lead to some
+      # delay if a big list is provided.
       #
       # @see Client.api_post_request
       # @see .restart_required?
@@ -319,7 +367,7 @@ module JenkinsApi
       #
       def disable(plugins)
         plugins = [plugins] unless plugins.is_a?(Array)
-        @logger.info "Uninstalling plugins: #{plugins.inspect}"
+        @logger.info "Disabling plugins: #{plugins.inspect}"
         plugins.each do |plugin|
           @client.api_post_request(
             "/pluginManager/plugin/#{plugin}/makeDisabled"
