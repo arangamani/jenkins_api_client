@@ -45,6 +45,24 @@ module JenkinsApi
         "#<JenkinsApi::Client::PluginManager>"
       end
 
+      # Defines a method to perform the given action on plugin(s)
+      #
+      # @param action [Symbol] the action to perform
+      # @param post_endpoint [Symbol] the endpoint in the POST request for the
+      #   action
+      #
+      def self.plugin_action_method(action, post_endpoint)
+        define_method(action) do |plugins|
+          plugins = [plugins] unless plugins.is_a?(Array)
+          @logger.info "Performing '#{action}' on plugins: #{plugins.inspect}"
+          plugins.each do |plugin|
+            @client.api_post_request(
+              "/pluginManager/plugin/#{plugin}/#{post_endpoint}"
+            )
+          end
+        end
+      end
+
       # Obtains the list of installed plugins from Jenkins along with their
       # version numbers with optional filters
       #
@@ -79,9 +97,12 @@ module JenkinsApi
       #        :active => true, :deleted => false, :bundled => false
       #      )
       #   => {
-      #        "sourcemonitor"=>"0.2", "sms-notification"=>"1.0",
-      #        "jquery"=>"1.7.2-1", "simple-theme-plugin"=>"0.3",
-      #        "jquery-ui"=>"1.0.2", "analysis-core"=>"1.49"
+      #        "sourcemonitor" => "0.2",
+      #        "sms-notification" => "1.0",
+      #        "jquery" => "1.7.2-1",
+      #        "simple-theme-plugin" => "0.3",
+      #        "jquery-ui" => "1.0.2",
+      #        "analysis-core" => "1.49"
       #      }
       #
       def list_installed(filters = {})
@@ -146,6 +167,13 @@ module JenkinsApi
       # List the available plugins from jenkins update center along with their
       # version numbers
       #
+      # @param filters [Hash] optional filters to filter available plugins.
+      #
+      # @option filters [Array] :categories the category of the plugin to
+      #   filter
+      # @option filters [Array] :dependencies the dependency of the plugin to
+      #   filter
+      #
       # @return [Hash<String, String>] available plugins and their versions.
       #   returns an empty if no plugins are available.
       #
@@ -159,12 +187,39 @@ module JenkinsApi
       #        "zubhium" => "0.1.6"
       #      }
       #
-      def list_available
+      def list_available(filters = {})
         availables = @client.api_get_request(
           "/updateCenter/coreSource",
           "tree=availables[name,version]"
         )["availables"]
-        Hash[availables.map { |plugin| [plugin["name"], plugin["version"]] }]
+        Hash[availables.map do |plugin|
+          [plugin["name"], plugin["version"]]
+        end]
+      end
+
+      # Obtains the information about a plugin that is available in the Jenkins
+      # update center
+      #
+      # @param plugin [String] the plugin ID to obtain information for
+      #
+      # @return [Hash] the details of the given plugin
+      #
+      def get_available_info(plugin)
+        plugins = @client.api_get_request(
+          "/updateCenter/coreSource",
+          "depth=1"
+        )["availables"]
+        matched_plugin = plugins.select do |a_plugin|
+          a_plugin["name"] == plugin
+        end
+        if matched_plugin.empty?
+          raise Exceptions::PluginNotFound.new(
+            @logger,
+            "Plugin '#{plugin}' is not found"
+          )
+        else
+          matched_plugin.first
+        end
       end
 
       # List the available updates for plugins from jenkins update center
@@ -227,6 +282,9 @@ module JenkinsApi
       end
       alias_method :update, :install
 
+
+      # @!method uninstall(plugins)
+      #
       # Uninstalls the specified plugin or list of plugins. Only the user
       # installed plugins can be uninstalled. The plugins installed by default
       # by jenkins (also known as bundled plugins) cannot be uninstalled. The
@@ -242,16 +300,10 @@ module JenkinsApi
       # @param plugins [String, Array] a single plugin or list of plugins to be
       #   uninstalled
       #
-      def uninstall(plugins)
-        plugins = [plugins] unless plugins.is_a?(Array)
-        @logger.info "Uninstalling plugins: #{plugins.inspect}"
-        plugins.each do |plugin|
-          @client.api_post_request(
-            "/pluginManager/plugin/#{plugin}/doUninstall"
-          )
-        end
-      end
+      plugin_action_method :uninstall, :doUninstall
 
+      # @!method downgrade(plugins)
+      #
       # Downgrades the specified plugin or list of plugins. This method makes s
       # POST request for every plugin specified - so it might lead to some
       # delay if a big list is provided.
@@ -264,38 +316,25 @@ module JenkinsApi
       # @param [String, Array] a single plugin or list of plugins to be
       #   downgraded
       #
-      def downgrade(plugins)
-        plugins = [plugins] unless plugins.is_a?(Array)
-        @logger.info "Downgrading plugins: #{plugins.inspect}"
-        plugins.each do |plugin|
-          @client.api_post_request(
-            "/updateCenter/plugin/#{plugin}/downgrade"
-          )
-        end
-      end
+      plugin_action_method :downgrade, :downgrade
 
-      # Requests the Jenkins plugin manager to check for updates by connecting
-      # to the update site.
+      # @!method unpin(plugins)
       #
-      # @see .list_updates
-      #
-      def check_for_updates
-        @client.api_post_request("/pluginManager/checkUpdates")
-      end
-
       # Unpins the specified plugin or list of plugins. This method makes a
       # POST request for every plugin specified - so it might lead to some
       # delay if a big list is provided.
-      def unpin(plugins)
-        plugins = [plugins] unless plugins.is_a?(Array)
-        @logger.info "Unpining plugins: #{plugins.inspect}"
-        plugins.each do |plugin|
-          @client.api_post_request(
-            "/pluginManager/plugin/#{plugin}/unpin"
-          )
-        end
-      end
+      #
+      # @see Client.api_post_request
+      # @see .restart_required?
+      # @see System.restart
+      #
+      # @param plugins [String, Array] a single plugin or list of plugins to be
+      #   uninstalled
+      #
+      plugin_action_method :unpin, :unpin
 
+      # @!method enable(plugins)
+      #
       # Enables the specified plugin or list of plugins. This method makes a
       # POST request for every plugin specified - so it might lead to some
       # delay if a big list is provided.
@@ -308,16 +347,10 @@ module JenkinsApi
       # @param plugins [String, Array] a single plugin or list of plugins to be
       #   uninstalled
       #
-      def enable(plugins)
-        plugins = [plugins] unless plugins.is_a?(Array)
-        @logger.info "Enabling plugins: #{plugins.inspect}"
-        plugins.each do |plugin|
-          @client.api_post_request(
-            "/pluginManager/plugin/#{plugin}/makeEnabled"
-          )
-        end
-      end
+      plugin_action_method :enable, :makeEnabled
 
+      # @!method disable(plugins)
+      #
       # Disables the specified plugin or list of plugins. This method makes a
       # POST request for every plugin specified - so it might lead to some
       # delay if a big list is provided.
@@ -330,14 +363,15 @@ module JenkinsApi
       # @param plugins [String, Array] a single plugin or list of plugins to be
       #   uninstalled
       #
-      def disable(plugins)
-        plugins = [plugins] unless plugins.is_a?(Array)
-        @logger.info "Disabling plugins: #{plugins.inspect}"
-        plugins.each do |plugin|
-          @client.api_post_request(
-            "/pluginManager/plugin/#{plugin}/makeDisabled"
-          )
-        end
+      plugin_action_method :disable, :makeDisabled
+
+      # Requests the Jenkins plugin manager to check for updates by connecting
+      # to the update site.
+      #
+      # @see .list_updates
+      #
+      def check_for_updates
+        @client.api_post_request("/pluginManager/checkUpdates")
       end
 
       # Whether restart required for the completion of plugin
