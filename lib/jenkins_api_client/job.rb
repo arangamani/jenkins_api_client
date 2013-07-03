@@ -335,6 +335,8 @@ module JenkinsApi
           @client.api_post_request("/job/#{job_name}/#{build_number}/stop")
         end
       end
+      alias_method :stop, :stop_build
+      alias_method :abort, :stop_build
 
       # Re-create the same job
       # This is a hack to clear any existing builds
@@ -405,10 +407,8 @@ module JenkinsApi
       # List all jobs on the Jenkins CI server
       #
       def list_all
-        response_json = @client.api_get_request("")
-        jobs = []
-        response_json["jobs"].each { |job| jobs << job["name"] }
-        jobs.sort!
+        response_json = @client.api_get_request("", "tree=jobs[name]")["jobs"]
+        response_json.map { |job| job["name"] }.sort
       end
 
       # Checks if the given job exists in Jenkins
@@ -546,6 +546,7 @@ module JenkinsApi
         response_json = @client.api_get_request("/job/#{job_name}")
         color_to_status(response_json["color"])
       end
+      alias_method :status, :get_current_build_status
 
       # Obtain the current build number of the given job
       # This function returns nil if there were no builds for the given job.
@@ -558,6 +559,7 @@ module JenkinsApi
         @logger.info "Obtaining the current build number of '#{job_name}'"
         @client.api_get_request("/job/#{job_name}")['nextBuildNumber'].to_i - 1
       end
+      alias_method :build_number, :get_current_build_number
 
       # Build a job given the name of the job
       # You can optionally pass in a list of params for Jenkins to use for
