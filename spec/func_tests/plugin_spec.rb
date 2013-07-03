@@ -17,6 +17,8 @@ describe JenkinsApi::Client::PluginManager do
         @client = JenkinsApi::Client.new(
           YAML.load_file(File.expand_path(@creds_file, __FILE__))
         )
+        @client.plugin.check_for_updates
+        sleep 30
       rescue Exception => e
         puts "WARNING: Credentials are not set properly."
         puts e.message
