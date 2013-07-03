@@ -9,6 +9,7 @@ sudo apt-get install -qq jenkins
 # Configure Jenkins
 sudo service jenkins stop
 sudo cp -f travis/jenkins_config.xml /var/lib/jenkins/config.xml
+sudo cp -f travis/hudson.model.UpdateCenter.xml /var/lib/jenkins/hudson.model.UpdateCenter.xml
 sudo mkdir -p /var/lib/jenkins/users/testuser
 sudo cp -f travis/user_config.xml /var/lib/jenkins/users/testuser/config.xml
 sudo service jenkins start
