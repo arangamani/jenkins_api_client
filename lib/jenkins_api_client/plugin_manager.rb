@@ -136,10 +136,17 @@ module JenkinsApi
       # @example Obtain the information of an installed plugin
       #   >> @client.plugin.get_installed_info "ldap"
       #   => {
-      #        "active"=>false, "backupVersion"=>"1.2", "bundled"=>true,
-      #        "deleted"=>false, "dependencies"=>[], "downgradable"=>true,
-      #        "enabled"=>false, "hasUpdate"=>false, "longName"=>"LDAP Plugin",
-      #        "pinned"=>true, "shortName"=>"ldap",
+      #        "active"=>false,
+      #        "backupVersion"=>"1.2",
+      #        "bundled"=>true,
+      #        "deleted"=>false,
+      #        "dependencies"=>[],
+      #        "downgradable"=>true,
+      #        "enabled"=>false,
+      #        "hasUpdate"=>false,
+      #        "longName"=>"LDAP Plugin",
+      #        "pinned"=>true,
+      #        "shortName"=>"ldap",
       #        "supportsDynamicLoad"=>"MAYBE",
       #        "url"=>"http://wiki.jenkins-ci.org/display/JENKINS/LDAP+Plugin",
       #        "version"=>"1.5"
@@ -169,9 +176,9 @@ module JenkinsApi
       #
       # @param filters [Hash] optional filters to filter available plugins.
       #
-      # @option filters [Array] :categories the category of the plugin to
+      # @option filters [Array] :category the category of the plugin to
       #   filter
-      # @option filters [Array] :dependencies the dependency of the plugin to
+      # @option filters [Array] :dependency the dependency of the plugin to
       #   filter
       #
       # @return [Hash<String, String>] available plugins and their versions.
@@ -187,13 +194,53 @@ module JenkinsApi
       #        "zubhium" => "0.1.6"
       #      }
       #
+      # @example Listing available plugins matching a particular category
+      #   >> pp @client.plugin.list_available(:category => "ui")
+      #   => {
+      #        "all-changes"=>"1.3",
+      #        "bruceschneier"=>"0.1",
+      #        ...
+      #        "xfpanel"=>"1.2.2"
+      #      }
+      #
+      # @example Listing available plugins matching a particular dependency
+      #   >> pp @client.plugin.list_available(:dependency => "git")
+      #   => {
+      #        "build-failure-analyzer"=>"1.5.0",
+      #        "buildheroes"=>"0.2",
+      #        ...
+      #        "xpdev"=>"1.0"
+      #      }
+      #
       def list_available(filters = {})
+        supported_filters = [:category, :dependency]
+        filter_plural_map = {
+          :dependency => "dependencies",
+          :category => "categories"
+        }
+        unless filters.keys.all? { |filter| supported_filters.include?(filter) }
+          raise ArgumentError, "Unsupported filters specified." +
+            " Supported filters: #{supported_filters.inspect}"
+        end
+        # Compute the filters to be passed to the JSON tree parameter
+        tree_filters =
+          if filters.empty?
+            ""
+          else
+            ",#{filters.keys.map{ |key| filter_plural_map[key] }.join(",")}"
+          end
+
         availables = @client.api_get_request(
           "/updateCenter/coreSource",
-          "tree=availables[name,version]"
+          "tree=availables[name,version#{tree_filters}]"
         )["availables"]
         Hash[availables.map do |plugin|
-          [plugin["name"], plugin["version"]]
+          if filters.keys.all? do |key|
+            !plugin[filter_plural_map[key]].nil? &&
+              plugin[filter_plural_map[key]].include?(filters[key])
+          end
+            [plugin["name"], plugin["version"]]
+          end
         end]
       end
 
@@ -203,6 +250,24 @@ module JenkinsApi
       # @param plugin [String] the plugin ID to obtain information for
       #
       # @return [Hash] the details of the given plugin
+      #
+      # @example Obtaining the details of a plugin available in jenkins
+      #   >> @client.plugin.get_available_info "status-view"
+      #   => {
+      #        "name"=>"status-view",
+      #        "sourceId"=>"default",
+      #        "url"=>"http://updates.jenkins-ci.org/download/plugins/status-view/1.0/status-view.hpi",
+      #        "version"=>"1.0",
+      #        "categories"=>["ui"],
+      #        "compatibleSinceVersion"=>nil,
+      #        "compatibleWithInstalledVersion"=>true,
+      #        "dependencies"=>{},
+      #        "excerpt"=>"View type to show jobs filtered by the status of the last completed build.",
+      #        "installed"=>nil, "neededDependencies"=>[],
+      #        "requiredCore"=>"1.342",
+      #        "title"=>"Status View Plugin",
+      #        "wiki"=>"https://wiki.jenkins-ci.org/display/JENKINS/Status+View+Plugin"
+      #      }
       #
       def get_available_info(plugin)
         plugins = @client.api_get_request(
