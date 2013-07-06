@@ -80,6 +80,10 @@ module JenkinsApi
     # @option args [String] :password_base64
     #   the password with base64 encoded format for connecting to the CI
     #   server (optional)
+    # @option args [String] :identity_file
+    #   the priviate key file for Jenkins CLI authentication,
+    #   it is used only for executing CLI commands.
+    #   also remember to upload the public key to http://#{server_ip}:#{server_port}/user/#{my_username}/configure
     # @option args [String] :proxy_ip
     #   the proxy IP address
     # @option args [String] :proxy_port
@@ -110,7 +114,7 @@ module JenkinsApi
           instance_variable_set("@#{key}", value)
         end
       end if args.is_a? Hash
-      
+
       # Server IP or Server URL must be specifiec
       unless @server_ip || @server_url
         raise ArgumentError, "Server IP or Server URL is required to connect" +
@@ -126,7 +130,7 @@ module JenkinsApi
         raise ArgumentError, "Proxy IP and port must both be specified or" +
           " both left nil"
       end
-      
+
       # Get info from the server_url, if we got one
       if @server_url
         server_uri = URI.parse(@server_url)
