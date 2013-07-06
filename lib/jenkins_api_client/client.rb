@@ -59,7 +59,8 @@ module JenkinsApi
       "log_level",
       "timeout",
       "ssl",
-      "follow_redirects"
+      "follow_redirects",
+      "identity_file"
     ].freeze
 
     # Initialize a Client object with Jenkins CI server credentials
@@ -79,6 +80,10 @@ module JenkinsApi
     # @option args [String] :password_base64
     #   the password with base64 encoded format for connecting to the CI
     #   server (optional)
+    # @option args [String] :identity_file
+    #   the priviate key file for Jenkins CLI authentication,
+    #   it is used only for executing CLI commands.
+    #   also remember to upload the public key to http://#{server_ip}:#{server_port}/user/#{my_username}/configure
     # @option args [String] :proxy_ip
     #   the proxy IP address
     # @option args [String] :proxy_port
@@ -109,7 +114,7 @@ module JenkinsApi
           instance_variable_set("@#{key}", value)
         end
       end if args.is_a? Hash
-      
+
       # Server IP or Server URL must be specifiec
       unless @server_ip || @server_url
         raise ArgumentError, "Server IP or Server URL is required to connect" +
@@ -125,7 +130,7 @@ module JenkinsApi
         raise ArgumentError, "Proxy IP and port must both be specified or" +
           " both left nil"
       end
-      
+
       # Get info from the server_url, if we got one
       if @server_url
         server_uri = URI.parse(@server_url)
@@ -441,10 +446,11 @@ module JenkinsApi
     def exec_cli(command, args = [])
       base_dir = File.dirname(__FILE__)
       server_url = "http://#{@server_ip}:#{@server_port}/#{@jenkins_path}"
-      cmd = "java -jar #{base_dir}/../../java_deps/jenkins-cli.jar" +
-        " -s #{server_url} #{command}" +
-        " --username #{@username} --password #{@password} " +
-        args.join(' ')
+      cmd = "java -jar #{base_dir}/../../java_deps/jenkins-cli.jar -s #{server_url}"
+      cmd << " -i #{@identity_file}" if @identity_file && !@identity_file.empty?
+      cmd << " #{command}"
+      cmd << " --username #{@username} --password #{@password} " if @identity_file.nil? || @identity_file.empty?
+      cmd << args.join(' ')
       java_cmd = Mixlib::ShellOut.new(cmd)
 
       # Run the command
