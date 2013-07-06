@@ -59,7 +59,8 @@ module JenkinsApi
       "log_level",
       "timeout",
       "ssl",
-      "follow_redirects"
+      "follow_redirects",
+      "identity_file"
     ].freeze
 
     # Initialize a Client object with Jenkins CI server credentials
@@ -441,10 +442,11 @@ module JenkinsApi
     def exec_cli(command, args = [])
       base_dir = File.dirname(__FILE__)
       server_url = "http://#{@server_ip}:#{@server_port}/#{@jenkins_path}"
-      cmd = "java -jar #{base_dir}/../../java_deps/jenkins-cli.jar" +
-        " -s #{server_url} #{command}" +
-        " --username #{@username} --password #{@password} " +
-        args.join(' ')
+      cmd = "java -jar #{base_dir}/../../java_deps/jenkins-cli.jar -s #{server_url}"
+      cmd << " -i #{@identity_file}" if @identity_file && !@identity_file.empty?
+      cmd << " #{command}"
+      cmd << " --username #{@username} --password #{@password} " if @identity_file.nil? || @identity_file.empty?
+      cmd << args.join(' ')
       java_cmd = Mixlib::ShellOut.new(cmd)
 
       # Run the command
