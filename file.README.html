@@ -63,18 +63,18 @@
 
     <div id="content"><div id='filecontents'><h1>Jenkins API Client</h1>
 
-<p><a href="http://rubygems.org/gems/jenkins_api_client"><img src="https://badge.fury.io/rb/jenkins_api_client.png" alt="Gem Version" /></a>
-<a href="https://travis-ci.org/arangamani/jenkins_api_client"><img src="https://travis-ci.org/arangamani/jenkins_api_client.png?branch=master" alt="Build Status" /></a>
-<a href="https://gemnasium.com/arangamani/jenkins_api_client"><img src="https://gemnasium.com/arangamani/jenkins_api_client.png" alt="Dependency Status" /></a>
-<a href="https://codeclimate.com/github/arangamani/jenkins_api_client"><img src="https://codeclimate.com/github/arangamani/jenkins_api_client.png" alt="Code Climate" /></a></p>
+<p><a href="http://rubygems.org/gems/jenkins_api_client"><img src="https://badge.fury.io/rb/jenkins_api_client.png" alt="Gem Version"></a>
+<a href="https://travis-ci.org/arangamani/jenkins_api_client"><img src="https://travis-ci.org/arangamani/jenkins_api_client.png?branch=master" alt="Build Status"></a>
+<a href="https://gemnasium.com/arangamani/jenkins_api_client"><img src="https://gemnasium.com/arangamani/jenkins_api_client.png" alt="Dependency Status"></a>
+<a href="https://codeclimate.com/github/arangamani/jenkins_api_client"><img src="https://codeclimate.com/github/arangamani/jenkins_api_client.png" alt="Code Climate"></a></p>
 
-<p>Copyright &copy; 2012-2013, Kannan Manickam <a href="http://coderwall.com/arangamani"><img src="http://api.coderwall.com/arangamani/endorsecount.png" alt="endorse" /></a></p>
+<p>Copyright &copy; 2012-2013, Kannan Manickam <a href="http://coderwall.com/arangamani"><img src="http://api.coderwall.com/arangamani/endorsecount.png" alt="endorse"></a></p>
 
 <p>Client libraries for communicating with a Jenkins CI server and programatically managing jobs.</p>
 
 <p>IRC Channel: ##jenkins-api-client</p>
 
-<p>Mailing list: <a href="&#109;&#x61;&#105;&#108;&#116;&#x6f;&#x3a;&#106;&#x65;&#110;&#107;&#105;&#x6e;&#115;&#95;&#x61;&#x70;&#x69;&#95;&#99;&#x6c;&#x69;&#x65;&#110;&#116;&#x40;&#x67;&#x6f;&#111;&#103;&#108;&#x65;&#x67;&#114;&#x6f;&#x75;&#x70;&#115;&#x2e;&#99;&#111;&#x6d;">&#x6a;&#101;&#x6e;&#x6b;&#x69;&#110;&#x73;&#x5f;&#x61;&#112;&#105;&#95;&#x63;&#x6c;&#x69;&#101;&#110;&#116;&#64;&#103;&#x6f;&#x6f;&#103;&#108;&#101;&#103;&#114;&#111;&#117;&#112;&#x73;&#x2e;&#99;&#x6f;&#x6d;</a></p>
+<p>Mailing list: <a href="mailto:jenkins_api_client@googlegroups.com">jenkins_api_client@googlegroups.com</a></p>
 
 <p>Google Group: <a href="https://groups.google.com/group/jenkins_api_client">https://groups.google.com/group/jenkins_api_client</a></p>
 
@@ -109,7 +109,7 @@ Include this gem in your code as a require statement.</p>
 can just use the irb launcher script which is available in
 <tt>scripts/login_with_irb.rb</tt>. But make sure that you have your credentials
 available in the correct location. By default the script assumes that you have
-your credentials file in <tt>~/.jenkins_api_client/login.yml</tt>. If you don't
+your credentials file in <tt>~/.jenkins_api_client/login.yml</tt>. If you don&#39;t
 prefer this location and would like to use a different location, just modify
 that script to point to the location where the credentials file exists.</p>
 
@@ -124,7 +124,7 @@ client with the <tt>@client</tt> object that it has returned.</p>
 <p>Supplying credentials to the client is optional, as not all Jenkins instances
 require authentication. This project supports two types of password-based
 authentication. You can just you the plain password by using <tt>password</tt>
-parameter. If you don't prefer leaving plain passwords in the credentials file,
+parameter. If you don&#39;t prefer leaving plain passwords in the credentials file,
 you can encode your password in base64 format and use <tt>password_base64</tt>
 parameter to specify the password either in the arguments or in the credentials
 file. To use the client without credentials, just leave out the
@@ -138,69 +138,50 @@ information as parameters to the Client or have a credentials file and just
 parse the yaml file and pass it in. The following call just passes the
 information as parameters</p>
 
-<p>```ruby
-@client = JenkinsApi::Client.new(:server_ip => '0.0.0.0',</p>
-
-<pre class="code ruby"><code class="ruby">     :username =&gt; 'somename', :password =&gt; 'secret password')
+<pre class="code ruby"><code class="ruby"><span class='ivar'>@client</span> <span class='op'>=</span> <span class='const'>JenkinsApi</span><span class='op'>::</span><span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:server_ip</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>0.0.0.0</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
+         <span class='symbol'>:username</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>somename</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='symbol'>:password</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>secret password</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
+<span class='comment'># The following call will return all jobs matching 'Testjob'
+</span><span class='id identifier rubyid_puts'>puts</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_job'>job</span><span class='period'>.</span><span class='id identifier rubyid_list'>list</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>^Testjob</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 </code></pre>
-
-<h1>The following call will return all jobs matching 'Testjob'</h1>
-
-<p>puts @client.job.list("^Testjob")
-```</p>
 
 <p>The following example passes the YAML file contents. An example yaml file is
 located in <tt>config/login.yml.example</tt>.</p>
 
-<p>```ruby
-@client = JenkinsApi::Client.new(YAML.Load_file(File.expand_path(
-  "~/.jenkins_api_client/login.yml", <strong>FILE</strong>)))</p>
-
-<h1>The following call lists all jobs</h1>
-
-<p>puts @client.job.list_all
-```</p>
+<pre class="code ruby"><code class="ruby"><span class='ivar'>@client</span> <span class='op'>=</span> <span class='const'>JenkinsApi</span><span class='op'>::</span><span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>YAML</span><span class='period'>.</span><span class='const'>Load_file</span><span class='lparen'>(</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span><span class='lparen'>(</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>~/.jenkins_api_client/login.yml</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='kw'>__FILE__</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='rparen'>)</span>
+<span class='comment'># The following call lists all jobs
+</span><span class='id identifier rubyid_puts'>puts</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_job'>job</span><span class='period'>.</span><span class='id identifier rubyid_list_all'>list_all</span>
+</code></pre>
 
 <h3>Chaining and Building Jobs</h3>
 
 <p>Sometimes we want certain jobs to be added as downstream projects and run them
 sequencially. The following example will explain how this could be done.</p>
 
-<p>```ruby
-require 'jenkins_api_client'</p>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>jenkins_api_client</span><span class='tstring_end'>'</span></span>
 
-<h1>We want to filter all jobs that start with 'test_job'</h1>
+<span class='comment'># We want to filter all jobs that start with 'test_job'
+</span><span class='comment'># Just write a regex to match all the jobs that start with 'test_job'
+</span><span class='id identifier rubyid_jobs_to_filter'>jobs_to_filter</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>^test_job.*</span><span class='tstring_end'>&quot;</span></span>
 
-<h1>Just write a regex to match all the jobs that start with 'test_job'</h1>
+<span class='comment'># Create an instance to jenkins_api_client
+</span><span class='ivar'>@client</span> <span class='op'>=</span> <span class='const'>JenkinsApi</span><span class='op'>::</span><span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>YAML</span><span class='period'>.</span><span class='id identifier rubyid_load_file'>load_file</span><span class='lparen'>(</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span><span class='lparen'>(</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>~/.jenkins_api_client/login.yml</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='kw'>__FILE__</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='rparen'>)</span>
 
-<p>jobs_to_filter = "^test_job.*"</p>
+<span class='comment'># Get a filtered list of jobs from the server
+</span><span class='id identifier rubyid_jobs'>jobs</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_job'>job</span><span class='period'>.</span><span class='id identifier rubyid_list'>list</span><span class='lparen'>(</span><span class='id identifier rubyid_jobs_to_filter'>jobs_to_filter</span><span class='rparen'>)</span>
 
-<h1>Create an instance to jenkins_api_client</h1>
+<span class='comment'># Chain all the jobs with 'success' as the threshold
+</span><span class='comment'># The chain method will return the jobs that is in the head of the sequence
+</span><span class='comment'># This method will also remove any existing chaining
+</span><span class='id identifier rubyid_initial_jobs'>initial_jobs</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_job'>job</span><span class='period'>.</span><span class='id identifier rubyid_chain'>chain</span><span class='lparen'>(</span><span class='id identifier rubyid_jobs'>jobs</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>success</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>all</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
 
-<p>@client = JenkinsApi::Client.new(YAML.load_file(File.expand_path(
-  "~/.jenkins_api_client/login.yml", <strong>FILE</strong>)))</p>
-
-<h1>Get a filtered list of jobs from the server</h1>
-
-<p>jobs = @client.job.list(jobs_to_filter)</p>
-
-<h1>Chain all the jobs with 'success' as the threshold</h1>
-
-<h1>The chain method will return the jobs that is in the head of the sequence</h1>
-
-<h1>This method will also remove any existing chaining</h1>
-
-<p>initial_jobs = @client.job.chain(jobs, 'success', ["all"])</p>
-
-<h1>Now that we have the initial job(s) we can build them</h1>
-
-<h1>The build function returns a code from the API which should be 302 if</h1>
-
-<h1>the build was successful</h1>
-
-<p>code = @client.job.build(initial_jobs[0])
-raise "Could not build the job specified" unless code == 302
-```</p>
+<span class='comment'># Now that we have the initial job(s) we can build them
+</span><span class='comment'># The build function returns a code from the API which should be 302 if
+</span><span class='comment'># the build was successful
+</span><span class='id identifier rubyid_code'>code</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_job'>job</span><span class='period'>.</span><span class='id identifier rubyid_build'>build</span><span class='lparen'>(</span><span class='id identifier rubyid_initial_jobs'>initial_jobs</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Could not build the job specified</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_code'>code</span> <span class='op'>==</span> <span class='int'>302</span>
+</code></pre>
 
 <p>In the above example, you might have noticed that the chain method returns an
 array instead of a single job. There is a reason behind it. In simple chain,
@@ -218,7 +199,7 @@ jobs that are in a particular state. In case if we want to build only jobs
 that are failed or unstable, we can achieve that by passing in the states in
 the third parameter. In the example above, we wanted build all jobs. If we just
 want to build failed and unstable jobs, just pass
-<tt>["failure", "unstable"]</tt>. Also if you pass in an empty array, it will
+<tt>[&quot;failure&quot;, &quot;unstable&quot;]</tt>. Also if you pass in an empty array, it will
 assume that you want to consider all jobs and no filtering will be performed.</p>
 
 <p>There is another parameter called <tt>threshold</tt> you can specify for the
@@ -229,38 +210,30 @@ build fails, and <tt>unstable</tt> will move to the job even if the build is
 unstable.</p>
 
 <p>The following call to the <tt>chain</tt> method will consider only failed and
-unstable jobs, chain then with 'failure' as the threshold, and also chain three
+unstable jobs, chain then with &#39;failure&#39; as the threshold, and also chain three
 jobs in parallel.</p>
 
-<p>```ruby
-initial_jobs = @client.job.chain(jobs, 'failure', ["failure", "unstable"], 3)</p>
-
-<h1>We will receive three jobs as a result and we can build them all</h1>
-
-<p>initial_jobs.each do |job|
-  code = @client.job.build(job)
-  raise "Unable to build job: #job" unless code == 302
-end
-```</p>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_initial_jobs'>initial_jobs</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_job'>job</span><span class='period'>.</span><span class='id identifier rubyid_chain'>chain</span><span class='lparen'>(</span><span class='id identifier rubyid_jobs'>jobs</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>failure</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>failure</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>unstable</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='int'>3</span><span class='rparen'>)</span>
+<span class='comment'># We will receive three jobs as a result and we can build them all
+</span><span class='id identifier rubyid_initial_jobs'>initial_jobs</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_job'>job</span><span class='op'>|</span>
+  <span class='id identifier rubyid_code'>code</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_job'>job</span><span class='period'>.</span><span class='id identifier rubyid_build'>build</span><span class='lparen'>(</span><span class='id identifier rubyid_job'>job</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Unable to build job: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_job'>job</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_code'>code</span> <span class='op'>==</span> <span class='int'>302</span>
+<span class='kw'>end</span>
+</code></pre>
 
 <h3>Running Jenkins CLI</h3>
 
 <p>To running <a href="https://wiki.jenkins-ci.org/display/JENKINS/Jenkins+CLI">Jenkins CLI</a></p>
 
-<p>```ruby
-@client = JenkinsApi::Client.new(:server_ip => '0.0.0.0',</p>
-
-<pre class="code ruby"><code class="ruby">     :username =&gt; 'somename', :password =&gt; 'secret password')
+<pre class="code ruby"><code class="ruby"><span class='ivar'>@client</span> <span class='op'>=</span> <span class='const'>JenkinsApi</span><span class='op'>::</span><span class='const'>Client</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='symbol'>:server_ip</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>0.0.0.0</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
+         <span class='symbol'>:username</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>somename</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='symbol'>:password</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>secret password</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
+<span class='comment'># The following call will return the version of Jenkins instance
+</span><span class='id identifier rubyid_puts'>puts</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_exec_cli'>exec_cli</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>version</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 </code></pre>
-
-<h1>The following call will return the version of Jenkins instance</h1>
-
-<p>puts @client.exec_cli("version")
-```</p>
 
 <p>Before you run the CLI, please make sure the following requirements are
 fulfilled:
-* JRE/JDK 6 (or above) is installed, and 'java' is on the $PATH environment
+* JRE/JDK 6 (or above) is installed, and &#39;java&#39; is on the $PATH environment
   variable
 * The <code>jenkins_api_client/java_deps/jenkins-cli.jar</code> is required as the
   client to run the CLI. You can retrieve the available commands via accessing
@@ -288,13 +261,13 @@ next section for more information about this option.</p>
 
 <p>As of v0.13.0, support for logger is introduced. Since it would be nice to have
 the activities of the jenkins_api_client in a log file, this feature is
-implemented using the Ruby's standard Logger class. For using this feature,
+implemented using the Ruby&#39;s standard Logger class. For using this feature,
 there are two new input arguments used during the initialization of Client.</p>
 
 <ol>
 <li><code>:log_location</code> - This argument specifies the location for the log file. A
 good location for linux based systems would be
-'/var/log/jenkins_api_client.log'. The default for this values is STDOUT.
+&#39;/var/log/jenkins_api_client.log&#39;. The default for this values is STDOUT.
 This will print the log messages on the console itself.</li>
 <li><code>:log_level</code> - This argument specifies the level of messages to be logged.
 It should be one of Logger::DEBUG (0), Logger::INFO (1), Logger::WARN (2),
@@ -303,20 +276,19 @@ constants available in the Logger class or using these integers provided
 here. The default for this argument is Logger::INFO (1)</li>
 </ol>
 
-
 <p>If you want customization on the functionality Logger provides such as leave n
 old log files, open the log file in append mode, create your own logger and
 then set that in the client.</p>
 
 <h4>Examples</h4>
 
-<p><code>ruby
-  @client = JenkinsApi::Client.new(...)
+<pre class="code ruby"><code class="ruby">  @client = JenkinsApi::Client.new(...)
   # Create a logger which ages logfile once it reaches a certain size. Leave 10
   # “old log files” and each file is about 1,024,000 bytes.
   @client.logger = Logger.new('foo.log', 10, 1024000)
-</code>
-Please refer to <a href="http://www.ruby-doc.org/stdlib-1.9.3/libdoc/logger/rdoc/Logger.html">Ruby
+</code></pre>
+
+<p>Please refer to <a href="http://www.ruby-doc.org/stdlib-1.9.3/libdoc/logger/rdoc/Logger.html">Ruby
 Logger</a>
 for more information.</p>
 
@@ -333,7 +305,6 @@ for more information.</p>
 <li>The next release will have your changes in it.</li>
 </ol>
 
-
 <p>Please take a look at the issues page if you want to get started.</p>
 
 <h2>FEATURE REQUEST:</h2>
@@ -344,7 +315,7 @@ and consider working on it. Just open an issue in Github as a feature request.</
 </div></div>
 
     <div id="footer">
-  Generated on Tue Jul  2 17:18:45 2013 by
+  Generated on Sat Jul  6 16:45:42 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.2 (ruby-1.9.3).
 </div>
