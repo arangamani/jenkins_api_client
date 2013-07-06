@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Module: JenkinsApi::Exceptions
+  
+    &mdash; Documentation by YARD 0.8.6.2
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../';
+  framesUrl = "../frames.html#!" + escape(window.location.href);
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../_index.html">Index (E)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../JenkinsApi.html" title="JenkinsApi (module)">JenkinsApi</a></span></span>
+     &raquo; 
+    <span class="title">Exceptions</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="../method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="../file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><h1>Module: JenkinsApi::Exceptions
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/jenkins_api_client/exceptions.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>This module contains classes that define exceptions for various catories.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+  
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Exceptions/ApiException.html" title="JenkinsApi::Exceptions::ApiException (class)">ApiException</a></span>, <span class='object_link'><a href="Exceptions/CLIError.html" title="JenkinsApi::Exceptions::CLIError (class)">CLIError</a></span>, <span class='object_link'><a href="Exceptions/CrumbNotFound.html" title="JenkinsApi::Exceptions::CrumbNotFound (class)">CrumbNotFound</a></span>, <span class='object_link'><a href="Exceptions/Forbidden.html" title="JenkinsApi::Exceptions::Forbidden (class)">Forbidden</a></span>, <span class='object_link'><a href="Exceptions/InternalServerError.html" title="JenkinsApi::Exceptions::InternalServerError (class)">InternalServerError</a></span>, <span class='object_link'><a href="Exceptions/JobAlreadyExists.html" title="JenkinsApi::Exceptions::JobAlreadyExists (class)">JobAlreadyExists</a></span>, <span class='object_link'><a href="Exceptions/JobNotFound.html" title="JenkinsApi::Exceptions::JobNotFound (class)">JobNotFound</a></span>, <span class='object_link'><a href="Exceptions/NodeAlreadyExists.html" title="JenkinsApi::Exceptions::NodeAlreadyExists (class)">NodeAlreadyExists</a></span>, <span class='object_link'><a href="Exceptions/NodeNotFound.html" title="JenkinsApi::Exceptions::NodeNotFound (class)">NodeNotFound</a></span>, <span class='object_link'><a href="Exceptions/NotFound.html" title="JenkinsApi::Exceptions::NotFound (class)">NotFound</a></span>, <span class='object_link'><a href="Exceptions/NothingSubmitted.html" title="JenkinsApi::Exceptions::NothingSubmitted (class)">NothingSubmitted</a></span>, <span class='object_link'><a href="Exceptions/PluginNotFound.html" title="JenkinsApi::Exceptions::PluginNotFound (class)">PluginNotFound</a></span>, <span class='object_link'><a href="Exceptions/ServiceUnavailable.html" title="JenkinsApi::Exceptions::ServiceUnavailable (class)">ServiceUnavailable</a></span>, <span class='object_link'><a href="Exceptions/Unauthorized.html" title="JenkinsApi::Exceptions::Unauthorized (class)">Unauthorized</a></span>, <span class='object_link'><a href="Exceptions/ViewAlreadyExists.html" title="JenkinsApi::Exceptions::ViewAlreadyExists (class)">ViewAlreadyExists</a></span>, <span class='object_link'><a href="Exceptions/ViewNotFound.html" title="JenkinsApi::Exceptions::ViewNotFound (class)">ViewNotFound</a></span>
+    
+  
+</p>
+
+  <h2>Constant Summary</h2>
+  
+    <dl class="constants">
+      
+        <dt id="JobAlreadyExistsWithName-constant" class="">JobAlreadyExistsWithName =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Support for backward compatibility</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='const'>JobAlreadyExists</span></pre></dd>
+      
+        <dt id="UnauthorizedException-constant" class="">UnauthorizedException =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>Unauthorized</span></pre></dd>
+      
+        <dt id="ForbiddenException-constant" class="">ForbiddenException =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Support for backward compatibility</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='const'>Forbidden</span></pre></dd>
+      
+        <dt id="NotFoundException-constant" class="">NotFoundException =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Support for backward compatibility</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='const'>NotFound</span></pre></dd>
+      
+        <dt id="InternalServerErrorException-constant" class="">InternalServerErrorException =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Support for backward compatibility</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='const'>InternalServerError</span></pre></dd>
+      
+        <dt id="ServiceUnavailableException-constant" class="">ServiceUnavailableException =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Support for backward compatibility</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='const'>ServiceUnavailable</span></pre></dd>
+      
+        <dt id="CLIException-constant" class="">CLIException =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>Support for backward compatibility</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='const'>CLIError</span></pre></dd>
+      
+    </dl>
+  
+
+
+
+
+
+
+
+
+
+</div>
+
+    <div id="footer">
+  Generated on Tue Jul  2 17:18:45 2013 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.6.2 (ruby-1.9.3).
+</div>
+
+  </body>
+</html>
