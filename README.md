@@ -164,9 +164,21 @@ end
 ### Running Jenkins CLI
 To running [Jenkins CLI](https://wiki.jenkins-ci.org/display/JENKINS/Jenkins+CLI)
 
+* authentication with username/password (deprecated)
+
 ```ruby
-@client = JenkinsApi::Client.new(:server_ip => '0.0.0.0',
+@client = JenkinsApi::Client.new(:server_ip => '127.0.0.1',
          :username => 'somename', :password => 'secret password')
+# The following call will return the version of Jenkins instance
+puts @client.exec_cli("version")
+```
+
+* authentication with public/private key file
+remember to upload the public key to http://#{server_ip}:#{server_port}/user/#{my_username}/configure
+
+```ruby
+@client = JenkinsApi::Client.new(:server_ip => '127.0.0.1',
+         :identity_file => '~/.ssh/id_rsa')
 # The following call will return the version of Jenkins instance
 puts @client.exec_cli("version")
 ```
