@@ -477,6 +477,14 @@ describe JenkinsApi::Client::Job do
         end
       end
 
+      describe "#toggle_keep_build_forever" do
+        it "accepts the job name and build number and toggles the 'logKeep' flag" do
+          @client.should_receive(:api_get_request).with(
+            "/job/test_job/12/toggleLogKeep", nil, "", false)
+          @job.toggle_keep_build_forever("test_job",12)
+        end
+      end
+
     end
   end
 end
