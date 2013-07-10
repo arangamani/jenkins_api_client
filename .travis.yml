@@ -30,3 +30,4 @@ notifications:
     on_failure: always
     channels:
       - "irc.freenode.org##jenins-api-client"
+    webhooks: https://www.buildheroes.com/api/projects/588c9dffdc8f0deff4d89d87bf370e8dba8a8a95/builds
