@@ -4,6 +4,33 @@ CHANGELOG
 upcoming
 --------
 
+v0.13.0  [09-JUL-2013]
+----------------------
+* Jenkins XSS disable option is now supported. No inputs are required - the
+  jenkins_api_client will automatically detech whether to use the crumbs or not
+  when making the POST requests.
+* Support for logging is added. Logs can be redirected to a log file and the
+  log level can be customized. This implementation uses the `Logger` class so
+  it follows the nice format in logging messages.
+* The job `build` method will now optionally return the build number. This
+  option should be used with care as the build method will wait till the
+  jenkins job is placed on an executor from the build queue. By default the
+  build number will NOT be returned. nil will be returned if the build number
+  is not available. Also a Timeout error will be raised if the job waits in the
+  queue for longer than the 'timeout' parameter. This timeout parameter can be
+  set during the client initialization.
+* Improved documentation
+* Support for enabling/disabling jobs. Credit: @dieterdemeyer
+* Added functionality for copying jobs. Credit: @dieterdemeyer
+* Added functionality for wiping out the workspace of a job.
+  Credit: @dieterdemeyer
+* Added functionality for listing jenkins users. Credit: @dieterdemeyer
+* Added support for SSL on Ruby 1.8.7 / JRuby 1.6. Credit: @brettporter
+* Fixed a bug where the exceptions where not thrown when using the
+  `get_console_output` method.
+* Fixed a bug where the jenkins_path attribute was ignored when the server_url
+  input argument is given. Credit: @woodbusy
+
 v0.12.1  [25-JUN-2013]
 ----------------------
 * Fixed a bug where the SSL support was not working properly with Ruby
