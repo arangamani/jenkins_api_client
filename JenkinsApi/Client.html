@@ -189,7 +189,8 @@ for various operations.</p>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>log_level</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>timeout</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ssl</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>follow_redirects</span><span class='tstring_end'>&quot;</span></span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>follow_redirects</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>identity_file</span><span class='tstring_end'>&quot;</span></span>
 <span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
       
         <dt id="MAJOR-constant" class="">MAJOR =
@@ -254,7 +255,7 @@ for various operations.</p>
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pre1</span><span class='tstring_end'>&quot;</span></span></pre></dd>
+        <dd><pre class="code"><span class='kw'>nil</span></pre></dd>
       
         <dt id="VERSION-constant" class="">VERSION =
           <div class="docstring">
@@ -375,7 +376,7 @@ for various operations.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#api_post_request-instance_method" title="#api_post_request (instance method)">- (String) <strong>api_post_request</strong>(url_prefix, form_data = {}) </a>
+      <a href="#api_post_request-instance_method" title="#api_post_request (instance method)">- (String) <strong>api_post_request</strong>(url_prefix, form_data = {}, raw_response = false) </a>
     
 
     
@@ -753,7 +754,10 @@ called.</p>
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Checks if Jenkins uses crumbs (i.e) the XSS disable option is checked in
+Jenkins' security settings.</p>
+</div></span>
   
 </li>
 
@@ -775,7 +779,9 @@ called.</p>
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Checks if Jenkins uses security.</p>
+</div></span>
   
 </li>
 
@@ -935,6 +941,21 @@ called.</p>
         </li>
       
         <li>
+          <span class="name">:identity_file</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>the priviate key file for Jenkins CLI authentication, it is used only for
+executing CLI commands. also remember to upload the public key to <a
+href="http://#server_ip:#server_port/user/#my_username/configure">#server_ip:#server_port/user/#my_username/configure</a></p>
+</div>
+          
+        </li>
+      
+        <li>
           <span class="name">:proxy_ip</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
@@ -1069,11 +1090,6 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
       <pre class="lines">
 
 
-106
-107
-108
-109
-110
 111
 112
 113
@@ -1129,10 +1145,15 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
 163
 164
 165
-166</pre>
+166
+167
+168
+169
+170
+171</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 106</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 111</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
@@ -1140,7 +1161,7 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
       <span class='id identifier rubyid_instance_variable_set'>instance_variable_set</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>@</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_key'>key</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
     <span class='kw'>end</span>
   <span class='kw'>end</span> <span class='kw'>if</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='const'>Hash</span>
-  
+
   <span class='comment'># Server IP or Server URL must be specifiec
 </span>  <span class='kw'>unless</span> <span class='ivar'>@server_ip</span> <span class='op'>||</span> <span class='ivar'>@server_url</span>
     <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Server IP or Server URL is required to connect</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
@@ -1156,7 +1177,7 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
     <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Proxy IP and port must both be specified or</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
       <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> both left nil</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>end</span>
-  
+
   <span class='comment'># Get info from the server_url, if we got one
 </span>  <span class='kw'>if</span> <span class='ivar'>@server_url</span>
     <span class='id identifier rubyid_server_uri'>server_uri</span> <span class='op'>=</span> <span class='const'>URI</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='ivar'>@server_url</span><span class='rparen'>)</span>
@@ -1416,12 +1437,6 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
       <pre class="lines">
 
 
-290
-291
-292
-293
-294
-295
 296
 297
 298
@@ -1434,10 +1449,16 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
 305
 306
 307
-308</pre>
+308
+309
+310
+311
+312
+313
+314</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 290</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 296</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_api_get_request'>api_get_request</span><span class='lparen'>(</span><span class='id identifier rubyid_url_prefix'>url_prefix</span><span class='comma'>,</span> <span class='id identifier rubyid_tree'>tree</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_url_suffix'>url_suffix</span> <span class='op'>=</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/api/json</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
                     <span class='id identifier rubyid_raw_response'>raw_response</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
@@ -1466,7 +1487,7 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
       <div class="method_details ">
   <h3 class="signature " id="api_post_request-instance_method">
   
-    - (<tt>String</tt>) <strong>api_post_request</strong>(url_prefix, form_data = {}) 
+    - (<tt>String</tt>) <strong>api_post_request</strong>(url_prefix, form_data = {}, raw_response = false) 
   
 
   
@@ -1545,12 +1566,6 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
       <pre class="lines">
 
 
-317
-318
-319
-320
-321
-322
 323
 324
 325
@@ -1572,12 +1587,22 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
 341
 342
 343
-344</pre>
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 317</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 323</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_api_post_request'>api_post_request</span><span class='lparen'>(</span><span class='id identifier rubyid_url_prefix'>url_prefix</span><span class='comma'>,</span> <span class='id identifier rubyid_form_data'>form_data</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_api_post_request'>api_post_request</span><span class='lparen'>(</span><span class='id identifier rubyid_url_prefix'>url_prefix</span><span class='comma'>,</span> <span class='id identifier rubyid_form_data'>form_data</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_raw_response'>raw_response</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_retries'>retries</span> <span class='op'>=</span> <span class='ivar'>@crumb_max_retries</span>
   <span class='kw'>begin</span>
     <span class='comment'># Identify whether to use crumbs if this is the first POST request.
@@ -1595,7 +1620,11 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
     <span class='kw'>end</span>
     <span class='id identifier rubyid_request'>request</span><span class='period'>.</span><span class='id identifier rubyid_set_form_data'>set_form_data</span><span class='lparen'>(</span><span class='id identifier rubyid_form_data'>form_data</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_make_http_request'>make_http_request</span><span class='lparen'>(</span><span class='id identifier rubyid_request'>request</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_handle_exception'>handle_exception</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_raw_response'>raw_response</span>
+      <span class='id identifier rubyid_handle_exception'>handle_exception</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>raw</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_handle_exception'>handle_exception</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
   <span class='kw'>rescue</span> <span class='const'>Exceptions</span><span class='op'>::</span><span class='const'>ForbiddenException</span>
     <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Crumb expired. Refetching from the server. Trying</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
       <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='ivar'>@crumb_max_retries</span> <span class='op'>-</span> <span class='id identifier rubyid_retries'>retries</span> <span class='op'>+</span> <span class='int'>1</span><span class='rbrace'>}</span><span class='tstring_content'> out of </span><span class='embexpr_beg'>#{</span><span class='ivar'>@crumb_max_retries</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
@@ -1710,40 +1739,42 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
       <pre class="lines">
 
 
-441
-442
-443
-444
-445
-446
-447
-448
-449
-450
-451
-452
-453
-454
-455
-456
-457
-458
-459
 460
 461
 462
-463</pre>
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 441</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 460</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_exec_cli'>exec_cli</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_base_dir'>base_dir</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_dirname'>dirname</span><span class='lparen'>(</span><span class='kw'>__FILE__</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_server_url'>server_url</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>http://</span><span class='embexpr_beg'>#{</span><span class='ivar'>@server_ip</span><span class='rbrace'>}</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@server_port</span><span class='rbrace'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='ivar'>@jenkins_path</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
-  <span class='id identifier rubyid_cmd'>cmd</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>java -jar </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_base_dir'>base_dir</span><span class='rbrace'>}</span><span class='tstring_content'>/../../java_deps/jenkins-cli.jar</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
-    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> -s </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_server_url'>server_url</span><span class='rbrace'>}</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_command'>command</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
-    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> --username </span><span class='embexpr_beg'>#{</span><span class='ivar'>@username</span><span class='rbrace'>}</span><span class='tstring_content'> --password </span><span class='embexpr_beg'>#{</span><span class='ivar'>@password</span><span class='rbrace'>}</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
-    <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'> </span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_cmd'>cmd</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>java -jar </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_base_dir'>base_dir</span><span class='rbrace'>}</span><span class='tstring_content'>/../../java_deps/jenkins-cli.jar -s </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_server_url'>server_url</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_cmd'>cmd</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> -i </span><span class='embexpr_beg'>#{</span><span class='ivar'>@identity_file</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@identity_file</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='ivar'>@identity_file</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+  <span class='id identifier rubyid_cmd'>cmd</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_command'>command</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_cmd'>cmd</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> --username </span><span class='embexpr_beg'>#{</span><span class='ivar'>@username</span><span class='rbrace'>}</span><span class='tstring_content'> --password </span><span class='embexpr_beg'>#{</span><span class='ivar'>@password</span><span class='rbrace'>}</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@identity_file</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>||</span> <span class='ivar'>@identity_file</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+  <span class='id identifier rubyid_cmd'>cmd</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'> </span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
   <span class='id identifier rubyid_java_cmd'>java_cmd</span> <span class='op'>=</span> <span class='const'>Mixlib</span><span class='op'>::</span><span class='const'>ShellOut</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_cmd'>cmd</span><span class='rparen'>)</span>
 
   <span class='comment'># Run the command
@@ -1829,16 +1860,16 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
       <pre class="lines">
 
 
-352
-353
-354
-355
-356
-357
-358</pre>
+362
+363
+364
+365
+366
+367
+368</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 352</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 362</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_config'>get_config</span><span class='lparen'>(</span><span class='id identifier rubyid_url_prefix'>url_prefix</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_url_prefix'>url_prefix</span> <span class='op'>=</span> <span class='const'>URI</span><span class='period'>.</span><span class='id identifier rubyid_escape'>escape</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@jenkins_path</span><span class='rbrace'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_url_prefix'>url_prefix</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -1896,13 +1927,13 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
       <pre class="lines">
 
 
-417
-418
-419
-420</pre>
+436
+437
+438
+439</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 417</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 436</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_hudson_version'>get_hudson_version</span>
   <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_get_root'>get_root</span>
@@ -1957,13 +1988,13 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
       <pre class="lines">
 
 
-408
-409
-410
-411</pre>
+427
+428
+429
+430</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 408</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 427</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_jenkins_version'>get_jenkins_version</span>
   <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_get_root'>get_root</span>
@@ -2019,15 +2050,17 @@ is running</p>
       <pre class="lines">
 
 
-275
-276
-277
-278</pre>
+280
+281
+282
+283
+284</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 275</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 280</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_root'>get_root</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>GET /</span><span class='tstring_end'>&quot;</span></span>
   <span class='id identifier rubyid_request'>request</span> <span class='op'>=</span> <span class='const'>Net</span><span class='op'>::</span><span class='const'>HTTP</span><span class='op'>::</span><span class='const'>Get</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='id identifier rubyid_make_http_request'>make_http_request</span><span class='lparen'>(</span><span class='id identifier rubyid_request'>request</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -2080,13 +2113,13 @@ is running</p>
       <pre class="lines">
 
 
-426
-427
-428
-429</pre>
+445
+446
+447
+448</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 426</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 445</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_server_date'>get_server_date</span>
   <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_get_root'>get_root</span>
@@ -2125,19 +2158,19 @@ called. Just print the important variables.</p>
       <pre class="lines">
 
 
-220
-221
-222
-223
-224
 225
 226
 227
 228
-229</pre>
+229
+230
+231
+232
+233
+234</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 220</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 225</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_inspect'>inspect</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>#&lt;JenkinsApi::Client:0x</span><span class='embexpr_beg'>#{</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid___id__'>__id__</span> <span class='op'>*</span> <span class='int'>2</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='lparen'>(</span><span class='int'>16</span><span class='rparen'>)</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
@@ -2198,12 +2231,12 @@ called. Just print the important variables.</p>
       <pre class="lines">
 
 
-172
-173
-174</pre>
+177
+178
+179</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 172</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 177</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_job'>job</span>
   <span class='const'>JenkinsApi</span><span class='op'>::</span><span class='const'>Client</span><span class='op'>::</span><span class='const'>Job</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
@@ -2257,12 +2290,12 @@ called. Just print the important variables.</p>
       <pre class="lines">
 
 
-188
-189
-190</pre>
+193
+194
+195</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 188</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 193</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_node'>node</span>
   <span class='const'>JenkinsApi</span><span class='op'>::</span><span class='const'>Client</span><span class='op'>::</span><span class='const'>Node</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
@@ -2352,16 +2385,6 @@ called. Just print the important variables.</p>
       <pre class="lines">
 
 
-367
-368
-369
-370
-371
-372
-373
-374
-375
-376
 377
 378
 379
@@ -2377,10 +2400,20 @@ called. Just print the important variables.</p>
 389
 390
 391
-392</pre>
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 367</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 377</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_post_config'>post_config</span><span class='lparen'>(</span><span class='id identifier rubyid_url_prefix'>url_prefix</span><span class='comma'>,</span> <span class='id identifier rubyid_xml'>xml</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_retries'>retries</span> <span class='op'>=</span> <span class='ivar'>@crumb_max_retries</span>
@@ -2457,12 +2490,12 @@ called. Just print the important variables.</p>
       <pre class="lines">
 
 
-204
-205
-206</pre>
+209
+210
+211</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 204</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 209</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_queue'>queue</span>
   <span class='const'>JenkinsApi</span><span class='op'>::</span><span class='const'>Client</span><span class='op'>::</span><span class='const'>BuildQueue</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
@@ -2516,12 +2549,12 @@ called. Just print the important variables.</p>
       <pre class="lines">
 
 
-180
-181
-182</pre>
+185
+186
+187</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 180</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 185</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_system'>system</span>
   <span class='const'>JenkinsApi</span><span class='op'>::</span><span class='const'>Client</span><span class='op'>::</span><span class='const'>System</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
@@ -2575,12 +2608,12 @@ called. Just print the important variables.</p>
       <pre class="lines">
 
 
-212
-213
-214</pre>
+217
+218
+219</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 212</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 217</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>#&lt;JenkinsApi::Client&gt;</span><span class='tstring_end'>&quot;</span></span>
@@ -2602,6 +2635,9 @@ called. Just print the important variables.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
+<p>Checks if Jenkins uses crumbs (i.e) the XSS disable option is checked in
+Jenkins' security settings</p>
+
 
   </div>
 </div>
@@ -2617,6 +2653,11 @@ called. Just print the important variables.</p>
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>whether Jenkins uses crumbs or not</p>
+</div>
+      
     </li>
   
 </ul>
@@ -2627,13 +2668,13 @@ called. Just print the important variables.</p>
       <pre class="lines">
 
 
-394
-395
-396
-397</pre>
+409
+410
+411
+412</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 394</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 409</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_use_crumbs?'>use_crumbs?</span>
   <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_api_get_request'>api_get_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -2656,6 +2697,8 @@ called. Just print the important variables.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
+<p>Checks if Jenkins uses security</p>
+
 
   </div>
 </div>
@@ -2671,6 +2714,11 @@ called. Just print the important variables.</p>
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>whether Jenkins uses security or not</p>
+</div>
+      
     </li>
   
 </ul>
@@ -2681,13 +2729,13 @@ called. Just print the important variables.</p>
       <pre class="lines">
 
 
-399
-400
-401
-402</pre>
+418
+419
+420
+421</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 399</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 418</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_use_security?'>use_security?</span>
   <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_api_get_request'>api_get_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -2742,12 +2790,12 @@ called. Just print the important variables.</p>
       <pre class="lines">
 
 
-196
-197
-198</pre>
+201
+202
+203</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 196</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 201</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_view'>view</span>
   <span class='const'>JenkinsApi</span><span class='op'>::</span><span class='const'>Client</span><span class='op'>::</span><span class='const'>View</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
@@ -2762,7 +2810,7 @@ called. Just print the important variables.</p>
 </div>
 
     <div id="footer">
-  Generated on Sat Jul  6 16:45:43 2013 by
+  Generated on Tue Jul  9 23:23:51 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.2 (ruby-1.9.3).
 </div>

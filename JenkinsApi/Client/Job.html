@@ -250,7 +250,7 @@ be added as downstream projects, and the threshold.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#build-instance_method" title="#build (instance method)">- (String) <strong>build</strong>(job_name, params = {}) </a>
+      <a href="#build-instance_method" title="#build (instance method)">- (String, Integer) <strong>build</strong>(job_name, params = {}, return_build_number = false) </a>
     
 
     
@@ -1380,45 +1380,45 @@ be added as downstream projects, and the threshold</p>
       <pre class="lines">
 
 
-880
-881
-882
-883
-884
-885
-886
-887
-888
-889
-890
-891
-892
-893
-894
-895
-896
-897
-898
-899
-900
-901
-902
-903
-904
-905
-906
-907
-908
-909
-910
-911
-912
-913
 914
-915</pre>
+915
+916
+917
+918
+919
+920
+921
+922
+923
+924
+925
+926
+927
+928
+929
+930
+931
+932
+933
+934
+935
+936
+937
+938
+939
+940
+941
+942
+943
+944
+945
+946
+947
+948
+949</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 880</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 914</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_downstream_projects'>add_downstream_projects</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='comma'>,</span>
                             <span class='id identifier rubyid_downstream_projects'>downstream_projects</span><span class='comma'>,</span>
@@ -1553,7 +1553,6 @@ be added as downstream projects, and the threshold</p>
       <pre class="lines">
 
 
-223
 224
 225
 226
@@ -1570,10 +1569,11 @@ be added as downstream projects, and the threshold</p>
 237
 238
 239
-240</pre>
+240
+241</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 223</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 224</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_email_notification'>add_email_notification</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>No job name specified</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span>
@@ -1669,7 +1669,6 @@ summary_scm_changes_and_failed_tests. Default: summary_and_scm_changes</p>
       <pre class="lines">
 
 
-262
 263
 264
 265
@@ -1685,10 +1684,11 @@ summary_scm_changes_and_failed_tests. Default: summary_and_scm_changes</p>
 275
 276
 277
-278</pre>
+278
+279</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 262</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 263</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_skype_notification'>add_skype_notification</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>No job name specified</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span>
@@ -1771,21 +1771,21 @@ summary_scm_changes_and_failed_tests. Default: summary_and_scm_changes</p>
       <pre class="lines">
 
 
-674
-675
-676
-677
-678
-679
-680
-681
-682
-683
-684
-685</pre>
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717
+718
+719</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 674</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 708</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_block_build_when_downstream_building'>block_build_when_downstream_building</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Blocking builds of '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rbrace'>}</span><span class='tstring_content'>' when downstream</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
@@ -1863,21 +1863,21 @@ summary_scm_changes_and_failed_tests. Default: summary_and_scm_changes</p>
       <pre class="lines">
 
 
-712
-713
-714
-715
-716
-717
-718
-719
-720
-721
-722
-723</pre>
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 712</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 746</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_block_build_when_upstream_building'>block_build_when_upstream_building</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Blocking builds of '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rbrace'>}</span><span class='tstring_content'>' when upstream</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
@@ -1899,7 +1899,7 @@ summary_scm_changes_and_failed_tests. Default: summary_and_scm_changes</p>
       <div class="method_details ">
   <h3 class="signature " id="build-instance_method">
   
-    - (<tt>String</tt>) <strong>build</strong>(job_name, params = {}) 
+    - (<tt>String</tt>, <tt>Integer</tt>) <strong>build</strong>(job_name, params = {}, return_build_number = false) 
   
 
   
@@ -1927,6 +1927,11 @@ params for Jenkins to use for parameterized builds</p>
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>the name of the job</p>
+</div>
+      
     </li>
   
     <li>
@@ -1940,6 +1945,29 @@ params for Jenkins to use for parameterized builds</p>
         <em class="default">(defaults to: <tt>{}</tt>)</em>
       
       
+        &mdash;
+        <div class='inline'>
+<p>the parameters for parameterized builds</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>return_build_number</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>whether to wait and obtain the build number</p>
+</div>
+      
     </li>
   
 </ul>
@@ -1950,13 +1978,17 @@ params for Jenkins to use for parameterized builds</p>
     <li>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt>String</tt>, <tt>Integer</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>response_code return code from HTTP POST</p>
+<p>the response code from the build POST request if return_build_number is not
+requested and the build number if the return_build_number is requested. nil
+will be returned if the build number is requested and not available. This
+can happen if there is already a job in the queue and concurrent build is
+disabled.</p>
 </div>
       
     </li>
@@ -1969,26 +2001,80 @@ params for Jenkins to use for parameterized builds</p>
       <pre class="lines">
 
 
-571
-572
-573
-574
-575
-576
-577
 578
-579</pre>
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 571</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 578</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_build'>build</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Building job '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
-    <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_post_request'>api_post_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/job/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rbrace'>}</span><span class='tstring_content'>/build</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_build'>build</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_return_build_number'>return_build_number</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_msg'>msg</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Building job '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_msg'>msg</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> with parameters: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='id identifier rubyid_msg'>msg</span>
+  <span class='id identifier rubyid_build_endpoint'>build_endpoint</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>build</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>buildWithParameters</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_raw_response'>raw_response</span> <span class='op'>=</span> <span class='id identifier rubyid_return_build_number'>return_build_number</span>
+  <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span><span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_post_request'>api_post_request</span><span class='lparen'>(</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/job/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rbrace'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_build_endpoint'>build_endpoint</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='id identifier rubyid_params'>params</span><span class='comma'>,</span>
+    <span class='id identifier rubyid_raw_response'>raw_response</span>
+  <span class='rparen'>)</span>
+  <span class='comment'># If return_build_number is enabled, obtain the queue ID from the location
+</span>  <span class='comment'># header and wait till the build is moved to one of the executors and a
+</span>  <span class='comment'># build number is assigned
+</span>  <span class='kw'>if</span> <span class='id identifier rubyid_return_build_number'>return_build_number</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>location</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+      <span class='id identifier rubyid_task_id_match'>task_id_match</span> <span class='op'>=</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>location</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_match'>match</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\/item\/(\d*)\/</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_task_id'>task_id</span> <span class='op'>=</span> <span class='id identifier rubyid_task_id_match'>task_id_match</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>?</span> <span class='kw'>nil</span> <span class='op'>:</span> <span class='id identifier rubyid_task_id_match'>task_id_match</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
+      <span class='kw'>unless</span> <span class='id identifier rubyid_task_id'>task_id</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+        <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_debug'>debug</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Queue task ID for job '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rbrace'>}</span><span class='tstring_content'>': </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_id'>task_id</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+        <span class='const'>Timeout</span><span class='op'>::</span><span class='id identifier rubyid_timeout'>timeout</span><span class='lparen'>(</span><span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_timeout'>timeout</span><span class='rparen'>)</span> <span class='kw'>do</span>
+          <span class='kw'>while</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_queue'>queue</span><span class='period'>.</span><span class='id identifier rubyid_get_item_by_id'>get_item_by_id</span><span class='lparen'>(</span><span class='id identifier rubyid_task_id'>task_id</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>executable</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+            <span class='id identifier rubyid_sleep'>sleep</span> <span class='int'>5</span>
+          <span class='kw'>end</span>
+        <span class='kw'>end</span>
+        <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_queue'>queue</span><span class='period'>.</span><span class='id identifier rubyid_get_item_by_id'>get_item_by_id</span><span class='lparen'>(</span><span class='id identifier rubyid_task_id'>task_id</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>executable</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>number</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+      <span class='kw'>else</span>
+        <span class='kw'>nil</span>
+      <span class='kw'>end</span>
+    <span class='kw'>else</span>
+      <span class='kw'>nil</span>
+    <span class='kw'>end</span>
   <span class='kw'>else</span>
-    <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_debug'>debug</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Build parameters for '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rbrace'>}</span><span class='tstring_content'>': </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
-    <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_post_request'>api_post_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/job/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rbrace'>}</span><span class='tstring_content'>/buildWithParameters</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_response'>response</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -2110,38 +2196,38 @@ params for Jenkins to use for parameterized builds</p>
       <pre class="lines">
 
 
-994
-995
-996
-997
-998
-999
-1000
-1001
-1002
-1003
-1004
-1005
-1006
-1007
-1008
-1009
-1010
-1011
-1012
-1013
-1014
-1015
-1016
-1017
-1018
-1019
-1020
-1021
-1022</pre>
+1028
+1029
+1030
+1031
+1032
+1033
+1034
+1035
+1036
+1037
+1038
+1039
+1040
+1041
+1042
+1043
+1044
+1045
+1046
+1047
+1048
+1049
+1050
+1051
+1052
+1053
+1054
+1055
+1056</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 994</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 1028</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_chain'>chain</span><span class='lparen'>(</span><span class='id identifier rubyid_job_names'>job_names</span><span class='comma'>,</span> <span class='id identifier rubyid_threshold'>threshold</span><span class='comma'>,</span> <span class='id identifier rubyid_criteria'>criteria</span><span class='comma'>,</span> <span class='id identifier rubyid_parallel'>parallel</span> <span class='op'>=</span> <span class='int'>1</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Parallel jobs should be at least 1</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_parallel'>parallel</span> <span class='op'>&lt;</span> <span class='int'>1</span>
@@ -2247,18 +2333,18 @@ params for Jenkins to use for parameterized builds</p>
       <pre class="lines">
 
 
-658
-659
-660
-661
-662
-663
-664
-665
-666</pre>
+692
+693
+694
+695
+696
+697
+698
+699
+700</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 658</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 692</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_change_description'>change_description</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='comma'>,</span> <span class='id identifier rubyid_description'>description</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Changing the description of '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rbrace'>}</span><span class='tstring_content'>' to '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_description'>description</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
@@ -2338,7 +2424,6 @@ params for Jenkins to use for parameterized builds</p>
       <pre class="lines">
 
 
-514
 515
 516
 517
@@ -2358,10 +2443,11 @@ params for Jenkins to use for parameterized builds</p>
 531
 532
 533
-534</pre>
+534
+535</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 514</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 515</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_color_to_status'>color_to_status</span><span class='lparen'>(</span><span class='id identifier rubyid_color'>color</span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_color'>color</span>
@@ -2443,16 +2529,16 @@ params for Jenkins to use for parameterized builds</p>
       <pre class="lines">
 
 
-356
 357
 358
 359
 360
 361
-362</pre>
+362
+363</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 356</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 357</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_copy'>copy</span><span class='lparen'>(</span><span class='id identifier rubyid_from_job_name'>from_job_name</span><span class='comma'>,</span> <span class='id identifier rubyid_to_job_name'>to_job_name</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_to_job_name'>to_job_name</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>copy_of_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_from_job_name'>from_job_name</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_to_job_name'>to_job_name</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -2944,13 +3030,13 @@ or unstable. Default: failure.</p>
       <pre class="lines">
 
 
-294
 295
 296
-297</pre>
+297
+298</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 294</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 295</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Deleting job '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
@@ -2995,13 +3081,13 @@ or unstable. Default: failure.</p>
       <pre class="lines">
 
 
-304
 305
 306
-307</pre>
+307
+308</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 304</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 305</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_all!'>delete_all!</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Deleting all jobs from jenkins</span><span class='tstring_end'>&quot;</span></span>
@@ -3053,13 +3139,13 @@ or unstable. Default: failure.</p>
       <pre class="lines">
 
 
-594
-595
-596
-597</pre>
+628
+629
+630
+631</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 594</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 628</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_disable'>disable</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Disabling job '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
@@ -3111,13 +3197,13 @@ or unstable. Default: failure.</p>
       <pre class="lines">
 
 
-585
-586
-587
-588</pre>
+619
+620
+621
+622</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 585</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 619</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_enable'>enable</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Enabling job '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
@@ -3203,21 +3289,21 @@ or unstable. Default: failure.</p>
       <pre class="lines">
 
 
-751
-752
-753
-754
-755
-756
-757
-758
-759
-760
-761
-762</pre>
+785
+786
+787
+788
+789
+790
+791
+792
+793
+794
+795
+796</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 751</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 785</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_execute_concurrent_builds'>execute_concurrent_builds</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='comma'>,</span> <span class='id identifier rubyid_option'>option</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Setting the concurrent build execution option of</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
@@ -3290,12 +3376,12 @@ or unstable. Default: failure.</p>
       <pre class="lines">
 
 
-418
 419
-420</pre>
+420
+421</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 418</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 419</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_exists?'>exists?</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_list'>list</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rparen'>)</span>
@@ -3357,16 +3443,16 @@ or unstable. Default: failure.</p>
       <pre class="lines">
 
 
-643
-644
-645
-646
-647
-648
-649</pre>
+677
+678
+679
+680
+681
+682
+683</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 643</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 677</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_build_details'>get_build_details</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='comma'>,</span> <span class='id identifier rubyid_build_num'>build_num</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_build_num'>build_num</span> <span class='op'>=</span> <span class='id identifier rubyid_get_current_build_number'>get_current_build_number</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_build_num'>build_num</span> <span class='op'>==</span> <span class='int'>0</span>
@@ -3440,40 +3526,6 @@ details of job params.</p>
       <pre class="lines">
 
 
-771
-772
-773
-774
-775
-776
-777
-778
-779
-780
-781
-782
-783
-784
-785
-786
-787
-788
-789
-790
-791
-792
-793
-794
-795
-796
-797
-798
-799
-800
-801
-802
-803
-804
 805
 806
 807
@@ -3537,10 +3589,44 @@ details of job params.</p>
 865
 866
 867
-868</pre>
+868
+869
+870
+871
+872
+873
+874
+875
+876
+877
+878
+879
+880
+881
+882
+883
+884
+885
+886
+887
+888
+889
+890
+891
+892
+893
+894
+895
+896
+897
+898
+899
+900
+901
+902</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 771</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 805</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_build_params'>get_build_params</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining the build params of '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
@@ -3686,14 +3772,14 @@ details of job params.</p>
       <pre class="lines">
 
 
-502
 503
 504
 505
-506</pre>
+506
+507</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 502</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 503</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_builds'>get_builds</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining the build details of '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
@@ -3764,13 +3850,13 @@ details of job params.</p>
       <pre class="lines">
 
 
-605
-606
-607
-608</pre>
+639
+640
+641
+642</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 605</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 639</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_config'>get_config</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining the config.xml of '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
@@ -3912,7 +3998,6 @@ recent build</p>
       <pre class="lines">
 
 
-379
 380
 381
 382
@@ -3936,10 +4021,11 @@ recent build</p>
 400
 401
 402
-403</pre>
+403
+404</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 379</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 380</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_console_output'>get_console_output</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='comma'>,</span> <span class='id identifier rubyid_build_num'>build_num</span> <span class='op'>=</span> <span class='int'>0</span><span class='comma'>,</span> <span class='id identifier rubyid_start'>start</span> <span class='op'>=</span> <span class='int'>0</span><span class='comma'>,</span> <span class='id identifier rubyid_mode'>mode</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>text</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
   <span class='id identifier rubyid_build_num'>build_num</span> <span class='op'>=</span> <span class='id identifier rubyid_get_current_build_number'>get_current_build_number</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_build_num'>build_num</span> <span class='op'>==</span> <span class='int'>0</span>
@@ -4031,13 +4117,13 @@ if there were no builds for the given job.</p>
       <pre class="lines">
 
 
-557
 558
 559
-560</pre>
+560
+561</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 557</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 558</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_current_build_number'>get_current_build_number</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining the current build number of '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
@@ -4109,14 +4195,14 @@ meaningful status</p>
       <pre class="lines">
 
 
-544
 545
 546
 547
-548</pre>
+548
+549</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 544</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 545</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_current_build_status'>get_current_build_status</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining the current build status of '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
@@ -4169,14 +4255,14 @@ meaningful status</p>
       <pre class="lines">
 
 
-492
 493
 494
 495
-496</pre>
+496
+497</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 492</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 493</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_downstream_projects'>get_downstream_projects</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining the down stream projects of '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
@@ -4240,19 +4326,19 @@ meaningful status</p>
       <pre class="lines">
 
 
-627
-628
-629
-630
-631
-632
-633
-634
-635
-636</pre>
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 627</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 661</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_test_results'>get_test_results</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='comma'>,</span> <span class='id identifier rubyid_build_num'>build_num</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_build_num'>build_num</span> <span class='op'>=</span> <span class='id identifier rubyid_get_current_build_number'>get_current_build_number</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_build_num'>build_num</span> <span class='op'>==</span> <span class='int'>0</span>
@@ -4310,14 +4396,14 @@ meaningful status</p>
       <pre class="lines">
 
 
-482
 483
 484
 485
-486</pre>
+486
+487</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 482</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 483</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_upstream_projects'>get_upstream_projects</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining the upstream projects of '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
@@ -4389,7 +4475,6 @@ meaningful status</p>
       <pre class="lines">
 
 
-447
 448
 449
 450
@@ -4401,10 +4486,11 @@ meaningful status</p>
 456
 457
 458
-459</pre>
+459
+460</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 447</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 448</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_list'>list</span><span class='lparen'>(</span><span class='id identifier rubyid_filter'>filter</span><span class='comma'>,</span> <span class='id identifier rubyid_ignorecase'>ignorecase</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining jobs matching filter '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_filter'>filter</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
@@ -4450,15 +4536,15 @@ meaningful status</p>
       <pre class="lines">
 
 
-407
 408
 409
 410
 411
-412</pre>
+412
+413</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 407</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 408</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_list_all'>list_all</span>
   <span class='id identifier rubyid_response_json'>response_json</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_get_request'>api_get_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -4497,14 +4583,14 @@ meaningful status</p>
       <pre class="lines">
 
 
-463
 464
 465
 466
-467</pre>
+467
+468</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 463</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 464</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_list_all_with_details'>list_all_with_details</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining the details of all jobs</span><span class='tstring_end'>&quot;</span></span>
@@ -4571,7 +4657,6 @@ list to filter the status from</p>
       <pre class="lines">
 
 
-428
 429
 430
 431
@@ -4583,10 +4668,11 @@ list to filter the status from</p>
 437
 438
 439
-440</pre>
+440
+441</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 428</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 429</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_list_by_status'>list_by_status</span><span class='lparen'>(</span><span class='id identifier rubyid_status'>status</span><span class='comma'>,</span> <span class='id identifier rubyid_jobs'>jobs</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_jobs'>jobs</span> <span class='op'>=</span> <span class='id identifier rubyid_list_all'>list_all</span> <span class='kw'>if</span> <span class='id identifier rubyid_jobs'>jobs</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
@@ -4647,13 +4733,13 @@ list to filter the status from</p>
       <pre class="lines">
 
 
-473
 474
 475
-476</pre>
+476
+477</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 473</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 474</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_list_details'>list_details</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining the details of '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
@@ -4734,13 +4820,13 @@ list to filter the status from</p>
       <pre class="lines">
 
 
-617
-618
-619
-620</pre>
+651
+652
+653
+654</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 617</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 651</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_post_config'>post_config</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='comma'>,</span> <span class='id identifier rubyid_xml'>xml</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Posting the config.xml of '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
@@ -4792,15 +4878,15 @@ list to filter the status from</p>
       <pre class="lines">
 
 
-344
 345
 346
 347
 348
-349</pre>
+349
+350</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 344</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 345</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_recreate'>recreate</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Recreating job '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
@@ -4872,36 +4958,36 @@ list to filter the status from</p>
       <pre class="lines">
 
 
-923
-924
-925
-926
-927
-928
-929
-930
-931
-932
-933
-934
-935
-936
-937
-938
-939
-940
-941
-942
-943
-944
-945
-946
-947
-948
-949</pre>
+957
+958
+959
+960
+961
+962
+963
+964
+965
+966
+967
+968
+969
+970
+971
+972
+973
+974
+975
+976
+977
+978
+979
+980
+981
+982
+983</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 923</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 957</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remove_downstream_projects'>remove_downstream_projects</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Removing the downstream projects of '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
@@ -4997,13 +5083,13 @@ list to filter the status from</p>
       <pre class="lines">
 
 
-285
 286
 287
-288</pre>
+288
+289</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 285</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 286</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_rename'>rename</span><span class='lparen'>(</span><span class='id identifier rubyid_old_job'>old_job</span><span class='comma'>,</span> <span class='id identifier rubyid_new_job'>new_job</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Renaming job '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_old_job'>old_job</span><span class='rbrace'>}</span><span class='tstring_content'>' to '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_new_job'>new_job</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
@@ -5084,24 +5170,24 @@ list to filter the status from</p>
       <pre class="lines">
 
 
-958
-959
-960
-961
-962
-963
-964
-965
-966
-967
-968
-969
-970
-971
-972</pre>
+992
+993
+994
+995
+996
+997
+998
+999
+1000
+1001
+1002
+1003
+1004
+1005
+1006</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 958</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 992</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_restrict_to_node'>restrict_to_node</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='comma'>,</span> <span class='id identifier rubyid_node_name'>node_name</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Restricting '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rbrace'>}</span><span class='tstring_content'>' to '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_node_name'>node_name</span><span class='rbrace'>}</span><span class='tstring_content'>' node</span><span class='tstring_end'>&quot;</span></span>
@@ -5179,7 +5265,6 @@ only if it was in 'running' state.</p>
       <pre class="lines">
 
 
-326
 327
 328
 329
@@ -5190,10 +5275,11 @@ only if it was in 'running' state.</p>
 334
 335
 336
-337</pre>
+337
+338</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 326</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 327</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stop_build'>stop_build</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='comma'>,</span> <span class='id identifier rubyid_build_number'>build_number</span> <span class='op'>=</span> <span class='int'>0</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_build_number'>build_number</span> <span class='op'>=</span> <span class='id identifier rubyid_get_current_build_number'>get_current_build_number</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_build_number'>build_number</span> <span class='op'>==</span> <span class='int'>0</span>
@@ -5312,21 +5398,21 @@ only if it was in 'running' state.</p>
       <pre class="lines">
 
 
-693
-694
-695
-696
-697
-698
-699
-700
-701
-702
-703
-704</pre>
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 693</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 727</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_unblock_build_when_downstream_building'>unblock_build_when_downstream_building</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Unblocking builds of '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rbrace'>}</span><span class='tstring_content'>' when downstream</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
@@ -5404,21 +5490,21 @@ only if it was in 'running' state.</p>
       <pre class="lines">
 
 
-731
-732
-733
-734
-735
-736
-737
-738
-739
-740
-741
-742</pre>
+765
+766
+767
+768
+769
+770
+771
+772
+773
+774
+775
+776</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 731</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 765</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_unblock_build_when_upstream_building'>unblock_build_when_upstream_building</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Unblocking builds of '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rbrace'>}</span><span class='tstring_content'>' when upstream</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
@@ -5483,13 +5569,13 @@ only if it was in 'running' state.</p>
       <pre class="lines">
 
 
-978
-979
-980
-981</pre>
+1012
+1013
+1014
+1015</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 978</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 1012</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_unchain'>unchain</span><span class='lparen'>(</span><span class='id identifier rubyid_job_names'>job_names</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Unchaining jobs: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_job_names'>job_names</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -5541,13 +5627,13 @@ only if it was in 'running' state.</p>
       <pre class="lines">
 
 
-313
 314
 315
-316</pre>
+316
+317</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 313</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 314</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_wipe_out_workspace'>wipe_out_workspace</span><span class='lparen'>(</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Wiping out the workspace of job '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
@@ -5563,7 +5649,7 @@ only if it was in 'running' state.</p>
 </div>
 
     <div id="footer">
-  Generated on Sat Jul  6 16:45:45 2013 by
+  Generated on Tue Jul  9 23:23:52 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.2 (ruby-1.9.3).
 </div>

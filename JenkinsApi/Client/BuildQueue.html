@@ -250,6 +250,30 @@ details.</p>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#get_item_by_id-instance_method" title="#get_item_by_id (instance method)">- (Hash) <strong>get_item_by_id</strong>(task_id) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Obtain the item in the queue provided the ID of the task.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#get_params-instance_method" title="#get_params (instance method)">- (String) <strong>get_params</strong>(task_name) </a>
     
 
@@ -693,22 +717,22 @@ details.</p>
       <pre class="lines">
 
 
-106
-107
-108
-109
-110
-111
-112
-113
-114
-115
-116
 117
-118</pre>
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 106</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 117</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_causes'>get_causes</span><span class='lparen'>(</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining the causes of task '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rbrace'>}</span><span class='tstring_content'>' from the</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
@@ -885,26 +909,26 @@ details.</p>
       <pre class="lines">
 
 
-144
-145
-146
-147
-148
-149
-150
-151
-152
-153
-154
 155
 156
 157
 158
 159
-160</pre>
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 144</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 155</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_eta'>get_eta</span><span class='lparen'>(</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining the ETA for the task '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rbrace'>}</span><span class='tstring_content'>' from the</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
@@ -992,19 +1016,19 @@ details.</p>
       <pre class="lines">
 
 
-168
-169
-170
-171
-172
-173
-174
-175
-176
-177</pre>
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 168</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 179</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_id'>get_id</span><span class='lparen'>(</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining the ID of task '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rbrace'>}</span><span class='tstring_content'>' from the</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
@@ -1015,6 +1039,87 @@ details.</p>
     <span class='id identifier rubyid_id'>id</span> <span class='op'>=</span> <span class='id identifier rubyid_details'>details</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
   <span class='kw'>end</span>
   <span class='id identifier rubyid_id'>id</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="get_item_by_id-instance_method">
+  
+    - (<tt>Hash</tt>) <strong>get_item_by_id</strong>(task_id) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Obtain the item in the queue provided the ID of the task</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>task_id</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the ID of the task</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the details of the item in the queue</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+106
+107
+108
+109</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 106</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_get_item_by_id'>get_item_by_id</span><span class='lparen'>(</span><span class='id identifier rubyid_task_id'>task_id</span><span class='rparen'>)</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining the details of task with ID '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_id'>task_id</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
+  <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_get_request'>api_get_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/queue/item/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_id'>task_id</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1085,19 +1190,19 @@ details.</p>
       <pre class="lines">
 
 
-185
-186
-187
-188
-189
-190
-191
-192
-193
-194</pre>
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 185</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 196</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_params'>get_params</span><span class='lparen'>(</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining the build parameters of task '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
@@ -1178,19 +1283,19 @@ details.</p>
       <pre class="lines">
 
 
-126
-127
-128
-129
-130
-131
-132
-133
-134
-135</pre>
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 126</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 137</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_reason'>get_reason</span><span class='lparen'>(</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining the reason of task '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rbrace'>}</span><span class='tstring_content'>' from the</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
@@ -1271,19 +1376,19 @@ details.</p>
       <pre class="lines">
 
 
-219
-220
-221
-222
-223
-224
-225
-226
-227
-228</pre>
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 219</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 230</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_is_blocked?'>is_blocked?</span><span class='lparen'>(</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Checking if task '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rbrace'>}</span><span class='tstring_content'>' from the build queue</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
@@ -1364,19 +1469,19 @@ details.</p>
       <pre class="lines">
 
 
-202
-203
-204
-205
-206
-207
-208
-209
-210
-211</pre>
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 202</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 213</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_is_buildable?'>is_buildable?</span><span class='lparen'>(</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Checking if task '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rbrace'>}</span><span class='tstring_content'>' from the build queue</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
@@ -1457,19 +1562,19 @@ details.</p>
       <pre class="lines">
 
 
-236
-237
-238
-239
-240
-241
-242
-243
-244
-245</pre>
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 236</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 247</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_is_stuck?'>is_stuck?</span><span class='lparen'>(</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rparen'>)</span>
   <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Checking if task '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rbrace'>}</span><span class='tstring_content'>' from the build queue</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
@@ -1630,7 +1735,7 @@ details.</p>
 </div>
 
     <div id="footer">
-  Generated on Sat Jul  6 16:45:47 2013 by
+  Generated on Tue Jul  9 23:23:55 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.2 (ruby-1.9.3).
 </div>
