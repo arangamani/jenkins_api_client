@@ -401,11 +401,20 @@ module JenkinsApi
       end
     end
 
+    # Checks if Jenkins uses crumbs (i.e) the XSS disable option is checked in
+    # Jenkins' security settings
+    #
+    # @return [Boolean] whether Jenkins uses crumbs or not
+    #
     def use_crumbs?
       response = api_get_request("")
       response["useCrumbs"]
     end
 
+    # Checks if Jenkins uses security
+    #
+    # @return [Boolean] whether Jenkins uses security or not
+    #
     def use_security?
       response = api_get_request("")
       response["useSecurity"]
@@ -475,6 +484,14 @@ module JenkinsApi
 
     private
 
+    # Obtains the crumb from Jenkins' crumb issuer
+    #
+    # @return [Hash<String, String>] the crumb response from Jenkins' crumb
+    #   issuer
+    #
+    # @raise Exceptions::CrumbNotFoundException if the crumb is not provided
+    #   (i.e) XSS disable option is not checked in Jenkins' security setting
+    #
     def get_crumb
       begin
         @logger.debug "Obtaining crumb from the jenkins server"

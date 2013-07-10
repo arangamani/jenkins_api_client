@@ -215,6 +215,7 @@ module JenkinsApi
       # Adding email notification to a job
       #
       # @param [Hash] params parameters to add email notification
+      #
       # @option params [String] :name Name of the job
       # @option params [String] :notification_email Email address to send
       # @option params [TrueClass|FalseClass] :notification_email_for_every_unstable
