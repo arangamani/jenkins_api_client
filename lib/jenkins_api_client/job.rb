@@ -565,35 +565,44 @@ module JenkinsApi
       #
       # @param [String] job_name the name of the job
       # @param [Hash] params the parameters for parameterized builds
-      # @param [Boolean] get_build_number whether to wait and obtain the build
+      # @param [Boolean] return_build_number whether to wait and obtain the build
       #   number
       #
-      # @return [String] the response code from the build POST request if
-      #   get_build_number is not requested and the build number if the
-      #   get_build_number is requested
+      # @return [String, Integer] the response code from the build POST request
+      #   if return_build_number is not requested and the build number if the
+      #   return_build_number is requested. nil will be returned if the build
+      #   number is requested and not available. This can happen if there is
+      #   already a job in the queue and concurrent build is disabled.
       #
-      def build(job_name, params={}, get_build_number = false)
+      def build(job_name, params={}, return_build_number = false)
         msg = "Building job '#{job_name}'"
         msg << " with parameters: #{params.inspect}" unless params.empty?
         @logger.info msg
         build_endpoint = params.empty? ? "build" : "buildWithParameters"
-        raw_response = get_build_number
+        raw_response = return_build_number
         response =@client.api_post_request(
           "/job/#{job_name}/#{build_endpoint}",
           params,
           raw_response
         )
-        # If get_build_number is enabled, obtain the queue ID from the location
+        # If return_build_number is enabled, obtain the queue ID from the location
         # header and wait till the build is moved to one of the executors and a
         # build number is assigned
-        if get_build_number
+        if return_build_number
           if response["location"]
-            task_id = response["location"].match(/\/item\/(\d*)\//)[1]
-            @logger.debug "Queue task ID for job '#{job_name}': #{task_id}"
-            while @client.queue.get_item_by_id(task_id)["executable"].nil?
-              sleep 5
+            task_id_match = response["location"].match(/\/item\/(\d*)\//)
+            task_id = task_id_match.nil? ? nil : task_id_match[1]
+            unless task_id.nil?
+              @logger.debug "Queue task ID for job '#{job_name}': #{task_id}"
+              Timeout::timeout(@client.timeout) do
+                while @client.queue.get_item_by_id(task_id)["executable"].nil?
+                  sleep 5
+                end
+              end
+              @client.queue.get_item_by_id(task_id)["executable"]["number"]
+            else
+              nil
             end
-            @client.queue.get_item_by_id(task_id)["executable"]["number"]
           else
             nil
           end
