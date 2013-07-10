@@ -29,6 +29,9 @@ v0.13.0  [09-JUL-2013]
   `get_console_output` method.
 * Fixed a bug where the jenkins_path attribute was ignored when the server_url
   input argument is given. Credit: @woodbusy
+* support public/private key pair authentication for Jenkins CLI.
+  Credit: @missedone
+
 
 v0.12.1  [25-JUN-2013]
 ----------------------
