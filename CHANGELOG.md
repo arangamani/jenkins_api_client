@@ -25,7 +25,6 @@ v0.13.0  [09-JUL-2013]
 * Added functionality for wiping out the workspace of a job.
   Credit: @dieterdemeyer
 * Added functionality for listing jenkins users. Credit: @dieterdemeyer
-* Added support for SSL on Ruby 1.8.7 / JRuby 1.6. Credit: @brettporter
 * Fixed a bug where the exceptions where not thrown when using the
   `get_console_output` method.
 * Fixed a bug where the jenkins_path attribute was ignored when the server_url
