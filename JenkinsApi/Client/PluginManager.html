@@ -5,9 +5,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>
   Class: JenkinsApi::Client::PluginManager
-  
+
     &mdash; Documentation by YARD 0.8.6.2
-  
+
 </title>
 
   <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
@@ -30,33 +30,33 @@
   <body>
     <div id="header">
       <div id="menu">
-  
+
     <a href="../../_index.html">Index (P)</a> &raquo;
     <span class='title'><span class='object_link'><a href="../../JenkinsApi.html" title="JenkinsApi (module)">JenkinsApi</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Client.html" title="JenkinsApi::Client (class)">Client</a></span></span>
-     &raquo; 
+     &raquo;
     <span class="title">PluginManager</span>
-  
+
 
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
       <div id="search">
-  
+
     <a class="full_list_link" id="class_list_link"
         href="../../class_list.html">
       Class List
     </a>
-  
+
     <a class="full_list_link" id="method_list_link"
         href="../../method_list.html">
       Method List
     </a>
-  
+
     <a class="full_list_link" id="file_list_link"
         href="../../file_list.html">
       File List
     </a>
-  
+
 </div>
       <div class="clear"></div>
     </div>
@@ -64,44 +64,44 @@
     <iframe id="search_frame"></iframe>
 
     <div id="content"><h1>Class: JenkinsApi::Client::PluginManager
-  
-  
-  
+
+
+
 </h1>
 
 <dl class="box">
-  
+
     <dt class="r1">Inherits:</dt>
     <dd class="r1">
       <span class="inheritName">Object</span>
-      
+
         <ul class="fullTree">
           <li>Object</li>
-          
+
             <li class="next">JenkinsApi::Client::PluginManager</li>
-          
+
         </ul>
         <a href="#" class="inheritanceTree">show all</a>
-      
+
       </dd>
-    
-  
-  
-    
-  
-    
-  
-  
-  
+
+
+
+
+
+
+
+
+
     <dt class="r2 last">Defined in:</dt>
     <dd class="r2 last">lib/jenkins_api_client/plugin_manager.rb</dd>
-  
+
 </dl>
 <div class="clear"></div>
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
+
 <p>This classes communicates with the /pluginManager API for listing installed
 plugins, installing new plgins through hacks, and performing a lot of
 operations on installed plugins. It also gives the ability to obtain the
@@ -112,7 +112,7 @@ with /updateCenter API.</p>
   </div>
 </div>
 <div class="tags">
-  
+
 
 </div>
 
@@ -121,435 +121,435 @@ with /updateCenter API.</p>
 
 
 
-  
+
     <h2>
       Class Method Summary
       <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
     </h2>
 
     <ul class="summary">
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#plugin_action_method-class_method" title="plugin_action_method (class method)">+ (Object) <strong>plugin_action_method</strong>(action, post_endpoint) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Defines a method to perform the given action on plugin(s).</p>
 </div></span>
-  
+
 </li>
 
-      
+
     </ul>
-  
+
     <h2>
       Instance Method Summary
       <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
     </h2>
 
     <ul class="summary">
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#check_for_updates-instance_method" title="#check_for_updates (instance method)">- (Object) <strong>check_for_updates</strong> </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Requests the Jenkins plugin manager to check for updates by connecting to
 the update site.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#disable-instance_method" title="#disable (instance method)">- (Object) <strong>disable</strong>(plugins) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Disables the specified plugin or list of plugins.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#downgrade-instance_method" title="#downgrade (instance method)">- (Object) <strong>downgrade</strong>(plugins) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Downgrades the specified plugin or list of plugins.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#enable-instance_method" title="#enable (instance method)">- (Object) <strong>enable</strong>(plugins) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Enables the specified plugin or list of plugins.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#get_available_info-instance_method" title="#get_available_info (instance method)">- (Hash) <strong>get_available_info</strong>(plugin) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Obtains the information about a plugin that is available in the Jenkins
 update center.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#get_installed_info-instance_method" title="#get_installed_info (instance method)">- (Hash) <strong>get_installed_info</strong>(plugin) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Obtains the details of a single installed plugin.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#initialize-instance_method" title="#initialize (instance method)">- (PluginManager) <strong>initialize</strong>(client) </a>
-    
 
-    
+
+
   </span>
-  
-  
-    <span class="note title constructor">constructor</span>
-  
-  
-  
-  
-  
-  
 
-  
+
+    <span class="note title constructor">constructor</span>
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Initializes a new PluginManager object.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#install-instance_method" title="#install (instance method)">- (String) <strong>install</strong>(plugins) </a>
-    
 
-    
+
+
       (also: #update)
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+  </span>
+
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Installs a specific plugin or list of plugins.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#list_available-instance_method" title="#list_available (instance method)">- (Hash&lt;String, String&gt;) <strong>list_available</strong>(filters = {}) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>List the available plugins from jenkins update center along with their
 version numbers.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#list_installed-instance_method" title="#list_installed (instance method)">- (Hash&lt;String, String&gt;) <strong>list_installed</strong>(filters = {}) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Obtains the list of installed plugins from Jenkins along with their version
 numbers with optional filters.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#list_updates-instance_method" title="#list_updates (instance method)">- (Hash&lt;String, String&gt;) <strong>list_updates</strong> </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>List the available updates for plugins from jenkins update center along
 with their version numbers.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#restart_required%3F-instance_method" title="#restart_required? (instance method)">- (Boolean) <strong>restart_required?</strong> </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Whether restart required for the completion of plugin
 installations/uninstallations.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#to_s-instance_method" title="#to_s (instance method)">- (Object) <strong>to_s</strong> </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Returns a string representation of PluginManager class.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#uninstall-instance_method" title="#uninstall (instance method)">- (Object) <strong>uninstall</strong>(plugins) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Uninstalls the specified plugin or list of plugins.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#unpin-instance_method" title="#unpin (instance method)">- (Object) <strong>unpin</strong>(plugins) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Unpins the specified plugin or list of plugins.</p>
 </div></span>
-  
+
 </li>
 
-      
+
     </ul>
-  
+
 
 <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
-  
+
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
-  
-    - (<tt><span class='object_link'><a href="" title="JenkinsApi::Client::PluginManager (class)">PluginManager</a></span></tt>) <strong>initialize</strong>(client) 
-  
 
-  
+    - (<tt><span class='object_link'><a href="" title="JenkinsApi::Client::PluginManager (class)">PluginManager</a></span></tt>) <strong>initialize</strong>(client)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Initializes a new PluginManager object.</p>
 
 
@@ -558,23 +558,23 @@ installations/uninstallations.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>client</span>
-      
-      
+
+
         <span class='type'>(<tt>Object</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>a reference to Client</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 
@@ -600,26 +600,26 @@ installations/uninstallations.</p>
   </tr>
 </table>
 </div>
-  
+
 </div>
 
 
   <div id="class_method_details" class="method_details_list">
     <h2>Class Method Details</h2>
 
-    
+
       <div class="method_details first">
   <h3 class="signature first" id="plugin_action_method-class_method">
-  
-    + (<tt>Object</tt>) <strong>plugin_action_method</strong>(action, post_endpoint) 
-  
 
-  
+    + (<tt>Object</tt>) <strong>plugin_action_method</strong>(action, post_endpoint)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Defines a method to perform the given action on plugin(s)</p>
 
 
@@ -628,39 +628,39 @@ installations/uninstallations.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>action</span>
-      
-      
+
+
         <span class='type'>(<tt>Symbol</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>the action to perform</p>
 </div>
-      
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>post_endpoint</span>
-      
-      
+
+
         <span class='type'>(<tt>Symbol</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>the endpoint in the POST request for the action</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 
@@ -700,25 +700,25 @@ installations/uninstallations.</p>
   </tr>
 </table>
 </div>
-    
+
   </div>
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
 
-    
+
       <div class="method_details first">
   <h3 class="signature first" id="check_for_updates-instance_method">
-  
-    - (<tt>Object</tt>) <strong>check_for_updates</strong> 
-  
 
-  
+    - (<tt>Object</tt>) <strong>check_for_updates</strong>
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Requests the Jenkins plugin manager to check for updates by connecting to
 the update site.</p>
 
@@ -726,13 +726,13 @@ the update site.</p>
   </div>
 </div>
 <div class="tags">
-  
+
 
   <p class="tag_title">See Also:</p>
   <ul class="see">
-    
+
       <li>list_updates</li>
-    
+
   </ul>
 
 </div><table class="source_code">
@@ -755,19 +755,19 @@ the update site.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="disable-instance_method">
-  
-    - (<tt>Object</tt>) <strong>disable</strong>(plugins) 
-  
 
-  
+    - (<tt>Object</tt>) <strong>disable</strong>(plugins)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Disables the specified plugin or list of plugins. This method makes a POST
 request for every plugin specified - so it might lead to some delay if a
 big list is provided.</p>
@@ -778,37 +778,37 @@ big list is provided.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>plugins</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>, <tt>Array</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>a single plugin or list of plugins to be uninstalled</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 
   <p class="tag_title">See Also:</p>
   <ul class="see">
-    
+
       <li>Client.api_post_request</li>
-    
+
       <li>restart_required?</li>
-    
+
       <li>System.restart</li>
-    
+
       <li>enable</li>
-    
+
   </ul>
 
 </div><table class="source_code">
@@ -827,19 +827,19 @@ big list is provided.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="downgrade-instance_method">
-  
-    - (<tt>Object</tt>) <strong>downgrade</strong>(plugins) 
-  
 
-  
+    - (<tt>Object</tt>) <strong>downgrade</strong>(plugins)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Downgrades the specified plugin or list of plugins. This method makes s
 POST request for every plugin specified - so it might lead to some delay if
 a big list is provided.</p>
@@ -850,37 +850,37 @@ a big list is provided.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>a</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>, <tt>Array</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>single plugin or list of plugins to be downgraded</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 
   <p class="tag_title">See Also:</p>
   <ul class="see">
-    
+
       <li>Client.api_post_request</li>
-    
+
       <li>restart_required?</li>
-    
+
       <li>System.restart</li>
-    
+
       <li>install</li>
-    
+
   </ul>
 
 </div><table class="source_code">
@@ -899,19 +899,19 @@ a big list is provided.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="enable-instance_method">
-  
-    - (<tt>Object</tt>) <strong>enable</strong>(plugins) 
-  
 
-  
+    - (<tt>Object</tt>) <strong>enable</strong>(plugins)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Enables the specified plugin or list of plugins. This method makes a POST
 request for every plugin specified - so it might lead to some delay if a
 big list is provided.</p>
@@ -922,37 +922,37 @@ big list is provided.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>plugins</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>, <tt>Array</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>a single plugin or list of plugins to be uninstalled</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 
   <p class="tag_title">See Also:</p>
   <ul class="see">
-    
+
       <li>Client.api_post_request</li>
-    
+
       <li>restart_required?</li>
-    
+
       <li>System.restart</li>
-    
+
       <li>disable</li>
-    
+
   </ul>
 
 </div><table class="source_code">
@@ -971,19 +971,19 @@ big list is provided.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="get_available_info-instance_method">
-  
-    - (<tt>Hash</tt>) <strong>get_available_info</strong>(plugin) 
-  
 
-  
+    - (<tt>Hash</tt>) <strong>get_available_info</strong>(plugin)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Obtains the information about a plugin that is available in the Jenkins
 update center</p>
 
@@ -993,42 +993,42 @@ update center</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>plugin</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>the plugin ID to obtain information for</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>Hash</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>the details of the given plugin</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -1079,34 +1079,34 @@ update center</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="get_installed_info-instance_method">
-  
-    - (<tt>Hash</tt>) <strong>get_installed_info</strong>(plugin) 
-  
 
-  
+    - (<tt>Hash</tt>) <strong>get_installed_info</strong>(plugin)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Obtains the details of a single installed plugin</p>
 
 
   </div>
 </div>
 <div class="tags">
-  
+
   <div class="examples">
     <p class="tag_title">Examples:</p>
-    
-      
+
+
         <p class="example_title"><div class='inline'>
 <p>Obtain the information of an installed plugin</p>
 </div></p>
-      
+
       <pre class="example code"><code>&gt;&gt; @client.plugin.get_installed_info &quot;ldap&quot;
 =&gt; {
      &quot;active&quot;=&gt;false, &quot;backupVersion&quot;=&gt;&quot;1.2&quot;, &quot;bundled&quot;=&gt;true,
@@ -1117,46 +1117,46 @@ update center</p>
      &quot;url&quot;=&gt;&quot;http://wiki.jenkins-ci.org/display/JENKINS/LDAP+Plugin&quot;,
      &quot;version&quot;=&gt;&quot;1.5&quot;
    }</code></pre>
-    
+
   </div>
 <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>plugin</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>the plugin ID of the desired plugin</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>Hash</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>the details of the given installed plugin</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -1209,23 +1209,23 @@ update center</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="install-instance_method">
-  
-    - (<tt>String</tt>) <strong>install</strong>(plugins) 
-  
 
-  
+    - (<tt>String</tt>) <strong>install</strong>(plugins)
+
+
+
     <span class="aliases">Also known as:
     <span class="names"><span id='update-instance_method'>update</span></span>
     </span>
-  
 
-  
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Installs a specific plugin or list of plugins. This method will install the
 latest available plugins that jenkins reports. The installation might not
 take place right away for some plugins and they might require restart of
@@ -1238,74 +1238,74 @@ plugin if the plugin is outdated.</p>
   </div>
 </div>
 <div class="tags">
-  
+
   <div class="examples">
     <p class="tag_title">Examples:</p>
-    
-      
+
+
         <p class="example_title"><div class='inline'>
 <p>Installing a plugin and restart jenkins if required</p>
 </div></p>
-      
+
       <pre class="example code"><code>&gt;&gt; @client.plugin.install &quot;s3&quot;
 =&gt; &quot;302&quot; # Response code from plugin installation POST
 &gt;&gt; @client.plugin.restart_required?
 =&gt; true # A restart is required for the installation completion
 &gt;&gt; @client.system.restart(true)
 =&gt; &quot;302&quot; # A force restart is performed</code></pre>
-    
+
   </div>
 <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>plugins</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>, <tt>Array</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>a single plugin or a list of plugins to be installed</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>the HTTP code from the plugin install POST request</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
   <p class="tag_title">See Also:</p>
   <ul class="see">
-    
+
       <li>Client.api_post_request</li>
-    
+
       <li>restart_required?</li>
-    
+
       <li>System.restart</li>
-    
+
       <li>uninstall</li>
-    
+
   </ul>
 
 </div><table class="source_code">
@@ -1342,19 +1342,19 @@ plugin if the plugin is outdated.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="list_available-instance_method">
-  
-    - (<tt>Hash&lt;String, String&gt;</tt>) <strong>list_available</strong>(filters = {}) 
-  
 
-  
+    - (<tt>Hash&lt;String, String&gt;</tt>) <strong>list_available</strong>(filters = {})
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>List the available plugins from jenkins update center along with their
 version numbers</p>
 
@@ -1362,15 +1362,15 @@ version numbers</p>
   </div>
 </div>
 <div class="tags">
-  
+
   <div class="examples">
     <p class="tag_title">Examples:</p>
-    
-      
+
+
         <p class="example_title"><div class='inline'>
 <p>Listing available plugins from jenkins</p>
 </div></p>
-      
+
       <pre class="example code"><code>&gt;&gt; @client.plugin.list_available
 =&gt; {
      &quot;accurev&quot; =&gt; &quot;0.6.18&quot;,
@@ -1379,84 +1379,84 @@ version numbers</p>
      ...
      &quot;zubhium&quot; =&gt; &quot;0.1.6&quot;
    }</code></pre>
-    
+
   </div>
 <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>filters</span>
-      
-      
+
+
         <span class='type'>(<tt>Hash</tt>)</span>
-      
-      
+
+
         <em class="default">(defaults to: <tt>{}</tt>)</em>
-      
-      
+
+
         &mdash;
         <div class='inline'>
 <p>optional filters to filter available plugins.</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
-  
-    
-    
+
+
+
     <p class="tag_title">Options Hash (<tt>filters</tt>):</p>
     <ul class="option">
-      
+
         <li>
           <span class="name">:categories</span>
           <span class="type">(<tt>Array</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'>
 <p>the category of the plugin to filter</p>
 </div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:dependencies</span>
           <span class="type">(<tt>Array</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'>
 <p>the dependency of the plugin to filter</p>
 </div>
-          
+
         </li>
-      
+
     </ul>
-  
+
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>Hash&lt;String, String&gt;</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>available plugins and their versions. returns an empty if no plugins are
 available.</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -1491,19 +1491,19 @@ available.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="list_installed-instance_method">
-  
-    - (<tt>Hash&lt;String, String&gt;</tt>) <strong>list_installed</strong>(filters = {}) 
-  
 
-  
+    - (<tt>Hash&lt;String, String&gt;</tt>) <strong>list_installed</strong>(filters = {})
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Obtains the list of installed plugins from Jenkins along with their version
 numbers with optional filters</p>
 
@@ -1511,15 +1511,15 @@ numbers with optional filters</p>
   </div>
 </div>
 <div class="tags">
-  
+
   <div class="examples">
     <p class="tag_title">Examples:</p>
-    
-      
+
+
         <p class="example_title"><div class='inline'>
 <p>Listing installed plugins from jenkins</p>
 </div></p>
-      
+
       <pre class="example code"><code>&gt;&gt; @client.plugin.list_installed
 =&gt; {
      &quot;mailer&quot; =&gt; &quot;1.5&quot;,
@@ -1528,12 +1528,12 @@ numbers with optional filters</p>
    }
 &gt;&gt; @client.plugin.list_installed(true)
 =&gt; {}</code></pre>
-    
-      
+
+
         <p class="example_title"><div class='inline'>
 <p>Listing installed plugins based on filters provided</p>
 </div></p>
-      
+
       <pre class="example code"><code>&gt;&gt; @client.plugin.list_installed(
      :active =&gt; true, :deleted =&gt; false, :bundled =&gt; false
    )
@@ -1545,151 +1545,151 @@ numbers with optional filters</p>
      &quot;jquery-ui&quot; =&gt; &quot;1.0.2&quot;,
      &quot;analysis-core&quot; =&gt; &quot;1.49&quot;
    }</code></pre>
-    
+
   </div>
 <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>filters</span>
-      
-      
+
+
         <span class='type'>(<tt>Hash</tt>)</span>
-      
-      
+
+
         <em class="default">(defaults to: <tt>{}</tt>)</em>
-      
-      
+
+
         &mdash;
         <div class='inline'>
 <p>optional filters to apply. Use symbols for filter keys</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
-  
-    
-    
+
+
+
     <p class="tag_title">Options Hash (<tt>filters</tt>):</p>
     <ul class="option">
-      
+
         <li>
           <span class="name">:active</span>
           <span class="type">(<tt>Boolean</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'>
 <p>filter active/non-active plugins</p>
 </div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:bundled</span>
           <span class="type">(<tt>Boolean</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'>
 <p>filter bundled/non-bundled plugins</p>
 </div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:deleted</span>
           <span class="type">(<tt>Boolean</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'>
 <p>filter deleted/available plugins</p>
 </div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:downgradable</span>
           <span class="type">(<tt>Boolean</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'>
 <p>filter downgradable plugins</p>
 </div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:enabled</span>
           <span class="type">(<tt>Boolean</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'>
 <p>filter enabled/disabled plugins</p>
 </div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:hasUpdate</span>
           <span class="type">(<tt>Boolean</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'>
 <p>filter plugins that has update available. Note that ‘U’ is capitalized in
 hasUpdate.</p>
 </div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:pinned</span>
           <span class="type">(<tt>Boolean</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'>
 <p>filter pinned/un-pinned plugins</p>
 </div>
-          
+
         </li>
-      
+
     </ul>
-  
+
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>Hash&lt;String, String&gt;</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>installed plugins and their versions matching the filter provided. returns
 an empty hash if there are no plugins matched the filters or no plugins are
 installed in jenkins.</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -1748,19 +1748,19 @@ installed in jenkins.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="list_updates-instance_method">
-  
-    - (<tt>Hash&lt;String, String&gt;</tt>) <strong>list_updates</strong> 
-  
 
-  
+    - (<tt>Hash&lt;String, String&gt;</tt>) <strong>list_updates</strong>
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>List the available updates for plugins from jenkins update center along
 with their version numbers</p>
 
@@ -1768,42 +1768,42 @@ with their version numbers</p>
   </div>
 </div>
 <div class="tags">
-  
+
   <div class="examples">
     <p class="tag_title">Examples:</p>
-    
-      
+
+
         <p class="example_title"><div class='inline'>
 <p>Listing available plugin updates from jenkins</p>
 </div></p>
-      
+
       <pre class="example code"><code>&gt;&gt; @client.plugin.list_updates
 =&gt; {
      &quot;ldap&quot; =&gt; &quot;1.5&quot;,
      &quot;ssh-slaves&quot; =&gt; &quot;0.27&quot;,
      &quot;subversion&quot; =&gt; &quot;1&quot;.50
    }</code></pre>
-    
+
   </div>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>Hash&lt;String, String&gt;</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>available plugin updates and their versions. returns an empty if no plugins
 are available.</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -1834,19 +1834,19 @@ are available.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="restart_required?-instance_method">
-  
-    - (<tt>Boolean</tt>) <strong>restart_required?</strong> 
-  
 
-  
+    - (<tt>Boolean</tt>) <strong>restart_required?</strong>
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Whether restart required for the completion of plugin
 installations/uninstallations</p>
 
@@ -1854,32 +1854,32 @@ installations/uninstallations</p>
   </div>
 </div>
 <div class="tags">
-  
+
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>Boolean</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>whether restart is required for the completion for plugin
 installations/uninstallations.</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
   <p class="tag_title">See Also:</p>
   <ul class="see">
-    
+
       <li>Client.api_get_request</li>
-    
+
   </ul>
 
 </div><table class="source_code">
@@ -1912,26 +1912,26 @@ installations/uninstallations.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="to_s-instance_method">
-  
-    - (<tt>Object</tt>) <strong>to_s</strong> 
-  
 
-  
+    - (<tt>Object</tt>) <strong>to_s</strong>
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Returns a string representation of PluginManager class.</p>
 
 
   </div>
 </div>
 <div class="tags">
-  
+
 
 </div><table class="source_code">
   <tr>
@@ -1953,19 +1953,19 @@ installations/uninstallations.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="uninstall-instance_method">
-  
-    - (<tt>Object</tt>) <strong>uninstall</strong>(plugins) 
-  
 
-  
+    - (<tt>Object</tt>) <strong>uninstall</strong>(plugins)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Uninstalls the specified plugin or list of plugins. Only the user installed
 plugins can be uninstalled. The plugins installed by default by jenkins
 (also known as bundled plugins) cannot be uninstalled. The call will
@@ -1979,37 +1979,37 @@ delay if a big list is provided.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>plugins</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>, <tt>Array</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>a single plugin or list of plugins to be uninstalled</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 
   <p class="tag_title">See Also:</p>
   <ul class="see">
-    
+
       <li>Client.api_post_request</li>
-    
+
       <li>restart_required?</li>
-    
+
       <li>System.restart</li>
-    
+
       <li>install</li>
-    
+
   </ul>
 
 </div><table class="source_code">
@@ -2028,19 +2028,19 @@ delay if a big list is provided.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="unpin-instance_method">
-  
-    - (<tt>Object</tt>) <strong>unpin</strong>(plugins) 
-  
 
-  
+    - (<tt>Object</tt>) <strong>unpin</strong>(plugins)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Unpins the specified plugin or list of plugins. This method makes a POST
 request for every plugin specified - so it might lead to some delay if a
 big list is provided.</p>
@@ -2051,35 +2051,35 @@ big list is provided.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>plugins</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>, <tt>Array</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>a single plugin or list of plugins to be uninstalled</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 
   <p class="tag_title">See Also:</p>
   <ul class="see">
-    
+
       <li>Client.api_post_request</li>
-    
+
       <li>restart_required?</li>
-    
+
       <li>System.restart</li>
-    
+
   </ul>
 
 </div><table class="source_code">
@@ -2098,7 +2098,7 @@ big list is provided.</p>
   </tr>
 </table>
 </div>
-    
+
   </div>
 
 </div>
@@ -2108,6 +2108,18 @@ big list is provided.</p>
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.2 (ruby-1.9.3).
 </div>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-37519629-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
 
   </body>
 </html>

@@ -5,9 +5,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>
   Class: JenkinsApi::Client::BuildQueue
-  
+
     &mdash; Documentation by YARD 0.8.6.2
-  
+
 </title>
 
   <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
@@ -30,33 +30,33 @@
   <body>
     <div id="header">
       <div id="menu">
-  
+
     <a href="../../_index.html">Index (B)</a> &raquo;
     <span class='title'><span class='object_link'><a href="../../JenkinsApi.html" title="JenkinsApi (module)">JenkinsApi</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Client.html" title="JenkinsApi::Client (class)">Client</a></span></span>
-     &raquo; 
+     &raquo;
     <span class="title">BuildQueue</span>
-  
+
 
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
       <div id="search">
-  
+
     <a class="full_list_link" id="class_list_link"
         href="../../class_list.html">
       Class List
     </a>
-  
+
     <a class="full_list_link" id="method_list_link"
         href="../../method_list.html">
       Method List
     </a>
-  
+
     <a class="full_list_link" id="file_list_link"
         href="../../file_list.html">
       File List
     </a>
-  
+
 </div>
       <div class="clear"></div>
     </div>
@@ -64,44 +64,44 @@
     <iframe id="search_frame"></iframe>
 
     <div id="content"><h1>Class: JenkinsApi::Client::BuildQueue
-  
-  
-  
+
+
+
 </h1>
 
 <dl class="box">
-  
+
     <dt class="r1">Inherits:</dt>
     <dd class="r1">
       <span class="inheritName">Object</span>
-      
+
         <ul class="fullTree">
           <li>Object</li>
-          
+
             <li class="next">JenkinsApi::Client::BuildQueue</li>
-          
+
         </ul>
         <a href="#" class="inheritanceTree">show all</a>
-      
+
       </dd>
-    
-  
-  
-    
-  
-    
-  
-  
-  
+
+
+
+
+
+
+
+
+
     <dt class="r2 last">Defined in:</dt>
     <dd class="r2 last">lib/jenkins_api_client/build_queue.rb</dd>
-  
+
 </dl>
 <div class="clear"></div>
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
+
 <p>This classes communicates with the Build Queue API exposed by Jenkins at
 "/queue" that gives information about jobs/tasks in the queue and their
 details.</p>
@@ -110,7 +110,7 @@ details.</p>
   </div>
 </div>
 <div class="tags">
-  
+
 
 </div>
 
@@ -119,394 +119,394 @@ details.</p>
 
 
 
-  
+
     <h2>
       Instance Method Summary
       <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
     </h2>
 
     <ul class="summary">
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#get_age-instance_method" title="#get_age (instance method)">- (Fixnum) <strong>get_age</strong>(task_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Gets the time number of seconds the task is in the queue.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#get_causes-instance_method" title="#get_causes (instance method)">- (Array) <strong>get_causes</strong>(task_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Obtains the causes from the build queue for the specified task.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#get_details-instance_method" title="#get_details (instance method)">- (Hash) <strong>get_details</strong>(task_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Obtains the detail Hash from the API response.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#get_eta-instance_method" title="#get_eta (instance method)">- (String) <strong>get_eta</strong>(task_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Obtains the ETA given by Jenkins if any.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#get_id-instance_method" title="#get_id (instance method)">- (String) <strong>get_id</strong>(task_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Obtains the ID of the task from the queue.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#get_item_by_id-instance_method" title="#get_item_by_id (instance method)">- (Hash) <strong>get_item_by_id</strong>(task_id) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Obtain the item in the queue provided the ID of the task.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#get_params-instance_method" title="#get_params (instance method)">- (String) <strong>get_params</strong>(task_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Obtains the params from the build queue.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#get_reason-instance_method" title="#get_reason (instance method)">- (String) <strong>get_reason</strong>(task_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Obtains the reason why the task is in queue.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#initialize-instance_method" title="#initialize (instance method)">- (BuildQueue) <strong>initialize</strong>(client) </a>
-    
 
-    
+
+
   </span>
-  
-  
-    <span class="note title constructor">constructor</span>
-  
-  
-  
-  
-  
-  
 
-  
+
+    <span class="note title constructor">constructor</span>
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Initializes a new BuildQueue object.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#is_blocked%3F-instance_method" title="#is_blocked? (instance method)">- (TrueClass|FalseClass) <strong>is_blocked?</strong>(task_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Obtains whether the task is blocked.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#is_buildable%3F-instance_method" title="#is_buildable? (instance method)">- (TrueClass|FalseClass) <strong>is_buildable?</strong>(task_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Obtains whether the task is buildable.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#is_stuck%3F-instance_method" title="#is_stuck? (instance method)">- (TrueClass|FalseClass) <strong>is_stuck?</strong>(task_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Obtains whether the task is stuck.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#list-instance_method" title="#list (instance method)">- (Object) <strong>list</strong> </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Lists all tasks currently in the build queue.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#size-instance_method" title="#size (instance method)">- (Object) <strong>size</strong> </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Gives the number of jobs currently in the build queue.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#to_s-instance_method" title="#to_s (instance method)">- (Object) <strong>to_s</strong> </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Returns a string representation of BuildQueue class.</p>
 </div></span>
-  
+
 </li>
 
-      
+
     </ul>
-  
+
 
 <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
-  
+
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
-  
-    - (<tt><span class='object_link'><a href="" title="JenkinsApi::Client::BuildQueue (class)">BuildQueue</a></span></tt>) <strong>initialize</strong>(client) 
-  
 
-  
+    - (<tt><span class='object_link'><a href="" title="JenkinsApi::Client::BuildQueue (class)">BuildQueue</a></span></tt>) <strong>initialize</strong>(client)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Initializes a new BuildQueue object.</p>
 
 
@@ -515,23 +515,23 @@ details.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>client</span>
-      
-      
+
+
         <span class='type'>(<tt>Object</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>a reference to Client</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 
@@ -557,26 +557,26 @@ details.</p>
   </tr>
 </table>
 </div>
-  
+
 </div>
 
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
 
-    
+
       <div class="method_details first">
   <h3 class="signature first" id="get_age-instance_method">
-  
-    - (<tt>Fixnum</tt>) <strong>get_age</strong>(task_name) 
-  
 
-  
+    - (<tt>Fixnum</tt>) <strong>get_age</strong>(task_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Gets the time number of seconds the task is in the queue</p>
 
 
@@ -585,42 +585,42 @@ details.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>task_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>Name of the task/job</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>Fixnum</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>age in seconds</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -657,19 +657,19 @@ details.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="get_causes-instance_method">
-  
-    - (<tt>Array</tt>) <strong>get_causes</strong>(task_name) 
-  
 
-  
+    - (<tt>Array</tt>) <strong>get_causes</strong>(task_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Obtains the causes from the build queue for the specified task</p>
 
 
@@ -678,37 +678,37 @@ details.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>task_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>Array</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>causes for the task to be in queue</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -751,19 +751,19 @@ details.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="get_details-instance_method">
-  
-    - (<tt>Hash</tt>) <strong>get_details</strong>(task_name) 
-  
 
-  
+    - (<tt>Hash</tt>) <strong>get_details</strong>(task_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Obtains the detail Hash from the API response</p>
 
 
@@ -772,42 +772,42 @@ details.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>task_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>Name of the task/job</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>Hash</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>Queue details of the specified task/job</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -844,19 +844,19 @@ details.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="get_eta-instance_method">
-  
-    - (<tt>String</tt>) <strong>get_eta</strong>(task_name) 
-  
 
-  
+    - (<tt>String</tt>) <strong>get_eta</strong>(task_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Obtains the ETA given by Jenkins if any</p>
 
 
@@ -865,42 +865,42 @@ details.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>task_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>name of the task</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>ETA for the task, nil if no task found and N/A for tasks with no ETA info.</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -951,19 +951,19 @@ details.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="get_id-instance_method">
-  
-    - (<tt>String</tt>) <strong>get_id</strong>(task_name) 
-  
 
-  
+    - (<tt>String</tt>) <strong>get_id</strong>(task_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Obtains the ID of the task from the queue</p>
 
 
@@ -972,42 +972,42 @@ details.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>task_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>name of the task</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>ID of the task, nil of no task is found</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -1044,19 +1044,19 @@ details.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="get_item_by_id-instance_method">
-  
-    - (<tt>Hash</tt>) <strong>get_item_by_id</strong>(task_id) 
-  
 
-  
+    - (<tt>Hash</tt>) <strong>get_item_by_id</strong>(task_id)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Obtain the item in the queue provided the ID of the task</p>
 
 
@@ -1065,42 +1065,42 @@ details.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>task_id</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>the ID of the task</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>Hash</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>the details of the item in the queue</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -1125,19 +1125,19 @@ details.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="get_params-instance_method">
-  
-    - (<tt>String</tt>) <strong>get_params</strong>(task_name) 
-  
 
-  
+    - (<tt>String</tt>) <strong>get_params</strong>(task_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Obtains the params from the build queue</p>
 
 
@@ -1146,42 +1146,42 @@ details.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>task_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>name of the task</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>params, nil if the no task is found</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -1218,19 +1218,19 @@ details.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="get_reason-instance_method">
-  
-    - (<tt>String</tt>) <strong>get_reason</strong>(task_name) 
-  
 
-  
+    - (<tt>String</tt>) <strong>get_reason</strong>(task_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Obtains the reason why the task is in queue</p>
 
 
@@ -1239,42 +1239,42 @@ details.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>task_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>name of the task</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>reason for being in queue, nil if no task found</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -1311,19 +1311,19 @@ details.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="is_blocked?-instance_method">
-  
-    - (<tt>TrueClass|FalseClass</tt>) <strong>is_blocked?</strong>(task_name) 
-  
 
-  
+    - (<tt>TrueClass|FalseClass</tt>) <strong>is_blocked?</strong>(task_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Obtains whether the task is blocked</p>
 
 
@@ -1332,42 +1332,42 @@ details.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>task_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>name of the task</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>TrueClass|FalseClass</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>blocked or not</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -1404,19 +1404,19 @@ details.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="is_buildable?-instance_method">
-  
-    - (<tt>TrueClass|FalseClass</tt>) <strong>is_buildable?</strong>(task_name) 
-  
 
-  
+    - (<tt>TrueClass|FalseClass</tt>) <strong>is_buildable?</strong>(task_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Obtains whether the task is buildable</p>
 
 
@@ -1425,42 +1425,42 @@ details.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>task_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>name of the task</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>TrueClass|FalseClass</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>buildable or not</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -1497,19 +1497,19 @@ details.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="is_stuck?-instance_method">
-  
-    - (<tt>TrueClass|FalseClass</tt>) <strong>is_stuck?</strong>(task_name) 
-  
 
-  
+    - (<tt>TrueClass|FalseClass</tt>) <strong>is_stuck?</strong>(task_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Obtains whether the task is stuck</p>
 
 
@@ -1518,42 +1518,42 @@ details.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>task_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>name of the task</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>TrueClass|FalseClass</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>stuck or not</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -1590,26 +1590,26 @@ details.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="list-instance_method">
-  
-    - (<tt>Object</tt>) <strong>list</strong> 
-  
 
-  
+    - (<tt>Object</tt>) <strong>list</strong>
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Lists all tasks currently in the build queue</p>
 
 
   </div>
 </div>
 <div class="tags">
-  
+
 
 </div><table class="source_code">
   <tr>
@@ -1643,26 +1643,26 @@ details.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="size-instance_method">
-  
-    - (<tt>Object</tt>) <strong>size</strong> 
-  
 
-  
+    - (<tt>Object</tt>) <strong>size</strong>
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Gives the number of jobs currently in the build queue</p>
 
 
   </div>
 </div>
 <div class="tags">
-  
+
 
 </div><table class="source_code">
   <tr>
@@ -1688,26 +1688,26 @@ details.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="to_s-instance_method">
-  
-    - (<tt>Object</tt>) <strong>to_s</strong> 
-  
 
-  
+    - (<tt>Object</tt>) <strong>to_s</strong>
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Returns a string representation of BuildQueue class.</p>
 
 
   </div>
 </div>
 <div class="tags">
-  
+
 
 </div><table class="source_code">
   <tr>
@@ -1729,7 +1729,7 @@ details.</p>
   </tr>
 </table>
 </div>
-    
+
   </div>
 
 </div>
@@ -1739,6 +1739,17 @@ details.</p>
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.2 (ruby-1.9.3).
 </div>
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-37519629-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
 
   </body>
 </html>

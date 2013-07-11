@@ -5,9 +5,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>
   Class: JenkinsApi::Client
-  
+
     &mdash; Documentation by YARD 0.8.6.2
-  
+
 </title>
 
   <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
@@ -30,33 +30,33 @@
   <body>
     <div id="header">
       <div id="menu">
-  
+
     <a href="../_index.html">Index (C)</a> &raquo;
     <span class='title'><span class='object_link'><a href="../JenkinsApi.html" title="JenkinsApi (module)">JenkinsApi</a></span></span>
-     &raquo; 
+     &raquo;
     <span class="title">Client</span>
-  
+
 
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
       <div id="search">
-  
+
     <a class="full_list_link" id="class_list_link"
         href="../class_list.html">
       Class List
     </a>
-  
+
     <a class="full_list_link" id="method_list_link"
         href="../method_list.html">
       Method List
     </a>
-  
+
     <a class="full_list_link" id="file_list_link"
         href="../file_list.html">
       File List
     </a>
-  
+
 </div>
       <div class="clear"></div>
     </div>
@@ -64,46 +64,46 @@
     <iframe id="search_frame"></iframe>
 
     <div id="content"><h1>Class: JenkinsApi::Client
-  
-  
-  
+
+
+
 </h1>
 
 <dl class="box">
-  
+
     <dt class="r1">Inherits:</dt>
     <dd class="r1">
       <span class="inheritName">Object</span>
-      
+
         <ul class="fullTree">
           <li>Object</li>
-          
+
             <li class="next">JenkinsApi::Client</li>
-          
+
         </ul>
         <a href="#" class="inheritanceTree">show all</a>
-      
+
       </dd>
-    
-  
-  
-    
-  
-    
-  
-  
-  
+
+
+
+
+
+
+
+
+
     <dt class="r2 last">Defined in:</dt>
     <dd class="r2 last">lib/jenkins_api_client/client.rb<span class="defines">,<br />
   lib/jenkins_api_client/job.rb,<br /> lib/jenkins_api_client/node.rb,<br /> lib/jenkins_api_client/view.rb,<br /> lib/jenkins_api_client/system.rb,<br /> lib/jenkins_api_client/version.rb,<br /> lib/jenkins_api_client/build_queue.rb</span>
 </dd>
-  
+
 </dl>
 <div class="clear"></div>
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
+
 <p>This is the client class that acts as the bridge between the subclasses and
 Jnekins. This class contains methods that performs GET and POST requests
 for various operations.</p>
@@ -112,66 +112,66 @@ for various operations.</p>
   </div>
 </div>
 <div class="tags">
-  
+
 
 </div><h2>Defined Under Namespace</h2>
 <p class="children">
-  
-    
-  
-    
+
+
+
+
       <strong class="classes">Classes:</strong> <span class='object_link'><a href="Client/BuildQueue.html" title="JenkinsApi::Client::BuildQueue (class)">BuildQueue</a></span>, <span class='object_link'><a href="Client/Job.html" title="JenkinsApi::Client::Job (class)">Job</a></span>, <span class='object_link'><a href="Client/Node.html" title="JenkinsApi::Client::Node (class)">Node</a></span>, <span class='object_link'><a href="Client/System.html" title="JenkinsApi::Client::System (class)">System</a></span>, <span class='object_link'><a href="Client/View.html" title="JenkinsApi::Client::View (class)">View</a></span>
-    
-  
+
+
 </p>
 
   <h2>Constant Summary</h2>
-  
+
     <dl class="constants">
-      
+
         <dt id="DEFAULT_SERVER_PORT-constant" class="">DEFAULT_SERVER_PORT =
           <div class="docstring">
   <div class="discussion">
-    
+
 <p>Default port to be used to connect to Jenkins</p>
 
 
   </div>
 </div>
 <div class="tags">
-  
+
 
 </div>
         </dt>
         <dd><pre class="code"><span class='int'>8080</span></pre></dd>
-      
+
         <dt id="DEFAULT_TIMEOUT-constant" class="">DEFAULT_TIMEOUT =
           <div class="docstring">
   <div class="discussion">
-    
+
 <p>Default timeout in seconds to be used while performing operations</p>
 
 
   </div>
 </div>
 <div class="tags">
-  
+
 
 </div>
         </dt>
         <dd><pre class="code"><span class='int'>120</span></pre></dd>
-      
+
         <dt id="VALID_PARAMS-constant" class="">VALID_PARAMS =
           <div class="docstring">
   <div class="discussion">
-    
+
 <p>Parameters that are permitted as options while initializing the client</p>
 
 
   </div>
 </div>
 <div class="tags">
-  
+
 
 </div>
         </dt>
@@ -192,642 +192,642 @@ for various operations.</p>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>follow_redirects</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>identity_file</span><span class='tstring_end'>&quot;</span></span>
 <span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
-      
+
         <dt id="MAJOR-constant" class="">MAJOR =
           <div class="docstring">
   <div class="discussion">
-    
+
 <p>Major version of the gem</p>
 
 
   </div>
 </div>
 <div class="tags">
-  
+
 
 </div>
         </dt>
         <dd><pre class="code"><span class='int'>0</span></pre></dd>
-      
+
         <dt id="MINOR-constant" class="">MINOR =
           <div class="docstring">
   <div class="discussion">
-    
+
 <p>Minor version of the gem</p>
 
 
   </div>
 </div>
 <div class="tags">
-  
+
 
 </div>
         </dt>
         <dd><pre class="code"><span class='int'>13</span></pre></dd>
-      
+
         <dt id="TINY-constant" class="">TINY =
           <div class="docstring">
   <div class="discussion">
-    
+
 <p>Tiny version of the gem used for patches</p>
 
 
   </div>
 </div>
 <div class="tags">
-  
+
 
 </div>
         </dt>
         <dd><pre class="code"><span class='int'>0</span></pre></dd>
-      
+
         <dt id="PRE-constant" class="">PRE =
           <div class="docstring">
   <div class="discussion">
-    
+
 <p>Used for pre-releases</p>
 
 
   </div>
 </div>
 <div class="tags">
-  
+
 
 </div>
         </dt>
         <dd><pre class="code"><span class='kw'>nil</span></pre></dd>
-      
+
         <dt id="VERSION-constant" class="">VERSION =
           <div class="docstring">
   <div class="discussion">
-    
+
 <p>Version String of Jenkins API Client.</p>
 
 
   </div>
 </div>
 <div class="tags">
-  
+
 
 </div>
         </dt>
         <dd><pre class="code"><span class='lbracket'>[</span><span class='const'>MAJOR</span><span class='comma'>,</span> <span class='const'>MINOR</span><span class='comma'>,</span> <span class='const'>TINY</span><span class='comma'>,</span> <span class='const'>PRE</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>.</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span></pre></dd>
-      
+
     </dl>
-  
+
 
 
 
 
   <h2>Instance Attribute Summary <small>(<a href="#" class="summary_toggle">collapse</a>)</small></h2>
   <ul class="summary">
-    
+
       <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#logger-instance_method" title="#logger (instance method)">- (Object) <strong>logger</strong> </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-    
-    
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Returns the value of attribute logger.</p>
 </div></span>
-  
+
 </li>
 
-    
+
       <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#timeout-instance_method" title="#timeout (instance method)">- (Object) <strong>timeout</strong> </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-    
-    
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Returns the value of attribute timeout.</p>
 </div></span>
-  
+
 </li>
 
-    
+
   </ul>
 
 
 
 
-  
+
     <h2>
       Instance Method Summary
       <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
     </h2>
 
     <ul class="summary">
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#api_get_request-instance_method" title="#api_get_request (instance method)">- (String, JSON) <strong>api_get_request</strong>(url_prefix, tree = nil, url_suffix = &quot;/api/json&quot;, raw_response = false) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Sends a GET request to the Jenkins CI server with the specified URL.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#api_post_request-instance_method" title="#api_post_request (instance method)">- (String) <strong>api_post_request</strong>(url_prefix, form_data = {}, raw_response = false) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Sends a POST message to the Jenkins CI server with the specified URL.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#exec_cli-instance_method" title="#exec_cli (instance method)">- (String) <strong>exec_cli</strong>(command, args = []) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Execute the Jenkins CLI.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#get_config-instance_method" title="#get_config (instance method)">- (String) <strong>get_config</strong>(url_prefix) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Obtains the configuration of a component from the Jenkins CI server.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#get_hudson_version-instance_method" title="#get_hudson_version (instance method)">- (String) <strong>get_hudson_version</strong> </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Obtain the Hudson version of the CI server.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#get_jenkins_version-instance_method" title="#get_jenkins_version (instance method)">- (Object) <strong>get_jenkins_version</strong> </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Obtains the jenkins version from the API.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#get_root-instance_method" title="#get_root (instance method)">- (Net::HTTP::Response) <strong>get_root</strong> </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Obtains the root of Jenkins server.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#get_server_date-instance_method" title="#get_server_date (instance method)">- (String) <strong>get_server_date</strong> </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Obtain the date of the Jenkins server.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#initialize-instance_method" title="#initialize (instance method)">- (JenkinsApi::Client) <strong>initialize</strong>(args) </a>
-    
 
-    
+
+
   </span>
-  
-  
-    <span class="note title constructor">constructor</span>
-  
-  
-  
-  
-  
-  
 
-  
+
+    <span class="note title constructor">constructor</span>
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Initialize a Client object with Jenkins CI server credentials.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#inspect-instance_method" title="#inspect (instance method)">- (Object) <strong>inspect</strong> </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Overrides the inspect method to get rid of the credentials being shown in
 the in interactive IRB sessions and also when the `inspect` method is
 called.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#job-instance_method" title="#job (instance method)">- (JenkinsApi::Client::Job) <strong>job</strong> </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Creates an instance to the Job class by passing a reference to self.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#node-instance_method" title="#node (instance method)">- (JenkinsApi::Client::Node) <strong>node</strong> </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Creates an instance to the Node class by passing a reference to self.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#post_config-instance_method" title="#post_config (instance method)">- (String) <strong>post_config</strong>(url_prefix, xml) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Posts the given xml configuration to the url given.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#queue-instance_method" title="#queue (instance method)">- (JenkinsApi::Client::BuildQueue) <strong>queue</strong> </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Creates an instance to the BuildQueue by passing a reference to self.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#system-instance_method" title="#system (instance method)">- (JenkinsApi::Client::System) <strong>system</strong> </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Creates an instance to the System class by passing a reference to self.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#to_s-instance_method" title="#to_s (instance method)">- (String) <strong>to_s</strong> </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Returns a string representing the class name.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#use_crumbs%3F-instance_method" title="#use_crumbs? (instance method)">- (Boolean) <strong>use_crumbs?</strong> </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Checks if Jenkins uses crumbs (i.e) the XSS disable option is checked in
 Jenkins' security settings.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#use_security%3F-instance_method" title="#use_security? (instance method)">- (Boolean) <strong>use_security?</strong> </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Checks if Jenkins uses security.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#view-instance_method" title="#view (instance method)">- (JenkinsApi::Client::View) <strong>view</strong> </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Creates an instance to the View class by passing a reference to self.</p>
 </div></span>
-  
+
 </li>
 
-      
+
     </ul>
-  
+
 
 <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
-  
+
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
-  
-    - (<tt><span class='object_link'><a href="" title="JenkinsApi::Client (class)">JenkinsApi::Client</a></span></tt>) <strong>initialize</strong>(args) 
-  
 
-  
+    - (<tt><span class='object_link'><a href="" title="JenkinsApi::Client (class)">JenkinsApi::Client</a></span></tt>) <strong>initialize</strong>(args)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Initialize a Client object with Jenkins CI server credentials</p>
 
 
@@ -836,252 +836,252 @@ Jenkins' security settings.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>args</span>
-      
-      
+
+
         <span class='type'>(<tt>Hash</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>Arguments to connect to Jenkins server</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
-  
-    
-    
+
+
+
     <p class="tag_title">Options Hash (<tt>args</tt>):</p>
     <ul class="option">
-      
+
         <li>
           <span class="name">:server_ip</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'>
 <p>the IP address of the Jenkins CI server</p>
 </div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:server_port</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'>
 <p>the port on which the Jenkins listens</p>
 </div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:server_url</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'>
 <p>the full URL address of the Jenkins CI server (http/https)</p>
 </div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:username</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'>
 <p>the username used for connecting to the server (optional)</p>
 </div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:password</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'>
 <p>the password for connecting to the CI server (optional)</p>
 </div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:password_base64</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'>
 <p>the password with base64 encoded format for connecting to the CI server
 (optional)</p>
 </div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:identity_file</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'>
 <p>the priviate key file for Jenkins CLI authentication, it is used only for
 executing CLI commands. also remember to upload the public key to <a
 href="http://#server_ip:#server_port/user/#my_username/configure">#server_ip:#server_port/user/#my_username/configure</a></p>
 </div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:proxy_ip</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'>
 <p>the proxy IP address</p>
 </div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:proxy_port</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'>
 <p>the proxy port</p>
 </div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:jenkins_path</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'>
 <p>the optional context path for Jenkins</p>
 </div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:ssl</span>
           <span class="type">(<tt>Boolean</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'>
 <p>indicates if Jenkins is accessible over HTTPS (defaults to false)</p>
 </div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:follow_redirects</span>
           <span class="type">(<tt>Boolean</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'>
 <p>This argument causes the client to follow a redirect (jenkins can return a
 30x when starting a build)</p>
 </div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:timeout</span>
           <span class="type">(<tt>Fixnum</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'>
 <p>This argument sets the timeout for the jenkins system to become ready</p>
 </div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:log_location</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'>
 <p>The location for the log file (Defaults to STDOUT)</p>
 </div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:log_level</span>
           <span class="type">(<tt>Fixnum</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'>
 <p>The level for messages to be logged. Should be one of: Logger::DEBUG (0),
 Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
 (Defaults to Logger::INFO)</p>
 </div>
-          
+
         </li>
-      
+
     </ul>
-  
+
 
 <p class="tag_title">Raises:</p>
 <ul class="raise">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>ArgumentError</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>when required options are not provided.</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -1220,33 +1220,33 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
   </tr>
 </table>
 </div>
-  
+
 </div>
 
   <div id="instance_attr_details" class="attr_details">
     <h2>Instance Attribute Details</h2>
-    
-      
+
+
       <span id="logger=-instance_method"></span>
       <div class="method_details first">
   <h3 class="signature first" id="logger-instance_method">
-  
-    - (<tt>Object</tt>) <strong>logger</strong> 
-  
 
-  
+    - (<tt>Object</tt>) <strong>logger</strong>
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Returns the value of attribute logger</p>
 
 
   </div>
 </div>
 <div class="tags">
-  
+
 
 </div><table class="source_code">
   <tr>
@@ -1268,28 +1268,28 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
   </tr>
 </table>
 </div>
-    
-      
+
+
       <span id="timeout=-instance_method"></span>
       <div class="method_details ">
   <h3 class="signature " id="timeout-instance_method">
-  
-    - (<tt>Object</tt>) <strong>timeout</strong> 
-  
 
-  
+    - (<tt>Object</tt>) <strong>timeout</strong>
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Returns the value of attribute timeout</p>
 
 
   </div>
 </div>
 <div class="tags">
-  
+
 
 </div><table class="source_code">
   <tr>
@@ -1311,26 +1311,26 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
   </tr>
 </table>
 </div>
-    
+
   </div>
 
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
 
-    
+
       <div class="method_details first">
   <h3 class="signature first" id="api_get_request-instance_method">
-  
-    - (<tt>String</tt>, <tt>JSON</tt>) <strong>api_get_request</strong>(url_prefix, tree = nil, url_suffix = &quot;/api/json&quot;, raw_response = false) 
-  
 
-  
+    - (<tt>String</tt>, <tt>JSON</tt>) <strong>api_get_request</strong>(url_prefix, tree = nil, url_suffix = &quot;/api/json&quot;, raw_response = false)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Sends a GET request to the Jenkins CI server with the specified URL</p>
 
 
@@ -1339,96 +1339,96 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>url_prefix</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>The prefix to use in the URL</p>
 </div>
-      
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>tree</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
+
+
         <em class="default">(defaults to: <tt>nil</tt>)</em>
-      
-      
+
+
         &mdash;
         <div class='inline'>
 <p>A specific JSON tree to optimize the API call</p>
 </div>
-      
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>url_suffix</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
+
+
         <em class="default">(defaults to: <tt>&quot;/api/json&quot;</tt>)</em>
-      
-      
+
+
         &mdash;
         <div class='inline'>
 <p>The suffix to be used in the URL</p>
 </div>
-      
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>raw_response</span>
-      
-      
+
+
         <span class='type'>(<tt>Boolean</tt>)</span>
-      
-      
+
+
         <em class="default">(defaults to: <tt>false</tt>)</em>
-      
-      
+
+
         &mdash;
         <div class='inline'>
 <p>Return complete Response object instead of JSON body of response</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>, <tt>JSON</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>JSON response from Jenkins</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -1483,19 +1483,19 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="api_post_request-instance_method">
-  
-    - (<tt>String</tt>) <strong>api_post_request</strong>(url_prefix, form_data = {}, raw_response = false) 
-  
 
-  
+    - (<tt>String</tt>) <strong>api_post_request</strong>(url_prefix, form_data = {}, raw_response = false)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Sends a POST message to the Jenkins CI server with the specified URL</p>
 
 
@@ -1504,60 +1504,60 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>url_prefix</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>The prefix to be used in the URL</p>
 </div>
-      
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>form_data</span>
-      
-      
+
+
         <span class='type'>(<tt>Hash</tt>)</span>
-      
-      
+
+
         <em class="default">(defaults to: <tt>{}</tt>)</em>
-      
-      
+
+
         &mdash;
         <div class='inline'>
 <p>Form data to send with POST request</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>Response code form Jenkins Response</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -1638,19 +1638,19 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="exec_cli-instance_method">
-  
-    - (<tt>String</tt>) <strong>exec_cli</strong>(command, args = []) 
-  
 
-  
+    - (<tt>String</tt>) <strong>exec_cli</strong>(command, args = [])
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Execute the Jenkins CLI</p>
 
 
@@ -1659,78 +1659,78 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>command</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>command name</p>
 </div>
-      
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>args</span>
-      
-      
+
+
         <span class='type'>(<tt>Array</tt>)</span>
-      
-      
+
+
         <em class="default">(defaults to: <tt>[]</tt>)</em>
-      
-      
+
+
         &mdash;
         <div class='inline'>
 <p>the arguments for the command</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>command output from the CLI</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 <p class="tag_title">Raises:</p>
 <ul class="raise">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt><span class='object_link'><a href="Exceptions.html#CLIException-constant" title="JenkinsApi::Exceptions::CLIException (constant)">Exceptions::CLIException</a></span></tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>if there are issues in running the commands using CLI</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -1795,19 +1795,19 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="get_config-instance_method">
-  
-    - (<tt>String</tt>) <strong>get_config</strong>(url_prefix) 
-  
 
-  
+    - (<tt>String</tt>) <strong>get_config</strong>(url_prefix)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Obtains the configuration of a component from the Jenkins CI server</p>
 
 
@@ -1816,42 +1816,42 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>url_prefix</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>The prefix to be used in the URL</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>XML configuration obtained from Jenkins</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -1882,43 +1882,43 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="get_hudson_version-instance_method">
-  
-    - (<tt>String</tt>) <strong>get_hudson_version</strong> 
-  
 
-  
+    - (<tt>String</tt>) <strong>get_hudson_version</strong>
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Obtain the Hudson version of the CI server</p>
 
 
   </div>
 </div>
 <div class="tags">
-  
+
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>Version of Hudson on Jenkins server</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -1943,43 +1943,43 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="get_jenkins_version-instance_method">
-  
-    - (<tt>Object</tt>) <strong>get_jenkins_version</strong> 
-  
 
-  
+    - (<tt>Object</tt>) <strong>get_jenkins_version</strong>
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Obtains the jenkins version from the API</p>
 
 
   </div>
 </div>
 <div class="tags">
-  
+
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'></span>
-      
-      
-      
-        
+
+
+
+
         <div class='inline'>
 <p>Jenkins version</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -2004,19 +2004,19 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="get_root-instance_method">
-  
-    - (<tt>Net::HTTP::Response</tt>) <strong>get_root</strong> 
-  
 
-  
+    - (<tt>Net::HTTP::Response</tt>) <strong>get_root</strong>
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Obtains the root of Jenkins server. This function is used to see if Jenkins
 is running</p>
 
@@ -2024,24 +2024,24 @@ is running</p>
   </div>
 </div>
 <div class="tags">
-  
+
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>Net::HTTP::Response</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>Response from Jenkins for “/”</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -2068,43 +2068,43 @@ is running</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="get_server_date-instance_method">
-  
-    - (<tt>String</tt>) <strong>get_server_date</strong> 
-  
 
-  
+    - (<tt>String</tt>) <strong>get_server_date</strong>
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Obtain the date of the Jenkins server</p>
 
 
   </div>
 </div>
 <div class="tags">
-  
+
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>Server date</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -2129,19 +2129,19 @@ is running</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="inspect-instance_method">
-  
-    - (<tt>Object</tt>) <strong>inspect</strong> 
-  
 
-  
+    - (<tt>Object</tt>) <strong>inspect</strong>
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Overrides the inspect method to get rid of the credentials being shown in
 the in interactive IRB sessions and also when the `inspect` method is
 called. Just print the important variables.</p>
@@ -2150,7 +2150,7 @@ called. Just print the important variables.</p>
   </div>
 </div>
 <div class="tags">
-  
+
 
 </div><table class="source_code">
   <tr>
@@ -2186,43 +2186,43 @@ called. Just print the important variables.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="job-instance_method">
-  
-    - (<tt><span class='object_link'><a href="Client/Job.html" title="JenkinsApi::Client::Job (class)">JenkinsApi::Client::Job</a></span></tt>) <strong>job</strong> 
-  
 
-  
+    - (<tt><span class='object_link'><a href="Client/Job.html" title="JenkinsApi::Client::Job (class)">JenkinsApi::Client::Job</a></span></tt>) <strong>job</strong>
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Creates an instance to the Job class by passing a reference to self</p>
 
 
   </div>
 </div>
 <div class="tags">
-  
+
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt><span class='object_link'><a href="Client/Job.html" title="JenkinsApi::Client::Job (class)">JenkinsApi::Client::Job</a></span></tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>An object to Job subclass</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -2245,43 +2245,43 @@ called. Just print the important variables.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="node-instance_method">
-  
-    - (<tt><span class='object_link'><a href="Client/Node.html" title="JenkinsApi::Client::Node (class)">JenkinsApi::Client::Node</a></span></tt>) <strong>node</strong> 
-  
 
-  
+    - (<tt><span class='object_link'><a href="Client/Node.html" title="JenkinsApi::Client::Node (class)">JenkinsApi::Client::Node</a></span></tt>) <strong>node</strong>
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Creates an instance to the Node class by passing a reference to self</p>
 
 
   </div>
 </div>
 <div class="tags">
-  
+
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt><span class='object_link'><a href="Client/Node.html" title="JenkinsApi::Client::Node (class)">JenkinsApi::Client::Node</a></span></tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>An object to Node subclass</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -2304,19 +2304,19 @@ called. Just print the important variables.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="post_config-instance_method">
-  
-    - (<tt>String</tt>) <strong>post_config</strong>(url_prefix, xml) 
-  
 
-  
+    - (<tt>String</tt>) <strong>post_config</strong>(url_prefix, xml)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Posts the given xml configuration to the url given</p>
 
 
@@ -2325,58 +2325,58 @@ called. Just print the important variables.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>url_prefix</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>The prefix to be used in the URL</p>
 </div>
-      
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>xml</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>The XML configuration to be sent to Jenkins</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>Response code returned from Jenkins</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -2445,43 +2445,43 @@ called. Just print the important variables.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="queue-instance_method">
-  
-    - (<tt><span class='object_link'><a href="Client/BuildQueue.html" title="JenkinsApi::Client::BuildQueue (class)">JenkinsApi::Client::BuildQueue</a></span></tt>) <strong>queue</strong> 
-  
 
-  
+    - (<tt><span class='object_link'><a href="Client/BuildQueue.html" title="JenkinsApi::Client::BuildQueue (class)">JenkinsApi::Client::BuildQueue</a></span></tt>) <strong>queue</strong>
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Creates an instance to the BuildQueue by passing a reference to self</p>
 
 
   </div>
 </div>
 <div class="tags">
-  
+
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt><span class='object_link'><a href="Client/BuildQueue.html" title="JenkinsApi::Client::BuildQueue (class)">JenkinsApi::Client::BuildQueue</a></span></tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>An object to BuildQueue subclass</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -2504,43 +2504,43 @@ called. Just print the important variables.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="system-instance_method">
-  
-    - (<tt><span class='object_link'><a href="Client/System.html" title="JenkinsApi::Client::System (class)">JenkinsApi::Client::System</a></span></tt>) <strong>system</strong> 
-  
 
-  
+    - (<tt><span class='object_link'><a href="Client/System.html" title="JenkinsApi::Client::System (class)">JenkinsApi::Client::System</a></span></tt>) <strong>system</strong>
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Creates an instance to the System class by passing a reference to self</p>
 
 
   </div>
 </div>
 <div class="tags">
-  
+
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt><span class='object_link'><a href="Client/System.html" title="JenkinsApi::Client::System (class)">JenkinsApi::Client::System</a></span></tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>An object to System subclass</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -2563,43 +2563,43 @@ called. Just print the important variables.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="to_s-instance_method">
-  
-    - (<tt>String</tt>) <strong>to_s</strong> 
-  
 
-  
+    - (<tt>String</tt>) <strong>to_s</strong>
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Returns a string representing the class name</p>
 
 
   </div>
 </div>
 <div class="tags">
-  
+
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>string representation of class name</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -2622,19 +2622,19 @@ called. Just print the important variables.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="use_crumbs?-instance_method">
-  
-    - (<tt>Boolean</tt>) <strong>use_crumbs?</strong> 
-  
 
-  
+    - (<tt>Boolean</tt>) <strong>use_crumbs?</strong>
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Checks if Jenkins uses crumbs (i.e) the XSS disable option is checked in
 Jenkins' security settings</p>
 
@@ -2642,24 +2642,24 @@ Jenkins' security settings</p>
   </div>
 </div>
 <div class="tags">
-  
+
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>Boolean</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>whether Jenkins uses crumbs or not</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -2684,43 +2684,43 @@ Jenkins' security settings</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="use_security?-instance_method">
-  
-    - (<tt>Boolean</tt>) <strong>use_security?</strong> 
-  
 
-  
+    - (<tt>Boolean</tt>) <strong>use_security?</strong>
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Checks if Jenkins uses security</p>
 
 
   </div>
 </div>
 <div class="tags">
-  
+
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>Boolean</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>whether Jenkins uses security or not</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -2745,43 +2745,43 @@ Jenkins' security settings</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="view-instance_method">
-  
-    - (<tt><span class='object_link'><a href="Client/View.html" title="JenkinsApi::Client::View (class)">JenkinsApi::Client::View</a></span></tt>) <strong>view</strong> 
-  
 
-  
+    - (<tt><span class='object_link'><a href="Client/View.html" title="JenkinsApi::Client::View (class)">JenkinsApi::Client::View</a></span></tt>) <strong>view</strong>
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Creates an instance to the View class by passing a reference to self</p>
 
 
   </div>
 </div>
 <div class="tags">
-  
+
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt><span class='object_link'><a href="Client/View.html" title="JenkinsApi::Client::View (class)">JenkinsApi::Client::View</a></span></tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>An object to View subclass</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -2804,7 +2804,7 @@ Jenkins' security settings</p>
   </tr>
 </table>
 </div>
-    
+
   </div>
 
 </div>
@@ -2814,6 +2814,18 @@ Jenkins' security settings</p>
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.2 (ruby-1.9.3).
 </div>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-37519629-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
 
   </body>
 </html>

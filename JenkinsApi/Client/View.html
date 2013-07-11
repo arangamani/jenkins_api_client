@@ -5,9 +5,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>
   Class: JenkinsApi::Client::View
-  
+
     &mdash; Documentation by YARD 0.8.6.2
-  
+
 </title>
 
   <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
@@ -30,33 +30,33 @@
   <body>
     <div id="header">
       <div id="menu">
-  
+
     <a href="../../_index.html">Index (V)</a> &raquo;
     <span class='title'><span class='object_link'><a href="../../JenkinsApi.html" title="JenkinsApi (module)">JenkinsApi</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Client.html" title="JenkinsApi::Client (class)">Client</a></span></span>
-     &raquo; 
+     &raquo;
     <span class="title">View</span>
-  
+
 
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
       <div id="search">
-  
+
     <a class="full_list_link" id="class_list_link"
         href="../../class_list.html">
       Class List
     </a>
-  
+
     <a class="full_list_link" id="method_list_link"
         href="../../method_list.html">
       Method List
     </a>
-  
+
     <a class="full_list_link" id="file_list_link"
         href="../../file_list.html">
       File List
     </a>
-  
+
 </div>
       <div class="clear"></div>
     </div>
@@ -64,44 +64,44 @@
     <iframe id="search_frame"></iframe>
 
     <div id="content"><h1>Class: JenkinsApi::Client::View
-  
-  
-  
+
+
+
 </h1>
 
 <dl class="box">
-  
+
     <dt class="r1">Inherits:</dt>
     <dd class="r1">
       <span class="inheritName">Object</span>
-      
+
         <ul class="fullTree">
           <li>Object</li>
-          
+
             <li class="next">JenkinsApi::Client::View</li>
-          
+
         </ul>
         <a href="#" class="inheritanceTree">show all</a>
-      
+
       </dd>
-    
-  
-  
-    
-  
-    
-  
-  
-  
+
+
+
+
+
+
+
+
+
     <dt class="r2 last">Defined in:</dt>
     <dd class="r2 last">lib/jenkins_api_client/view.rb</dd>
-  
+
 </dl>
 <div class="clear"></div>
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
+
 <p>This class communicates with Jenkins "/view" API and used to create,
 delete, update, and various other operations permitted on the Jenkins API.</p>
 
@@ -109,7 +109,7 @@ delete, update, and various other operations permitted on the Jenkins API.</p>
   </div>
 </div>
 <div class="tags">
-  
+
 
 </div>
 
@@ -118,346 +118,346 @@ delete, update, and various other operations permitted on the Jenkins API.</p>
 
 
 
-  
+
     <h2>
       Instance Method Summary
       <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
     </h2>
 
     <ul class="summary">
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#add_job-instance_method" title="#add_job (instance method)">- (Object) <strong>add_job</strong>(view_name, job_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Add a job to view.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#create-instance_method" title="#create (instance method)">- (Object) <strong>create</strong>(view_name, type = &quot;listview&quot;) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Creates a new empty view of the given type.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#create_list_view-instance_method" title="#create_list_view (instance method)">- (Object) <strong>create_list_view</strong>(params) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Creates a listview by accepting the given parameters hash.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#delete-instance_method" title="#delete (instance method)">- (Object) <strong>delete</strong>(view_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Delete a view.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#delete_all%21-instance_method" title="#delete_all! (instance method)">- (Object) <strong>delete_all!</strong> </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Deletes all views (except the All view) in Jenkins.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#exists%3F-instance_method" title="#exists? (instance method)">- (Boolean) <strong>exists?</strong>(view_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Checks if the given view exists in Jenkins.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#get_config-instance_method" title="#get_config (instance method)">- (Object) <strong>get_config</strong>(view_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Obtain the configuration stored in config.xml of a specific view.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#initialize-instance_method" title="#initialize (instance method)">- (View) <strong>initialize</strong>(client) </a>
-    
 
-    
+
+
   </span>
-  
-  
-    <span class="note title constructor">constructor</span>
-  
-  
-  
-  
-  
-  
 
-  
+
+    <span class="note title constructor">constructor</span>
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Initializes a new view object.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#list-instance_method" title="#list (instance method)">- (Object) <strong>list</strong>(filter = &quot;&quot;, ignorecase = true) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>This method lists all views.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#list_jobs-instance_method" title="#list_jobs (instance method)">- (Array) <strong>list_jobs</strong>(view_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>List jobs in a view.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#post_config-instance_method" title="#post_config (instance method)">- (Object) <strong>post_config</strong>(view_name, xml) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Post the configuration of a view given the view name and the config.xml.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#remove_job-instance_method" title="#remove_job (instance method)">- (Object) <strong>remove_job</strong>(view_name, job_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Remove a job from view.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#to_s-instance_method" title="#to_s (instance method)">- (Object) <strong>to_s</strong> </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Return a string representation of the object.</p>
 </div></span>
-  
+
 </li>
 
-      
+
     </ul>
-  
+
 
 <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
-  
+
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
-  
-    - (<tt><span class='object_link'><a href="" title="JenkinsApi::Client::View (class)">View</a></span></tt>) <strong>initialize</strong>(client) 
-  
 
-  
+    - (<tt><span class='object_link'><a href="" title="JenkinsApi::Client::View (class)">View</a></span></tt>) <strong>initialize</strong>(client)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Initializes a new view object</p>
 
 
@@ -466,23 +466,23 @@ delete, update, and various other operations permitted on the Jenkins API.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>client</span>
-      
-      
+
+
         <span class='type'>(<tt>Object</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>reference to Client</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 
@@ -508,26 +508,26 @@ delete, update, and various other operations permitted on the Jenkins API.</p>
   </tr>
 </table>
 </div>
-  
+
 </div>
 
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
 
-    
+
       <div class="method_details first">
   <h3 class="signature first" id="add_job-instance_method">
-  
-    - (<tt>Object</tt>) <strong>add_job</strong>(view_name, job_name) 
-  
 
-  
+    - (<tt>Object</tt>) <strong>add_job</strong>(view_name, job_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Add a job to view</p>
 
 
@@ -536,29 +536,29 @@ delete, update, and various other operations permitted on the Jenkins API.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>view_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>job_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 
@@ -586,19 +586,19 @@ delete, update, and various other operations permitted on the Jenkins API.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="create-instance_method">
-  
-    - (<tt>Object</tt>) <strong>create</strong>(view_name, type = &quot;listview&quot;) 
-  
 
-  
+    - (<tt>Object</tt>) <strong>create</strong>(view_name, type = &quot;listview&quot;)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Creates a new empty view of the given type</p>
 
 <p>listview, myview. Default: listview</p>
@@ -609,41 +609,41 @@ delete, update, and various other operations permitted on the Jenkins API.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>view_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>Name of the view to be created</p>
 </div>
-      
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>type</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
+
+
         <em class="default">(defaults to: <tt>&quot;listview&quot;</tt>)</em>
-      
-      
+
+
         &mdash;
         <div class='inline'>
 <p>Type of view to be created. Valid options:</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 
@@ -701,19 +701,19 @@ delete, update, and various other operations permitted on the Jenkins API.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="create_list_view-instance_method">
-  
-    - (<tt>Object</tt>) <strong>create_list_view</strong>(params) 
-  
 
-  
+    - (<tt>Object</tt>) <strong>create_list_view</strong>(params)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Creates a listview by accepting the given parameters hash</p>
 
 
@@ -722,130 +722,130 @@ delete, update, and various other operations permitted on the Jenkins API.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>params</span>
-      
-      
+
+
         <span class='type'>(<tt>Hash</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>options to create the new view</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
-  
-    
-    
+
+
+
     <p class="tag_title">Options Hash (<tt>params</tt>):</p>
     <ul class="option">
-      
+
         <li>
           <span class="name">:name</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'>
 <p>Name of the view</p>
 </div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:description</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'>
 <p>Description of the view</p>
 </div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:status_filter</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'>
 <p>Filter jobs based on the status. Valid options: all_selected_jobs,
 enabled_jobs_only, disabled_jobs_only. Default: all_selected_jobs</p>
 </div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:filter_queue</span>
           <span class="type">(<tt>TrueClass|FalseClass</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'>
 <p>true or false</p>
 </div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:filter_executors</span>
           <span class="type">(<tt>TrueClass|FalseClass</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'>
 <p>true or false</p>
 </div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:regex</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'>
 <p>Regular expression to filter jobs that are to be added to the view</p>
 </div>
-          
+
         </li>
-      
+
     </ul>
-  
+
 
 <p class="tag_title">Raises:</p>
 <ul class="raise">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>ArgumentError</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>if the required parameter <tt>:name</tt> is not specified</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -992,19 +992,19 @@ enabled_jobs_only, disabled_jobs_only. Default: all_selected_jobs</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="delete-instance_method">
-  
-    - (<tt>Object</tt>) <strong>delete</strong>(view_name) 
-  
 
-  
+    - (<tt>Object</tt>) <strong>delete</strong>(view_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Delete a view</p>
 
 
@@ -1013,18 +1013,18 @@ enabled_jobs_only, disabled_jobs_only. Default: all_selected_jobs</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>view_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 
@@ -1050,19 +1050,19 @@ enabled_jobs_only, disabled_jobs_only. Default: all_selected_jobs</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="delete_all!-instance_method">
-  
-    - (<tt>Object</tt>) <strong>delete_all!</strong> 
-  
 
-  
+    - (<tt>Object</tt>) <strong>delete_all!</strong>
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
@@ -1078,7 +1078,7 @@ Please use with caution.</p>
   </div>
 </div>
 <div class="tags">
-  
+
 
 </div><table class="source_code">
   <tr>
@@ -1102,19 +1102,19 @@ Please use with caution.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="exists?-instance_method">
-  
-    - (<tt>Boolean</tt>) <strong>exists?</strong>(view_name) 
-  
 
-  
+    - (<tt>Boolean</tt>) <strong>exists?</strong>(view_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Checks if the given view exists in Jenkins</p>
 
 
@@ -1123,32 +1123,32 @@ Please use with caution.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>view_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>Boolean</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -1171,19 +1171,19 @@ Please use with caution.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="get_config-instance_method">
-  
-    - (<tt>Object</tt>) <strong>get_config</strong>(view_name) 
-  
 
-  
+    - (<tt>Object</tt>) <strong>get_config</strong>(view_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Obtain the configuration stored in config.xml of a specific view</p>
 
 
@@ -1192,18 +1192,18 @@ Please use with caution.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>view_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 
@@ -1229,19 +1229,19 @@ Please use with caution.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="list-instance_method">
-  
-    - (<tt>Object</tt>) <strong>list</strong>(filter = &quot;&quot;, ignorecase = true) 
-  
 
-  
+    - (<tt>Object</tt>) <strong>list</strong>(filter = &quot;&quot;, ignorecase = true)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>This method lists all views</p>
 
 
@@ -1250,43 +1250,43 @@ Please use with caution.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>filter</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
+
+
         <em class="default">(defaults to: <tt>&quot;&quot;</tt>)</em>
-      
-      
+
+
         &mdash;
         <div class='inline'>
 <p>a regex to filter view names</p>
 </div>
-      
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>ignorecase</span>
-      
-      
+
+
         <span class='type'>(<tt>Bool</tt>)</span>
-      
-      
+
+
         <em class="default">(defaults to: <tt>true</tt>)</em>
-      
-      
+
+
         &mdash;
         <div class='inline'>
 <p>whether to be case sensitive or not</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 
@@ -1330,19 +1330,19 @@ Please use with caution.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="list_jobs-instance_method">
-  
-    - (<tt>Array</tt>) <strong>list_jobs</strong>(view_name) 
-  
 
-  
+    - (<tt>Array</tt>) <strong>list_jobs</strong>(view_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>List jobs in a view</p>
 
 
@@ -1351,37 +1351,37 @@ Please use with caution.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>view_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>Array</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>job_names list of jobs in the specified view</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -1420,19 +1420,19 @@ Please use with caution.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="post_config-instance_method">
-  
-    - (<tt>Object</tt>) <strong>post_config</strong>(view_name, xml) 
-  
 
-  
+    - (<tt>Object</tt>) <strong>post_config</strong>(view_name, xml)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Post the configuration of a view given the view name and the config.xml</p>
 
 
@@ -1441,29 +1441,29 @@ Please use with caution.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>view_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>xml</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 
@@ -1489,19 +1489,19 @@ Please use with caution.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="remove_job-instance_method">
-  
-    - (<tt>Object</tt>) <strong>remove_job</strong>(view_name, job_name) 
-  
 
-  
+    - (<tt>Object</tt>) <strong>remove_job</strong>(view_name, job_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Remove a job from view</p>
 
 
@@ -1510,29 +1510,29 @@ Please use with caution.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>view_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>job_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 
@@ -1560,26 +1560,26 @@ Please use with caution.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="to_s-instance_method">
-  
-    - (<tt>Object</tt>) <strong>to_s</strong> 
-  
 
-  
+    - (<tt>Object</tt>) <strong>to_s</strong>
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Return a string representation of the object</p>
 
 
   </div>
 </div>
 <div class="tags">
-  
+
 
 </div><table class="source_code">
   <tr>
@@ -1601,7 +1601,7 @@ Please use with caution.</p>
   </tr>
 </table>
 </div>
-    
+
   </div>
 
 </div>
@@ -1611,6 +1611,16 @@ Please use with caution.</p>
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.2 (ruby-1.9.3).
 </div>
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-37519629-2']);
+  _gaq.push(['_trackPageview']);
 
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
   </body>
 </html>

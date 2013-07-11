@@ -5,9 +5,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>
   Class: JenkinsApi::Client::Job
-  
+
     &mdash; Documentation by YARD 0.8.6.2
-  
+
 </title>
 
   <link rel="stylesheet" href="../../css/style.css" type="text/css" charset="utf-8" />
@@ -30,33 +30,33 @@
   <body>
     <div id="header">
       <div id="menu">
-  
+
     <a href="../../_index.html">Index (J)</a> &raquo;
     <span class='title'><span class='object_link'><a href="../../JenkinsApi.html" title="JenkinsApi (module)">JenkinsApi</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Client.html" title="JenkinsApi::Client (class)">Client</a></span></span>
-     &raquo; 
+     &raquo;
     <span class="title">Job</span>
-  
+
 
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
       <div id="search">
-  
+
     <a class="full_list_link" id="class_list_link"
         href="../../class_list.html">
       Class List
     </a>
-  
+
     <a class="full_list_link" id="method_list_link"
         href="../../method_list.html">
       Method List
     </a>
-  
+
     <a class="full_list_link" id="file_list_link"
         href="../../file_list.html">
       File List
     </a>
-  
+
 </div>
       <div class="clear"></div>
     </div>
@@ -64,44 +64,44 @@
     <iframe id="search_frame"></iframe>
 
     <div id="content"><h1>Class: JenkinsApi::Client::Job
-  
-  
-  
+
+
+
 </h1>
 
 <dl class="box">
-  
+
     <dt class="r1">Inherits:</dt>
     <dd class="r1">
       <span class="inheritName">Object</span>
-      
+
         <ul class="fullTree">
           <li>Object</li>
-          
+
             <li class="next">JenkinsApi::Client::Job</li>
-          
+
         </ul>
         <a href="#" class="inheritanceTree">show all</a>
-      
+
       </dd>
-    
-  
-  
-    
-  
-    
-  
-  
-  
+
+
+
+
+
+
+
+
+
     <dt class="r2 last">Defined in:</dt>
     <dd class="r2 last">lib/jenkins_api_client/job.rb</dd>
-  
+
 </dl>
 <div class="clear"></div>
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    
+
 <p>This class communicates with the Jenkins "/job" API to obtain details about
 jobs, creating, deleting, building, and various other operations.</p>
 
@@ -109,7 +109,7 @@ jobs, creating, deleting, building, and various other operations.</p>
   </div>
 </div>
 <div class="tags">
-  
+
 
 </div>
 
@@ -118,1130 +118,1130 @@ jobs, creating, deleting, building, and various other operations.</p>
 
 
 
-  
+
     <h2>
       Instance Method Summary
       <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
     </h2>
 
     <ul class="summary">
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#add_downstream_projects-instance_method" title="#add_downstream_projects (instance method)">- (String) <strong>add_downstream_projects</strong>(job_name, downstream_projects, threshold, overwrite = false) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Add downstream projects to a specific job given the job name, projects to
 be added as downstream projects, and the threshold.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#add_email_notification-instance_method" title="#add_email_notification (instance method)">- (Object) <strong>add_email_notification</strong>(params) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Adding email notification to a job.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#add_skype_notification-instance_method" title="#add_skype_notification (instance method)">- (Object) <strong>add_skype_notification</strong>(params) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Adding skype notificaiton to a job.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#block_build_when_downstream_building-instance_method" title="#block_build_when_downstream_building (instance method)">- (String) <strong>block_build_when_downstream_building</strong>(job_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Block the build of the job when downstream is building.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#block_build_when_upstream_building-instance_method" title="#block_build_when_upstream_building (instance method)">- (String) <strong>block_build_when_upstream_building</strong>(job_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Block the build of the job when upstream is building.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#build-instance_method" title="#build (instance method)">- (String, Integer) <strong>build</strong>(job_name, params = {}, return_build_number = false) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Build a job given the name of the job You can optionally pass in a list of
 params for Jenkins to use for parameterized builds.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#chain-instance_method" title="#chain (instance method)">- (Array) <strong>chain</strong>(job_names, threshold, criteria, parallel = 1) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Chain the jobs given based on specified criteria.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#change_description-instance_method" title="#change_description (instance method)">- (String) <strong>change_description</strong>(job_name, description) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Change the description of a specific job.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#color_to_status-instance_method" title="#color_to_status (instance method)">- (String) <strong>color_to_status</strong>(color) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>This method maps the color to status of a job.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#copy-instance_method" title="#copy (instance method)">- (Object) <strong>copy</strong>(from_job_name, to_job_name = nil) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Copy a job.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#create-instance_method" title="#create (instance method)">- (Object) <strong>create</strong>(job_name, xml) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Create a job with the name specified and the xml given.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#create_freestyle-instance_method" title="#create_freestyle (instance method)">- (Object) <strong>create_freestyle</strong>(params) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Create a job with params given as a hash instead of the xml This gives some
 flexibility for creating simple jobs so the user doesn't have to learn
 about handling xml.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#delete-instance_method" title="#delete (instance method)">- (Object) <strong>delete</strong>(job_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Delete a job given the name.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#delete_all%21-instance_method" title="#delete_all! (instance method)">- (Object) <strong>delete_all!</strong> </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Deletes all jobs from Jenkins.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#disable-instance_method" title="#disable (instance method)">- (Object) <strong>disable</strong>(job_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Disable a job given the name of the job.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#enable-instance_method" title="#enable (instance method)">- (Object) <strong>enable</strong>(job_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Enable a job given the name of the job.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#execute_concurrent_builds-instance_method" title="#execute_concurrent_builds (instance method)">- (String) <strong>execute_concurrent_builds</strong>(job_name, option) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Allow or disable concurrent build execution.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#exists%3F-instance_method" title="#exists? (instance method)">- (Boolean) <strong>exists?</strong>(job_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Checks if the given job exists in Jenkins.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#get_build_details-instance_method" title="#get_build_details (instance method)">- (Object) <strong>get_build_details</strong>(job_name, build_num) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Obtain detailed build info for a job.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#get_build_params-instance_method" title="#get_build_params (instance method)">- (Array) <strong>get_build_params</strong>(job_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Obtain the build parameters of a job.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#get_builds-instance_method" title="#get_builds (instance method)">- (Object) <strong>get_builds</strong>(job_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Obtain build details of a specific job.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#get_config-instance_method" title="#get_config (instance method)">- (String) <strong>get_config</strong>(job_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Obtain the configuration stored in config.xml of a specific job.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#get_console_output-instance_method" title="#get_console_output (instance method)">- (Hash) <strong>get_console_output</strong>(job_name, build_num = 0, start = 0, mode = 'text') </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Get progressive console output from Jenkins server for a job.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#get_current_build_number-instance_method" title="#get_current_build_number (instance method)">- (Number) <strong>get_current_build_number</strong>(job_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Obtain the current build number of the given job This function returns nil
 if there were no builds for the given job.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#get_current_build_status-instance_method" title="#get_current_build_status (instance method)">- (String) <strong>get_current_build_status</strong>(job_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Obtain the current build status of the job By defaule Jenkins returns the
 color of the job status icon This function translates the color into a
 meaningful status.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#get_downstream_projects-instance_method" title="#get_downstream_projects (instance method)">- (Object) <strong>get_downstream_projects</strong>(job_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>List downstream projects of a specific job.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#get_test_results-instance_method" title="#get_test_results (instance method)">- (Object) <strong>get_test_results</strong>(job_name, build_num) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Obtain the test results for a specific build of a job.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#get_upstream_projects-instance_method" title="#get_upstream_projects (instance method)">- (Object) <strong>get_upstream_projects</strong>(job_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>List upstream projects of a specific job.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#initialize-instance_method" title="#initialize (instance method)">- (Job) <strong>initialize</strong>(client) </a>
-    
 
-    
+
+
   </span>
-  
-  
-    <span class="note title constructor">constructor</span>
-  
-  
-  
-  
-  
-  
 
-  
+
+    <span class="note title constructor">constructor</span>
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Initialize the Job object and store the reference to Client object.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#list-instance_method" title="#list (instance method)">- (Object) <strong>list</strong>(filter, ignorecase = true) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>List all jobs that match the given regex.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#list_all-instance_method" title="#list_all (instance method)">- (Object) <strong>list_all</strong> </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>List all jobs on the Jenkins CI server.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#list_all_with_details-instance_method" title="#list_all_with_details (instance method)">- (Object) <strong>list_all_with_details</strong> </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>List all jobs on the Jenkins CI server along with their details.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#list_by_status-instance_method" title="#list_by_status (instance method)">- (Object) <strong>list_by_status</strong>(status, jobs = []) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>List all Jobs matching the given status You can optionally pass in jobs
 list to filter the status from.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#list_details-instance_method" title="#list_details (instance method)">- (Object) <strong>list_details</strong>(job_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>List details of a specific job.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#post_config-instance_method" title="#post_config (instance method)">- (String) <strong>post_config</strong>(job_name, xml) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Post the configuration of a job given the job name and the config.xml.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#recreate-instance_method" title="#recreate (instance method)">- (Object) <strong>recreate</strong>(job_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Re-create the same job This is a hack to clear any existing builds.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#remove_downstream_projects-instance_method" title="#remove_downstream_projects (instance method)">- (String) <strong>remove_downstream_projects</strong>(job_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Remove all downstream projects of a specific job.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#rename-instance_method" title="#rename (instance method)">- (Object) <strong>rename</strong>(old_job, new_job) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Rename a job given the old name and new name.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#restrict_to_node-instance_method" title="#restrict_to_node (instance method)">- (String) <strong>restrict_to_node</strong>(job_name, node_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Resctrict the given job to a specific node.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#stop_build-instance_method" title="#stop_build (instance method)">- (Object) <strong>stop_build</strong>(job_name, build_number = 0) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Stops a running build of a job This method will stop the current/most
 recent build if no build number is specified.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#to_s-instance_method" title="#to_s (instance method)">- (Object) <strong>to_s</strong> </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Return a string representation of the object.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#unblock_build_when_downstream_building-instance_method" title="#unblock_build_when_downstream_building (instance method)">- (String) <strong>unblock_build_when_downstream_building</strong>(job_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Unblock the build of the job when downstream is building.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#unblock_build_when_upstream_building-instance_method" title="#unblock_build_when_upstream_building (instance method)">- (String) <strong>unblock_build_when_upstream_building</strong>(job_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Unblock the build of the job when upstream is building.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#unchain-instance_method" title="#unchain (instance method)">- (Object) <strong>unchain</strong>(job_names) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Unchain any existing chain between given job names.</p>
 </div></span>
-  
+
 </li>
 
-      
+
         <li class="public ">
   <span class="summary_signature">
-    
+
       <a href="#wipe_out_workspace-instance_method" title="#wipe_out_workspace (instance method)">- (Object) <strong>wipe_out_workspace</strong>(job_name) </a>
-    
 
-    
+
+
   </span>
-  
-  
-  
-  
-  
-  
-  
 
-  
+
+
+
+
+
+
+
+
     <span class="summary_desc"><div class='inline'>
 <p>Wipe out the workspace for a job given the name.</p>
 </div></span>
-  
+
 </li>
 
-      
+
     </ul>
-  
+
 
 <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
-  
+
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
-  
-    - (<tt><span class='object_link'><a href="" title="JenkinsApi::Client::Job (class)">Job</a></span></tt>) <strong>initialize</strong>(client) 
-  
 
-  
+    - (<tt><span class='object_link'><a href="" title="JenkinsApi::Client::Job (class)">Job</a></span></tt>) <strong>initialize</strong>(client)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Initialize the Job object and store the reference to Client object</p>
 
 
   </div>
 </div>
 <div class="tags">
-  
+
 
 </div><table class="source_code">
   <tr>
@@ -1265,26 +1265,26 @@ recent build if no build number is specified.</p>
   </tr>
 </table>
 </div>
-  
+
 </div>
 
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
 
-    
+
       <div class="method_details first">
   <h3 class="signature first" id="add_downstream_projects-instance_method">
-  
-    - (<tt>String</tt>) <strong>add_downstream_projects</strong>(job_name, downstream_projects, threshold, overwrite = false) 
-  
 
-  
+    - (<tt>String</tt>) <strong>add_downstream_projects</strong>(job_name, downstream_projects, threshold, overwrite = false)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Add downstream projects to a specific job given the job name, projects to
 be added as downstream projects, and the threshold</p>
 
@@ -1294,84 +1294,84 @@ be added as downstream projects, and the threshold</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>job_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>downstream_projects</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>threshold</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'><ul><li>
 <p>failure, success, or unstable</p>
 </li></ul>
 </div>
-      
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>overwrite</span>
-      
-      
+
+
         <span class='type'>(<tt>Boolean</tt>)</span>
-      
-      
+
+
         <em class="default">(defaults to: <tt>false</tt>)</em>
-      
-      
+
+
         &mdash;
         <div class='inline'><ul><li>
 <p>true or false</p>
 </li></ul>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>response_code return code from HTTP POST</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -1460,19 +1460,19 @@ be added as downstream projects, and the threshold</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="add_email_notification-instance_method">
-  
-    - (<tt>Object</tt>) <strong>add_email_notification</strong>(params) 
-  
 
-  
+    - (<tt>Object</tt>) <strong>add_email_notification</strong>(params)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Adding email notification to a job</p>
 
 <p>Send email notification email for every unstable build</p>
@@ -1483,68 +1483,68 @@ be added as downstream projects, and the threshold</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>params</span>
-      
-      
+
+
         <span class='type'>(<tt>Hash</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>parameters to add email notification</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
-  
-    
-    
+
+
+
     <p class="tag_title">Options Hash (<tt>params</tt>):</p>
     <ul class="option">
-      
+
         <li>
           <span class="name">:name</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'>
 <p>Name of the job</p>
 </div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:notification_email</span>
           <span class="type">(<tt>String</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
             &mdash; <div class='inline'>
 <p>Email address to send</p>
 </div>
-          
+
         </li>
-      
+
         <li>
           <span class="name">:notification_email_for_every_unstable</span>
           <span class="type">(<tt>TrueClass|FalseClass</tt>)</span>
           <span class="default">
-            
+
           </span>
-          
+
         </li>
-      
+
     </ul>
-  
+
 
 
 </div><table class="source_code">
@@ -1597,19 +1597,19 @@ be added as downstream projects, and the threshold</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="add_skype_notification-instance_method">
-  
-    - (<tt>Object</tt>) <strong>add_skype_notification</strong>(params) 
-  
 
-  
+    - (<tt>Object</tt>) <strong>add_skype_notification</strong>(params)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Adding skype notificaiton to a job</p>
 
 
@@ -1618,16 +1618,16 @@ be added as downstream projects, and the threshold</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>params</span>
-      
-      
+
+
         <span class='type'>(<tt>Hash</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>parameters for adding skype notification</p>
@@ -1657,9 +1657,9 @@ just_summary, summary_and_scm_changes, summary_and_build_parameters,
 summary_scm_changes_and_failed_tests. Default: summary_and_scm_changes</p>
 </li></ul>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 
@@ -1711,19 +1711,19 @@ summary_scm_changes_and_failed_tests. Default: summary_and_scm_changes</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="block_build_when_downstream_building-instance_method">
-  
-    - (<tt>String</tt>) <strong>block_build_when_downstream_building</strong>(job_name) 
-  
 
-  
+    - (<tt>String</tt>) <strong>block_build_when_downstream_building</strong>(job_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Block the build of the job when downstream is building</p>
 
 
@@ -1732,37 +1732,37 @@ summary_scm_changes_and_failed_tests. Default: summary_and_scm_changes</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>job_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>response_code return code from HTTP POST</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -1803,19 +1803,19 @@ summary_scm_changes_and_failed_tests. Default: summary_and_scm_changes</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="block_build_when_upstream_building-instance_method">
-  
-    - (<tt>String</tt>) <strong>block_build_when_upstream_building</strong>(job_name) 
-  
 
-  
+    - (<tt>String</tt>) <strong>block_build_when_upstream_building</strong>(job_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Block the build of the job when upstream is building</p>
 
 
@@ -1824,37 +1824,37 @@ summary_scm_changes_and_failed_tests. Default: summary_and_scm_changes</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>job_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>response_code return code from HTTP POST</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -1895,19 +1895,19 @@ summary_scm_changes_and_failed_tests. Default: summary_and_scm_changes</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="build-instance_method">
-  
-    - (<tt>String</tt>, <tt>Integer</tt>) <strong>build</strong>(job_name, params = {}, return_build_number = false) 
-  
 
-  
+    - (<tt>String</tt>, <tt>Integer</tt>) <strong>build</strong>(job_name, params = {}, return_build_number = false)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Build a job given the name of the job You can optionally pass in a list of
 params for Jenkins to use for parameterized builds</p>
 
@@ -1917,71 +1917,71 @@ params for Jenkins to use for parameterized builds</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>job_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>the name of the job</p>
 </div>
-      
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>params</span>
-      
-      
+
+
         <span class='type'>(<tt>Hash</tt>)</span>
-      
-      
+
+
         <em class="default">(defaults to: <tt>{}</tt>)</em>
-      
-      
+
+
         &mdash;
         <div class='inline'>
 <p>the parameters for parameterized builds</p>
 </div>
-      
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>return_build_number</span>
-      
-      
+
+
         <span class='type'>(<tt>Boolean</tt>)</span>
-      
-      
+
+
         <em class="default">(defaults to: <tt>false</tt>)</em>
-      
-      
+
+
         &mdash;
         <div class='inline'>
 <p>whether to wait and obtain the build number</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>, <tt>Integer</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>the response code from the build POST request if return_build_number is not
@@ -1990,9 +1990,9 @@ will be returned if the build number is requested and not available. This
 can happen if there is already a job in the queue and concurrent build is
 disabled.</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -2081,19 +2081,19 @@ disabled.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="chain-instance_method">
-  
-    - (<tt>Array</tt>) <strong>chain</strong>(job_names, threshold, criteria, parallel = 1) 
-  
 
-  
+    - (<tt>Array</tt>) <strong>chain</strong>(job_names, threshold, criteria, parallel = 1)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Chain the jobs given based on specified criteria</p>
 
 
@@ -2102,92 +2102,92 @@ disabled.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>job_names</span>
-      
-      
+
+
         <span class='type'>(<tt>Array</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>Array of job names to be chained</p>
 </div>
-      
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>threshold</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>threshold for running the next job</p>
 </div>
-      
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>criteria</span>
-      
-      
+
+
         <span class='type'>(<tt>Array</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>criteria which should be applied for picking the jobs for the chain</p>
 </div>
-      
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>parallel</span>
-      
-      
+
+
         <span class='type'>(<tt>Integer</tt>)</span>
-      
-      
+
+
         <em class="default">(defaults to: <tt>1</tt>)</em>
-      
-      
+
+
         &mdash;
         <div class='inline'>
 <p>Number of jobs that should be considered for parallel run</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>Array</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>job_names Names of jobs that are in the top of the chain</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -2262,19 +2262,19 @@ disabled.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="change_description-instance_method">
-  
-    - (<tt>String</tt>) <strong>change_description</strong>(job_name, description) 
-  
 
-  
+    - (<tt>String</tt>) <strong>change_description</strong>(job_name, description)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Change the description of a specific job</p>
 
 
@@ -2283,48 +2283,48 @@ disabled.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>job_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>description</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>response_code return code from HTTP POST</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -2359,19 +2359,19 @@ disabled.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="color_to_status-instance_method">
-  
-    - (<tt>String</tt>) <strong>color_to_status</strong>(color) 
-  
 
-  
+    - (<tt>String</tt>) <strong>color_to_status</strong>(color)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>This method maps the color to status of a job</p>
 
 
@@ -2380,42 +2380,42 @@ disabled.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>color</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>color given by the API for a job</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>status status of the given job matching the color</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -2474,19 +2474,19 @@ disabled.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="copy-instance_method">
-  
-    - (<tt>Object</tt>) <strong>copy</strong>(from_job_name, to_job_name = nil) 
-  
 
-  
+    - (<tt>Object</tt>) <strong>copy</strong>(from_job_name, to_job_name = nil)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Copy a job</p>
 
 
@@ -2495,31 +2495,31 @@ disabled.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>from_job_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>to_job_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
+
+
         <em class="default">(defaults to: <tt>nil</tt>)</em>
-      
-      
+
+
     </li>
-  
+
 </ul>
 
 
@@ -2551,19 +2551,19 @@ disabled.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="create-instance_method">
-  
-    - (<tt>Object</tt>) <strong>create</strong>(job_name, xml) 
-  
 
-  
+    - (<tt>Object</tt>) <strong>create</strong>(job_name, xml)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Create a job with the name specified and the xml given</p>
 
 
@@ -2572,29 +2572,29 @@ disabled.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>job_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>xml</span>
-      
-      
+
+
         <span class='type'>(<tt>XML</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 
@@ -2620,19 +2620,19 @@ disabled.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="create_freestyle-instance_method">
-  
-    - (<tt>Object</tt>) <strong>create_freestyle</strong>(params) 
-  
 
-  
+    - (<tt>Object</tt>) <strong>create_freestyle</strong>(params)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Create a job with params given as a hash instead of the xml This gives some
 flexibility for creating simple jobs so the user doesn't have to learn
 about handling xml.</p>
@@ -2641,15 +2641,15 @@ about handling xml.</p>
   </div>
 </div>
 <div class="tags">
-  
+
   <div class="examples">
     <p class="tag_title">Examples:</p>
-    
-      
+
+
         <p class="example_title"><div class='inline'>
 <p>Create a Freestype Project</p>
 </div></p>
-      
+
       <pre class="example code"><code><span class='id identifier rubyid_create_freestyle'>create_freestyle</span><span class='lparen'>(</span>
   <span class='symbol'>:name</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>test_freestyle_job</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
   <span class='symbol'>:keep_dependencies</span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='comma'>,</span>
@@ -2659,20 +2659,20 @@ about handling xml.</p>
   <span class='symbol'>:scm_branch</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>master</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
   <span class='symbol'>:shell_command</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bundle install\n rake func_tests</span><span class='tstring_end'>&quot;</span></span>
 <span class='rparen'>)</span></code></pre>
-    
+
   </div>
 <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>params</span>
-      
-      
+
+
         <span class='type'>(<tt>Hash</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'><ul><li>
 <p><tt>:name</tt> name of the job</p>
@@ -2731,23 +2731,23 @@ summary_scm_changes_and_failed_tests. Default: summary_and_scm_changes</p>
 or unstable. Default: failure.</p>
 </li></ul>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Raises:</p>
 <ul class="raise">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>ArgumentError</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -2988,19 +2988,19 @@ or unstable. Default: failure.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="delete-instance_method">
-  
-    - (<tt>Object</tt>) <strong>delete</strong>(job_name) 
-  
 
-  
+    - (<tt>Object</tt>) <strong>delete</strong>(job_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Delete a job given the name</p>
 
 
@@ -3009,18 +3009,18 @@ or unstable. Default: failure.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>job_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 
@@ -3046,19 +3046,19 @@ or unstable. Default: failure.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="delete_all!-instance_method">
-  
-    - (<tt>Object</tt>) <strong>delete_all!</strong> 
-  
 
-  
+    - (<tt>Object</tt>) <strong>delete_all!</strong>
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
   <div class="note notetag">
     <strong>Note:</strong>
     <div class='inline'>
@@ -3073,7 +3073,7 @@ or unstable. Default: failure.</p>
   </div>
 </div>
 <div class="tags">
-  
+
 
 </div><table class="source_code">
   <tr>
@@ -3097,19 +3097,19 @@ or unstable. Default: failure.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="disable-instance_method">
-  
-    - (<tt>Object</tt>) <strong>disable</strong>(job_name) 
-  
 
-  
+    - (<tt>Object</tt>) <strong>disable</strong>(job_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Disable a job given the name of the job</p>
 
 
@@ -3118,18 +3118,18 @@ or unstable. Default: failure.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>job_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 
@@ -3155,19 +3155,19 @@ or unstable. Default: failure.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="enable-instance_method">
-  
-    - (<tt>Object</tt>) <strong>enable</strong>(job_name) 
-  
 
-  
+    - (<tt>Object</tt>) <strong>enable</strong>(job_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Enable a job given the name of the job</p>
 
 
@@ -3176,18 +3176,18 @@ or unstable. Default: failure.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>job_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 
@@ -3213,19 +3213,19 @@ or unstable. Default: failure.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="execute_concurrent_builds-instance_method">
-  
-    - (<tt>String</tt>) <strong>execute_concurrent_builds</strong>(job_name, option) 
-  
 
-  
+    - (<tt>String</tt>) <strong>execute_concurrent_builds</strong>(job_name, option)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Allow or disable concurrent build execution</p>
 
 
@@ -3234,53 +3234,53 @@ or unstable. Default: failure.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>job_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>option</span>
-      
-      
+
+
         <span class='type'>(<tt>Bool</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>true or false</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>response_code return code from HTTP POST</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -3321,19 +3321,19 @@ or unstable. Default: failure.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="exists?-instance_method">
-  
-    - (<tt>Boolean</tt>) <strong>exists?</strong>(job_name) 
-  
 
-  
+    - (<tt>Boolean</tt>) <strong>exists?</strong>(job_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Checks if the given job exists in Jenkins</p>
 
 
@@ -3342,32 +3342,32 @@ or unstable. Default: failure.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>job_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>Boolean</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -3390,19 +3390,19 @@ or unstable. Default: failure.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="get_build_details-instance_method">
-  
-    - (<tt>Object</tt>) <strong>get_build_details</strong>(job_name, build_num) 
-  
 
-  
+    - (<tt>Object</tt>) <strong>get_build_details</strong>(job_name, build_num)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Obtain detailed build info for a job</p>
 
 
@@ -3411,29 +3411,29 @@ or unstable. Default: failure.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>job_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>build_num</span>
-      
-      
+
+
         <span class='type'>(<tt>Number</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 
@@ -3465,19 +3465,19 @@ or unstable. Default: failure.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="get_build_params-instance_method">
-  
-    - (<tt>Array</tt>) <strong>get_build_params</strong>(job_name) 
-  
 
-  
+    - (<tt>Array</tt>) <strong>get_build_params</strong>(job_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Obtain the build parameters of a job. It returns an array of hashes with
 details of job params.</p>
 
@@ -3487,37 +3487,37 @@ details of job params.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>job_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>Array</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>params_array Array of parameters for the given job</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -3730,19 +3730,19 @@ details of job params.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="get_builds-instance_method">
-  
-    - (<tt>Object</tt>) <strong>get_builds</strong>(job_name) 
-  
 
-  
+    - (<tt>Object</tt>) <strong>get_builds</strong>(job_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Obtain build details of a specific job</p>
 
 
@@ -3751,18 +3751,18 @@ details of job params.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>job_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 
@@ -3790,19 +3790,19 @@ details of job params.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="get_config-instance_method">
-  
-    - (<tt>String</tt>) <strong>get_config</strong>(job_name) 
-  
 
-  
+    - (<tt>String</tt>) <strong>get_config</strong>(job_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Obtain the configuration stored in config.xml of a specific job</p>
 
 
@@ -3811,37 +3811,37 @@ details of job params.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>job_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>XML Config.xml of the job</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -3866,19 +3866,19 @@ details of job params.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="get_console_output-instance_method">
-  
-    - (<tt>Hash</tt>) <strong>get_console_output</strong>(job_name, build_num = 0, start = 0, mode = 'text') 
-  
 
-  
+    - (<tt>Hash</tt>) <strong>get_console_output</strong>(job_name, build_num = 0, start = 0, mode = 'text')
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Get progressive console output from Jenkins server for a job</p>
 
 
@@ -3887,90 +3887,90 @@ details of job params.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>job_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>Name of the Jenkins job</p>
 </div>
-      
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>build_num</span>
-      
-      
+
+
         <span class='type'>(<tt>Number</tt>)</span>
-      
-      
+
+
         <em class="default">(defaults to: <tt>0</tt>)</em>
-      
-      
+
+
         &mdash;
         <div class='inline'>
 <p>Specific build number to obtain the console output from. Default is the
 recent build</p>
 </div>
-      
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>start</span>
-      
-      
+
+
         <span class='type'>(<tt>Number</tt>)</span>
-      
-      
+
+
         <em class="default">(defaults to: <tt>0</tt>)</em>
-      
-      
+
+
         &mdash;
         <div class='inline'>
 <p>start offset to get only a portion of the text</p>
 </div>
-      
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>mode</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
+
+
         <em class="default">(defaults to: <tt>'text'</tt>)</em>
-      
-      
+
+
         &mdash;
         <div class='inline'>
 <p>Mode of text output. ‘text’ or ‘html’</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>Hash</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>response</p>
@@ -3987,9 +3987,9 @@ recent build</p>
 <pre class="code ruby"><code class="ruby">and nil otherwise</code></pre>
 </li></ul>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -4056,19 +4056,19 @@ recent build</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="get_current_build_number-instance_method">
-  
-    - (<tt>Number</tt>) <strong>get_current_build_number</strong>(job_name) 
-  
 
-  
+    - (<tt>Number</tt>) <strong>get_current_build_number</strong>(job_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Obtain the current build number of the given job This function returns nil
 if there were no builds for the given job.</p>
 
@@ -4078,37 +4078,37 @@ if there were no builds for the given job.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>job_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>Number</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>build_unumber current build number of the given job</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -4133,19 +4133,19 @@ if there were no builds for the given job.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="get_current_build_status-instance_method">
-  
-    - (<tt>String</tt>) <strong>get_current_build_status</strong>(job_name) 
-  
 
-  
+    - (<tt>String</tt>) <strong>get_current_build_status</strong>(job_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Obtain the current build status of the job By defaule Jenkins returns the
 color of the job status icon This function translates the color into a
 meaningful status</p>
@@ -4156,37 +4156,37 @@ meaningful status</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>job_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>status current status of the given job</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -4213,19 +4213,19 @@ meaningful status</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="get_downstream_projects-instance_method">
-  
-    - (<tt>Object</tt>) <strong>get_downstream_projects</strong>(job_name) 
-  
 
-  
+    - (<tt>Object</tt>) <strong>get_downstream_projects</strong>(job_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>List downstream projects of a specific job</p>
 
 
@@ -4234,18 +4234,18 @@ meaningful status</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>job_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 
@@ -4273,19 +4273,19 @@ meaningful status</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="get_test_results-instance_method">
-  
-    - (<tt>Object</tt>) <strong>get_test_results</strong>(job_name, build_num) 
-  
 
-  
+    - (<tt>Object</tt>) <strong>get_test_results</strong>(job_name, build_num)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Obtain the test results for a specific build of a job</p>
 
 
@@ -4294,29 +4294,29 @@ meaningful status</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>job_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>build_num</span>
-      
-      
+
+
         <span class='type'>(<tt>Number</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 
@@ -4354,19 +4354,19 @@ meaningful status</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="get_upstream_projects-instance_method">
-  
-    - (<tt>Object</tt>) <strong>get_upstream_projects</strong>(job_name) 
-  
 
-  
+    - (<tt>Object</tt>) <strong>get_upstream_projects</strong>(job_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>List upstream projects of a specific job</p>
 
 
@@ -4375,18 +4375,18 @@ meaningful status</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>job_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 
@@ -4414,19 +4414,19 @@ meaningful status</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="list-instance_method">
-  
-    - (<tt>Object</tt>) <strong>list</strong>(filter, ignorecase = true) 
-  
 
-  
+    - (<tt>Object</tt>) <strong>list</strong>(filter, ignorecase = true)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>List all jobs that match the given regex</p>
 
 
@@ -4435,37 +4435,37 @@ meaningful status</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>filter</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'><ul><li>
 <p>a regex</p>
 </li></ul>
 </div>
-      
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>ignorecase</span>
-      
-      
+
+
         <span class='type'>(<tt>Boolean</tt>)</span>
-      
-      
+
+
         <em class="default">(defaults to: <tt>true</tt>)</em>
-      
-      
+
+
     </li>
-  
+
 </ul>
 
 
@@ -4509,26 +4509,26 @@ meaningful status</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="list_all-instance_method">
-  
-    - (<tt>Object</tt>) <strong>list_all</strong> 
-  
 
-  
+    - (<tt>Object</tt>) <strong>list_all</strong>
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>List all jobs on the Jenkins CI server</p>
 
 
   </div>
 </div>
 <div class="tags">
-  
+
 
 </div><table class="source_code">
   <tr>
@@ -4556,26 +4556,26 @@ meaningful status</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="list_all_with_details-instance_method">
-  
-    - (<tt>Object</tt>) <strong>list_all_with_details</strong> 
-  
 
-  
+    - (<tt>Object</tt>) <strong>list_all_with_details</strong>
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>List all jobs on the Jenkins CI server along with their details</p>
 
 
   </div>
 </div>
 <div class="tags">
-  
+
 
 </div><table class="source_code">
   <tr>
@@ -4601,19 +4601,19 @@ meaningful status</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="list_by_status-instance_method">
-  
-    - (<tt>Object</tt>) <strong>list_by_status</strong>(status, jobs = []) 
-  
 
-  
+    - (<tt>Object</tt>) <strong>list_by_status</strong>(status, jobs = [])
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>List all Jobs matching the given status You can optionally pass in jobs
 list to filter the status from</p>
 
@@ -4623,31 +4623,31 @@ list to filter the status from</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>status</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>jobs</span>
-      
-      
+
+
         <span class='type'>(<tt>Array</tt>)</span>
-      
-      
+
+
         <em class="default">(defaults to: <tt>[]</tt>)</em>
-      
-      
+
+
     </li>
-  
+
 </ul>
 
 
@@ -4691,19 +4691,19 @@ list to filter the status from</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="list_details-instance_method">
-  
-    - (<tt>Object</tt>) <strong>list_details</strong>(job_name) 
-  
 
-  
+    - (<tt>Object</tt>) <strong>list_details</strong>(job_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>List details of a specific job</p>
 
 
@@ -4712,18 +4712,18 @@ list to filter the status from</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>job_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 
@@ -4749,19 +4749,19 @@ list to filter the status from</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="post_config-instance_method">
-  
-    - (<tt>String</tt>) <strong>post_config</strong>(job_name, xml) 
-  
 
-  
+    - (<tt>String</tt>) <strong>post_config</strong>(job_name, xml)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Post the configuration of a job given the job name and the config.xml</p>
 
 
@@ -4770,48 +4770,48 @@ list to filter the status from</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>job_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>xml</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>response_code return code from HTTP POST</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -4836,19 +4836,19 @@ list to filter the status from</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="recreate-instance_method">
-  
-    - (<tt>Object</tt>) <strong>recreate</strong>(job_name) 
-  
 
-  
+    - (<tt>Object</tt>) <strong>recreate</strong>(job_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Re-create the same job This is a hack to clear any existing builds</p>
 
 
@@ -4857,18 +4857,18 @@ list to filter the status from</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>job_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 
@@ -4898,19 +4898,19 @@ list to filter the status from</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="remove_downstream_projects-instance_method">
-  
-    - (<tt>String</tt>) <strong>remove_downstream_projects</strong>(job_name) 
-  
 
-  
+    - (<tt>String</tt>) <strong>remove_downstream_projects</strong>(job_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Remove all downstream projects of a specific job</p>
 
 
@@ -4919,37 +4919,37 @@ list to filter the status from</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>job_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>response_code return code from HTTP POST</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -5020,19 +5020,19 @@ list to filter the status from</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="rename-instance_method">
-  
-    - (<tt>Object</tt>) <strong>rename</strong>(old_job, new_job) 
-  
 
-  
+    - (<tt>Object</tt>) <strong>rename</strong>(old_job, new_job)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Rename a job given the old name and new name</p>
 
 
@@ -5041,39 +5041,39 @@ list to filter the status from</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>old_job</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>Name of the old job</p>
 </div>
-      
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>new_job</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>Name of the new job.</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 
@@ -5099,19 +5099,19 @@ list to filter the status from</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="restrict_to_node-instance_method">
-  
-    - (<tt>String</tt>) <strong>restrict_to_node</strong>(job_name, node_name) 
-  
 
-  
+    - (<tt>String</tt>) <strong>restrict_to_node</strong>(job_name, node_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Resctrict the given job to a specific node</p>
 
 
@@ -5120,48 +5120,48 @@ list to filter the status from</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>job_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>node_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>response_code return code from HTTP POST</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -5208,19 +5208,19 @@ list to filter the status from</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="stop_build-instance_method">
-  
-    - (<tt>Object</tt>) <strong>stop_build</strong>(job_name, build_number = 0) 
-  
 
-  
+    - (<tt>Object</tt>) <strong>stop_build</strong>(job_name, build_number = 0)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Stops a running build of a job This method will stop the current/most
 recent build if no build number is specified. The build will be stopped
 only if it was in 'running' state.</p>
@@ -5231,31 +5231,31 @@ only if it was in 'running' state.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>job_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
     <li>
-      
+
         <span class='name'>build_number</span>
-      
-      
+
+
         <span class='type'>(<tt>Number</tt>)</span>
-      
-      
+
+
         <em class="default">(defaults to: <tt>0</tt>)</em>
-      
-      
+
+
     </li>
-  
+
 </ul>
 
 
@@ -5297,26 +5297,26 @@ only if it was in 'running' state.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="to_s-instance_method">
-  
-    - (<tt>Object</tt>) <strong>to_s</strong> 
-  
 
-  
+    - (<tt>Object</tt>) <strong>to_s</strong>
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Return a string representation of the object</p>
 
 
   </div>
 </div>
 <div class="tags">
-  
+
 
 </div><table class="source_code">
   <tr>
@@ -5338,19 +5338,19 @@ only if it was in 'running' state.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="unblock_build_when_downstream_building-instance_method">
-  
-    - (<tt>String</tt>) <strong>unblock_build_when_downstream_building</strong>(job_name) 
-  
 
-  
+    - (<tt>String</tt>) <strong>unblock_build_when_downstream_building</strong>(job_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Unblock the build of the job when downstream is building</p>
 
 
@@ -5359,37 +5359,37 @@ only if it was in 'running' state.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>job_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>response_code return code from HTTP POST</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -5430,19 +5430,19 @@ only if it was in 'running' state.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="unblock_build_when_upstream_building-instance_method">
-  
-    - (<tt>String</tt>) <strong>unblock_build_when_upstream_building</strong>(job_name) 
-  
 
-  
+    - (<tt>String</tt>) <strong>unblock_build_when_upstream_building</strong>(job_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Unblock the build of the job when upstream is building</p>
 
 
@@ -5451,37 +5451,37 @@ only if it was in 'running' state.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>job_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 <p class="tag_title">Returns:</p>
 <ul class="return">
-  
+
     <li>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>response_code return code from HTTP POST</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 </div><table class="source_code">
@@ -5522,19 +5522,19 @@ only if it was in 'running' state.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="unchain-instance_method">
-  
-    - (<tt>Object</tt>) <strong>unchain</strong>(job_names) 
-  
 
-  
+    - (<tt>Object</tt>) <strong>unchain</strong>(job_names)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Unchain any existing chain between given job names</p>
 
 
@@ -5543,23 +5543,23 @@ only if it was in 'running' state.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>job_names</span>
-      
-      
+
+
         <span class='type'>(<tt>Array</tt>)</span>
-      
-      
-      
+
+
+
         &mdash;
         <div class='inline'>
 <p>Array of job names to be unchained</p>
 </div>
-      
+
     </li>
-  
+
 </ul>
 
 
@@ -5585,19 +5585,19 @@ only if it was in 'running' state.</p>
   </tr>
 </table>
 </div>
-    
+
       <div class="method_details ">
   <h3 class="signature " id="wipe_out_workspace-instance_method">
-  
-    - (<tt>Object</tt>) <strong>wipe_out_workspace</strong>(job_name) 
-  
 
-  
+    - (<tt>Object</tt>) <strong>wipe_out_workspace</strong>(job_name)
 
-  
+
+
+
+
 </h3><div class="docstring">
   <div class="discussion">
-    
+
 <p>Wipe out the workspace for a job given the name</p>
 
 
@@ -5606,18 +5606,18 @@ only if it was in 'running' state.</p>
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
+
     <li>
-      
+
         <span class='name'>job_name</span>
-      
-      
+
+
         <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
+
+
+
     </li>
-  
+
 </ul>
 
 
@@ -5643,7 +5643,7 @@ only if it was in 'running' state.</p>
   </tr>
 </table>
 </div>
-    
+
   </div>
 
 </div>
@@ -5653,6 +5653,16 @@ only if it was in 'running' state.</p>
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.6.2 (ruby-1.9.3).
 </div>
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-37519629-2']);
+  _gaq.push(['_trackPageview']);
 
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
   </body>
 </html>
