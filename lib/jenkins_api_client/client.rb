@@ -463,7 +463,8 @@ module JenkinsApi
       cmd = "java -jar #{base_dir}/../../java_deps/jenkins-cli.jar -s #{server_url}"
       cmd << " -i #{@identity_file}" if @identity_file && !@identity_file.empty?
       cmd << " #{command}"
-      cmd << " --username #{@username} --password #{@password} " if @identity_file.nil? || @identity_file.empty?
+      cmd << " --username #{@username} --password #{@password}" if @identity_file.nil? || @identity_file.empty?
+      cmd << ' '
       cmd << args.join(' ')
       java_cmd = Mixlib::ShellOut.new(cmd)
 
