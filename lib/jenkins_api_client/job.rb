@@ -100,6 +100,11 @@ module JenkinsApi
       #   )
       #
       def create_freestyle(params)
+        xml = build_config(params)
+        create(params[:name], xml)
+      end
+
+      def build_config(params)
         # Supported SCM providers
         supported_scm = ["git", "subversion", "cvs"]
 
@@ -209,7 +214,12 @@ module JenkinsApi
             xml.buildWrappers
           }
         }
-        create(params[:name], builder.to_xml)
+        builder.to_xml
+      end
+
+      def update(params)
+        xml = build_config(params)
+        post_config(params[:name], xml)
       end
 
       # Adding email notification to a job
