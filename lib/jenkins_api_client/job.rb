@@ -100,11 +100,11 @@ module JenkinsApi
       #   )
       #
       def create_freestyle(params)
-        xml = build_config(params)
+        xml = build_freestyle_config(params)
         create(params[:name], xml)
       end
 
-      def build_config(params)
+      def build_freestyle_config(params)
         # Supported SCM providers
         supported_scm = ["git", "subversion", "cvs"]
 
@@ -217,9 +217,23 @@ module JenkinsApi
         builder.to_xml
       end
 
-      def update(params)
-        xml = build_config(params)
+      # Update a job with params given as a hash instead of the xml
+      # This gives some flexibility for updating simple jobs so the user
+      # doesn't have to learn about handling xml.
+      #
+      # @param [Hash] params
+      # Same as create_freestyle
+      def update_freestyle(params)
+        xml = build_freestyle_config(params)
         post_config(params[:name], xml)
+      end
+
+      def create_or_update_freestyle(params)
+        if exists?(params[:name])
+          update_freestyle(params)
+        else
+          create_freestyle(params)
+        end
       end
 
       # Adding email notification to a job
