@@ -228,6 +228,10 @@ module JenkinsApi
         post_config(params[:name], xml)
       end
 
+      # Create or Update a job with params given as a hash instead of the xml
+      #
+      # @param [Hash] params
+      # Same as create_freestyle
       def create_or_update_freestyle(params)
         if exists?(params[:name])
           update_freestyle(params)
