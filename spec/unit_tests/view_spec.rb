@@ -4,7 +4,7 @@ describe JenkinsApi::Client::View do
   context "With properly initialized Client" do
     before do
       mock_logger = Logger.new "/dev/null"
-      @client = mock
+      @client = double
       @client.should_receive(:logger).and_return(mock_logger)
       @view = JenkinsApi::Client::View.new(@client)
       @sample_views_json = {

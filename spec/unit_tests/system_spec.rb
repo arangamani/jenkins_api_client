@@ -5,7 +5,7 @@ describe JenkinsApi::Client::System do
     before do
       mock_logger = Logger.new "/dev/null"
       mock_timeout = 300
-      @client = mock
+      @client = double
       @client.should_receive(:logger).and_return(mock_logger)
       @client.should_receive(:timeout).and_return(mock_timeout)
       @system = JenkinsApi::Client::System.new(@client)

@@ -434,10 +434,8 @@ module JenkinsApi
       # List all jobs on the Jenkins CI server
       #
       def list_all
-        response_json = @client.api_get_request("")
-        jobs = []
-        response_json["jobs"].each { |job| jobs << job["name"] }
-        jobs.sort!
+        response_json = @client.api_get_request("", "tree=jobs[name]")["jobs"]
+        response_json.map { |job| job["name"] }.sort
       end
 
       # Checks if the given job exists in Jenkins

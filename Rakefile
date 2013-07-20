@@ -3,6 +3,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'jenkins_api_client/version'
 require 'rake'
 require 'jeweler'
+require 'yard'
 
 Jeweler::Tasks.new do |gemspec|
   gemspec.name             = 'jenkins_api_client'
@@ -39,6 +40,12 @@ end
 RSpec::Core::RakeTask.new(:test) do |spec|
   spec.pattern = FileList['spec/*/*.rb']
   spec.rspec_opts = ['--color', '--format documentation']
+end
+
+YARD::Config.load_plugin 'thor'
+YARD::Rake::YardocTask.new do |t|
+  t.files = ['lib/**/*.rb', 'lib/**/**/*.rb']
+#  t.options = ['--debug']
 end
 
 task :default => [:unit_tests]

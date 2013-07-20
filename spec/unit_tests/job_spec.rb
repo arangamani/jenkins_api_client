@@ -6,7 +6,7 @@ describe JenkinsApi::Client::Job do
 
     before do
       mock_logger = Logger.new "/dev/null"
-      @client = mock
+      @client = double
       @client.should_receive(:logger).and_return(mock_logger)
       @job = JenkinsApi::Client::Job.new(@client)
       @sample_json_response = {
