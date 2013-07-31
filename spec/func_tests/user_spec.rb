@@ -1,6 +1,6 @@
 #
-# Specifying JenkinsApi::Client::System class capabilities
-# Author: Kannan Manickam <arangamani.kannan@gmail.com>
+# Specifying JenkinsApi::Client::User class capabilities
+# Author: Doug Henderson <dougforpres@gmail.com>
 #
 
 require File.expand_path('../spec_helper', __FILE__)
