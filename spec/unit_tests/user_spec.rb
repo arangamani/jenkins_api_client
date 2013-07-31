@@ -85,9 +85,9 @@ __USERLIST
       @client.should_receive(:logger).and_return(mock_logger)
       @client.should_receive(:timeout).and_return(mock_timeout)
       @client.stub(:api_get_request).with('/asynchPeople').and_return(PEOPLE_JSON)
-      @client.stub(:api_get_request).with('/users/Fred Flintstone').and_return(FRED_JSON)
-      @client.stub(:api_get_request).with('/users/fred').and_return(FRED_JSON)
-      @client.stub(:api_get_request).with('/users/wilma').and_return(WILMA_JSON)
+      @client.stub(:api_get_request).with('/user/Fred Flintstone').and_return(FRED_JSON)
+      @client.stub(:api_get_request).with('/user/fred').and_return(FRED_JSON)
+      @client.stub(:api_get_request).with('/user/wilma').and_return(WILMA_JSON)
       @user = JenkinsApi::Client::User.new(@client)
     end
 
