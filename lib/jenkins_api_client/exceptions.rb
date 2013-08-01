@@ -117,6 +117,8 @@ module JenkinsApi
         super(logger, msg)
       end
     end
+    # Support for backward compatibility
+    CrumbNotFoundException = CrumbNotFound
 
     class JobNotFound < NotFound
       def initialize(logger, message = "", log_level = Logger::ERROR)
