@@ -100,8 +100,8 @@ module JenkinsApi
     #
     class NotFound < ApiException
       def initialize(logger, message = "", log_level = Logger::ERROR)
-        msg = "Requested component is not found on the Jenkins CI server." \
-          if message.empty?
+        msg = message.empty? ? "Requested component is not found on the" +
+              " Jenkins CI server." : message
         super(logger, msg)
       end
     end
@@ -122,21 +122,21 @@ module JenkinsApi
 
     class JobNotFound < NotFound
       def initialize(logger, message = "", log_level = Logger::ERROR)
-        msg = "The specified job is not found" if message.empty?
+        msg = message.empty? ? "The specified job is not found" : message
         super(logger, msg)
       end
     end
 
     class ViewNotFound < NotFound
       def initialize(logger, message = "", log_level = Logger::ERROR)
-        msg = "The specified view is not found" if message.empty?
+        msg = message.empty? ? "The specified view is not found" : message
         super(logger, msg)
       end
     end
 
     class NodeNotFound < NotFound
       def initialize(logger, message = "", log_level = Logger::ERROR)
-        msg = "The specified node is not found" if message.empty?
+        msg = msg.empty? ? "The specified node is not found" : message
         super(logger, msg)
       end
     end
