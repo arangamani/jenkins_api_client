@@ -324,8 +324,7 @@ module JenkinsApi
       retries = @crumb_max_retries
       begin
         # Identify whether to use crumbs if this is the first POST request.
-        @crumbs_enabled = use_crumbs? if @crumbs_enabled.nil?
-        @crumb = get_crumb if @crumbs_enabled && @crumb.empty?
+        refresh_crumbs
 
         # Added form_data default {} instead of nil to help with proxies
         # that barf with empty post
@@ -343,18 +342,19 @@ module JenkinsApi
         else
           handle_exception(response)
         end
-      rescue Exceptions::ForbiddenException
-        # Only do crumb refresh if crumbs are enabled AND the current crumb
-        # is populated.  This will prevent us attempting to re-get a crumb
-        # when the initial request failed (crumb MUST already be populated
-        # before we get this far!)
-        if @crumbs_enabled && !@crumb.empty?
-          @logger.info "Crumb expired. Refetching from the server. Trying" +
-            " #{@crumb_max_retries - retries + 1} out of #{@crumb_max_retries}" +
-            " times..."
-          @crumb = get_crumb
+      rescue Exceptions::ForbiddenException => e
+        refresh_crumbs(true)
+
+        if @crumbs_enabled
+          @logger.info "Retrying: #{@crumb_max_retries - retries + 1} out of" +
+            " #{@crumb_max_retries} times..."
           retries -= 1
-          retries > 0 ? retry : raise
+
+          if retries > 0
+            retry
+          else
+            raise Exceptions::ForbiddenWithCrumb.new(@logger, e.message)
+          end
         else
           raise
         end
@@ -386,8 +386,7 @@ module JenkinsApi
       retries = @crumb_max_retries
       begin
         # Identify whether to use crumbs if this is the first POST request.
-        @crumbs_enabled = use_crumbs? if @crumbs_enabled.nil?
-        @crumb = get_crumb if @crumbs_enabled && @crumb.empty?
+        refresh_crumbs
 
         url_prefix = URI.escape("#{@jenkins_path}#{url_prefix}")
         request = Net::HTTP::Post.new("#{url_prefix}")
@@ -399,18 +398,19 @@ module JenkinsApi
         end
         response = make_http_request(request)
         handle_exception(response)
-      rescue Exceptions::ForbiddenException
-        # Only do crumb refresh if crumbs are enabled AND the current crumb
-        # is populated.  This will prevent us attempting to re-get a crumb
-        # when the initial request failed (crumb MUST already be populated
-        # before we get this far!)
-        if @crumbs_enabled && !@crumb.empty?
-          @logger.info "Crumb expired. Refetching from the server. Trying" +
-            " #{@crumb_max_retries - retries + 1} out of #{@crumb_max_retries}" +
-            " times..."
-          @crumb = get_crumb
+      rescue Exceptions::ForbiddenException => e
+        refresh_crumbs(true)
+
+        if @crumbs_enabled
+          @logger.info "Retrying: #{@crumb_max_retries - retries + 1} out of" +
+            " #{@crumb_max_retries} times..."
           retries -= 1
-          retries > 0 ? retry : raise
+
+          if retries > 0
+            retry
+          else
+            raise Exceptions::ForbiddenWithCrumb.new(@logger, e.message)
+          end
         else
           raise
         end
@@ -520,6 +520,44 @@ module JenkinsApi
           " Perhaps the client was initialized when the CSRF setting was" +
           " enabled. Please re-initialize the client."
         )
+      end
+    end
+
+    # Used to determine whether crumbs are enabled, and populate/clear our
+    # local crumb accordingly.
+    # @param +force_refresh+ [Boolean] Determines whether the check is
+    #        cursory or deeper.  The default is cursory - i.e. if crumbs
+    #        enabled is 'nil' then figure out what to do, otherwise skip
+    #        If 'true' the method will check to see if the crumbs require-
+    #        ment has changed (by querying Jenkins), and updating crumb
+    #        (refresh, delete, create) as appropriate.
+    def refresh_crumbs(force_refresh = false)
+      # Quick check to see if someone has changed XSS settings and not
+      # restarted us
+      if force_refresh || @crumbs_enabled.nil?
+        old_crumbs_setting = @crumbs_enabled
+        new_crumbs_setting = use_crumbs?
+
+        if old_crumbs_setting != new_crumbs_setting
+          @crumbs_enabled = new_crumbs_setting
+        end
+
+        # Get or clear crumbs setting appropriately
+        # Works as refresh if crumbs still enabled
+        if @crumbs_enabled
+          if old_crumbs_setting
+            @logger.info "Crumb expired.  Refetching from the server."
+          else
+            @logger.info "Crumbs turned on.  Fetching from the server."
+          end
+
+          @crumb = get_crumb if force_refresh || !old_crumbs_setting
+        else
+          if old_crumbs_setting
+            @logger.info "Crumbs turned off.  Clearing crumb."
+            @crumb.clear
+          end
+        end
       end
     end
 
