@@ -344,12 +344,20 @@ module JenkinsApi
           handle_exception(response)
         end
       rescue Exceptions::ForbiddenException
-        @logger.info "Crumb expired. Refetching from the server. Trying" +
-          " #{@crumb_max_retries - retries + 1} out of #{@crumb_max_retries}" +
-          " times..."
-        @crumb = get_crumb
-        retries -= 1
-        retries > 0 ? retry : raise
+        # Only do crumb refresh if crumbs are enabled AND the current crumb
+        # is populated.  This will prevent us attempting to re-get a crumb
+        # when the initial request failed (crumb MUST already be populated
+        # before we get this far!)
+        if @crumbs_enabled && !@crumb.empty?
+          @logger.info "Crumb expired. Refetching from the server. Trying" +
+            " #{@crumb_max_retries - retries + 1} out of #{@crumb_max_retries}" +
+            " times..."
+          @crumb = get_crumb
+          retries -= 1
+          retries > 0 ? retry : raise
+        else
+          raise
+        end
       end
     end
 
@@ -392,12 +400,20 @@ module JenkinsApi
         response = make_http_request(request)
         handle_exception(response)
       rescue Exceptions::ForbiddenException
-        @logger.info "Crumb expired. Refetching from the server. Trying" +
-          " #{@crumb_max_retries - retries + 1} out of #{@crumb_max_retries}" +
-          " times..."
-        @crumb = get_crumb
-        retries -= 1
-        retries > 0 ? retry : raise
+        # Only do crumb refresh if crumbs are enabled AND the current crumb
+        # is populated.  This will prevent us attempting to re-get a crumb
+        # when the initial request failed (crumb MUST already be populated
+        # before we get this far!)
+        if @crumbs_enabled && !@crumb.empty?
+          @logger.info "Crumb expired. Refetching from the server. Trying" +
+            " #{@crumb_max_retries - retries + 1} out of #{@crumb_max_retries}" +
+            " times..."
+          @crumb = get_crumb
+          retries -= 1
+          retries > 0 ? retry : raise
+        else
+          raise
+        end
       end
     end
 
