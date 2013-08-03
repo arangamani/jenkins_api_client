@@ -246,7 +246,7 @@ module JenkinsApi
       #
       # @option params [String] :name Name of the job
       # @option params [String] :notification_email Email address to send
-      # @option params [TrueClass|FalseClass] :notification_email_for_every_unstable
+      # @option params [Boolean] :notification_email_for_every_unstable
       # Send email notification email for every unstable build
       #
       def add_email_notification(params)

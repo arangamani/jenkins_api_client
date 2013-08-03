@@ -78,8 +78,8 @@ module JenkinsApi
       # @option params [String] :status_filter Filter jobs based on the status.
       #         Valid options: all_selected_jobs, enabled_jobs_only,
       #         disabled_jobs_only. Default: all_selected_jobs
-      # @option params [TrueClass|FalseClass] :filter_queue true or false
-      # @option params [TrueClass|FalseClass] :filter_executors true or false
+      # @option params [Boolean] :filter_queue true or false
+      # @option params [Boolean] :filter_executors true or false
       # @option params [String] :regex Regular expression to filter jobs that
       #         are to be added to the view
       #

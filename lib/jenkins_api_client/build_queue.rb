@@ -208,7 +208,7 @@ module JenkinsApi
       #
       # @param [String] task_name name of the task
       #
-      # @return [TrueClass|FalseClass] buildable or not
+      # @return [Boolean] buildable or not
       #
       def is_buildable?(task_name)
         @logger.info "Checking if task '#{task_name}' from the build queue" +
@@ -225,7 +225,7 @@ module JenkinsApi
       #
       # @param [String] task_name name of the task
       #
-      # @return [TrueClass|FalseClass] blocked or not
+      # @return [Boolean] blocked or not
       #
       def is_blocked?(task_name)
         @logger.info "Checking if task '#{task_name}' from the build queue" +
@@ -242,7 +242,7 @@ module JenkinsApi
       #
       # @param [String] task_name name of the task
       #
-      # @return [TrueClass|FalseClass] stuck or not
+      # @return [Boolean] stuck or not
       #
       def is_stuck?(task_name)
         @logger.info "Checking if task '#{task_name}' from the build queue" +
