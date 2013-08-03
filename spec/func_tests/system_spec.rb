@@ -74,7 +74,7 @@ describe JenkinsApi::Client::System do
 
       describe "#list_users" do
         it "Should be able to get a list of users" do
-          @client.system.list_users.size.should == 1
+          @client.system.list_users.should be_an_instance_of(Array)
         end
       end
 

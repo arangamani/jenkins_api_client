@@ -23,23 +23,23 @@ describe JenkinsApi::Client::User do
 
     describe "InstanceMethods" do
 
-      describe "#list_users" do
+      describe "#list" do
         it "Should be able to get a list of users" do
-          @client.user.list_users.size.should == 1
+          @client.user.list.should be_an_instance_of(Hash)
         end
       end
 
-      describe "#get_user" do
+      describe "#get" do
         it "Should be able to get a specific user" do
           # Actually, we're gonna get every user in the main user list
-          users = @client.user.list_users
+          users = @client.user.list
 
           users.each do |id, user|
             id.should eq(user['id'])
-            fetched = @client.user.get_user(id)
+            fetched = @client.user.get(id)
             fetched.should eq(user)
           end
-          
+
         end
       end
 

@@ -53,7 +53,7 @@ module JenkinsApi
       #   * +fullName+ The jenkins user idoutput+ Console output of the job
       #   * +properties+ Size of the text. This ca
       #
-      def list_users
+      def list
         @logger.info "Obtaining the list of users from jenkins"
         # First we need to get the list of users.
         # This is the same as "System.list_users", but since I didn't want to
@@ -64,7 +64,7 @@ module JenkinsApi
         userlist['users'].each { |user|
           # Jenkins seems ok to fetch by full-name, as long as perfect match
           # since the name *came* from Jenkins this seems reasonably safe
-          user = get_user(user['user']['fullName'])
+          user = get(user['user']['fullName'])
           users[user['id']] = user if user
         } unless userlist.nil?
 
@@ -103,7 +103,7 @@ module JenkinsApi
       #     }
       #   ]
       # }
-      def get_user(user_id)
+      def get(user_id)
         response = @client.api_get_request("/user/#{user_id}")
       end
 
