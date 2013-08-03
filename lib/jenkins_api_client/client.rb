@@ -323,7 +323,6 @@ module JenkinsApi
     def api_post_request(url_prefix, form_data = {}, raw_response = false)
       retries = @crumb_max_retries
       begin
-        # Identify whether to use crumbs if this is the first POST request.
         refresh_crumbs
 
         # Added form_data default {} instead of nil to help with proxies
@@ -385,7 +384,6 @@ module JenkinsApi
     def post_config(url_prefix, xml)
       retries = @crumb_max_retries
       begin
-        # Identify whether to use crumbs if this is the first POST request.
         refresh_crumbs
 
         url_prefix = URI.escape("#{@jenkins_path}#{url_prefix}")
