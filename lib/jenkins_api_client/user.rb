@@ -28,6 +28,8 @@ module JenkinsApi
     # level operations - currently limited to fetching user info, but can
     # be extended to support updating user fields
     #
+    # @since 0.14.0
+    #
     class User
 
       # Initializes a new User object.
