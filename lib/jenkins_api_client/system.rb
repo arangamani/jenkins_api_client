@@ -61,7 +61,7 @@ module JenkinsApi
 
       # Restarts the Jenkins server
       #
-      # @param [Bool] force whether to force restart or wait till all
+      # @param [Boolean] force whether to force restart or wait till all
       #               jobs are completed.
       #
       def restart(force = false)
@@ -72,6 +72,12 @@ module JenkinsApi
           @logger.info "Performing a safe restart of jenkins..."
           @client.api_post_request("/safeRestart")
         end
+      end
+
+      # Performs a force restart of Jenkins server
+      #
+      def restart!
+        restart(true)
       end
 
       # Reload the Jenkins server
