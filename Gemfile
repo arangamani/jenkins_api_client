@@ -1,4 +1,4 @@
-source "http://rubygems.org"
+source "https://rubygems.org"
 
 gem "nokogiri", "~> 1.5.0"
 gem "thor", ">= 0.16.0"
