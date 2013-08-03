@@ -81,17 +81,21 @@ namespace :doc do
     files.each do |html_file|
       puts "Processing file: #{html_file}"
       contents = ""
+      # Read the file contents
       file =  File.open(html_file)
       file.each { |line| contents << line }
       file.close
 
+      # If the file already has google analytics tracking info, skip it.
       if contents.include?(string_to_replace_with)
         puts "Skipped..."
         next
       end
 
+      # Apply google analytics tracking info to the html file
       contents.gsub!(string_to_replace, string_to_replace_with)
 
+      # Write the contents with the google analytics info to the file
       file =  File.open(html_file, "w")
       file.write(contents)
       file.close
