@@ -78,23 +78,23 @@ namespace :doc do
     </body>
     EOF
 
-    files.each do |file|
-    puts "Processing file: #{file}"
-    contents = ""
-    file =  File.open(file)
-    file.each { |line| contents << line }
-    file.close
+    files.each do |html_file|
+      puts "Processing file: #{html_file}"
+      contents = ""
+      file =  File.open(html_file)
+      file.each { |line| contents << line }
+      file.close
 
-    if contents.include?(string_to_replace_with)
+      if contents.include?(string_to_replace_with)
       puts "Skipped..."
       next
-    end
+      end
 
-    contents.gsub!(string_to_replace, string_to_replace_with)
+      contents.gsub!(string_to_replace, string_to_replace_with)
 
-    file =  File.open(file, "w")
-    file.write(contents)
-    file.close
+      file =  File.open(html_file, "w")
+      file.write(contents)
+      file.close
     end
   end
 end
