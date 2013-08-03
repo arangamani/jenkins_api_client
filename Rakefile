@@ -64,7 +64,7 @@ namespace :doc do
 
     string_to_replace = "</body>"
     string_to_replace_with = <<-EOF
-        <script type="text/javascript">
+      <script type="text/javascript">
         var _gaq = _gaq || [];
         _gaq.push(['_setAccount', 'UA-37519629-2']);
         _gaq.push(['_trackPageview']);
@@ -74,7 +74,7 @@ namespace :doc do
             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
         })();
-        </script>
+      </script>
     </body>
     EOF
 
@@ -86,8 +86,8 @@ namespace :doc do
       file.close
 
       if contents.include?(string_to_replace_with)
-      puts "Skipped..."
-      next
+        puts "Skipped..."
+        next
       end
 
       contents.gsub!(string_to_replace, string_to_replace_with)
