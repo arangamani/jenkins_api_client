@@ -1,2 +1,6 @@
 template.html
 .yardoc
+.idea
+.vagrant
+.ruby-version
+Gemfile.lock
