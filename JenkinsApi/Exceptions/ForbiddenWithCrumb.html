@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>
-  Exception: JenkinsApi::Exceptions::CrumbNotFound
+  Exception: JenkinsApi::Exceptions::ForbiddenWithCrumb
   
     &mdash; Documentation by YARD 0.8.7
   
@@ -31,10 +31,10 @@
     <div id="header">
       <div id="menu">
   
-    <a href="../../_index.html">Index (C)</a> &raquo;
+    <a href="../../_index.html">Index (F)</a> &raquo;
     <span class='title'><span class='object_link'><a href="../../JenkinsApi.html" title="JenkinsApi (module)">JenkinsApi</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Exceptions.html" title="JenkinsApi::Exceptions (module)">Exceptions</a></span></span>
      &raquo; 
-    <span class="title">CrumbNotFound</span>
+    <span class="title">ForbiddenWithCrumb</span>
   
 
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
@@ -63,7 +63,7 @@
 
     <iframe id="search_frame"></iframe>
 
-    <div id="content"><h1>Exception: JenkinsApi::Exceptions::CrumbNotFound
+    <div id="content"><h1>Exception: JenkinsApi::Exceptions::ForbiddenWithCrumb
   
   
   
@@ -73,7 +73,7 @@
   
     <dt class="r1">Inherits:</dt>
     <dd class="r1">
-      <span class="inheritName"><span class='object_link'><a href="NotFound.html" title="JenkinsApi::Exceptions::NotFound (class)">NotFound</a></span></span>
+      <span class="inheritName"><span class='object_link'><a href="Forbidden.html" title="JenkinsApi::Exceptions::Forbidden (class)">Forbidden</a></span></span>
       
         <ul class="fullTree">
           <li>Object</li>
@@ -82,9 +82,9 @@
           
             <li class="next"><span class='object_link'><a href="ApiException.html" title="JenkinsApi::Exceptions::ApiException (class)">ApiException</a></span></li>
           
-            <li class="next"><span class='object_link'><a href="NotFound.html" title="JenkinsApi::Exceptions::NotFound (class)">NotFound</a></span></li>
+            <li class="next"><span class='object_link'><a href="Forbidden.html" title="JenkinsApi::Exceptions::Forbidden (class)">Forbidden</a></span></li>
           
-            <li class="next">JenkinsApi::Exceptions::CrumbNotFound</li>
+            <li class="next">JenkinsApi::Exceptions::ForbiddenWithCrumb</li>
           
         </ul>
         <a href="#" class="inheritanceTree">show all</a>
@@ -108,8 +108,34 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>This exception class handles cases where a requested page is not found on
-the Jenkins API.</p>
+<p>This exception should be thrown specifically when the caller has had a
+ForbiddenException and has been able to determine that a (valid) crumb was
+used, and the attempt still failed. This may require an interim attempt to
+re-acquire the crumb in order to confirm it has not expired. So: def
+operation</p>
+
+<pre class="code ruby"><code class="ruby"><span class='rubyid_retried identifier id'>retried</span> <span class='assign token'>=</span> <span class='rubyid_false false kw'>false</span>
+<span class='rubyid_begin begin kw'>begin</span>
+  <span class='rubyid_make_attempt identifier id'>make_attempt</span>
+<span class='rubyid_rescue rescue kw'>rescue</span> <span class='rubyid_Forbidden constant id'>Forbidden</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_e identifier id'>e</span>
+  <span class='rubyid_refresh_crumbs identifier id'>refresh_crumbs</span><span class='lparen token'>(</span><span class='rubyid_true true kw'>true</span><span class='rparen token'>)</span>
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_@crumbs_enabled ivar id'>@crumbs_enabled</span>
+    <span class='rubyid_if if kw'>if</span> <span class='notop op'>!</span><span class='rubyid_retried identifier id'>retried</span>
+      <span class='rubyid_retried identifier id'>retried</span> <span class='assign token'>=</span> <span class='rubyid_true true kw'>true</span>
+      <span class='rubyid_retry retry kw'>retry</span>
+    <span class='rubyid_else else kw'>else</span>
+      <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_ForbiddenWithCrumb constant id'>ForbiddenWithCrumb</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_@logger ivar id'>@logger</span><span class='comma token'>,</span> <span class='rubyid_e identifier id'>e</span><span class='dot token'>.</span><span class='rubyid_message identifier id'>message</span><span class='rparen token'>)</span>
+    <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_else else kw'>else</span>
+    <span class='rubyid_raise identifier id'>raise</span>
+  <span class='rubyid_end end kw'>end</span>
+<span class='rubyid_end end kw'>end</span>
+</code></pre>
+
+<p>end</p>
+
+<p>Note, the ‘refresh_crumbs’ method will update crumb enablement and the
+stored crumb if called with ‘true’</p>
 
 
   </div>
@@ -135,7 +161,7 @@ the Jenkins API.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#initialize (instance method)">- (CrumbNotFound) <strong>initialize</strong>(logger, message = &quot;&quot;, log_level = Logger::ERROR) </a>
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (ForbiddenWithCrumb) <strong>initialize</strong>(logger, message = '', log_level = Logger::ERROR) </a>
     
 
     
@@ -152,7 +178,7 @@ the Jenkins API.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>A new instance of CrumbNotFound.</p>
+<p>A new instance of ForbiddenWithCrumb.</p>
 </div></span>
   
 </li>
@@ -180,7 +206,7 @@ the Jenkins API.</p>
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    - (<tt><span class='object_link'><a href="" title="JenkinsApi::Exceptions::CrumbNotFound (class)">CrumbNotFound</a></span></tt>) <strong>initialize</strong>(logger, message = &quot;&quot;, log_level = Logger::ERROR) 
+    - (<tt><span class='object_link'><a href="" title="JenkinsApi::Exceptions::ForbiddenWithCrumb (class)">ForbiddenWithCrumb</a></span></tt>) <strong>initialize</strong>(logger, message = '', log_level = Logger::ERROR) 
   
 
   
@@ -189,7 +215,7 @@ the Jenkins API.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns a new instance of CrumbNotFound</p>
+<p>Returns a new instance of ForbiddenWithCrumb</p>
 
 
   </div>
@@ -203,16 +229,16 @@ the Jenkins API.</p>
       <pre class="lines">
 
 
-156
-157
-158
-159</pre>
+133
+134
+135
+136</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/exceptions.rb', line 156</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/exceptions.rb', line 133</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_logger identifier id'>logger</span><span class='comma token'>,</span> <span class='rubyid_message identifier id'>message</span> <span class='assign token'>=</span> <span class='string val'>&quot;&quot;</span><span class='comma token'>,</span> <span class='rubyid_log_level identifier id'>log_level</span> <span class='assign token'>=</span> <span class='rubyid_Logger constant id'>Logger</span><span class='colon2 op'>::</span><span class='rubyid_ERROR constant id'>ERROR</span><span class='rparen token'>)</span>
-  <span class='rubyid_msg identifier id'>msg</span> <span class='assign token'>=</span> <span class='dstring node'>&quot;No crumb available on the server. #{message}&quot;</span>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_logger identifier id'>logger</span><span class='comma token'>,</span> <span class='rubyid_message identifier id'>message</span> <span class='assign token'>=</span> <span class='string val'>''</span><span class='comma token'>,</span> <span class='rubyid_log_level identifier id'>log_level</span> <span class='assign token'>=</span> <span class='rubyid_Logger constant id'>Logger</span><span class='colon2 op'>::</span><span class='rubyid_ERROR constant id'>ERROR</span><span class='rparen token'>)</span>
+  <span class='rubyid_msg identifier id'>msg</span> <span class='assign token'>=</span> <span class='dstring node'>&quot;A crumb was used in attempt to access operation. #{message}&quot;</span>
   <span class='rubyid_super super kw'>super</span><span class='lparen token'>(</span><span class='rubyid_logger identifier id'>logger</span><span class='comma token'>,</span> <span class='rubyid_msg identifier id'>msg</span><span class='rparen token'>)</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
