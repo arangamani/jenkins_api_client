@@ -47,14 +47,56 @@ YARD::Rake::YardocTask.new do |t|
   t.files = ['lib/**/*.rb', 'lib/**/**/*.rb']
 end
 
-# This task requires that graphviz is installed locally. For more info:
-# http://www.graphviz.org/
-desc "Generates the class diagram using the yard generated dot file"
-task :generate_class_diagram do
-  puts "Generating the dot file..."
-  `yard graph --file jenkins_api_client.dot`
-  puts "Generating class diagram from the dot file..."
-  `dot jenkins_api_client.dot -Tpng -o jenkins_api_client_class_diagram.png`
+namespace :doc do
+  # This task requires that graphviz is installed locally. For more info:
+  # http://www.graphviz.org/
+  desc "Generates the class diagram using the yard generated dot file"
+  task :generate_class_diagram do
+    puts "Generating the dot file..."
+    `yard graph --file jenkins_api_client.dot`
+    puts "Generating class diagram from the dot file..."
+    `dot jenkins_api_client.dot -Tpng -o jenkins_api_client_class_diagram.png`
+  end
+
+  desc "Applies Google Analytics tracking script to all generated html files"
+  task :apply_google_analytics do
+    files = Dir.glob("**/*.html")
+
+    string_to_replace = "</body>"
+    string_to_replace_with = <<-EOF
+        <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-37519629-2']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+        </script>
+    </body>
+    EOF
+
+    files.each do |file|
+    puts "Processing file: #{file}"
+    contents = ""
+    file =  File.open(file)
+    file.each { |line| contents << line }
+    file.close
+
+    if contents.include?(string_to_replace_with)
+      puts "Skipped..."
+      next
+    end
+
+    contents.gsub!(string_to_replace, string_to_replace_with)
+
+    file =  File.open(file, "w")
+    file.write(contents)
+    file.close
+    end
+  end
 end
 
 task :default => [:unit_tests]
