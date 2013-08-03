@@ -67,6 +67,14 @@ file. To use the client without credentials, just leave out the
 <tt>username</tt> and <tt>password</tt> parameters. The <tt>password</tt>
 parameter is only required if <tt>username</tt> is specified.
 
+### Cross-site Scripting (XSS) and Crumb Support
+
+Support for Jenkins crumbs has been added.  These allow an application to
+use the Jenkins API POST methods without requiring the 'Prevent Cross Site
+Request Forgery exploits' to be disabled.  The API will check in with the
+Jenkins server to determine whether crumbs are enabled or not, and use them
+if appropriate.
+
 ### Basic Usage
 
 As discussed earlier, you can either specify all the credentials and server

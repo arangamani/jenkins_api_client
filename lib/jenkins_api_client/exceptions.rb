@@ -82,26 +82,67 @@ module JenkinsApi
 
     # This exception class handles cases where invalid credentials are provided
     # to connect to the Jenkins.
+    # While it is apparently used to indicate expiry of a Crumb, this is not
+    # the only cause of a forbidden error... maybe the user just isn't allowed
+    # to access the given url.  We should treat forbidden as a specific "you
+    # are not welcome here"
     #
     class Forbidden < ApiException
       def initialize(logger, message = "", log_level = Logger::ERROR)
-        msg = "The Crumb was expired or not sent to the server." +
-              " Perhaps the CSRF protection was not enabled on the server" +
-              " when the client was initialized. Please re-initialize the" +
-              " client. #{message}"
+        msg = "Access denied. Please ensure that Jenkins is set up to allow" +
+              " access to this operation. #{message}"
+#              "The Crumb was expired or not sent to the server." +
+#              " Perhaps the CSRF protection was not enabled on the server" +
+#              " when the client was initialized. Please re-initialize the" +
+#              " client. #{message}"
         super(logger, msg)
       end
     end
     # Support for backward compatibility
     ForbiddenException = Forbidden
 
+    # This exception should be thrown specifically when the caller has had
+    # a ForbiddenException and has been able to determine that a (valid)
+    # crumb was used, and the attempt still failed.
+    # This may require an interim attempt to re-acquire the crumb in order
+    # to confirm it has not expired.
+    # So:
+    # def operation
+    #   retried = false
+    #   begin
+    #     make_attempt
+    #   rescue Forbidden => e
+    #     refresh_crumbs(true)
+    #     if @crumbs_enabled
+    #       if !retried
+    #         retried = true
+    #         retry
+    #       else
+    #         raise ForbiddenWithCrumb.new(@logger, e.message)
+    #       end
+    #     else
+    #       raise
+    #     end
+    #   end
+    # end
+    #
+    # Note, the 'refresh_crumbs' method will update crumb enablement and the
+    # stored crumb if called with 'true'
+    #
+    class ForbiddenWithCrumb < Forbidden
+      def initialize(logger, message = '', log_level = Logger::ERROR)
+        msg = "A crumb was used in attempt to access operation. #{message}"
+        super(logger, msg)
+      end
+    end
+
     # This exception class handles cases where a requested page is not found on
     # the Jenkins API.
     #
     class NotFound < ApiException
       def initialize(logger, message = "", log_level = Logger::ERROR)
-        msg = "Requested component is not found on the Jenkins CI server." \
-          if message.empty?
+        msg = message.empty? ? "Requested component is not found on the" +
+              " Jenkins CI server." : message
         super(logger, msg)
       end
     end
@@ -117,24 +158,26 @@ module JenkinsApi
         super(logger, msg)
       end
     end
+    # Support for backward compatibility
+    CrumbNotFoundException = CrumbNotFound
 
     class JobNotFound < NotFound
       def initialize(logger, message = "", log_level = Logger::ERROR)
-        msg = "The specified job is not found" if message.empty?
+        msg = message.empty? ? "The specified job is not found" : message
         super(logger, msg)
       end
     end
 
     class ViewNotFound < NotFound
       def initialize(logger, message = "", log_level = Logger::ERROR)
-        msg = "The specified view is not found" if message.empty?
+        msg = message.empty? ? "The specified view is not found" : message
         super(logger, msg)
       end
     end
 
     class NodeNotFound < NotFound
       def initialize(logger, message = "", log_level = Logger::ERROR)
-        msg = "The specified node is not found" if message.empty?
+        msg = msg.empty? ? "The specified node is not found" : message
         super(logger, msg)
       end
     end
