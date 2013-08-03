@@ -104,13 +104,13 @@ __USERLIST
         end
       end
 
-      describe "#list_users" do
+      describe "#list" do
         it "sends a request to list the users" do
           @user.list.should eq(USERLIST_JSON)
         end
       end
 
-      describe "#get_user" do
+      describe "#get" do
         it "returns dummy user if user cannot be found" do
           # This is artifact of Jenkins - It'll create a user to match the name you give it - even on a fetch
           @user.get("wilma").should eq(WILMA_JSON)
