@@ -210,6 +210,14 @@ module JenkinsApi
       JenkinsApi::Client::BuildQueue.new(self)
     end
 
+    # Creates an instance of the User class by passing a reference to self
+    #
+    # @return [JenkinsApi::Client::User] An object of User subclass
+    #
+    def user
+      JenkinsApi::Client::User.new(self)
+    end
+
     # Returns a string representing the class name
     #
     # @return [String] string representation of class name

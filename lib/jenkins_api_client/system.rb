@@ -84,6 +84,7 @@ module JenkinsApi
       # List all users known to Jenkins by their Full Name
       #
       def list_users
+        warn "DEPRECATION: System#list_users is deprecated. Please use User#list instead"
         @logger.info "Obtaining the list of users from jenkins"
         users = @client.api_get_request("/asynchPeople")
         names = []
