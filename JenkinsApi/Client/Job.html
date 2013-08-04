@@ -2427,11 +2427,11 @@ disabled.</p>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># SCM configurations and Error handling.</span>
-  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_supported_scm identifier id'>supported_scm</span><span class='dot token'>.</span><span class='rubyid_include? fid id'>include?</span><span class='lparen token'>(</span><span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:scm_provider</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
-    <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;SCM #{params[:scm_provider]} is currently not supported&quot;</span>
-  <span class='rubyid_end end kw'>end</span>
 
   <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:scm_provider</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
+    <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_supported_scm identifier id'>supported_scm</span><span class='dot token'>.</span><span class='rubyid_include? fid id'>include?</span><span class='lparen token'>(</span><span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:scm_provider</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+      <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;SCM #{params[:scm_provider]} is currently not supported&quot;</span>
+    <span class='rubyid_end end kw'>end</span>
     <span class='rubyid_raise identifier id'>raise</span> <span class='string val'>&quot;SCM URL must be specified&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:scm_url</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
     <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:scm_branch</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;master&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:scm_branch</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
     <span class='rubyid_if if kw'>if</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:scm_use_head_if_tag_not_found</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
@@ -6675,7 +6675,7 @@ parameter description see #create_or_update_freestyle</p>
 </div>
 
     <div id="footer">
-  Generated on Sun Aug  4 08:23:13 2013 by
+  Generated on Sun Aug  4 08:27:15 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7 (ruby-1.8.7).
 </div>
