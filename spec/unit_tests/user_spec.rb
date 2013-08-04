@@ -77,11 +77,11 @@ __PEEPS
 }
 __USERLIST
 )
- 
+
     before do
       mock_logger = Logger.new "/dev/null"
       mock_timeout = 300
-      @client = mock
+      @client = double
       @client.should_receive(:logger).and_return(mock_logger)
       @client.should_receive(:timeout).and_return(mock_timeout)
       @client.stub(:api_get_request).with('/asynchPeople').and_return(PEOPLE_JSON)
