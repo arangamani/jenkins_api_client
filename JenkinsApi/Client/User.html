@@ -275,7 +275,7 @@ display name, and email-address.</p>
         <span class='name'>client</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="../Client.html" title="JenkinsApi::Client (class)">Client</a></span></tt>)</span>
       
       
       
@@ -352,41 +352,50 @@ display name, and email-address.</p>
     
 <p>Get a single user</p>
 
-<p>Example: {</p>
-
-<pre class="code ruby18"><code class="ruby18">&quot;absoluteUrl&quot; : &quot;https://myjenkins.example.com/jenkins/user/fred&quot;,
-&quot;description&quot; : &quot;&quot;,
-&quot;fullName&quot; : &quot;Fred Flintstone&quot;,
-&quot;id&quot; : &quot;fred&quot;,
-&quot;property&quot; : [
-  {
-  },
-  {
-  },
-  {
-    &quot;address&quot; : &quot;fred@slaterockandgravel.com&quot;
-  },
-  {
-  },
-  {
-  },
-  {
-    &quot;insensitiveSearch&quot; : false
-  }
-]</code></pre>
-
-<p>}</p>
-
 
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Example JSON for user info</p>
+</div></p>
+      
+      <pre class="example code"><code><span class='lbrace token'>{</span>
+  <span class='string val'>&quot;absoluteUrl&quot;</span> <span class='colon op'>:</span> <span class='string val'>&quot;https://myjenkins.example.com/jenkins/user/fred&quot;</span><span class='comma token'>,</span>
+  <span class='string val'>&quot;description&quot;</span> <span class='colon op'>:</span> <span class='string val'>&quot;&quot;</span><span class='comma token'>,</span>
+  <span class='string val'>&quot;fullName&quot;</span> <span class='colon op'>:</span> <span class='string val'>&quot;Fred Flintstone&quot;</span><span class='comma token'>,</span>
+  <span class='string val'>&quot;id&quot;</span> <span class='colon op'>:</span> <span class='string val'>&quot;fred&quot;</span><span class='comma token'>,</span>
+  <span class='string val'>&quot;property&quot;</span> <span class='colon op'>:</span> <span class='lbrack token'>[</span>
+    <span class='lbrace token'>{</span>
+    <span class='rbrace token'>}</span><span class='comma token'>,</span>
+    <span class='lbrace token'>{</span>
+    <span class='rbrace token'>}</span><span class='comma token'>,</span>
+    <span class='lbrace token'>{</span>
+      <span class='string val'>&quot;address&quot;</span> <span class='colon op'>:</span> <span class='string val'>&quot;fred@slaterockandgravel.com&quot;</span>
+    <span class='rbrace token'>}</span><span class='comma token'>,</span>
+    <span class='lbrace token'>{</span>
+    <span class='rbrace token'>}</span><span class='comma token'>,</span>
+    <span class='lbrace token'>{</span>
+    <span class='rbrace token'>}</span><span class='comma token'>,</span>
+    <span class='lbrace token'>{</span>
+      <span class='string val'>&quot;insensitiveSearch&quot;</span> <span class='colon op'>:</span> <span class='rubyid_false false kw'>false</span>
+    <span class='rbrace token'>}</span>
+  <span class='rbrack token'>]</span>
+<span class='rbrace token'>}</span>
+</code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
 <ul class="param">
   
     <li>
       
-        <span class='name'>User</span>
+        <span class='name'>user_id</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -395,7 +404,7 @@ display name, and email-address.</p>
       
         &mdash;
         <div class='inline'>
-<p>ID or Full Name</p>
+<p>User ID or Full Name</p>
 </div>
       
     </li>
@@ -448,12 +457,12 @@ display name, and email-address.</p>
       <pre class="lines">
 
 
-108
-109
-110</pre>
+111
+112
+113</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/user.rb', line 108</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/user.rb', line 111</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get identifier id'>get</span><span class='lparen token'>(</span><span class='rubyid_user_id identifier id'>user_id</span><span class='rparen token'>)</span>
   <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_get_request identifier id'>api_get_request</span><span class='lparen token'>(</span><span class='dstring node'>&quot;/user/#{user_id}&quot;</span><span class='rparen token'>)</span>
@@ -531,8 +540,6 @@ display name, and email-address</p>
       <pre class="lines">
 
 
-58
-59
 60
 61
 62
@@ -547,10 +554,12 @@ display name, and email-address</p>
 71
 72
 73
-74</pre>
+74
+75
+76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/user.rb', line 58</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/user.rb', line 60</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_list identifier id'>list</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='string val'>&quot;Obtaining the list of users from jenkins&quot;</span>
@@ -638,7 +647,7 @@ display name, and email-address</p>
 </div>
 
     <div id="footer">
-  Generated on Sun Aug  4 08:14:24 2013 by
+  Generated on Sun Aug  4 08:23:15 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7 (ruby-1.8.7).
 </div>
