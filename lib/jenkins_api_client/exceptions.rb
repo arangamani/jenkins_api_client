@@ -131,7 +131,7 @@ module JenkinsApi
     #   end
     #
     # @note the 'refresh_crumbs' method will update crumb enablement and the
-    # stored crumb if called with 'true'
+    #   stored crumb if called with 'true'
     #
     class ForbiddenWithCrumb < Forbidden
       def initialize(logger, message = '', log_level = Logger::ERROR)
