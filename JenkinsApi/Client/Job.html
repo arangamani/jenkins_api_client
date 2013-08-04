@@ -275,7 +275,7 @@ params for Jenkins to use for parameterized builds.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#build_freestyle_config-instance_method" title="#build_freestyle_config (instance method)">- (Object) <strong>build_freestyle_config</strong>(params) </a>
+      <a href="#build_freestyle_config-instance_method" title="#build_freestyle_config (instance method)">- (String) <strong>build_freestyle_config</strong>(params) </a>
     
 
     
@@ -289,7 +289,9 @@ params for Jenkins to use for parameterized builds.</p>
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Builds the XML configuration based on the parameters passed as a Hash.</p>
+</div></span>
   
 </li>
 
@@ -393,7 +395,7 @@ params for Jenkins to use for parameterized builds.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#create-instance_method" title="#create (instance method)">- (Object) <strong>create</strong>(job_name, xml) </a>
+      <a href="#create-instance_method" title="#create (instance method)">- (String) <strong>create</strong>(job_name, xml) </a>
     
 
     
@@ -417,7 +419,7 @@ params for Jenkins to use for parameterized builds.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#create_freestyle-instance_method" title="#create_freestyle (instance method)">- (Object) <strong>create_freestyle</strong>(params) </a>
+      <a href="#create_freestyle-instance_method" title="#create_freestyle (instance method)">- (String) <strong>create_freestyle</strong>(params) </a>
     
 
     
@@ -432,9 +434,7 @@ params for Jenkins to use for parameterized builds.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Create a job with params given as a hash instead of the xml This gives some
-flexibility for creating simple jobs so the user doesn’t have to learn
-about handling xml.</p>
+<p>Create a freestyle project by accepting a Hash of parameters.</p>
 </div></span>
   
 </li>
@@ -443,7 +443,7 @@ about handling xml.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#create_or_update_freestyle-instance_method" title="#create_or_update_freestyle (instance method)">- (Object) <strong>create_or_update_freestyle</strong>(params) </a>
+      <a href="#create_or_update-instance_method" title="#create_or_update (instance method)">- (String) <strong>create_or_update</strong>(job_name, xml) </a>
     
 
     
@@ -458,7 +458,33 @@ about handling xml.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Create or Update a job with params given as a hash instead of the xml.</p>
+<p>Create or Update a job with the name specified and the xml given.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#create_or_update_freestyle-instance_method" title="#create_or_update_freestyle (instance method)">- (String) <strong>create_or_update_freestyle</strong>(params) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Create or Update a job with params given as a hash instead of the xml This
+gives some flexibility for creating/updating simple jobs so the user
+doesn’t have to learn about handling xml.</p>
 </div></span>
   
 </li>
@@ -1242,7 +1268,7 @@ recent build if no build number is specified.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#update_freestyle-instance_method" title="#update_freestyle (instance method)">- (Object) <strong>update_freestyle</strong>(params) </a>
+      <a href="#update-instance_method" title="#update (instance method)">- (String) <strong>update</strong>(job_name, xml) </a>
     
 
     
@@ -1257,9 +1283,31 @@ recent build if no build number is specified.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Update a job with params given as a hash instead of the xml This gives some
-flexibility for updating simple jobs so the user doesn’t have to learn
-about handling xml.</p>
+<p>Update a job with the name specified and the xml given.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#update_freestyle-instance_method" title="#update_freestyle (instance method)">- (String) <strong>update_freestyle</strong>(params) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Update a job with params given as a hash instead of the xml.</p>
 </div></span>
   
 </li>
@@ -1453,45 +1501,45 @@ be added as downstream projects, and the threshold</p>
       <pre class="lines">
 
 
-940
-941
-942
-943
-944
-945
-946
-947
-948
-949
-950
-951
-952
-953
-954
-955
-956
-957
-958
-959
-960
-961
-962
-963
-964
-965
-966
-967
-968
-969
-970
-971
-972
-973
-974
-975</pre>
+1024
+1025
+1026
+1027
+1028
+1029
+1030
+1031
+1032
+1033
+1034
+1035
+1036
+1037
+1038
+1039
+1040
+1041
+1042
+1043
+1044
+1045
+1046
+1047
+1048
+1049
+1050
+1051
+1052
+1053
+1054
+1055
+1056
+1057
+1058
+1059</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 940</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 1024</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_add_downstream_projects identifier id'>add_downstream_projects</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='comma token'>,</span>
                             <span class='rubyid_downstream_projects identifier id'>downstream_projects</span><span class='comma token'>,</span>
@@ -1627,27 +1675,27 @@ be added as downstream projects, and the threshold</p>
       <pre class="lines">
 
 
-252
-253
-254
-255
-256
-257
-258
-259
-260
-261
-262
-263
-264
-265
-266
-267
-268
-269</pre>
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 252</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 336</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_add_email_notification identifier id'>add_email_notification</span><span class='lparen token'>(</span><span class='rubyid_params identifier id'>params</span><span class='rparen token'>)</span>
   <span class='rubyid_raise identifier id'>raise</span> <span class='string val'>&quot;No job name specified&quot;</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:name</span><span class='rbrack token'>]</span>
@@ -1657,9 +1705,9 @@ be added as downstream projects, and the threshold</p>
   <span class='rubyid_xml identifier id'>xml</span> <span class='assign token'>=</span> <span class='rubyid_get_config identifier id'>get_config</span><span class='lparen token'>(</span><span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:name</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
   <span class='rubyid_n_xml identifier id'>n_xml</span> <span class='assign token'>=</span> <span class='rubyid_Nokogiri constant id'>Nokogiri</span><span class='colon2 op'>::</span><span class='rubyid_XML constant id'>XML</span><span class='lparen token'>(</span><span class='rubyid_xml identifier id'>xml</span><span class='rparen token'>)</span>
   <span class='rubyid_if if kw'>if</span> <span class='rubyid_n_xml identifier id'>n_xml</span><span class='dot token'>.</span><span class='rubyid_xpath identifier id'>xpath</span><span class='lparen token'>(</span><span class='string val'>&quot;//hudson.tasks.Mailer&quot;</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_empty? fid id'>empty?</span>
-    <span class='rubyid_p_xml identifier id'>p_xml</span> <span class='assign token'>=</span> <span class='rubyid_Nokogiri constant id'>Nokogiri</span><span class='colon2 op'>::</span><span class='rubyid_XML constant id'>XML</span><span class='colon2 op'>::</span><span class='rubyid_Builder constant id'>Builder</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='symbol val'>:encoding</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;UTF-8&quot;</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_xml identifier id'>xml</span><span class='bitor op'>|</span>
-      <span class='rubyid_notification_email identifier id'>notification_email</span><span class='lparen token'>(</span><span class='rubyid_params identifier id'>params</span><span class='comma token'>,</span> <span class='rubyid_xml identifier id'>xml</span><span class='rparen token'>)</span>
-    <span class='rbrace token'>}</span>
+    <span class='rubyid_p_xml identifier id'>p_xml</span> <span class='assign token'>=</span> <span class='rubyid_Nokogiri constant id'>Nokogiri</span><span class='colon2 op'>::</span><span class='rubyid_XML constant id'>XML</span><span class='colon2 op'>::</span><span class='rubyid_Builder constant id'>Builder</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='symbol val'>:encoding</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;UTF-8&quot;</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_b_xml identifier id'>b_xml</span><span class='bitor op'>|</span>
+      <span class='rubyid_notification_email identifier id'>notification_email</span><span class='lparen token'>(</span><span class='rubyid_params identifier id'>params</span><span class='comma token'>,</span> <span class='rubyid_b_xml identifier id'>b_xml</span><span class='rparen token'>)</span>
+    <span class='rubyid_end end kw'>end</span>
     <span class='rubyid_email_xml identifier id'>email_xml</span> <span class='assign token'>=</span> <span class='rubyid_Nokogiri constant id'>Nokogiri</span><span class='colon2 op'>::</span><span class='rubyid_XML constant id'>XML</span><span class='lparen token'>(</span><span class='rubyid_p_xml identifier id'>p_xml</span><span class='dot token'>.</span><span class='rubyid_to_xml identifier id'>to_xml</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_xpath identifier id'>xpath</span><span class='lparen token'>(</span>
       <span class='string val'>&quot;//hudson.tasks.Mailer&quot;</span>
     <span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_first identifier id'>first</span>
@@ -1744,26 +1792,26 @@ summary_scm_changes_and_failed_tests. Default: summary_and_scm_changes</p>
       <pre class="lines">
 
 
-291
-292
-293
-294
-295
-296
-297
-298
-299
-300
-301
-302
-303
-304
-305
-306
-307</pre>
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 291</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 375</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_add_skype_notification identifier id'>add_skype_notification</span><span class='lparen token'>(</span><span class='rubyid_params identifier id'>params</span><span class='rparen token'>)</span>
   <span class='rubyid_raise identifier id'>raise</span> <span class='string val'>&quot;No job name specified&quot;</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:name</span><span class='rbrack token'>]</span>
@@ -1772,9 +1820,9 @@ summary_scm_changes_and_failed_tests. Default: summary_and_scm_changes</p>
   <span class='rubyid_xml identifier id'>xml</span> <span class='assign token'>=</span> <span class='rubyid_get_config identifier id'>get_config</span><span class='lparen token'>(</span><span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:name</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
   <span class='rubyid_n_xml identifier id'>n_xml</span> <span class='assign token'>=</span> <span class='rubyid_Nokogiri constant id'>Nokogiri</span><span class='colon2 op'>::</span><span class='rubyid_XML constant id'>XML</span><span class='lparen token'>(</span><span class='rubyid_xml identifier id'>xml</span><span class='rparen token'>)</span>
   <span class='rubyid_if if kw'>if</span> <span class='rubyid_n_xml identifier id'>n_xml</span><span class='dot token'>.</span><span class='rubyid_xpath identifier id'>xpath</span><span class='lparen token'>(</span><span class='string val'>&quot;//hudson.plugins.skype.im.transport.SkypePublisher&quot;</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_empty? fid id'>empty?</span>
-    <span class='rubyid_p_xml identifier id'>p_xml</span> <span class='assign token'>=</span> <span class='rubyid_Nokogiri constant id'>Nokogiri</span><span class='colon2 op'>::</span><span class='rubyid_XML constant id'>XML</span><span class='colon2 op'>::</span><span class='rubyid_Builder constant id'>Builder</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='symbol val'>:encoding</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;UTF-8&quot;</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_xml identifier id'>xml</span><span class='bitor op'>|</span>
-      <span class='rubyid_skype_notification identifier id'>skype_notification</span><span class='lparen token'>(</span><span class='rubyid_params identifier id'>params</span><span class='comma token'>,</span> <span class='rubyid_xml identifier id'>xml</span><span class='rparen token'>)</span>
-    <span class='rbrace token'>}</span>
+    <span class='rubyid_p_xml identifier id'>p_xml</span> <span class='assign token'>=</span> <span class='rubyid_Nokogiri constant id'>Nokogiri</span><span class='colon2 op'>::</span><span class='rubyid_XML constant id'>XML</span><span class='colon2 op'>::</span><span class='rubyid_Builder constant id'>Builder</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='symbol val'>:encoding</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;UTF-8&quot;</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_b_xml identifier id'>b_xml</span><span class='bitor op'>|</span>
+      <span class='rubyid_skype_notification identifier id'>skype_notification</span><span class='lparen token'>(</span><span class='rubyid_params identifier id'>params</span><span class='comma token'>,</span> <span class='rubyid_b_xml identifier id'>b_xml</span><span class='rparen token'>)</span>
+    <span class='rubyid_end end kw'>end</span>
     <span class='rubyid_skype_xml identifier id'>skype_xml</span> <span class='assign token'>=</span> <span class='rubyid_Nokogiri constant id'>Nokogiri</span><span class='colon2 op'>::</span><span class='rubyid_XML constant id'>XML</span><span class='lparen token'>(</span><span class='rubyid_p_xml identifier id'>p_xml</span><span class='dot token'>.</span><span class='rubyid_to_xml identifier id'>to_xml</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_xpath identifier id'>xpath</span><span class='lparen token'>(</span>
       <span class='string val'>&quot;//hudson.plugins.skype.im.transport.SkypePublisher&quot;</span>
     <span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_first identifier id'>first</span>
@@ -1847,21 +1895,21 @@ summary_scm_changes_and_failed_tests. Default: summary_and_scm_changes</p>
       <pre class="lines">
 
 
-734
-735
-736
-737
-738
-739
-740
-741
-742
-743
-744
-745</pre>
+818
+819
+820
+821
+822
+823
+824
+825
+826
+827
+828
+829</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 734</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 818</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_block_build_when_downstream_building identifier id'>block_build_when_downstream_building</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Blocking builds of '#{job_name}' when downstream&quot;</span> <span class='plus op'>+</span>
@@ -1940,21 +1988,21 @@ summary_scm_changes_and_failed_tests. Default: summary_and_scm_changes</p>
       <pre class="lines">
 
 
-772
-773
-774
-775
-776
-777
-778
-779
-780
-781
-782
-783</pre>
+856
+857
+858
+859
+860
+861
+862
+863
+864
+865
+866
+867</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 772</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 856</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_block_build_when_upstream_building identifier id'>block_build_when_upstream_building</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Blocking builds of '#{job_name}' when upstream&quot;</span> <span class='plus op'>+</span>
@@ -2079,45 +2127,45 @@ disabled.</p>
       <pre class="lines">
 
 
-604
-605
-606
-607
-608
-609
-610
-611
-612
-613
-614
-615
-616
-617
-618
-619
-620
-621
-622
-623
-624
-625
-626
-627
-628
-629
-630
-631
-632
-633
-634
-635
-636
-637
-638
-639</pre>
+688
+689
+690
+691
+692
+693
+694
+695
+696
+697
+698
+699
+700
+701
+702
+703
+704
+705
+706
+707
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717
+718
+719
+720
+721
+722
+723</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 604</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 688</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_build identifier id'>build</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='comma token'>,</span> <span class='rubyid_params identifier id'>params</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='comma token'>,</span> <span class='rubyid_return_build_number identifier id'>return_build_number</span> <span class='assign token'>=</span> <span class='rubyid_false false kw'>false</span><span class='rparen token'>)</span>
   <span class='rubyid_msg identifier id'>msg</span> <span class='assign token'>=</span> <span class='dstring node'>&quot;Building job '#{job_name}'&quot;</span>
@@ -2164,7 +2212,7 @@ disabled.</p>
       <div class="method_details ">
   <h3 class="signature " id="build_freestyle_config-instance_method">
   
-    - (<tt>Object</tt>) <strong>build_freestyle_config</strong>(params) 
+    - (<tt>String</tt>) <strong>build_freestyle_config</strong>(params) 
   
 
   
@@ -2173,11 +2221,51 @@ disabled.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
+<p>Builds the XML configuration based on the parameters passed as a Hash</p>
+
 
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>params</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the parameters for building XML configuration</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the generated XML configuration of the project</p>
+</div>
+      
+    </li>
+  
+</ul>
 <p class="tag_title">Raises:</p>
 <ul class="raise">
   
@@ -2198,121 +2286,119 @@ disabled.</p>
       <pre class="lines">
 
 
-107
-108
-109
-110
-111
-112
-113
-114
-115
-116
-117
-118
-119
-120
-121
-122
-123
-124
-125
-126
-127
-128
-129
-130
-131
-132
-133
-134
-135
-136
-137
-138
-139
-140
-141
-142
-143
-144
-145
-146
-147
-148
-149
-150
-151
-152
-153
-154
-155
-156
-157
-158
-159
-160
-161
-162
-163
-164
-165
-166
-167
-168
-169
-170
-171
-172
-173
-174
-175
-176
-177
-178
-179
-180
-181
-182
-183
-184
-185
-186
-187
-188
-189
-190
-191
-192
-193
-194
-195
-196
-197
-198
-199
-200
-201
-202
-203
-204
-205
-206
-207
-208
-209
-210
-211
-212
-213
-214
 215
 216
 217
-218</pre>
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 107</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 215</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_build_freestyle_config identifier id'>build_freestyle_config</span><span class='lparen token'>(</span><span class='rubyid_params identifier id'>params</span><span class='rparen token'>)</span>
   <span class='comment val'># Supported SCM providers</span>
@@ -2321,16 +2407,16 @@ disabled.</p>
   <span class='comment val'># Set default values for params that are not specified.</span>
   <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_ArgumentError constant id'>ArgumentError</span><span class='comma token'>,</span> <span class='string val'>&quot;Job name must be specified&quot;</span> \
     <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_params identifier id'>params</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_Hash constant id'>Hash</span><span class='rparen token'>)</span> <span class='andop op'>&amp;&amp;</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:name</span><span class='rbrack token'>]</span>
-  <span class='rubyid_if if kw'>if</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:keep_dependencies</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
-    <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:keep_dependencies</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_false false kw'>false</span>
+
+  <span class='lbrack token'>[</span>
+    <span class='symbol val'>:keep_dependencies</span><span class='comma token'>,</span>
+    <span class='symbol val'>:block_build_when_downstream_building</span><span class='comma token'>,</span>
+    <span class='symbol val'>:block_build_when_upstream_building</span><span class='comma token'>,</span>
+    <span class='symbol val'>:concurrent_build</span>
+  <span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_param identifier id'>param</span><span class='bitor op'>|</span>
+    <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='rubyid_param identifier id'>param</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_false false kw'>false</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='rubyid_param identifier id'>param</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
   <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_if if kw'>if</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:block_build_when_downstream_building</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
-    <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:block_build_when_downstream_building</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_false false kw'>false</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_if if kw'>if</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:block_build_when_upstream_building</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
-    <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:block_build_when_upstream_building</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_false false kw'>false</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:concurrent_build</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_false false kw'>false</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:concurrent_build</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
+
   <span class='rubyid_if if kw'>if</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:notification_email</span><span class='rbrack token'>]</span>
     <span class='rubyid_if if kw'>if</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:notification_email_for_every_unstable</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
       <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:notification_email_for_every_unstable</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_false false kw'>false</span>
@@ -2341,30 +2427,28 @@ disabled.</p>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># SCM configurations and Error handling.</span>
-  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_supported_scm identifier id'>supported_scm</span><span class='dot token'>.</span><span class='rubyid_include? fid id'>include?</span><span class='lparen token'>(</span><span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:scm_provider</span><span class='rbrack token'>]</span><span class='rparen token'>)</span> <span class='orop op'>||</span>
-    <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:scm_provider</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
+  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_supported_scm identifier id'>supported_scm</span><span class='dot token'>.</span><span class='rubyid_include? fid id'>include?</span><span class='lparen token'>(</span><span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:scm_provider</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
     <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;SCM #{params[:scm_provider]} is currently not supported&quot;</span>
   <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_if if kw'>if</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:scm_url</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span> <span class='andop op'>&amp;&amp;</span> <span class='notop op'>!</span><span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:scm_provider</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
-    <span class='rubyid_raise identifier id'>raise</span> <span class='string val'>'SCM URL must be specified'</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_if if kw'>if</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:scm_branch</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span> <span class='andop op'>&amp;&amp;</span> <span class='notop op'>!</span><span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:scm_provider</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
-    <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:scm_branch</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;master&quot;</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_if if kw'>if</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:scm_use_head_if_tag_not_found</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
-    <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:scm_use_head_if_tag_not_found</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_false false kw'>false</span>
+
+  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:scm_provider</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
+    <span class='rubyid_raise identifier id'>raise</span> <span class='string val'>&quot;SCM URL must be specified&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:scm_url</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
+    <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:scm_branch</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;master&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:scm_branch</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
+    <span class='rubyid_if if kw'>if</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:scm_use_head_if_tag_not_found</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
+      <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:scm_use_head_if_tag_not_found</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_false false kw'>false</span>
+    <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='comment val'># Child projects configuration and Error handling</span>
   <span class='rubyid_if if kw'>if</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:child_threshold</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span> <span class='andop op'>&amp;&amp;</span> <span class='notop op'>!</span><span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:child_projects</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
-    <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:child_threshold</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>'failure'</span>
+    <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:child_threshold</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;failure&quot;</span>
   <span class='rubyid_end end kw'>end</span>
 
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_debug identifier id'>debug</span> <span class='dstring node'>&quot;Creating a freestyle job with params: #{params.inspect}&quot;</span>
 
   <span class='comment val'># Build the Job xml file based on the parameters given</span>
-  <span class='rubyid_builder identifier id'>builder</span> <span class='assign token'>=</span> <span class='rubyid_Nokogiri constant id'>Nokogiri</span><span class='colon2 op'>::</span><span class='rubyid_XML constant id'>XML</span><span class='colon2 op'>::</span><span class='rubyid_Builder constant id'>Builder</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='symbol val'>:encoding</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'UTF-8'</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_xml identifier id'>xml</span><span class='bitor op'>|</span>
-    <span class='rubyid_xml identifier id'>xml</span><span class='dot token'>.</span><span class='rubyid_project identifier id'>project</span> <span class='lbrace token'>{</span>
+  <span class='rubyid_builder identifier id'>builder</span> <span class='assign token'>=</span> <span class='rubyid_Nokogiri constant id'>Nokogiri</span><span class='colon2 op'>::</span><span class='rubyid_XML constant id'>XML</span><span class='colon2 op'>::</span><span class='rubyid_Builder constant id'>Builder</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='symbol val'>:encoding</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'UTF-8'</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_xml identifier id'>xml</span><span class='bitor op'>|</span>
+    <span class='rubyid_xml identifier id'>xml</span><span class='dot token'>.</span><span class='rubyid_project identifier id'>project</span> <span class='rubyid_do do kw'>do</span>
       <span class='rubyid_xml identifier id'>xml</span><span class='dot token'>.</span><span class='rubyid_actions identifier id'>actions</span>
       <span class='rubyid_xml identifier id'>xml</span><span class='dot token'>.</span><span class='rubyid_description identifier id'>description</span>
       <span class='rubyid_xml identifier id'>xml</span><span class='dot token'>.</span><span class='rubyid_keepDependencies identifier id'>keepDependencies</span> <span class='dstring node'>&quot;#{params[:keep_dependencies]}&quot;</span>
@@ -2395,35 +2479,35 @@ disabled.</p>
       <span class='rubyid_xml identifier id'>xml</span><span class='dot token'>.</span><span class='rubyid_blockBuildWhenUpstreamBuilding identifier id'>blockBuildWhenUpstreamBuilding</span><span class='lparen token'>(</span>
         <span class='dstring node'>&quot;#{params[:block_build_when_upstream_building]}&quot;</span><span class='rparen token'>)</span>
       <span class='rubyid_if if kw'>if</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:timer</span><span class='rbrack token'>]</span>
-        <span class='rubyid_xml identifier id'>xml</span><span class='dot token'>.</span><span class='rubyid_triggers identifier id'>triggers</span><span class='dot token'>.</span><span class='rubyid_vector identifier id'>vector</span> <span class='lbrace token'>{</span>
-          <span class='rubyid_xml identifier id'>xml</span><span class='dot token'>.</span><span class='rubyid_send identifier id'>send</span><span class='lparen token'>(</span><span class='string val'>&quot;hudson.triggers.TimerTrigger&quot;</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span>
+        <span class='rubyid_xml identifier id'>xml</span><span class='dot token'>.</span><span class='rubyid_triggers identifier id'>triggers</span><span class='dot token'>.</span><span class='rubyid_vector identifier id'>vector</span> <span class='rubyid_do do kw'>do</span>
+          <span class='rubyid_xml identifier id'>xml</span><span class='dot token'>.</span><span class='rubyid_send identifier id'>send</span><span class='lparen token'>(</span><span class='string val'>&quot;hudson.triggers.TimerTrigger&quot;</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span>
             <span class='rubyid_xml identifier id'>xml</span><span class='dot token'>.</span><span class='rubyid_spec identifier id'>spec</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:timer</span><span class='rbrack token'>]</span>
-          <span class='rbrace token'>}</span>
-        <span class='rbrace token'>}</span>
+          <span class='rubyid_end end kw'>end</span>
+        <span class='rubyid_end end kw'>end</span>
       <span class='rubyid_else else kw'>else</span>
         <span class='rubyid_xml identifier id'>xml</span><span class='dot token'>.</span><span class='rubyid_triggers identifier id'>triggers</span><span class='dot token'>.</span><span class='rubyid_vector identifier id'>vector</span>
       <span class='rubyid_end end kw'>end</span>
       <span class='rubyid_xml identifier id'>xml</span><span class='dot token'>.</span><span class='rubyid_concurrentBuild identifier id'>concurrentBuild</span> <span class='dstring node'>&quot;#{params[:concurrent_build]}&quot;</span>
       <span class='comment val'># Shell command stuff</span>
-      <span class='rubyid_xml identifier id'>xml</span><span class='dot token'>.</span><span class='rubyid_builders identifier id'>builders</span> <span class='lbrace token'>{</span>
+      <span class='rubyid_xml identifier id'>xml</span><span class='dot token'>.</span><span class='rubyid_builders identifier id'>builders</span> <span class='rubyid_do do kw'>do</span>
         <span class='rubyid_if if kw'>if</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:shell_command</span><span class='rbrack token'>]</span>
-          <span class='rubyid_xml identifier id'>xml</span><span class='dot token'>.</span><span class='rubyid_send identifier id'>send</span><span class='lparen token'>(</span><span class='string val'>&quot;hudson.tasks.Shell&quot;</span><span class='rparen token'>)</span> <span class='lbrace token'>{</span>
+          <span class='rubyid_xml identifier id'>xml</span><span class='dot token'>.</span><span class='rubyid_send identifier id'>send</span><span class='lparen token'>(</span><span class='string val'>&quot;hudson.tasks.Shell&quot;</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span>
             <span class='rubyid_xml identifier id'>xml</span><span class='dot token'>.</span><span class='rubyid_command identifier id'>command</span> <span class='dstring node'>&quot;#{params[:shell_command]}&quot;</span>
-          <span class='rbrace token'>}</span>
+          <span class='rubyid_end end kw'>end</span>
         <span class='rubyid_end end kw'>end</span>
-      <span class='rbrace token'>}</span>
+      <span class='rubyid_end end kw'>end</span>
       <span class='comment val'># Adding Downstream projects</span>
-      <span class='rubyid_xml identifier id'>xml</span><span class='dot token'>.</span><span class='rubyid_publishers identifier id'>publishers</span> <span class='lbrace token'>{</span>
+      <span class='rubyid_xml identifier id'>xml</span><span class='dot token'>.</span><span class='rubyid_publishers identifier id'>publishers</span> <span class='rubyid_do do kw'>do</span>
         <span class='comment val'># Build portion of XML that adds child projects</span>
         <span class='rubyid_child_projects identifier id'>child_projects</span><span class='lparen token'>(</span><span class='rubyid_params identifier id'>params</span><span class='comma token'>,</span> <span class='rubyid_xml identifier id'>xml</span><span class='rparen token'>)</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:child_projects</span><span class='rbrack token'>]</span>
         <span class='comment val'># Build portion of XML that adds email notification</span>
         <span class='rubyid_notification_email identifier id'>notification_email</span><span class='lparen token'>(</span><span class='rubyid_params identifier id'>params</span><span class='comma token'>,</span> <span class='rubyid_xml identifier id'>xml</span><span class='rparen token'>)</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:notification_email</span><span class='rbrack token'>]</span>
         <span class='comment val'># Build portion of XML that adds skype notification</span>
         <span class='rubyid_skype_notification identifier id'>skype_notification</span><span class='lparen token'>(</span><span class='rubyid_params identifier id'>params</span><span class='comma token'>,</span> <span class='rubyid_xml identifier id'>xml</span><span class='rparen token'>)</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:skype_targets</span><span class='rbrack token'>]</span>
-      <span class='rbrace token'>}</span>
+      <span class='rubyid_end end kw'>end</span>
       <span class='rubyid_xml identifier id'>xml</span><span class='dot token'>.</span><span class='rubyid_buildWrappers identifier id'>buildWrappers</span>
-    <span class='rbrace token'>}</span>
-  <span class='rbrace token'>}</span>
+    <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_end end kw'>end</span>
   <span class='rubyid_builder identifier id'>builder</span><span class='dot token'>.</span><span class='rubyid_to_xml identifier id'>to_xml</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
@@ -2546,38 +2630,38 @@ disabled.</p>
       <pre class="lines">
 
 
-1054
-1055
-1056
-1057
-1058
-1059
-1060
-1061
-1062
-1063
-1064
-1065
-1066
-1067
-1068
-1069
-1070
-1071
-1072
-1073
-1074
-1075
-1076
-1077
-1078
-1079
-1080
-1081
-1082</pre>
+1138
+1139
+1140
+1141
+1142
+1143
+1144
+1145
+1146
+1147
+1148
+1149
+1150
+1151
+1152
+1153
+1154
+1155
+1156
+1157
+1158
+1159
+1160
+1161
+1162
+1163
+1164
+1165
+1166</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 1054</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 1138</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_chain identifier id'>chain</span><span class='lparen token'>(</span><span class='rubyid_job_names identifier id'>job_names</span><span class='comma token'>,</span> <span class='rubyid_threshold identifier id'>threshold</span><span class='comma token'>,</span> <span class='rubyid_criteria identifier id'>criteria</span><span class='comma token'>,</span> <span class='rubyid_parallel identifier id'>parallel</span> <span class='assign token'>=</span> <span class='integer val'>1</span><span class='rparen token'>)</span>
   <span class='rubyid_raise identifier id'>raise</span> <span class='string val'>&quot;Parallel jobs should be at least 1&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_parallel identifier id'>parallel</span> <span class='lt op'>&lt;</span> <span class='integer val'>1</span>
@@ -2684,18 +2768,18 @@ disabled.</p>
       <pre class="lines">
 
 
-718
-719
-720
-721
-722
-723
-724
-725
-726</pre>
+802
+803
+804
+805
+806
+807
+808
+809
+810</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 718</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 802</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_change_description identifier id'>change_description</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='comma token'>,</span> <span class='rubyid_description identifier id'>description</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Changing the description of '#{job_name}' to '#{description}'&quot;</span>
@@ -2776,30 +2860,30 @@ disabled.</p>
       <pre class="lines">
 
 
-541
-542
-543
-544
-545
-546
-547
-548
-549
-550
-551
-552
-553
-554
-555
-556
-557
-558
-559
-560
-561</pre>
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 541</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 625</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_color_to_status identifier id'>color_to_status</span><span class='lparen token'>(</span><span class='rubyid_color identifier id'>color</span><span class='rparen token'>)</span>
   <span class='rubyid_case case kw'>case</span> <span class='rubyid_color identifier id'>color</span>
@@ -2882,16 +2966,16 @@ disabled.</p>
       <pre class="lines">
 
 
-385
-386
-387
-388
-389
-390
-391</pre>
+469
+470
+471
+472
+473
+474
+475</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 385</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 469</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_copy identifier id'>copy</span><span class='lparen token'>(</span><span class='rubyid_from_job_name identifier id'>from_job_name</span><span class='comma token'>,</span> <span class='rubyid_to_job_name identifier id'>to_job_name</span><span class='assign token'>=</span><span class='rubyid_nil nil kw'>nil</span><span class='rparen token'>)</span>
   <span class='rubyid_to_job_name identifier id'>to_job_name</span> <span class='assign token'>=</span> <span class='dstring node'>&quot;copy_of_#{from_job_name}&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_to_job_name identifier id'>to_job_name</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
@@ -2909,7 +2993,7 @@ disabled.</p>
       <div class="method_details ">
   <h3 class="signature " id="create-instance_method">
   
-    - (<tt>Object</tt>) <strong>create</strong>(job_name, xml) 
+    - (<tt>String</tt>) <strong>create</strong>(job_name, xml) 
   
 
   
@@ -2936,6 +3020,11 @@ disabled.</p>
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>the name of the job</p>
+</div>
+      
     </li>
   
     <li>
@@ -2943,14 +3032,46 @@ disabled.</p>
         <span class='name'>xml</span>
       
       
-        <span class='type'>(<tt>XML</tt>)</span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'>
+<p>the xml configuration of the job</p>
+</div>
       
     </li>
   
 </ul>
 
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the HTTP status code from the POST request</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><span class='object_link'><a href="#create_or_update-instance_method" title="JenkinsApi::Client::Job#create_or_update (method)">#create_or_update</a></span></li>
+    
+      <li><span class='object_link'><a href="#update-instance_method" title="JenkinsApi::Client::Job#update (method)">#update</a></span></li>
+    
+  </ul>
 
 </div><table class="source_code">
   <tr>
@@ -2958,13 +3079,13 @@ disabled.</p>
       <pre class="lines">
 
 
-48
-49
-50
-51</pre>
+71
+72
+73
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 48</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 71</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_create identifier id'>create</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='comma token'>,</span> <span class='rubyid_xml identifier id'>xml</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Creating job '#{job_name}'&quot;</span>
@@ -2979,7 +3100,7 @@ disabled.</p>
       <div class="method_details ">
   <h3 class="signature " id="create_freestyle-instance_method">
   
-    - (<tt>Object</tt>) <strong>create_freestyle</strong>(params) 
+    - (<tt>String</tt>) <strong>create_freestyle</strong>(params) 
   
 
   
@@ -2988,9 +3109,8 @@ disabled.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Create a job with params given as a hash instead of the xml This gives some
-flexibility for creating simple jobs so the user doesn’t have to learn
-about handling xml.</p>
+<p>Create a freestyle project by accepting a Hash of parameters. For the
+parameter description see #create_of_update_freestyle</p>
 
 
   </div>
@@ -3030,69 +3150,43 @@ about handling xml.</p>
       
       
         &mdash;
-        <div class='inline'><ul><li>
-<p><code>:name</code> name of the job</p>
-</li><li>
-<p><code>:keep_dependencies</code> true or false</p>
-</li><li>
-<p><code>:block_build_when_downstream_building</code> true or false</p>
-</li><li>
-<p><code>:block_build_when_upstream_building</code> true or false</p>
-</li><li>
-<p><code>:concurrent_build</code> true or false</p>
-</li><li>
-<p><code>:scm_provider</code> type of source control. Supported: Git, SVN, and
-CVS</p>
-</li><li>
-<p><code>:scm_url</code> remote url for scm</p>
-</li><li>
-<p><code>:scm_module</code> Module to download. Only for CVS.</p>
-</li><li>
-<p><code>:scm_branch</code> branch to use in scm. Uses master by default</p>
-</li><li>
-<p><code>:scm_tag</code> tag to download from scm. Only for CVS.</p>
-</li><li>
-<p><code>:scm_use_head_if_tag_not_found</code> Only for CVS.</p>
-</li><li>
-<p><code>:timer</code> timer for running builds periodically.</p>
-</li><li>
-<p><code>:shell_command</code> command to execute in the shell</p>
-</li><li>
-<p><code>:notification_email</code> email for sending notification</p>
-</li><li>
-<p><code>:skype_targets</code> skype targets for sending notifications to. Use
-* to specify group chats. Use space to separate multiple targets. Example:
-testuser *testgroup.</p>
-</li><li>
-<p><code>:skype_strategy</code> skype strategy to be used for sending
-notifications. Valid values: all, failure, failure_and_fixed, change.
-Default: change.</p>
-</li><li>
-<p><code>:skype_notify_on_build_start</code> Default: false</p>
-</li><li>
-<p><code>:skype_notify_suspects</code> Default: false</p>
-</li><li>
-<p><code>:skype_notify_culprits</code> Default: false</p>
-</li><li>
-<p><code>:skype_notify_fixers</code> Default: false</p>
-</li><li>
-<p><code>:skype_notify_upstream_committers</code> Default: false</p>
-</li><li>
-<p><code>:skype_message</code> what should be sent as notification message.
-Valid: just_summary, summary_and_scm_changes, summary_and_build_parameters,
-summary_scm_changes_and_failed_tests. Default: summary_and_scm_changes</p>
-</li><li>
-<p><code>:child_projects</code> projects to add as downstream projects</p>
-</li><li>
-<p><code>:child_threshold</code> threshold for child projects. success,
-failure, or unstable. Default: failure.</p>
-</li></ul>
+        <div class='inline'>
+<p>the parameters for creating a job</p>
 </div>
       
     </li>
   
 </ul>
 
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the HTTP status code from the POST request</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><span class='object_link'><a href="#create_or_update_freestyle-instance_method" title="JenkinsApi::Client::Job#create_or_update_freestyle (method)">#create_or_update_freestyle</a></span></li>
+    
+      <li><span class='object_link'><a href="#create-instance_method" title="JenkinsApi::Client::Job#create (method)">#create</a></span></li>
+    
+      <li><span class='object_link'><a href="#update_freestyle-instance_method" title="JenkinsApi::Client::Job#update_freestyle (method)">#update_freestyle</a></span></li>
+    
+  </ul>
 
 </div><table class="source_code">
   <tr>
@@ -3100,13 +3194,13 @@ failure, or unstable. Default: failure.</p>
       <pre class="lines">
 
 
-102
-103
-104
-105</pre>
+188
+189
+190
+191</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 102</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 188</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_create_freestyle identifier id'>create_freestyle</span><span class='lparen token'>(</span><span class='rubyid_params identifier id'>params</span><span class='rparen token'>)</span>
   <span class='rubyid_xml identifier id'>xml</span> <span class='assign token'>=</span> <span class='rubyid_build_freestyle_config identifier id'>build_freestyle_config</span><span class='lparen token'>(</span><span class='rubyid_params identifier id'>params</span><span class='rparen token'>)</span>
@@ -3119,9 +3213,9 @@ failure, or unstable. Default: failure.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="create_or_update_freestyle-instance_method">
+  <h3 class="signature " id="create_or_update-instance_method">
   
-    - (<tt>Object</tt>) <strong>create_or_update_freestyle</strong>(params) 
+    - (<tt>String</tt>) <strong>create_or_update</strong>(job_name, xml) 
   
 
   
@@ -3130,9 +3224,122 @@ failure, or unstable. Default: failure.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Create or Update a job with params given as a hash instead of the xml</p>
+<p>Create or Update a job with the name specified and the xml given</p>
 
-<p>Same as create_freestyle</p>
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>job_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the name of the job</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>xml</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the xml configuration of the job</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the HTTP status code from the POST request</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><span class='object_link'><a href="#create-instance_method" title="JenkinsApi::Client::Job#create (method)">#create</a></span></li>
+    
+      <li><span class='object_link'><a href="#update-instance_method" title="JenkinsApi::Client::Job#update (method)">#update</a></span></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+53
+54
+55
+56
+57
+58
+59</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 53</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_create_or_update identifier id'>create_or_update</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='comma token'>,</span> <span class='rubyid_xml identifier id'>xml</span><span class='rparen token'>)</span>
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_exists? fid id'>exists?</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
+    <span class='rubyid_update identifier id'>update</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='comma token'>,</span> <span class='rubyid_xml identifier id'>xml</span><span class='rparen token'>)</span>
+  <span class='rubyid_else else kw'>else</span>
+    <span class='rubyid_create identifier id'>create</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='comma token'>,</span> <span class='rubyid_xml identifier id'>xml</span><span class='rparen token'>)</span>
+  <span class='rubyid_end end kw'>end</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="create_or_update_freestyle-instance_method">
+  
+    - (<tt>String</tt>) <strong>create_or_update_freestyle</strong>(params) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Create or Update a job with params given as a hash instead of the xml This
+gives some flexibility for creating/updating simple jobs so the user
+doesn’t have to learn about handling xml.</p>
 
 
   </div>
@@ -3150,10 +3357,409 @@ failure, or unstable. Default: failure.</p>
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>parameters to create a freestyle project</p>
+</div>
+      
     </li>
   
 </ul>
 
+  
+    
+    
+    <p class="tag_title">Options Hash (<tt>params</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:name+</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>the name of the job</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:keep_dependencies</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>false</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>whether to keep the dependencies or not</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:block_build_when_downstream_building</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>false</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>whether to block build when the downstream project is building</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:block_build_when_upstream_building</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>false</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>whether to block build when the upstream project is building</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:concurrent_build</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>false</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>whether to allow concurrent execution of builds</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:scm_provider</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>the type of source control. Supported providers: git, svn, and cvs</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:scm_url</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>the remote url for the selected scm provider</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:scm_module</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>the module to download. Only for use with “cvs” scm provider</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:scm_branch</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>master</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>the branch to use in scm.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:scm_tag</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>the tag to download from scm. Only for use with “cvs” scm provider</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:scm_use_head_if_tag_not_found</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>whether to use head if specified tag is not found. Only for “cvs”</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:timer</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>the timer for running builds periodically</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:shell_command</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>the command to execute in the shell</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:notification_email</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>the email for sending notification</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:skype_targets</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>the skype targets for sending notifications to. Use * to specify group
+chats. Use space to separate multiple targets. Note that this option
+requires the “skype” plugin to be installed in jenkins. Example:
+testuser *testgroup</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:skype_strategy</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>change</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>the skype strategy to be used for sending notifications. Valid values: all,
+failure, failure_and_fixed, change.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:skype_notify_on_build_start</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>false</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>whether to notify skype targets on build start</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:skype_notify_suspects</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>false</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>whether to notify suspects on skype</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:skype_notify_culprits</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>false</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>whether to notify culprits on skype</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:skype_notify_fixers</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>false</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>whether to notify fixers on skype</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:skype_notify_upstream_committers</span>
+          <span class="type">(<tt>Boolean</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>false</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>whether to notify upstream committers on skype</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:skype_message</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>summary_and_scm_changes</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>the information to be sent as notification message. Valid: just_summary,
+summary_and_scm_changes, summary_and_build_parameters,
+summary_scm_changes_and_failed_tests.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:child_projects</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>the projects to add as downstream projects</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:child_threshold</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+              &mdash; default:
+              <tt>failure</tt>
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>the threshold for child projects. Valid options: success, failure, or
+unstable.</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the HTTP status code from the POST request</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><span class='object_link'><a href="#create_freestyle-instance_method" title="JenkinsApi::Client::Job#create_freestyle (method)">#create_freestyle</a></span></li>
+    
+      <li><span class='object_link'><a href="#update_freestyle-instance_method" title="JenkinsApi::Client::Job#update_freestyle (method)">#update_freestyle</a></span></li>
+    
+  </ul>
 
 </div><table class="source_code">
   <tr>
@@ -3161,16 +3767,16 @@ failure, or unstable. Default: failure.</p>
       <pre class="lines">
 
 
-235
-236
-237
-238
-239
-240
-241</pre>
+158
+159
+160
+161
+162
+163
+164</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 235</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 158</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_create_or_update_freestyle identifier id'>create_or_update_freestyle</span><span class='lparen token'>(</span><span class='rubyid_params identifier id'>params</span><span class='rparen token'>)</span>
   <span class='rubyid_if if kw'>if</span> <span class='rubyid_exists? fid id'>exists?</span><span class='lparen token'>(</span><span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:name</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
@@ -3226,13 +3832,13 @@ failure, or unstable. Default: failure.</p>
       <pre class="lines">
 
 
-323
-324
-325
-326</pre>
+407
+408
+409
+410</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 323</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 407</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_delete identifier id'>delete</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Deleting job '#{job_name}'&quot;</span>
@@ -3278,13 +3884,13 @@ failure, or unstable. Default: failure.</p>
       <pre class="lines">
 
 
-333
-334
-335
-336</pre>
+417
+418
+419
+420</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 333</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 417</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_delete_all! fid id'>delete_all!</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='string val'>&quot;Deleting all jobs from jenkins&quot;</span>
@@ -3337,13 +3943,13 @@ failure, or unstable. Default: failure.</p>
       <pre class="lines">
 
 
-654
-655
-656
-657</pre>
+738
+739
+740
+741</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 654</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 738</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_disable identifier id'>disable</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Disabling job '#{job_name}'&quot;</span>
@@ -3396,13 +4002,13 @@ failure, or unstable. Default: failure.</p>
       <pre class="lines">
 
 
-645
-646
-647
-648</pre>
+729
+730
+731
+732</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 645</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 729</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_enable identifier id'>enable</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Enabling job '#{job_name}'&quot;</span>
@@ -3489,21 +4095,21 @@ failure, or unstable. Default: failure.</p>
       <pre class="lines">
 
 
-811
-812
-813
-814
-815
-816
-817
-818
-819
-820
-821
-822</pre>
+895
+896
+897
+898
+899
+900
+901
+902
+903
+904
+905
+906</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 811</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 895</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_execute_concurrent_builds identifier id'>execute_concurrent_builds</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='comma token'>,</span> <span class='rubyid_option identifier id'>option</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='string val'>&quot;Setting the concurrent build execution option of&quot;</span> <span class='plus op'>+</span>
@@ -3577,12 +4183,12 @@ failure, or unstable. Default: failure.</p>
       <pre class="lines">
 
 
-445
-446
-447</pre>
+529
+530
+531</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 445</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 529</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_exists? fid id'>exists?</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_list identifier id'>list</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_include? fid id'>include?</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
@@ -3645,16 +4251,16 @@ failure, or unstable. Default: failure.</p>
       <pre class="lines">
 
 
-703
-704
-705
-706
-707
-708
-709</pre>
+787
+788
+789
+790
+791
+792
+793</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 703</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 787</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get_build_details identifier id'>get_build_details</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='comma token'>,</span> <span class='rubyid_build_num identifier id'>build_num</span><span class='rparen token'>)</span>
   <span class='rubyid_build_num identifier id'>build_num</span> <span class='assign token'>=</span> <span class='rubyid_get_current_build_number identifier id'>get_current_build_number</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_build_num identifier id'>build_num</span> <span class='eq op'>==</span> <span class='integer val'>0</span>
@@ -3729,90 +4335,6 @@ details of job params.</p>
       <pre class="lines">
 
 
-831
-832
-833
-834
-835
-836
-837
-838
-839
-840
-841
-842
-843
-844
-845
-846
-847
-848
-849
-850
-851
-852
-853
-854
-855
-856
-857
-858
-859
-860
-861
-862
-863
-864
-865
-866
-867
-868
-869
-870
-871
-872
-873
-874
-875
-876
-877
-878
-879
-880
-881
-882
-883
-884
-885
-886
-887
-888
-889
-890
-891
-892
-893
-894
-895
-896
-897
-898
-899
-900
-901
-902
-903
-904
-905
-906
-907
-908
-909
-910
-911
-912
-913
-914
 915
 916
 917
@@ -3826,10 +4348,94 @@ details of job params.</p>
 925
 926
 927
-928</pre>
+928
+929
+930
+931
+932
+933
+934
+935
+936
+937
+938
+939
+940
+941
+942
+943
+944
+945
+946
+947
+948
+949
+950
+951
+952
+953
+954
+955
+956
+957
+958
+959
+960
+961
+962
+963
+964
+965
+966
+967
+968
+969
+970
+971
+972
+973
+974
+975
+976
+977
+978
+979
+980
+981
+982
+983
+984
+985
+986
+987
+988
+989
+990
+991
+992
+993
+994
+995
+996
+997
+998
+999
+1000
+1001
+1002
+1003
+1004
+1005
+1006
+1007
+1008
+1009
+1010
+1011
+1012</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 831</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 915</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get_build_params identifier id'>get_build_params</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the build params of '#{job_name}'&quot;</span>
@@ -3976,14 +4582,14 @@ details of job params.</p>
       <pre class="lines">
 
 
-529
-530
-531
-532
-533</pre>
+613
+614
+615
+616
+617</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 529</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 613</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get_builds identifier id'>get_builds</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the build details of '#{job_name}'&quot;</span>
@@ -4055,13 +4661,13 @@ details of job params.</p>
       <pre class="lines">
 
 
-665
-666
-667
-668</pre>
+749
+750
+751
+752</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 665</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 749</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get_config identifier id'>get_config</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the config.xml of '#{job_name}'&quot;</span>
@@ -4204,34 +4810,34 @@ recent build</p>
       <pre class="lines">
 
 
-408
-409
-410
-411
-412
-413
-414
-415
-416
-417
-418
-419
-420
-421
-422
-423
-424
-425
-426
-427
-428
-429
-430
-431
-432</pre>
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 408</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 492</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get_console_output identifier id'>get_console_output</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='comma token'>,</span> <span class='rubyid_build_num identifier id'>build_num</span> <span class='assign token'>=</span> <span class='integer val'>0</span><span class='comma token'>,</span> <span class='rubyid_start identifier id'>start</span> <span class='assign token'>=</span> <span class='integer val'>0</span><span class='comma token'>,</span> <span class='rubyid_mode identifier id'>mode</span> <span class='assign token'>=</span> <span class='string val'>'text'</span><span class='rparen token'>)</span>
   <span class='rubyid_build_num identifier id'>build_num</span> <span class='assign token'>=</span> <span class='rubyid_get_current_build_number identifier id'>get_current_build_number</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_build_num identifier id'>build_num</span> <span class='eq op'>==</span> <span class='integer val'>0</span>
@@ -4324,13 +4930,13 @@ if there were no builds for the given job.</p>
       <pre class="lines">
 
 
-584
-585
-586
-587</pre>
+668
+669
+670
+671</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 584</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 668</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get_current_build_number identifier id'>get_current_build_number</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the current build number of '#{job_name}'&quot;</span>
@@ -4403,14 +5009,14 @@ meaningful status</p>
       <pre class="lines">
 
 
-571
-572
-573
-574
-575</pre>
+655
+656
+657
+658
+659</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 571</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 655</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get_current_build_status identifier id'>get_current_build_status</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the current build status of '#{job_name}'&quot;</span>
@@ -4464,14 +5070,14 @@ meaningful status</p>
       <pre class="lines">
 
 
-519
-520
-521
-522
-523</pre>
+603
+604
+605
+606
+607</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 519</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 603</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get_downstream_projects identifier id'>get_downstream_projects</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the down stream projects of '#{job_name}'&quot;</span>
@@ -4536,19 +5142,19 @@ meaningful status</p>
       <pre class="lines">
 
 
-687
-688
-689
-690
-691
-692
-693
-694
-695
-696</pre>
+771
+772
+773
+774
+775
+776
+777
+778
+779
+780</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 687</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 771</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get_test_results identifier id'>get_test_results</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='comma token'>,</span> <span class='rubyid_build_num identifier id'>build_num</span><span class='rparen token'>)</span>
   <span class='rubyid_build_num identifier id'>build_num</span> <span class='assign token'>=</span> <span class='rubyid_get_current_build_number identifier id'>get_current_build_number</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_build_num identifier id'>build_num</span> <span class='eq op'>==</span> <span class='integer val'>0</span>
@@ -4607,14 +5213,14 @@ meaningful status</p>
       <pre class="lines">
 
 
-509
-510
-511
-512
-513</pre>
+593
+594
+595
+596
+597</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 509</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 593</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get_upstream_projects identifier id'>get_upstream_projects</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the upstream projects of '#{job_name}'&quot;</span>
@@ -4687,22 +5293,22 @@ meaningful status</p>
       <pre class="lines">
 
 
-474
-475
-476
-477
-478
-479
-480
-481
-482
-483
-484
-485
-486</pre>
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 474</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 558</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_list identifier id'>list</span><span class='lparen token'>(</span><span class='rubyid_filter identifier id'>filter</span><span class='comma token'>,</span> <span class='rubyid_ignorecase identifier id'>ignorecase</span> <span class='assign token'>=</span> <span class='rubyid_true true kw'>true</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining jobs matching filter '#{filter}'&quot;</span>
@@ -4749,13 +5355,13 @@ meaningful status</p>
       <pre class="lines">
 
 
-436
-437
-438
-439</pre>
+520
+521
+522
+523</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 436</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 520</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_list_all identifier id'>list_all</span>
   <span class='rubyid_response_json identifier id'>response_json</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_get_request identifier id'>api_get_request</span><span class='lparen token'>(</span><span class='string val'>&quot;&quot;</span><span class='comma token'>,</span> <span class='string val'>&quot;tree=jobs[name]&quot;</span><span class='rparen token'>)</span><span class='lbrack token'>[</span><span class='string val'>&quot;jobs&quot;</span><span class='rbrack token'>]</span>
@@ -4793,14 +5399,14 @@ meaningful status</p>
       <pre class="lines">
 
 
-490
-491
-492
-493
-494</pre>
+574
+575
+576
+577
+578</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 490</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 574</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_list_all_with_details identifier id'>list_all_with_details</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='string val'>&quot;Obtaining the details of all jobs&quot;</span>
@@ -4868,22 +5474,22 @@ list to filter the status from</p>
       <pre class="lines">
 
 
-455
-456
-457
-458
-459
-460
-461
-462
-463
-464
-465
-466
-467</pre>
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 455</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 539</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_list_by_status identifier id'>list_by_status</span><span class='lparen token'>(</span><span class='rubyid_status identifier id'>status</span><span class='comma token'>,</span> <span class='rubyid_jobs identifier id'>jobs</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
   <span class='rubyid_jobs identifier id'>jobs</span> <span class='assign token'>=</span> <span class='rubyid_list_all identifier id'>list_all</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_jobs identifier id'>jobs</span><span class='dot token'>.</span><span class='rubyid_empty? fid id'>empty?</span>
@@ -4945,13 +5551,13 @@ list to filter the status from</p>
       <pre class="lines">
 
 
-500
-501
-502
-503</pre>
+584
+585
+586
+587</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 500</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 584</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_list_details identifier id'>list_details</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the details of '#{job_name}'&quot;</span>
@@ -5033,13 +5639,13 @@ list to filter the status from</p>
       <pre class="lines">
 
 
-677
-678
-679
-680</pre>
+761
+762
+763
+764</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 677</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 761</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_post_config identifier id'>post_config</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='comma token'>,</span> <span class='rubyid_xml identifier id'>xml</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Posting the config.xml of '#{job_name}'&quot;</span>
@@ -5092,15 +5698,15 @@ list to filter the status from</p>
       <pre class="lines">
 
 
-373
-374
-375
-376
-377
-378</pre>
+457
+458
+459
+460
+461
+462</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 373</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 457</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_recreate identifier id'>recreate</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Recreating job '#{job_name}'&quot;</span>
@@ -5173,36 +5779,36 @@ list to filter the status from</p>
       <pre class="lines">
 
 
-983
-984
-985
-986
-987
-988
-989
-990
-991
-992
-993
-994
-995
-996
-997
-998
-999
-1000
-1001
-1002
-1003
-1004
-1005
-1006
-1007
-1008
-1009</pre>
+1067
+1068
+1069
+1070
+1071
+1072
+1073
+1074
+1075
+1076
+1077
+1078
+1079
+1080
+1081
+1082
+1083
+1084
+1085
+1086
+1087
+1088
+1089
+1090
+1091
+1092
+1093</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 983</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 1067</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_remove_downstream_projects identifier id'>remove_downstream_projects</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Removing the downstream projects of '#{job_name}'&quot;</span>
@@ -5299,13 +5905,13 @@ list to filter the status from</p>
       <pre class="lines">
 
 
-314
-315
-316
-317</pre>
+398
+399
+400
+401</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 314</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 398</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_rename identifier id'>rename</span><span class='lparen token'>(</span><span class='rubyid_old_job identifier id'>old_job</span><span class='comma token'>,</span> <span class='rubyid_new_job identifier id'>new_job</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Renaming job '#{old_job}' to '#{new_job}'&quot;</span>
@@ -5387,24 +5993,24 @@ list to filter the status from</p>
       <pre class="lines">
 
 
-1018
-1019
-1020
-1021
-1022
-1023
-1024
-1025
-1026
-1027
-1028
-1029
-1030
-1031
-1032</pre>
+1102
+1103
+1104
+1105
+1106
+1107
+1108
+1109
+1110
+1111
+1112
+1113
+1114
+1115
+1116</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 1018</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 1102</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_restrict_to_node identifier id'>restrict_to_node</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='comma token'>,</span> <span class='rubyid_node_name identifier id'>node_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Restricting '#{job_name}' to '#{node_name}' node&quot;</span>
@@ -5483,21 +6089,21 @@ only if it was in ‘running’ state.</p>
       <pre class="lines">
 
 
-355
-356
-357
-358
-359
-360
-361
-362
-363
-364
-365
-366</pre>
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 355</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 439</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_stop_build identifier id'>stop_build</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='comma token'>,</span> <span class='rubyid_build_number identifier id'>build_number</span> <span class='assign token'>=</span> <span class='integer val'>0</span><span class='rparen token'>)</span>
   <span class='rubyid_build_number identifier id'>build_number</span> <span class='assign token'>=</span> <span class='rubyid_get_current_build_number identifier id'>get_current_build_number</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_build_number identifier id'>build_number</span> <span class='eq op'>==</span> <span class='integer val'>0</span>
@@ -5618,21 +6224,21 @@ only if it was in ‘running’ state.</p>
       <pre class="lines">
 
 
-753
-754
-755
-756
-757
-758
-759
-760
-761
-762
-763
-764</pre>
+837
+838
+839
+840
+841
+842
+843
+844
+845
+846
+847
+848</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 753</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 837</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_unblock_build_when_downstream_building identifier id'>unblock_build_when_downstream_building</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Unblocking builds of '#{job_name}' when downstream&quot;</span> <span class='plus op'>+</span>
@@ -5711,21 +6317,21 @@ only if it was in ‘running’ state.</p>
       <pre class="lines">
 
 
-791
-792
-793
-794
-795
-796
-797
-798
-799
-800
-801
-802</pre>
+875
+876
+877
+878
+879
+880
+881
+882
+883
+884
+885
+886</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 791</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 875</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_unblock_build_when_upstream_building identifier id'>unblock_build_when_upstream_building</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Unblocking builds of '#{job_name}' when upstream&quot;</span> <span class='plus op'>+</span>
@@ -5791,13 +6397,13 @@ only if it was in ‘running’ state.</p>
       <pre class="lines">
 
 
-1038
-1039
-1040
-1041</pre>
+1122
+1123
+1124
+1125</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 1038</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 1122</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_unchain identifier id'>unchain</span><span class='lparen token'>(</span><span class='rubyid_job_names identifier id'>job_names</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Unchaining jobs: #{job_names.inspect}&quot;</span>
@@ -5810,9 +6416,9 @@ only if it was in ‘running’ state.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="update_freestyle-instance_method">
+  <h3 class="signature " id="update-instance_method">
   
-    - (<tt>Object</tt>) <strong>update_freestyle</strong>(params) 
+    - (<tt>String</tt>) <strong>update</strong>(job_name, xml) 
   
 
   
@@ -5821,11 +6427,115 @@ only if it was in ‘running’ state.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Update a job with params given as a hash instead of the xml This gives some
-flexibility for updating simple jobs so the user doesn’t have to learn
-about handling xml.</p>
+<p>Update a job with the name specified and the xml given</p>
 
-<p>Same as create_freestyle</p>
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>job_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the name of the job</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>xml</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the xml configuration of the job</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the HTTP status code from the POST request</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><span class='object_link'><a href="#create_or_update-instance_method" title="JenkinsApi::Client::Job#create_or_update (method)">#create_or_update</a></span></li>
+    
+      <li><span class='object_link'><a href="#create-instance_method" title="JenkinsApi::Client::Job#create (method)">#create</a></span></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+86
+87
+88
+89</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 86</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_update identifier id'>update</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='comma token'>,</span> <span class='rubyid_xml identifier id'>xml</span><span class='rparen token'>)</span>
+  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Updating job '#{job_name}'&quot;</span>
+  <span class='rubyid_post_config identifier id'>post_config</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='comma token'>,</span> <span class='rubyid_xml identifier id'>xml</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="update_freestyle-instance_method">
+  
+    - (<tt>String</tt>) <strong>update_freestyle</strong>(params) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Update a job with params given as a hash instead of the xml. For the
+parameter description see #create_or_update_freestyle</p>
 
 
   </div>
@@ -5847,6 +6557,35 @@ about handling xml.</p>
   
 </ul>
 
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the HTTP status code from the POST request</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><span class='object_link'><a href="#create_or_update_freestyle-instance_method" title="JenkinsApi::Client::Job#create_or_update_freestyle (method)">#create_or_update_freestyle</a></span></li>
+    
+      <li><span class='object_link'><a href="#update-instance_method" title="JenkinsApi::Client::Job#update (method)">#update</a></span></li>
+    
+      <li><span class='object_link'><a href="#create_freestyle-instance_method" title="JenkinsApi::Client::Job#create_freestyle (method)">#create_freestyle</a></span></li>
+    
+  </ul>
 
 </div><table class="source_code">
   <tr>
@@ -5854,17 +6593,17 @@ about handling xml.</p>
       <pre class="lines">
 
 
-226
-227
-228
-229</pre>
+204
+205
+206
+207</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 226</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 204</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_update_freestyle identifier id'>update_freestyle</span><span class='lparen token'>(</span><span class='rubyid_params identifier id'>params</span><span class='rparen token'>)</span>
   <span class='rubyid_xml identifier id'>xml</span> <span class='assign token'>=</span> <span class='rubyid_build_freestyle_config identifier id'>build_freestyle_config</span><span class='lparen token'>(</span><span class='rubyid_params identifier id'>params</span><span class='rparen token'>)</span>
-  <span class='rubyid_post_config identifier id'>post_config</span><span class='lparen token'>(</span><span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:name</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='rubyid_xml identifier id'>xml</span><span class='rparen token'>)</span>
+  <span class='rubyid_update identifier id'>update</span><span class='lparen token'>(</span><span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:name</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='rubyid_xml identifier id'>xml</span><span class='rparen token'>)</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -5913,13 +6652,13 @@ about handling xml.</p>
       <pre class="lines">
 
 
-342
-343
-344
-345</pre>
+426
+427
+428
+429</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 342</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 426</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_wipe_out_workspace identifier id'>wipe_out_workspace</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Wiping out the workspace of job '#{job_name}'&quot;</span>
@@ -5936,7 +6675,7 @@ about handling xml.</p>
 </div>
 
     <div id="footer">
-  Generated on Sun Aug  4 05:20:05 2013 by
+  Generated on Sun Aug  4 08:14:22 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7 (ruby-1.8.7).
 </div>
