@@ -721,6 +721,17 @@ module JenkinsApi
         end
       end
 
+      # Programatically schedule SCM polling for the specified job
+      #
+      # @param job_name [String] the name of the job
+      #
+      # @return [String] the response code from the HTTP post request
+      #
+      def poll(job_name)
+        @logger.info "Polling SCM changes for job '#{job_name}'"
+        @client.api_post_request("/job/#{job_name}/polling")
+      end
+
       # Enable a job given the name of the job
       #
       # @param [String] job_name
