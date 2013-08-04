@@ -482,11 +482,11 @@ module JenkinsApi
       # @param [String] mode Mode of text output. 'text' or 'html'
       #
       # @return [Hash] response
-      #   * +output+ Console output of the job
-      #   * +size+ Size of the text. This can be used as 'start' for the
-      #   next call to get progressive output
-      #   * +more+ More data available for the job. 'true' if available
-      #            and nil otherwise
+      #   * +output+ console output of the job
+      #   * +size+ size of the text. This can be used as 'start' for the
+      #     next call to get progressive output
+      #   * +more+ more data available for the job. 'true' if available
+      #     and nil otherwise
       #
       def get_console_output(job_name, build_num = 0, start = 0, mode = 'text')
         build_num = get_current_build_number(job_name) if build_num == 0
