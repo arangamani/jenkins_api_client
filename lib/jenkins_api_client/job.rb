@@ -40,53 +40,133 @@ module JenkinsApi
         "#<JenkinsApi::Client::Job>"
       end
 
+      # Create or Update a job with the name specified and the xml given
+      #
+      # @param job_name [String] the name of the job
+      # @param xml [String] the xml configuration of the job
+      #
+      # @see #create
+      # @see #update
+      #
+      # @return [String] the HTTP status code from the POST request
+      #
+      def create_or_update(job_name, xml)
+        if exists?(name)
+          update(job_name, xml)
+        else
+          create(job_name, xml)
+        end
+      end
+
       # Create a job with the name specified and the xml given
       #
-      # @param [String] job_name
-      # @param [XML] xml
+      # @param job_name [String] the name of the job
+      # @param xml [String] the xml configuration of the job
+      #
+      # @see #create_or_update
+      # @see #update
+      #
+      # @return [String] the HTTP status code from the POST request
       #
       def create(job_name, xml)
         @logger.info "Creating job '#{job_name}'"
         @client.post_config("/createItem?name=#{job_name}", xml)
       end
 
-      # Create a job with params given as a hash instead of the xml
-      # This gives some flexibility for creating simple jobs so the user
-      # doesn't have to learn about handling xml.
+      # Update a job with the name specified and the xml given
       #
-      # @param [Hash] params
-      #  * +:name+ name of the job
-      #  * +:keep_dependencies+ true or false
-      #  * +:block_build_when_downstream_building+ true or false
-      #  * +:block_build_when_upstream_building+ true or false
-      #  * +:concurrent_build+ true or false
-      #  * +:scm_provider+ type of source control. Supported: Git, SVN, and CVS
-      #  * +:scm_url+ remote url for scm
-      #  * +:scm_module+ Module to download. Only for CVS.
-      #  * +:scm_branch+ branch to use in scm. Uses master by default
-      #  * +:scm_tag+ tag to download from scm. Only for CVS.
-      #  * +:scm_use_head_if_tag_not_found+ Only for CVS.
-      #  * +:timer+ timer for running builds periodically.
-      #  * +:shell_command+ command to execute in the shell
-      #  * +:notification_email+ email for sending notification
-      #  * +:skype_targets+ skype targets for sending notifications to. Use *
-      #    to specify group chats. Use space to separate multiple targets.
-      #    Example: testuser *testgroup.
-      #  * +:skype_strategy+ skype strategy to be used for sending
-      #    notifications. Valid values: all, failure, failure_and_fixed,
-      #    change. Default: change.
-      #  * +:skype_notify_on_build_start+ Default: false
-      #  * +:skype_notify_suspects+ Default: false
-      #  * +:skype_notify_culprits+ Default: false
-      #  * +:skype_notify_fixers+ Default: false
-      #  * +:skype_notify_upstream_committers+ Default: false
-      #  * +:skype_message+ what should be sent as notification message. Valid:
-      #    just_summary, summary_and_scm_changes,
-      #    summary_and_build_parameters, summary_scm_changes_and_failed_tests.
-      #    Default: summary_and_scm_changes
-      #  * +:child_projects+ projects to add as downstream projects
-      #  * +:child_threshold+ threshold for child projects.
-      #    success, failure, or unstable. Default: failure.
+      # @param job_name [String] the name of the job
+      # @param xml [String] the xml configuration of the job
+      #
+      # @see #create_or_update
+      # @see #create
+      #
+      # @return [String] the HTTP status code from the POST request
+      #
+      def update(job_name, xml)
+        @logger.info "Updating job '#{job_name}'"
+        post_config(job_name, xml)
+      end
+
+      # Create or Update a job with params given as a hash instead of the xml
+      # This gives some flexibility for creating/updating simple jobs so the
+      # user doesn't have to learn about handling xml.
+      #
+      # @param params [Hash] parameters to create a freestyle project
+      #
+      # @option params [String] :name+
+      #   the name of the job
+      # @option params [Boolean] :keep_dependencies (false)
+      #   whether to keep the dependencies or not
+      # @option params [Boolean] :block_build_when_downstream_building (false)
+      #   whether to block build when the downstream project is building
+      # @option params [Boolean] :block_build_when_upstream_building (false)
+      #   whether to block build when the upstream project is building
+      # @option params [Boolean] :concurrent_build (false)
+      #   whether to allow concurrent execution of builds
+      # @option params [String] :scm_provider
+      #   the type of source control. Supported providers: git, svn, and cvs
+      # @option params [String] :scm_url
+      #   the remote url for the selected scm provider
+      # @option params [String] :scm_module
+      #   the module to download. Only for use with "cvs" scm provider
+      # @option params [String] :scm_branch (master)
+      #   the branch to use in scm.
+      # @option params [String] :scm_tag
+      #   the tag to download from scm. Only for use with "cvs" scm provider
+      # @option params [Boolean] :scm_use_head_if_tag_not_found
+      #   whether to use head if specified tag is not found. Only for "cvs"
+      # @option params [String] :timer
+      #   the timer for running builds periodically
+      # @option params [String] :shell_command
+      #   the command to execute in the shell
+      # @option params [String] :notification_email
+      #   the email for sending notification
+      # @option params [String] :skype_targets
+      #   the skype targets for sending notifications to. Use * to specify
+      #   group chats. Use space to separate multiple targets. Note that this
+      #   option requires the "skype" plugin to be installed in jenkins.
+      #   Example: testuser *testgroup
+      # @option params [String] :skype_strategy (change)
+      #   the skype strategy to be used for sending notifications.
+      #   Valid values: all, failure, failure_and_fixed, change.
+      # @option params [Boolean] :skype_notify_on_build_start (false)
+      #   whether to notify skype targets on build start
+      # @option params [Boolean] :skype_notify_suspects (false)
+      #   whether to notify suspects on skype
+      # @option params [Boolean] :skype_notify_culprits (false)
+      #   whether to notify culprits on skype
+      # @option params [Boolean] :skype_notify_fixers (false)
+      #   whether to notify fixers on skype
+      # @option params [Boolean] :skype_notify_upstream_committers (false)
+      #   whether to notify upstream committers on skype
+      # @option params [String] :skype_message (summary_and_scm_changes)
+      #   the information to be sent as notification message. Valid:
+      #   just_summary, summary_and_scm_changes,
+      #   summary_and_build_parameters, summary_scm_changes_and_failed_tests.
+      # @option params [String] :child_projects
+      #   the projects to add as downstream projects
+      # @option params [String] :child_threshold (failure)
+      #   the threshold for child projects. Valid options: success, failure,
+      #   or unstable.
+      #
+      # @see #create_freestyle
+      # @see #update_freestyle
+      #
+      # @return [String] the HTTP status code from the POST request
+      #
+      def create_or_update_freestyle(params)
+        if exists?(params[:name])
+          update_freestyle(params)
+        else
+          create_freestyle(params)
+        end
+      end
+
+      # Create a freestyle project by accepting a Hash of parameters. For the
+      # parameter description see #create_of_update_freestyle
+      #
+      # @param params [Hash] the parameters for creating a job
       #
       # @example Create a Freestype Project
       #   create_freestyle(
@@ -99,11 +179,39 @@ module JenkinsApi
       #     :shell_command => "bundle install\n rake func_tests"
       #   )
       #
+      # @see #create_or_update_freestyle
+      # @see #create
+      # @see #update_freestyle
+      #
+      # @return [String] the HTTP status code from the POST request
+      #
       def create_freestyle(params)
         xml = build_freestyle_config(params)
         create(params[:name], xml)
       end
 
+      # Update a job with params given as a hash instead of the xml. For the
+      # parameter description see #create_or_update_freestyle
+      #
+      # @param params [Hash]
+      #
+      # @see #create_or_update_freestyle
+      # @see #update
+      # @see #create_freestyle
+      #
+      # @return [String] the HTTP status code from the POST request
+      #
+      def update_freestyle(params)
+        xml = build_freestyle_config(params)
+        update(params[:name], xml)
+      end
+
+      # Builds the XML configuration based on the parameters passed as a Hash
+      #
+      # @param params [Hash] the parameters for building XML configuration
+      #
+      # @return [String] the generated XML configuration of the project
+      #
       def build_freestyle_config(params)
         # Supported SCM providers
         supported_scm = ["git", "subversion", "cvs"]
@@ -111,16 +219,16 @@ module JenkinsApi
         # Set default values for params that are not specified.
         raise ArgumentError, "Job name must be specified" \
           unless params.is_a?(Hash) && params[:name]
-        if params[:keep_dependencies].nil?
-          params[:keep_dependencies] = false
+
+        [
+          :keep_dependencies,
+          :block_build_when_downstream_building,
+          :block_build_when_upstream_building,
+          :concurrent_build
+        ].each do |param|
+          params[param] = false if params[param].nil?
         end
-        if params[:block_build_when_downstream_building].nil?
-          params[:block_build_when_downstream_building] = false
-        end
-        if params[:block_build_when_upstream_building].nil?
-          params[:block_build_when_upstream_building] = false
-        end
-        params[:concurrent_build] = false if params[:concurrent_build].nil?
+
         if params[:notification_email]
           if params[:notification_email_for_every_unstable].nil?
             params[:notification_email_for_every_unstable] = false
@@ -131,30 +239,28 @@ module JenkinsApi
         end
 
         # SCM configurations and Error handling.
-        unless supported_scm.include?(params[:scm_provider]) ||
-          params[:scm_provider].nil?
+        unless supported_scm.include?(params[:scm_provider])
           raise "SCM #{params[:scm_provider]} is currently not supported"
         end
-        if params[:scm_url].nil? && !params[:scm_provider].nil?
-          raise 'SCM URL must be specified'
-        end
-        if params[:scm_branch].nil? && !params[:scm_provider].nil?
-          params[:scm_branch] = "master"
-        end
-        if params[:scm_use_head_if_tag_not_found].nil?
-          params[:scm_use_head_if_tag_not_found] = false
+
+        unless params[:scm_provider].nil?
+          raise "SCM URL must be specified" if params[:scm_url].nil?
+          params[:scm_branch] = "master" if params[:scm_branch].nil?
+          if params[:scm_use_head_if_tag_not_found].nil?
+            params[:scm_use_head_if_tag_not_found] = false
+          end
         end
 
         # Child projects configuration and Error handling
         if params[:child_threshold].nil? && !params[:child_projects].nil?
-          params[:child_threshold] = 'failure'
+          params[:child_threshold] = "failure"
         end
 
         @logger.debug "Creating a freestyle job with params: #{params.inspect}"
 
         # Build the Job xml file based on the parameters given
-        builder = Nokogiri::XML::Builder.new(:encoding => 'UTF-8') { |xml|
-          xml.project {
+        builder = Nokogiri::XML::Builder.new(:encoding => 'UTF-8') do |xml|
+          xml.project do
             xml.actions
             xml.description
             xml.keepDependencies "#{params[:keep_dependencies]}"
@@ -185,60 +291,38 @@ module JenkinsApi
             xml.blockBuildWhenUpstreamBuilding(
               "#{params[:block_build_when_upstream_building]}")
             if params[:timer]
-              xml.triggers.vector {
-                xml.send("hudson.triggers.TimerTrigger") {
+              xml.triggers.vector do
+                xml.send("hudson.triggers.TimerTrigger") do
                   xml.spec params[:timer]
-                }
-              }
+                end
+              end
             else
               xml.triggers.vector
             end
             xml.concurrentBuild "#{params[:concurrent_build]}"
             # Shell command stuff
-            xml.builders {
+            xml.builders do
               if params[:shell_command]
-                xml.send("hudson.tasks.Shell") {
+                xml.send("hudson.tasks.Shell") do
                   xml.command "#{params[:shell_command]}"
-                }
+                end
               end
-            }
+            end
             # Adding Downstream projects
-            xml.publishers {
+            xml.publishers do
               # Build portion of XML that adds child projects
               child_projects(params, xml) if params[:child_projects]
               # Build portion of XML that adds email notification
               notification_email(params, xml) if params[:notification_email]
               # Build portion of XML that adds skype notification
               skype_notification(params, xml) if params[:skype_targets]
-            }
+            end
             xml.buildWrappers
-          }
-        }
+          end
+        end
         builder.to_xml
       end
 
-      # Update a job with params given as a hash instead of the xml
-      # This gives some flexibility for updating simple jobs so the user
-      # doesn't have to learn about handling xml.
-      #
-      # @param [Hash] params
-      # Same as create_freestyle
-      def update_freestyle(params)
-        xml = build_freestyle_config(params)
-        post_config(params[:name], xml)
-      end
-
-      # Create or Update a job with params given as a hash instead of the xml
-      #
-      # @param [Hash] params
-      # Same as create_freestyle
-      def create_or_update_freestyle(params)
-        if exists?(params[:name])
-          update_freestyle(params)
-        else
-          create_freestyle(params)
-        end
-      end
 
       # Adding email notification to a job
       #
@@ -257,9 +341,9 @@ module JenkinsApi
         xml = get_config(params[:name])
         n_xml = Nokogiri::XML(xml)
         if n_xml.xpath("//hudson.tasks.Mailer").empty?
-          p_xml = Nokogiri::XML::Builder.new(:encoding => "UTF-8") { |xml|
-            notification_email(params, xml)
-          }
+          p_xml = Nokogiri::XML::Builder.new(:encoding => "UTF-8") do |b_xml|
+            notification_email(params, b_xml)
+          end
           email_xml = Nokogiri::XML(p_xml.to_xml).xpath(
             "//hudson.tasks.Mailer"
           ).first
@@ -295,9 +379,9 @@ module JenkinsApi
         xml = get_config(params[:name])
         n_xml = Nokogiri::XML(xml)
         if n_xml.xpath("//hudson.plugins.skype.im.transport.SkypePublisher").empty?
-          p_xml = Nokogiri::XML::Builder.new(:encoding => "UTF-8") { |xml|
-            skype_notification(params, xml)
-          }
+          p_xml = Nokogiri::XML::Builder.new(:encoding => "UTF-8") do |b_xml|
+            skype_notification(params, b_xml)
+          end
           skype_xml = Nokogiri::XML(p_xml.to_xml).xpath(
             "//hudson.plugins.skype.im.transport.SkypePublisher"
           ).first

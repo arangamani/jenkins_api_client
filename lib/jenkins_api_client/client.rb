@@ -83,23 +83,25 @@ module JenkinsApi
     # @option args [String] :identity_file
     #   the priviate key file for Jenkins CLI authentication,
     #   it is used only for executing CLI commands.
-    #   also remember to upload the public key to http://#{server_ip}:#{server_port}/user/#{my_username}/configure
+    #   also remember to upload the public key to
+    #   http://#{server_ip}:#{server_port}/user/#{my_username}/configure
     # @option args [String] :proxy_ip
     #   the proxy IP address
     # @option args [String] :proxy_port
     #   the proxy port
-    # @option args [String] :jenkins_path
+    # @option args [String] :jenkins_path ("/")
     #   the optional context path for Jenkins
-    # @option args [Boolean] :ssl
-    #   indicates if Jenkins is accessible over HTTPS (defaults to false)
+    # @option args [Boolean] :ssl (false)
+    #   indicates if Jenkins is accessible over HTTPS
     # @option args [Boolean] :follow_redirects
     #   This argument causes the client to follow a redirect (jenkins can
     #   return a 30x when starting a build)
-    # @option args [Fixnum] :timeout
-    #   This argument sets the timeout for the jenkins system to become ready
-    # @option args [String] :log_location
-    #   The location for the log file (Defaults to STDOUT)
-    # @option args [Fixnum] :log_level
+    # @option args [Fixnum] :timeout (120)
+    #   This argument sets the timeout for operations that take longer (in
+    #   seconds)
+    # @option args [String] :log_location (STDOUT)
+    #   The location for the log file
+    # @option args [Fixnum] :log_level (Logger::INFO)
     #   The level for messages to be logged. Should be one of:
     #   Logger::DEBUG (0), Logger::INFO (1), Logger::WARN (2), Logger::ERROR
     #   (2), Logger::FATAL (3) (Defaults to Logger::INFO)
