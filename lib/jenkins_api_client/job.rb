@@ -239,11 +239,11 @@ module JenkinsApi
         end
 
         # SCM configurations and Error handling.
-        unless supported_scm.include?(params[:scm_provider])
-          raise "SCM #{params[:scm_provider]} is currently not supported"
-        end
 
         unless params[:scm_provider].nil?
+          unless supported_scm.include?(params[:scm_provider])
+            raise "SCM #{params[:scm_provider]} is currently not supported"
+          end
           raise "SCM URL must be specified" if params[:scm_url].nil?
           params[:scm_branch] = "master" if params[:scm_branch].nil?
           if params[:scm_use_head_if_tag_not_found].nil?
