@@ -108,8 +108,8 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>This exception class handles cases where a requested page is not found on
-the Jenkins API.</p>
+<p>This exception class handles cases when Crumb Issues did not issue a crumb
+upon request.</p>
 
 
   </div>
@@ -203,13 +203,13 @@ the Jenkins API.</p>
       <pre class="lines">
 
 
-156
-157
-158
-159</pre>
+160
+161
+162
+163</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/exceptions.rb', line 156</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/exceptions.rb', line 160</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_logger identifier id'>logger</span><span class='comma token'>,</span> <span class='rubyid_message identifier id'>message</span> <span class='assign token'>=</span> <span class='string val'>&quot;&quot;</span><span class='comma token'>,</span> <span class='rubyid_log_level identifier id'>log_level</span> <span class='assign token'>=</span> <span class='rubyid_Logger constant id'>Logger</span><span class='colon2 op'>::</span><span class='rubyid_ERROR constant id'>ERROR</span><span class='rparen token'>)</span>
   <span class='rubyid_msg identifier id'>msg</span> <span class='assign token'>=</span> <span class='dstring node'>&quot;No crumb available on the server. #{message}&quot;</span>
@@ -227,7 +227,7 @@ the Jenkins API.</p>
 </div>
 
     <div id="footer">
-  Generated on Sun Aug  4 08:35:20 2013 by
+  Generated on Sun Aug  4 08:44:19 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7 (ruby-1.8.7).
 </div>
