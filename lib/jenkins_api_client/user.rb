@@ -34,7 +34,7 @@ module JenkinsApi
 
       # Initializes a new User object.
       #
-      # @param [Object] client a reference to Client
+      # @param client [Client] a reference to Client
       #
       def initialize(client)
         @client = client
@@ -49,8 +49,10 @@ module JenkinsApi
       end
 
       # Get a list of users
-      # Response will include same as is available from http://jenkins/user/#{username}
+      # Response will include same as is available from
+      # http://jenkins/user/#{username}
       # userid, display name, and email-address
+      #
       # @return [Hash] of [Hash], keyed by Jenkins user id
       #   * +fullName+ The jenkins user idoutput+ Console output of the job
       #   * +properties+ Size of the text. This ca
@@ -75,36 +77,37 @@ module JenkinsApi
 
       # Get a single user
       #
-      # @param [String] User ID or Full Name
+      # @param user_id [String] User ID or Full Name
       #
       # @return [Hash]
       #   * +id+ Jenkins user id
       #   * +fullName+ Full name of user (or user id if not set)
       #   * other fields populated by Jenkins - this may vary based on version/plugins
       #
-      # Example:
-      # {
-      #   "absoluteUrl" : "https://myjenkins.example.com/jenkins/user/fred",
-      #   "description" : "",
-      #   "fullName" : "Fred Flintstone",
-      #   "id" : "fred",
-      #   "property" : [
-      #     {
-      #     },
-      #     {
-      #     },
-      #     {
-      #       "address" : "fred@slaterockandgravel.com"
-      #     },
-      #     {
-      #     },
-      #     {
-      #     },
-      #     {
-      #       "insensitiveSearch" : false
-      #     }
-      #   ]
-      # }
+      # @example Example JSON for user info
+      #   {
+      #     "absoluteUrl" : "https://myjenkins.example.com/jenkins/user/fred",
+      #     "description" : "",
+      #     "fullName" : "Fred Flintstone",
+      #     "id" : "fred",
+      #     "property" : [
+      #       {
+      #       },
+      #       {
+      #       },
+      #       {
+      #         "address" : "fred@slaterockandgravel.com"
+      #       },
+      #       {
+      #       },
+      #       {
+      #       },
+      #       {
+      #         "insensitiveSearch" : false
+      #       }
+      #     ]
+      #   }
+      #
       def get(user_id)
         response = @client.api_get_request("/user/#{user_id}")
       end
