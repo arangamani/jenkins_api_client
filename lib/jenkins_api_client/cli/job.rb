@@ -29,12 +29,12 @@ module JenkinsApi
     class Job < Thor
       include Thor::Actions
 
-      # CLI command to list all jobs in Jenkins or the ones matched by status
-      # or a regular expression
       desc "list", "List jobs"
       method_option :status, :aliases => "-t", :desc => "Status to filter"
       method_option :filter, :aliases => "-f",
         :desc => "Regular expression to filter jobs"
+      # CLI command to list all jobs in Jenkins or the ones matched by status
+      # or a regular expression
       def list
         @client = Helper.setup(parent_options)
         if options[:filter] && options[:status]

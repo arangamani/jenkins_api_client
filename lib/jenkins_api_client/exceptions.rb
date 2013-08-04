@@ -57,12 +57,18 @@ module JenkinsApi
     # Support for backward compatibility
     JobAlreadyExistsWithName = JobAlreadyExists
 
+    # This exception class handles cases where a view not able to be created
+    # because it already exists
+    #
     class ViewAlreadyExists < ApiException
       def initialize(logger, message = "", log_level = Logger::ERROR)
         super(logger, message)
       end
     end
 
+    # This exception class handles cases where a node not able to be created
+    # because it already exists
+    #
     class NodeAlreadyExists < ApiException
       def initialize(logger, message = "", log_level = Logger::ERROR)
         super(logger, message)
@@ -78,6 +84,7 @@ module JenkinsApi
         super(logger, msg, Logger::FATAL)
       end
     end
+    # Support for backward compatibility
     UnauthorizedException = Unauthorized
 
     # This exception class handles cases where invalid credentials are provided
@@ -91,10 +98,6 @@ module JenkinsApi
       def initialize(logger, message = "", log_level = Logger::ERROR)
         msg = "Access denied. Please ensure that Jenkins is set up to allow" +
               " access to this operation. #{message}"
-#              "The Crumb was expired or not sent to the server." +
-#              " Perhaps the CSRF protection was not enabled on the server" +
-#              " when the client was initialized. Please re-initialize the" +
-#              " client. #{message}"
         super(logger, msg)
       end
     end
@@ -106,27 +109,28 @@ module JenkinsApi
     # crumb was used, and the attempt still failed.
     # This may require an interim attempt to re-acquire the crumb in order
     # to confirm it has not expired.
-    # So:
-    # def operation
-    #   retried = false
-    #   begin
-    #     make_attempt
-    #   rescue Forbidden => e
-    #     refresh_crumbs(true)
-    #     if @crumbs_enabled
-    #       if !retried
-    #         retried = true
-    #         retry
+    #
+    # @example A condition where this exception would be raised
+    #   def operation
+    #     retried = false
+    #     begin
+    #       make_attempt
+    #     rescue Forbidden => e
+    #       refresh_crumbs(true)
+    #       if @crumbs_enabled
+    #         if !retried
+    #           retried = true
+    #           retry
+    #         else
+    #           raise ForbiddenWithCrumb.new(@logger, e.message)
+    #         end
     #       else
-    #         raise ForbiddenWithCrumb.new(@logger, e.message)
+    #         raise
     #       end
-    #     else
-    #       raise
     #     end
     #   end
-    # end
     #
-    # Note, the 'refresh_crumbs' method will update crumb enablement and the
+    # @note the 'refresh_crumbs' method will update crumb enablement and the
     # stored crumb if called with 'true'
     #
     class ForbiddenWithCrumb < Forbidden
@@ -149,8 +153,8 @@ module JenkinsApi
     # Support for backward compatibility
     NotFoundException = NotFound
 
-    # This exception class handles cases where a requested page is not found on
-    # the Jenkins API.
+    # This exception class handles cases when Crumb Issues did not issue a
+    # crumb upon request.
     #
     class CrumbNotFound < NotFound
       def initialize(logger, message = "", log_level = Logger::ERROR)
@@ -161,6 +165,9 @@ module JenkinsApi
     # Support for backward compatibility
     CrumbNotFoundException = CrumbNotFound
 
+    # This exception class handles cases where the requested job does not exist
+    # in Jenkins.
+    #
     class JobNotFound < NotFound
       def initialize(logger, message = "", log_level = Logger::ERROR)
         msg = message.empty? ? "The specified job is not found" : message
@@ -168,6 +175,9 @@ module JenkinsApi
       end
     end
 
+    # This exception class handles cases where the requested view does not exist
+    # in Jenkins.
+    #
     class ViewNotFound < NotFound
       def initialize(logger, message = "", log_level = Logger::ERROR)
         msg = message.empty? ? "The specified view is not found" : message
@@ -175,6 +185,9 @@ module JenkinsApi
       end
     end
 
+    # This exception class handles cases where the requested node does not exist
+    # in Jenkins.
+    #
     class NodeNotFound < NotFound
       def initialize(logger, message = "", log_level = Logger::ERROR)
         msg = msg.empty? ? "The specified node is not found" : message
