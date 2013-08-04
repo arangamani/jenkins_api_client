@@ -84,7 +84,7 @@ module JenkinsApi
     #   the priviate key file for Jenkins CLI authentication,
     #   it is used only for executing CLI commands.
     #   also remember to upload the public key to
-    #   http://#{server_ip}:#{server_port}/user/#{my_username}/configure
+    #   http://<Server IP>:<Server Port>/user/<Username>/configure
     # @option args [String] :proxy_ip
     #   the proxy IP address
     # @option args [String] :proxy_port

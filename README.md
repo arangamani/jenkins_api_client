@@ -9,7 +9,7 @@ Copyright &copy; 2012-2013, Kannan Manickam [![endorse](http://api.coderwall.com
 
 Client libraries for communicating with a Jenkins CI server and programatically managing jobs.
 
-IRC Channel: ##jenkins-api-client
+IRC Channel: ##jenkins-api-client (on freenode)
 
 Mailing list: jenkins_api_client@googlegroups.com
 
@@ -182,7 +182,8 @@ puts @client.exec_cli("version")
 ```
 
 * authentication with public/private key file
-remember to upload the public key to http://#{server_ip}:#{server_port}/user/#{my_username}/configure
+remember to upload the public key to
+http://<Server IP>:<Server Port>/user/<Username>/configure
 
 ```ruby
 @client = JenkinsApi::Client.new(:server_ip => '127.0.0.1',

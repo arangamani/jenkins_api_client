@@ -239,7 +239,6 @@ module JenkinsApi
         end
 
         # SCM configurations and Error handling.
-
         unless params[:scm_provider].nil?
           unless supported_scm.include?(params[:scm_provider])
             raise "SCM #{params[:scm_provider]} is currently not supported"
