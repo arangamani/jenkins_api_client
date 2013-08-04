@@ -533,12 +533,14 @@ module JenkinsApi
 
     # Used to determine whether crumbs are enabled, and populate/clear our
     # local crumb accordingly.
-    # @param +force_refresh+ [Boolean] Determines whether the check is
-    #        cursory or deeper.  The default is cursory - i.e. if crumbs
-    #        enabled is 'nil' then figure out what to do, otherwise skip
-    #        If 'true' the method will check to see if the crumbs require-
-    #        ment has changed (by querying Jenkins), and updating crumb
-    #        (refresh, delete, create) as appropriate.
+    #
+    # @param force_refresh [Boolean] determines whether the check is
+    #   cursory or deeper.  The default is cursory - i.e. if crumbs
+    #   enabled is 'nil' then figure out what to do, otherwise skip
+    #   If 'true' the method will check to see if the crumbs require-
+    #   ment has changed (by querying Jenkins), and updating crumb
+    #   (refresh, delete, create) as appropriate.
+    #
     def refresh_crumbs(force_refresh = false)
       # Quick check to see if someone has changed XSS settings and not
       # restarted us
