@@ -369,6 +369,15 @@ describe JenkinsApi::Client::Job do
         end
       end
 
+      describe "#poll" do
+        it "accepts the job name and polls the job for scm changes" do
+          @client.should_receive(:api_post_request).with(
+            "/job/test_job/polling"
+          ).and_return(302)
+          @job.poll("test_job").should == 302
+        end
+      end
+
       describe "#enable" do
         it "accepts the job name and enables the job" do
           @client.should_receive(:api_post_request).with(

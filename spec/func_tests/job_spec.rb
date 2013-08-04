@@ -500,6 +500,13 @@ describe JenkinsApi::Client::Job do
         end
       end
 
+      describe "#poll" do
+        it "Should poll the specified job for scm changes" do
+          response = @client.job.poll(@job_name)
+          @valid_post_responses.should include(response.to_i)
+        end
+      end
+
       describe "#disable" do
         it "Should disable the specified job and then enable it again" do
           @client.job.list_details(@job_name)['buildable'].should == true
