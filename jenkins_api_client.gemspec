@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kannan Manickam"]
-  s.date = "2013-07-10"
+  s.date = "2013-08-04"
   s.description = "\nThis is a simple and easy-to-use Jenkins Api client with features focused on\nautomating Job configuration programaticaly and so forth"
   s.email = ["arangamani.kannan@gmail.com"]
   s.executables = ["jenkinscli"]
@@ -28,6 +28,7 @@ Gem::Specification.new do |s|
     "config/login.yml.example",
     "java_deps/jenkins-cli.jar",
     "jenkins_api_client.gemspec",
+    "jenkins_api_client_class_diagram.png",
     "lib/jenkins_api_client.rb",
     "lib/jenkins_api_client/build_queue.rb",
     "lib/jenkins_api_client/cli/base.rb",
@@ -40,8 +41,8 @@ Gem::Specification.new do |s|
     "lib/jenkins_api_client/job.rb",
     "lib/jenkins_api_client/node.rb",
     "lib/jenkins_api_client/system.rb",
-    "lib/jenkins_api_client/version.rb",
     "lib/jenkins_api_client/user.rb",
+    "lib/jenkins_api_client/version.rb",
     "lib/jenkins_api_client/view.rb",
     "scripts/login_with_irb.rb",
     "spec/func_tests/client_spec.rb",
@@ -81,32 +82,35 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<thor>, [">= 0.16.0"])
       s.add_runtime_dependency(%q<json>, [">= 0"])
       s.add_runtime_dependency(%q<terminal-table>, [">= 1.4.0"])
-      s.add_runtime_dependency(%q<mixlib-shellout>, ["~> 1.1.0"])
+      s.add_runtime_dependency(%q<mixlib-shellout>, [">= 1.1.0"])
       s.add_development_dependency(%q<bundler>, [">= 1.0"])
       s.add_development_dependency(%q<jeweler>, [">= 1.6.4"])
+      s.add_development_dependency(%q<rspec>, ["~> 2.13.0"])
       s.add_development_dependency(%q<simplecov>, [">= 0"])
-      s.add_development_dependency(%q<rspec>, [">= 0"])
+      s.add_development_dependency(%q<yard>, [">= 0"])
     else
       s.add_dependency(%q<nokogiri>, ["~> 1.5.0"])
       s.add_dependency(%q<thor>, [">= 0.16.0"])
       s.add_dependency(%q<json>, [">= 0"])
       s.add_dependency(%q<terminal-table>, [">= 1.4.0"])
-      s.add_dependency(%q<mixlib-shellout>, ["~> 1.1.0"])
+      s.add_dependency(%q<mixlib-shellout>, [">= 1.1.0"])
       s.add_dependency(%q<bundler>, [">= 1.0"])
       s.add_dependency(%q<jeweler>, [">= 1.6.4"])
+      s.add_dependency(%q<rspec>, ["~> 2.13.0"])
       s.add_dependency(%q<simplecov>, [">= 0"])
-      s.add_dependency(%q<rspec>, [">= 0"])
+      s.add_dependency(%q<yard>, [">= 0"])
     end
   else
     s.add_dependency(%q<nokogiri>, ["~> 1.5.0"])
     s.add_dependency(%q<thor>, [">= 0.16.0"])
     s.add_dependency(%q<json>, [">= 0"])
     s.add_dependency(%q<terminal-table>, [">= 1.4.0"])
-    s.add_dependency(%q<mixlib-shellout>, ["~> 1.1.0"])
+    s.add_dependency(%q<mixlib-shellout>, [">= 1.1.0"])
     s.add_dependency(%q<bundler>, [">= 1.0"])
     s.add_dependency(%q<jeweler>, [">= 1.6.4"])
+    s.add_dependency(%q<rspec>, ["~> 2.13.0"])
     s.add_dependency(%q<simplecov>, [">= 0"])
-    s.add_dependency(%q<rspec>, [">= 0"])
+    s.add_dependency(%q<yard>, [">= 0"])
   end
 end
 
