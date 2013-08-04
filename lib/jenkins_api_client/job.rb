@@ -662,7 +662,7 @@ module JenkinsApi
       #
       # @param [String] job_name
       #
-      # @return [Number] build_unumber current build number of the given job
+      # @return [Integer] current build number of the given job
       #
       def get_current_build_number(job_name)
         @logger.info "Obtaining the current build number of '#{job_name}'"
