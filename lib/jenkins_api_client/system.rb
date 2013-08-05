@@ -31,7 +31,9 @@ module JenkinsApi
 
       # Initializes a new System object.
       #
-      # @param [Object] client a reference to Client
+      # @param client [Client] the client object
+      #
+      # @return [System] the system object
       #
       def initialize(client)
         @client = client

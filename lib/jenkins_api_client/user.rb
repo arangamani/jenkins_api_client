@@ -34,7 +34,9 @@ module JenkinsApi
 
       # Initializes a new User object.
       #
-      # @param client [Client] a reference to Client
+      # @param client [Client] the client object
+      #
+      # @return [User] the user object
       #
       def initialize(client)
         @client = client

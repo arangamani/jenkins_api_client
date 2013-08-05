@@ -29,6 +29,10 @@ module JenkinsApi
 
       # Initialize the Job object and store the reference to Client object
       #
+      # @param client [Client] the client object
+      #
+      # @return [Job] the job object
+      #
       def initialize(client)
         @client = client
         @logger = @client.logger
@@ -94,7 +98,7 @@ module JenkinsApi
       #
       # @param params [Hash] parameters to create a freestyle project
       #
-      # @option params [String] :name+
+      # @option params [String] :name
       #   the name of the job
       # @option params [Boolean] :keep_dependencies (false)
       #   whether to keep the dependencies or not

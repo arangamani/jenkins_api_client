@@ -30,7 +30,9 @@ module JenkinsApi
 
       # Initializes a new BuildQueue object.
       #
-      # @param [Object] client a reference to Client
+      # @param client [Client] the client object
+      #
+      # @return [BuildQueue] the build queue object
       #
       def initialize(client)
         @client = client

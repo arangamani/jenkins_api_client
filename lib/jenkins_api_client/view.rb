@@ -30,7 +30,9 @@ module JenkinsApi
 
       # Initializes a new view object
       #
-      # @param [Object] client reference to Client
+      # @param client [Client] the client object
+      #
+      # @return [View] the client object
       #
       def initialize(client)
         @client = client
