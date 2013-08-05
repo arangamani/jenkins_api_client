@@ -504,13 +504,13 @@ define_method. These methods are prefixed with get_node_.</p>
         <span class='name'>client</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="../Client.html" title="JenkinsApi::Client (class)">Client</a></span></tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>reference to Client</p>
+<p>the client object</p>
 </div>
       
     </li>
@@ -524,13 +524,13 @@ define_method. These methods are prefixed with get_node_.</p>
       <pre class="lines">
 
 
-91
-92
 93
-94</pre>
+94
+95
+96</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 91</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 93</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_client identifier id'>client</span><span class='rparen token'>)</span>
   <span class='rubyid_@client ivar id'>@client</span> <span class='assign token'>=</span> <span class='rubyid_client identifier id'>client</span>
@@ -611,8 +611,6 @@ define_method. These methods are prefixed with get_node_.</p>
       <pre class="lines">
 
 
-263
-264
 265
 266
 267
@@ -620,10 +618,12 @@ define_method. These methods are prefixed with get_node_.</p>
 269
 270
 271
-272</pre>
+272
+273
+274</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 263</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 265</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_change_mode identifier id'>change_mode</span><span class='lparen token'>(</span><span class='rubyid_node_name identifier id'>node_name</span><span class='comma token'>,</span> <span class='rubyid_mode identifier id'>mode</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Changing the mode of '#{node_name}' to '#{mode}'&quot;</span>
@@ -725,8 +725,6 @@ define_method. These methods are prefixed with get_node_.</p>
       <pre class="lines">
 
 
-124
-125
 126
 127
 128
@@ -775,10 +773,12 @@ define_method. These methods are prefixed with get_node_.</p>
 171
 172
 173
-174</pre>
+174
+175
+176</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 124</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 126</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_create_dump_slave identifier id'>create_dump_slave</span><span class='lparen token'>(</span><span class='rubyid_params identifier id'>params</span><span class='rparen token'>)</span>
   <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:name</span><span class='rbrack token'>]</span> <span class='andop op'>&amp;&amp;</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:slave_host</span><span class='rbrack token'>]</span> <span class='andop op'>&amp;&amp;</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:private_key_file</span><span class='rbrack token'>]</span>
@@ -883,17 +883,17 @@ define_method. These methods are prefixed with get_node_.</p>
       <pre class="lines">
 
 
-180
-181
 182
 183
 184
 185
 186
-187</pre>
+187
+188
+189</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 180</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 182</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_delete identifier id'>delete</span><span class='lparen token'>(</span><span class='rubyid_node_name identifier id'>node_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Deleting node '#{node_name}'&quot;</span>
@@ -944,13 +944,13 @@ after the exection of this call.</p>
       <pre class="lines">
 
 
-195
-196
 197
-198</pre>
+198
+199
+200</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 195</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 197</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_delete_all! fid id'>delete_all!</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='string val'>&quot;Deleting all nodes (except master) from jenkins&quot;</span>
@@ -1008,14 +1008,14 @@ after the exection of this call.</p>
       <pre class="lines">
 
 
-278
-279
 280
 281
-282</pre>
+282
+283
+284</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 278</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 280</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get_config identifier id'>get_config</span><span class='lparen token'>(</span><span class='rubyid_node_name identifier id'>node_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the config.xml of node '#{node_name}'&quot;</span>
@@ -1074,15 +1074,15 @@ after the exection of this call.</p>
       <pre class="lines">
 
 
-221
-222
 223
 224
 225
-226</pre>
+226
+227
+228</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 221</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 223</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_index identifier id'>index</span><span class='lparen token'>(</span><span class='rubyid_node_name identifier id'>node_name</span><span class='rparen token'>)</span>
   <span class='rubyid_response_json identifier id'>response_json</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_get_request identifier id'>api_get_request</span><span class='lparen token'>(</span><span class='string val'>&quot;/computer&quot;</span><span class='rparen token'>)</span>
@@ -1162,8 +1162,6 @@ after the exection of this call.</p>
       <pre class="lines">
 
 
-205
-206
 207
 208
 209
@@ -1172,10 +1170,12 @@ after the exection of this call.</p>
 212
 213
 214
-215</pre>
+215
+216
+217</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 205</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 207</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_list identifier id'>list</span><span class='lparen token'>(</span><span class='rubyid_filter identifier id'>filter</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='comma token'>,</span> <span class='rubyid_ignorecase identifier id'>ignorecase</span> <span class='assign token'>=</span> <span class='rubyid_true true kw'>true</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining nodes from jenkins matching filter '#{filter}'&quot;</span>
@@ -1256,14 +1256,14 @@ after the exection of this call.</p>
       <pre class="lines">
 
 
-289
-290
 291
 292
-293</pre>
+293
+294
+295</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 289</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 291</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_post_config identifier id'>post_config</span><span class='lparen token'>(</span><span class='rubyid_node_name identifier id'>node_name</span><span class='comma token'>,</span> <span class='rubyid_xml identifier id'>xml</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Posting the config.xml of node '#{node_name}'&quot;</span>
@@ -1302,12 +1302,12 @@ after the exection of this call.</p>
       <pre class="lines">
 
 
-98
-99
-100</pre>
+100
+101
+102</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 98</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 100</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_to_s identifier id'>to_s</span>
   <span class='string val'>&quot;#&lt;JenkinsApi::Client::Node&gt;&quot;</span>
@@ -1323,7 +1323,7 @@ after the exection of this call.</p>
 </div>
 
     <div id="footer">
-  Generated on Mon Aug  5 04:06:11 2013 by
+  Generated on Mon Aug  5 05:05:19 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7 (ruby-1.8.7).
 </div>

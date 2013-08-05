@@ -281,7 +281,7 @@ display name, and email-address.</p>
       
         &mdash;
         <div class='inline'>
-<p>a reference to Client</p>
+<p>the client object</p>
 </div>
       
     </li>
@@ -311,14 +311,14 @@ display name, and email-address.</p>
       <pre class="lines">
 
 
-39
-40
 41
 42
-43</pre>
+43
+44
+45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/user.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/user.rb', line 41</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_client identifier id'>client</span><span class='rparen token'>)</span>
   <span class='rubyid_@client ivar id'>@client</span> <span class='assign token'>=</span> <span class='rubyid_client identifier id'>client</span>
@@ -457,12 +457,12 @@ display name, and email-address.</p>
       <pre class="lines">
 
 
-111
-112
-113</pre>
+113
+114
+115</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/user.rb', line 111</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/user.rb', line 113</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get identifier id'>get</span><span class='lparen token'>(</span><span class='rubyid_user_id identifier id'>user_id</span><span class='rparen token'>)</span>
   <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_get_request identifier id'>api_get_request</span><span class='lparen token'>(</span><span class='dstring node'>&quot;/user/#{user_id}&quot;</span><span class='rparen token'>)</span>
@@ -540,8 +540,6 @@ display name, and email-address</p>
       <pre class="lines">
 
 
-60
-61
 62
 63
 64
@@ -556,10 +554,12 @@ display name, and email-address</p>
 73
 74
 75
-76</pre>
+76
+77
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/user.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/user.rb', line 62</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_list identifier id'>list</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='string val'>&quot;Obtaining the list of users from jenkins&quot;</span>
@@ -626,12 +626,12 @@ display name, and email-address</p>
       <pre class="lines">
 
 
-47
-48
-49</pre>
+49
+50
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/user.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/user.rb', line 49</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_to_s identifier id'>to_s</span>
   <span class='string val'>&quot;#&lt;JenkinsApi::Client::User&gt;&quot;</span>
@@ -647,7 +647,7 @@ display name, and email-address</p>
 </div>
 
     <div id="footer">
-  Generated on Mon Aug  5 04:06:12 2013 by
+  Generated on Mon Aug  5 05:05:21 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7 (ruby-1.8.7).
 </div>

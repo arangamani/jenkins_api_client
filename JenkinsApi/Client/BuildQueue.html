@@ -521,13 +521,13 @@ details.</p>
         <span class='name'>client</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="../Client.html" title="JenkinsApi::Client (class)">Client</a></span></tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>a reference to Client</p>
+<p>the client object</p>
 </div>
       
     </li>
@@ -541,13 +541,13 @@ details.</p>
       <pre class="lines">
 
 
-35
-36
 37
-38</pre>
+38
+39
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 37</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_client identifier id'>client</span><span class='rparen token'>)</span>
   <span class='rubyid_@client ivar id'>@client</span> <span class='assign token'>=</span> <span class='rubyid_client identifier id'>client</span>
@@ -630,8 +630,6 @@ details.</p>
       <pre class="lines">
 
 
-72
-73
 74
 75
 76
@@ -639,10 +637,12 @@ details.</p>
 78
 79
 80
-81</pre>
+81
+82
+83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 72</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 74</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get_age identifier id'>get_age</span><span class='lparen token'>(</span><span class='rubyid_task_name identifier id'>task_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the age of task '#{task_name}' from the&quot;</span> <span class='plus op'>+</span>
@@ -719,8 +719,6 @@ details.</p>
       <pre class="lines">
 
 
-117
-118
 119
 120
 121
@@ -731,10 +729,12 @@ details.</p>
 126
 127
 128
-129</pre>
+129
+130
+131</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 117</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 119</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get_causes identifier id'>get_causes</span><span class='lparen token'>(</span><span class='rubyid_task_name identifier id'>task_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the causes of task '#{task_name}' from the&quot;</span> <span class='plus op'>+</span>
@@ -819,8 +819,6 @@ details.</p>
       <pre class="lines">
 
 
-89
-90
 91
 92
 93
@@ -828,10 +826,12 @@ details.</p>
 95
 96
 97
-98</pre>
+98
+99
+100</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 89</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 91</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get_details identifier id'>get_details</span><span class='lparen token'>(</span><span class='rubyid_task_name identifier id'>task_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the details of task '#{task_name}' from the&quot;</span> <span class='plus op'>+</span>
@@ -913,8 +913,6 @@ details.</p>
       <pre class="lines">
 
 
-155
-156
 157
 158
 159
@@ -929,10 +927,12 @@ details.</p>
 168
 169
 170
-171</pre>
+171
+172
+173</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 155</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 157</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get_eta identifier id'>get_eta</span><span class='lparen token'>(</span><span class='rubyid_task_name identifier id'>task_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the ETA for the task '#{task_name}' from the&quot;</span> <span class='plus op'>+</span>
@@ -1021,8 +1021,6 @@ details.</p>
       <pre class="lines">
 
 
-179
-180
 181
 182
 183
@@ -1030,10 +1028,12 @@ details.</p>
 185
 186
 187
-188</pre>
+188
+189
+190</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 179</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 181</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get_id identifier id'>get_id</span><span class='lparen token'>(</span><span class='rubyid_task_name identifier id'>task_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the ID of task '#{task_name}' from the&quot;</span> <span class='plus op'>+</span>
@@ -1115,13 +1115,13 @@ details.</p>
       <pre class="lines">
 
 
-106
-107
 108
-109</pre>
+109
+110
+111</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 106</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 108</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get_item_by_id identifier id'>get_item_by_id</span><span class='lparen token'>(</span><span class='rubyid_task_id identifier id'>task_id</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the details of task with ID '#{task_id}'&quot;</span>
@@ -1197,8 +1197,6 @@ details.</p>
       <pre class="lines">
 
 
-196
-197
 198
 199
 200
@@ -1206,10 +1204,12 @@ details.</p>
 202
 203
 204
-205</pre>
+205
+206
+207</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 196</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 198</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get_params identifier id'>get_params</span><span class='lparen token'>(</span><span class='rubyid_task_name identifier id'>task_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the build parameters of task '#{task_name}'&quot;</span> <span class='plus op'>+</span>
@@ -1291,8 +1291,6 @@ details.</p>
       <pre class="lines">
 
 
-137
-138
 139
 140
 141
@@ -1300,10 +1298,12 @@ details.</p>
 143
 144
 145
-146</pre>
+146
+147
+148</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 137</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 139</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get_reason identifier id'>get_reason</span><span class='lparen token'>(</span><span class='rubyid_task_name identifier id'>task_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the reason of task '#{task_name}' from the&quot;</span> <span class='plus op'>+</span>
@@ -1385,8 +1385,6 @@ details.</p>
       <pre class="lines">
 
 
-230
-231
 232
 233
 234
@@ -1394,10 +1392,12 @@ details.</p>
 236
 237
 238
-239</pre>
+239
+240
+241</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 230</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 232</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_is_blocked? fid id'>is_blocked?</span><span class='lparen token'>(</span><span class='rubyid_task_name identifier id'>task_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Checking if task '#{task_name}' from the build queue&quot;</span> <span class='plus op'>+</span>
@@ -1479,8 +1479,6 @@ details.</p>
       <pre class="lines">
 
 
-213
-214
 215
 216
 217
@@ -1488,10 +1486,12 @@ details.</p>
 219
 220
 221
-222</pre>
+222
+223
+224</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 213</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 215</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_is_buildable? fid id'>is_buildable?</span><span class='lparen token'>(</span><span class='rubyid_task_name identifier id'>task_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Checking if task '#{task_name}' from the build queue&quot;</span> <span class='plus op'>+</span>
@@ -1573,8 +1573,6 @@ details.</p>
       <pre class="lines">
 
 
-247
-248
 249
 250
 251
@@ -1582,10 +1580,12 @@ details.</p>
 253
 254
 255
-256</pre>
+256
+257
+258</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 247</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 249</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_is_stuck? fid id'>is_stuck?</span><span class='lparen token'>(</span><span class='rubyid_task_name identifier id'>task_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Checking if task '#{task_name}' from the build queue&quot;</span> <span class='plus op'>+</span>
@@ -1629,18 +1629,18 @@ details.</p>
       <pre class="lines">
 
 
-56
-57
 58
 59
 60
 61
 62
 63
-64</pre>
+64
+65
+66</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 58</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_list identifier id'>list</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='string val'>&quot;Obtaining the tasks currently in the build queue&quot;</span>
@@ -1683,14 +1683,14 @@ details.</p>
       <pre class="lines">
 
 
-48
-49
 50
 51
-52</pre>
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 48</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 50</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_size identifier id'>size</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='string val'>&quot;Obtaining the number of tasks in build queue&quot;</span>
@@ -1729,12 +1729,12 @@ details.</p>
       <pre class="lines">
 
 
-42
-43
-44</pre>
+44
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 44</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_to_s identifier id'>to_s</span>
   <span class='string val'>&quot;#&lt;JenkinsApi::Client::BuildQueue&gt;&quot;</span>
@@ -1750,7 +1750,7 @@ details.</p>
 </div>
 
     <div id="footer">
-  Generated on Mon Aug  5 04:06:17 2013 by
+  Generated on Mon Aug  5 05:05:25 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7 (ruby-1.8.7).
 </div>

@@ -376,13 +376,13 @@ level operations such as restarting and reloading Jenkins.</p>
         <span class='name'>client</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="../Client.html" title="JenkinsApi::Client (class)">Client</a></span></tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>a reference to Client</p>
+<p>the client object</p>
 </div>
       
     </li>
@@ -396,14 +396,14 @@ level operations such as restarting and reloading Jenkins.</p>
       <pre class="lines">
 
 
-36
-37
 38
 39
-40</pre>
+40
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/system.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/system.rb', line 38</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_client identifier id'>client</span><span class='rparen token'>)</span>
   <span class='rubyid_@client ivar id'>@client</span> <span class='assign token'>=</span> <span class='rubyid_client identifier id'>client</span>
@@ -449,13 +449,13 @@ level operations such as restarting and reloading Jenkins.</p>
       <pre class="lines">
 
 
-57
-58
 59
-60</pre>
+60
+61
+62</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/system.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/system.rb', line 59</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_cancel_quiet_down identifier id'>cancel_quiet_down</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='string val'>&quot;Cancelling jenkins form quiet down...&quot;</span>
@@ -493,8 +493,6 @@ level operations such as restarting and reloading Jenkins.</p>
       <pre class="lines">
 
 
-92
-93
 94
 95
 96
@@ -502,10 +500,12 @@ level operations such as restarting and reloading Jenkins.</p>
 98
 99
 100
-101</pre>
+101
+102
+103</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/system.rb', line 92</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/system.rb', line 94</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_list_users identifier id'>list_users</span>
   <span class='rubyid_warn identifier id'>warn</span> <span class='string val'>&quot;DEPRECATION: System#list_users is deprecated. Please use User#list instead&quot;</span>
@@ -549,13 +549,13 @@ level operations such as restarting and reloading Jenkins.</p>
       <pre class="lines">
 
 
-50
-51
 52
-53</pre>
+53
+54
+55</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/system.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/system.rb', line 52</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_quiet_down identifier id'>quiet_down</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='string val'>&quot;Performing a quiet down of jenkins...&quot;</span>
@@ -593,13 +593,13 @@ level operations such as restarting and reloading Jenkins.</p>
       <pre class="lines">
 
 
-85
-86
 87
-88</pre>
+88
+89
+90</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/system.rb', line 85</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/system.rb', line 87</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_reload identifier id'>reload</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='string val'>&quot;Reloading jenkins...&quot;</span>
@@ -659,18 +659,18 @@ level operations such as restarting and reloading Jenkins.</p>
       <pre class="lines">
 
 
-67
-68
 69
 70
 71
 72
 73
 74
-75</pre>
+75
+76
+77</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/system.rb', line 67</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/system.rb', line 69</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_restart identifier id'>restart</span><span class='lparen token'>(</span><span class='rubyid_force identifier id'>force</span> <span class='assign token'>=</span> <span class='rubyid_false false kw'>false</span><span class='rparen token'>)</span>
   <span class='rubyid_if if kw'>if</span> <span class='rubyid_force identifier id'>force</span>
@@ -713,12 +713,12 @@ level operations such as restarting and reloading Jenkins.</p>
       <pre class="lines">
 
 
-79
-80
-81</pre>
+81
+82
+83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/system.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/system.rb', line 81</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_restart! fid id'>restart!</span>
   <span class='rubyid_restart identifier id'>restart</span><span class='lparen token'>(</span><span class='rubyid_true true kw'>true</span><span class='rparen token'>)</span>
@@ -755,12 +755,12 @@ level operations such as restarting and reloading Jenkins.</p>
       <pre class="lines">
 
 
-44
-45
-46</pre>
+46
+47
+48</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/system.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/system.rb', line 46</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_to_s identifier id'>to_s</span>
   <span class='string val'>&quot;#&lt;JenkinsApi::Client::System&gt;&quot;</span>
@@ -797,8 +797,6 @@ level operations such as restarting and reloading Jenkins.</p>
       <pre class="lines">
 
 
-106
-107
 108
 109
 110
@@ -814,10 +812,12 @@ level operations such as restarting and reloading Jenkins.</p>
 120
 121
 122
-123</pre>
+123
+124
+125</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/system.rb', line 106</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/system.rb', line 108</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_wait_for_ready identifier id'>wait_for_ready</span>
     <span class='rubyid_Timeout constant id'>Timeout</span><span class='colon2 op'>::</span><span class='rubyid_timeout identifier id'>timeout</span><span class='lparen token'>(</span><span class='rubyid_@timeout ivar id'>@timeout</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span>
@@ -848,7 +848,7 @@ level operations such as restarting and reloading Jenkins.</p>
 </div>
 
     <div id="footer">
-  Generated on Mon Aug  5 04:06:12 2013 by
+  Generated on Mon Aug  5 05:05:21 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7 (ruby-1.8.7).
 </div>

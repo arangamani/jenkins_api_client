@@ -472,13 +472,13 @@ delete, update, and various other operations permitted on the Jenkins API.</p>
         <span class='name'>client</span>
       
       
-        <span class='type'>(<tt>Object</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="../Client.html" title="JenkinsApi::Client (class)">Client</a></span></tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>reference to Client</p>
+<p>the client object</p>
 </div>
       
     </li>
@@ -492,13 +492,13 @@ delete, update, and various other operations permitted on the Jenkins API.</p>
       <pre class="lines">
 
 
-35
-36
 37
-38</pre>
+38
+39
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 37</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_client identifier id'>client</span><span class='rparen token'>)</span>
   <span class='rubyid_@client ivar id'>@client</span> <span class='assign token'>=</span> <span class='rubyid_client identifier id'>client</span>
@@ -569,14 +569,14 @@ delete, update, and various other operations permitted on the Jenkins API.</p>
       <pre class="lines">
 
 
-224
-225
 226
 227
-228</pre>
+228
+229
+230</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 224</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 226</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_add_job identifier id'>add_job</span><span class='lparen token'>(</span><span class='rubyid_view_name identifier id'>view_name</span><span class='comma token'>,</span> <span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Adding job '#{job_name}' to view '#{view_name}'&quot;</span>
@@ -655,8 +655,6 @@ delete, update, and various other operations permitted on the Jenkins API.</p>
       <pre class="lines">
 
 
-52
-53
 54
 55
 56
@@ -674,10 +672,12 @@ delete, update, and various other operations permitted on the Jenkins API.</p>
 68
 69
 70
-71</pre>
+71
+72
+73</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 54</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_create identifier id'>create</span><span class='lparen token'>(</span><span class='rubyid_view_name identifier id'>view_name</span><span class='comma token'>,</span> <span class='rubyid_type identifier id'>type</span> <span class='assign token'>=</span> <span class='string val'>&quot;listview&quot;</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Creating a view '#{view_name}' of type '#{type}'&quot;</span>
@@ -857,8 +857,6 @@ enabled_jobs_only, disabled_jobs_only. Default: all_selected_jobs</p>
       <pre class="lines">
 
 
-89
-90
 91
 92
 93
@@ -921,10 +919,12 @@ enabled_jobs_only, disabled_jobs_only. Default: all_selected_jobs</p>
 150
 151
 152
-153</pre>
+153
+154
+155</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 89</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 91</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_create_list_view identifier id'>create_list_view</span><span class='lparen token'>(</span><span class='rubyid_params identifier id'>params</span><span class='rparen token'>)</span>
   <span class='comment val'># Name is a required parameter. Raise an error if not specified</span>
@@ -1038,13 +1038,13 @@ enabled_jobs_only, disabled_jobs_only. Default: all_selected_jobs</p>
       <pre class="lines">
 
 
-159
-160
 161
-162</pre>
+162
+163
+164</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 159</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 161</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_delete identifier id'>delete</span><span class='lparen token'>(</span><span class='rubyid_view_name identifier id'>view_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Deleting view '#{view_name}'&quot;</span>
@@ -1091,13 +1091,13 @@ Please use with caution.</p>
       <pre class="lines">
 
 
-169
-170
 171
-172</pre>
+172
+173
+174</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 169</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 171</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_delete_all! fid id'>delete_all!</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='string val'>&quot;Deleting all views from jenkins&quot;</span>
@@ -1163,12 +1163,12 @@ Please use with caution.</p>
       <pre class="lines">
 
 
-197
-198
-199</pre>
+199
+200
+201</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 197</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 199</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_exists? fid id'>exists?</span><span class='lparen token'>(</span><span class='rubyid_view_name identifier id'>view_name</span><span class='rparen token'>)</span>
   <span class='rubyid_list identifier id'>list</span><span class='lparen token'>(</span><span class='rubyid_view_name identifier id'>view_name</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_include? fid id'>include?</span><span class='lparen token'>(</span><span class='rubyid_view_name identifier id'>view_name</span><span class='rparen token'>)</span>
@@ -1220,13 +1220,13 @@ Please use with caution.</p>
       <pre class="lines">
 
 
-245
-246
 247
-248</pre>
+248
+249
+250</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 245</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 247</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get_config identifier id'>get_config</span><span class='lparen token'>(</span><span class='rubyid_view_name identifier id'>view_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the configuration of view '#{view_name}'&quot;</span>
@@ -1304,8 +1304,6 @@ Please use with caution.</p>
       <pre class="lines">
 
 
-179
-180
 181
 182
 183
@@ -1316,10 +1314,12 @@ Please use with caution.</p>
 188
 189
 190
-191</pre>
+191
+192
+193</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 179</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 181</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_list identifier id'>list</span><span class='lparen token'>(</span><span class='rubyid_filter identifier id'>filter</span> <span class='assign token'>=</span> <span class='string val'>&quot;&quot;</span><span class='comma token'>,</span> <span class='rubyid_ignorecase identifier id'>ignorecase</span> <span class='assign token'>=</span> <span class='rubyid_true true kw'>true</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining views based on filter '#{filter}'&quot;</span>
@@ -1399,8 +1399,6 @@ Please use with caution.</p>
       <pre class="lines">
 
 
-207
-208
 209
 210
 211
@@ -1409,10 +1407,12 @@ Please use with caution.</p>
 214
 215
 216
-217</pre>
+217
+218
+219</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 207</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 209</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_list_jobs identifier id'>list_jobs</span><span class='lparen token'>(</span><span class='rubyid_view_name identifier id'>view_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the jobs present in view '#{view_name}'&quot;</span>
@@ -1483,13 +1483,13 @@ Please use with caution.</p>
       <pre class="lines">
 
 
-255
-256
 257
-258</pre>
+258
+259
+260</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 255</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 257</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_post_config identifier id'>post_config</span><span class='lparen token'>(</span><span class='rubyid_view_name identifier id'>view_name</span><span class='comma token'>,</span> <span class='rubyid_xml identifier id'>xml</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Posting the configuration of view '#{view_name}'&quot;</span>
@@ -1553,14 +1553,14 @@ Please use with caution.</p>
       <pre class="lines">
 
 
-235
-236
 237
 238
-239</pre>
+239
+240
+241</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 235</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 237</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_remove_job identifier id'>remove_job</span><span class='lparen token'>(</span><span class='rubyid_view_name identifier id'>view_name</span><span class='comma token'>,</span> <span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Removing job '#{job_name}' from view '#{view_name}'&quot;</span>
@@ -1599,12 +1599,12 @@ Please use with caution.</p>
       <pre class="lines">
 
 
-42
-43
-44</pre>
+44
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 44</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_to_s identifier id'>to_s</span>
   <span class='string val'>&quot;#&lt;JenkinsApi::Client::View&gt;&quot;</span>
@@ -1620,7 +1620,7 @@ Please use with caution.</p>
 </div>
 
     <div id="footer">
-  Generated on Mon Aug  5 04:06:12 2013 by
+  Generated on Mon Aug  5 05:05:20 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7 (ruby-1.8.7).
 </div>
