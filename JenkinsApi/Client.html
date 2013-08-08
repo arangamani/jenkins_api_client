@@ -625,6 +625,31 @@ called.</p>
 </li>
 
       
+        <li class="protected ">
+  <span class="summary_signature">
+    
+      <a href="#make_http_request-instance_method" title="#make_http_request (instance method)">- (Net::HTTPResponse) <strong>make_http_request</strong>(request, follow_redirect = @follow_redirects) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title protected">protected</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Connects to the Jenkins server, sends the specified request and returns the
+response.</p>
+</div></span>
+  
+</li>
+
+      
         <li class="public ">
   <span class="summary_signature">
     
@@ -2324,6 +2349,157 @@ called. Just print the important variables.</p>
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="make_http_request-instance_method">
+  
+    - (<tt>Net::HTTPResponse</tt>) <strong>make_http_request</strong>(request, follow_redirect = @follow_redirects)  <span class="extras">(protected)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Connects to the Jenkins server, sends the specified request and returns the
+response.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>request</span>
+      
+      
+        <span class='type'>(<tt>Net::HTTPRequest</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The request object to send</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>follow_redirect</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>@follow_redirects</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>whether to follow redirects or not</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Net::HTTPResponse</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Response from Jenkins</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 254</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_make_http_request identifier id'>make_http_request</span><span class='lparen token'>(</span><span class='rubyid_request identifier id'>request</span><span class='comma token'>,</span> <span class='rubyid_follow_redirect identifier id'>follow_redirect</span> <span class='assign token'>=</span> <span class='rubyid_@follow_redirects ivar id'>@follow_redirects</span><span class='rparen token'>)</span>
+  <span class='rubyid_request identifier id'>request</span><span class='dot token'>.</span><span class='rubyid_basic_auth identifier id'>basic_auth</span> <span class='rubyid_@username ivar id'>@username</span><span class='comma token'>,</span> <span class='rubyid_@password ivar id'>@password</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_@username ivar id'>@username</span>
+
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_@proxy_ip ivar id'>@proxy_ip</span>
+    <span class='rubyid_http identifier id'>http</span> <span class='assign token'>=</span> <span class='rubyid_Net constant id'>Net</span><span class='colon2 op'>::</span><span class='rubyid_HTTP constant id'>HTTP</span><span class='colon2 op'>::</span><span class='rubyid_Proxy constant id'>Proxy</span><span class='lparen token'>(</span><span class='rubyid_@proxy_ip ivar id'>@proxy_ip</span><span class='comma token'>,</span> <span class='rubyid_@proxy_port ivar id'>@proxy_port</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_@server_ip ivar id'>@server_ip</span><span class='comma token'>,</span> <span class='rubyid_@server_port ivar id'>@server_port</span><span class='rparen token'>)</span>
+  <span class='rubyid_else else kw'>else</span>
+    <span class='rubyid_http identifier id'>http</span> <span class='assign token'>=</span> <span class='rubyid_Net constant id'>Net</span><span class='colon2 op'>::</span><span class='rubyid_HTTP constant id'>HTTP</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_@server_ip ivar id'>@server_ip</span><span class='comma token'>,</span> <span class='rubyid_@server_port ivar id'>@server_port</span><span class='rparen token'>)</span>
+  <span class='rubyid_end end kw'>end</span>
+
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_@ssl ivar id'>@ssl</span>
+    <span class='rubyid_http identifier id'>http</span><span class='dot token'>.</span><span class='rubyid_use_ssl identifier id'>use_ssl</span> <span class='assign token'>=</span> <span class='rubyid_true true kw'>true</span>
+    <span class='rubyid_http identifier id'>http</span><span class='dot token'>.</span><span class='rubyid_verify_mode identifier id'>verify_mode</span> <span class='assign token'>=</span> <span class='rubyid_OpenSSL constant id'>OpenSSL</span><span class='colon2 op'>::</span><span class='rubyid_SSL constant id'>SSL</span><span class='colon2 op'>::</span><span class='rubyid_VERIFY_NONE constant id'>VERIFY_NONE</span>
+  <span class='rubyid_end end kw'>end</span>
+
+  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_http identifier id'>http</span><span class='dot token'>.</span><span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='rubyid_request identifier id'>request</span><span class='rparen token'>)</span>
+  <span class='rubyid_case case kw'>case</span> <span class='rubyid_response identifier id'>response</span>
+    <span class='rubyid_when when kw'>when</span> <span class='rubyid_Net constant id'>Net</span><span class='colon2 op'>::</span><span class='rubyid_HTTPRedirection constant id'>HTTPRedirection</span> <span class='rubyid_then then kw'>then</span>
+      <span class='comment val'># If we got a redirect request, follow it (if flag set), but don't</span>
+      <span class='comment val'># go any deeper (only one redirect supported - don't want to follow</span>
+      <span class='comment val'># our tail)</span>
+      <span class='rubyid_if if kw'>if</span> <span class='rubyid_follow_redirect identifier id'>follow_redirect</span>
+        <span class='rubyid_redir_uri identifier id'>redir_uri</span> <span class='assign token'>=</span> <span class='rubyid_URI constant id'>URI</span><span class='dot token'>.</span><span class='rubyid_parse identifier id'>parse</span><span class='lparen token'>(</span><span class='rubyid_response identifier id'>response</span><span class='lbrack token'>[</span><span class='string val'>'location'</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+        <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_make_http_request identifier id'>make_http_request</span><span class='lparen token'>(</span>
+          <span class='rubyid_Net constant id'>Net</span><span class='colon2 op'>::</span><span class='rubyid_HTTP constant id'>HTTP</span><span class='colon2 op'>::</span><span class='rubyid_Get constant id'>Get</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_redir_uri identifier id'>redir_uri</span><span class='dot token'>.</span><span class='rubyid_path identifier id'>path</span><span class='comma token'>,</span> <span class='rubyid_false false kw'>false</span><span class='rparen token'>)</span>
+        <span class='rparen token'>)</span>
+      <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_return return kw'>return</span> <span class='rubyid_response identifier id'>response</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="node-instance_method">
   
     - (<tt><span class='object_link'><a href="Client/Node.html" title="JenkinsApi::Client::Node (class)">JenkinsApi::Client::Node</a></span></tt>) <strong>node</strong> 
@@ -2969,7 +3145,7 @@ Jenkins’ security settings</p>
 </div>
 
     <div id="footer">
-  Generated on Thu Aug  8 09:40:10 2013 by
+  Generated on Thu Aug  8 10:14:53 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7 (ruby-1.8.7).
 </div>
