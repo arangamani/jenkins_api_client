@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "jenkins_api_client"
-  s.version = "0.13.0"
+  s.version = "0.14.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kannan Manickam"]
-  s.date = "2013-08-04"
+  s.date = "2013-08-08"
   s.description = "\nThis is a simple and easy-to-use Jenkins Api client with features focused on\nautomating Job configuration programaticaly and so forth"
   s.email = ["arangamani.kannan@gmail.com"]
   s.executables = ["jenkinscli"]
