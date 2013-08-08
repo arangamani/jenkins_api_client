@@ -4,6 +4,19 @@ CHANGELOG
 upcoming
 --------
 
+v0.14.0  [07-AUG-2013]
+----------------------
+* Fixed a bug where a space was missing in the exec_cli method argument list.
+  Credit: @missedone
+* Refactored create/update jobs by introducing create_or_update methods.
+  Credit: @riywo
+* Enhancement to crumb processing - auto detect the change of crumb setting and
+  do proper exception handling. Credit: dougforpress
+* Added a `User` class which will handle jenkins users related functions.
+  Credit: dougforpres
+* Added a method `Job#poll` which will poll for SCM changes programatically.
+* Added a shortcut method `System#restart!` for force restart.
+
 v0.13.0  [09-JUL-2013]
 ----------------------
 * Jenkins XSS disable option is now supported. No inputs are required - the
