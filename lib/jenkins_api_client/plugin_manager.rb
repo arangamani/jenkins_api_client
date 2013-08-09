@@ -317,10 +317,10 @@ module JenkinsApi
       # the same way. When the install action is issued, it gets the latest
       # version of the plugin if the plugin is outdated.
       #
-      # @see Client.api_post_request
-      # @see .restart_required?
-      # @see System.restart
-      # @see .uninstall
+      # @see Client#api_post_request
+      # @see #restart_required?
+      # @see System#restart
+      # @see #uninstall
       #
       # @param plugins [String, Array] a single plugin or a list of plugins to
       #   be installed
@@ -357,10 +357,10 @@ module JenkinsApi
       # This method makes a POST request for every plugin requested - so it
       # might lead to some delay if a big list is provided.
       #
-      # @see Client.api_post_request
-      # @see .restart_required?
-      # @see System.restart
-      # @see .install
+      # @see Client#api_post_request
+      # @see #restart_required?
+      # @see System#restart
+      # @see #install
       #
       # @param plugins [String, Array] a single plugin or list of plugins to be
       #   uninstalled
@@ -373,10 +373,10 @@ module JenkinsApi
       # POST request for every plugin specified - so it might lead to some
       # delay if a big list is provided.
       #
-      # @see Client.api_post_request
-      # @see .restart_required?
-      # @see System.restart
-      # @see .install
+      # @see Client#api_post_request
+      # @see #restart_required?
+      # @see System#restart
+      # @see #install
       #
       # @param [String, Array] a single plugin or list of plugins to be
       #   downgraded
@@ -389,9 +389,9 @@ module JenkinsApi
       # POST request for every plugin specified - so it might lead to some
       # delay if a big list is provided.
       #
-      # @see Client.api_post_request
-      # @see .restart_required?
-      # @see System.restart
+      # @see Client#api_post_request
+      # @see #restart_required?
+      # @see System#restart
       #
       # @param plugins [String, Array] a single plugin or list of plugins to be
       #   uninstalled
@@ -404,10 +404,10 @@ module JenkinsApi
       # POST request for every plugin specified - so it might lead to some
       # delay if a big list is provided.
       #
-      # @see Client.api_post_request
-      # @see .restart_required?
-      # @see System.restart
-      # @see .disable
+      # @see Client#api_post_request
+      # @see #restart_required?
+      # @see System#restart
+      # @see #disable
       #
       # @param plugins [String, Array] a single plugin or list of plugins to be
       #   uninstalled
@@ -420,10 +420,10 @@ module JenkinsApi
       # POST request for every plugin specified - so it might lead to some
       # delay if a big list is provided.
       #
-      # @see Client.api_post_request
-      # @see .restart_required?
-      # @see System.restart
-      # @see .enable
+      # @see Client#api_post_request
+      # @see #restart_required?
+      # @see System#restart
+      # @see #enable
       #
       # @param plugins [String, Array] a single plugin or list of plugins to be
       #   uninstalled
@@ -433,7 +433,7 @@ module JenkinsApi
       # Requests the Jenkins plugin manager to check for updates by connecting
       # to the update site.
       #
-      # @see .list_updates
+      # @see #list_updates
       #
       def check_for_updates
         @client.api_post_request("/pluginManager/checkUpdates")
@@ -442,7 +442,7 @@ module JenkinsApi
       # Whether restart required for the completion of plugin
       # installations/uninstallations
       #
-      # @see Client.api_get_request
+      # @see Client#api_get_request
       #
       # @return [Boolean] whether restart is required for the completion for
       #   plugin installations/uninstallations.
