@@ -41,8 +41,8 @@ module JenkinsApi
     #
     class NothingSubmitted < ApiException
       def initialize(logger, message = "", log_level = Logger::ERROR)
-        msg = "Nothing is submitted. #{message}"
-        super(logger, msg)
+        message = "Nothing is submitted." if message.empty?
+        super(logger, message)
       end
     end
 
@@ -80,8 +80,8 @@ module JenkinsApi
     #
     class Unauthorized < ApiException
       def initialize(logger, message = "", log_level = Logger::ERROR)
-        msg = "Invalid credentials are provided. #{message}"
-        super(logger, msg, Logger::FATAL)
+        message = "Invalid credentials are provided." if message.empty?
+        super(logger, message, Logger::FATAL)
       end
     end
     # Support for backward compatibility
@@ -158,8 +158,8 @@ module JenkinsApi
     #
     class CrumbNotFound < NotFound
       def initialize(logger, message = "", log_level = Logger::ERROR)
-        msg = "No crumb available on the server. #{message}"
-        super(logger, msg)
+        message = "No crumb available on the server." if message.empty?
+        super(logger, message)
       end
     end
     # Support for backward compatibility
@@ -200,10 +200,10 @@ module JenkinsApi
     #
     class InternalServerError < ApiException
       def initialize(logger, message = "", log_level = Logger::ERROR)
-        msg = "Internel Server Error. Perhaps the in-memory configuration of" +
-              " Jenkins is different from the disk configuration." +
-              " Please try to reload the configuration #{message}"
-        super(logger, msg)
+        message = "Internel Server Error. Perhaps the in-memory configuration" +
+          " Jenkins is different from the disk configuration. Please try to" +
+          " reload the configuration" if message.empty?
+        super(logger, message)
       end
     end
     # Support for backward compatibility
@@ -214,10 +214,10 @@ module JenkinsApi
     #
     class ServiceUnavailable < ApiException
       def initialize(logger, message = "", log_level = Logger::ERROR)
-        msg = "Jenkins is being reloaded or restarted. Please wait till" +
-              " Jenkins is completely back online. This can be" +
-              " programatically achieved by System#wait_for_ready #{message}"
-        super(logger, msg)
+        message = "Jenkins is being reloaded or restarted. Please wait till" +
+          " Jenkins is completely back online. This can be" +
+          " programatically achieved by System#wait_for_ready" if message.empty?
+        super(logger, message)
       end
     end
     # Support for backward compatibility
@@ -227,11 +227,20 @@ module JenkinsApi
     #
     class CLIError < ApiException
       def initialize(logger, message = "", log_level = Logger::ERROR)
-        msg = "Execute CLI Error. #{message}"
-        super(logger, msg)
+        message = "Unable to execute the command." if message.empty?
+        super(logger, message)
       end
     end
     # Support for backward compatibility
     CLIException = CLIError
+
+    # Exception when a particular plugin is not found
+    #
+    class PluginNotFound < NotFound
+      def initialize(logger, message = "", log_level = Logger::ERROR)
+        message = "The specified plugin is not found" if message.empty?
+        super(logger, message)
+      end
+    end
   end
 end

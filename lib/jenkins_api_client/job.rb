@@ -197,7 +197,7 @@ module JenkinsApi
       # Update a job with params given as a hash instead of the xml. For the
       # parameter description see #create_or_update_freestyle
       #
-      # @param params [Hash]
+      # @param params [Hash] parameters to update a freestyle project
       #
       # @see #create_or_update_freestyle
       # @see #update
@@ -334,7 +334,7 @@ module JenkinsApi
       # @option params [String] :name Name of the job
       # @option params [String] :notification_email Email address to send
       # @option params [Boolean] :notification_email_for_every_unstable
-      # Send email notification email for every unstable build
+      #   Send email notification email for every unstable build
       #
       def add_email_notification(params)
         raise "No job name specified" unless params[:name]
@@ -405,7 +405,9 @@ module JenkinsApi
 
       # Delete a job given the name
       #
-      # @param [String] job_name
+      # @param job_name [String] the name of the job to delete
+      #
+      # @return [String] the response from the HTTP POST request
       #
       def delete(job_name)
         @logger.info "Deleting job '#{job_name}'"
@@ -424,7 +426,9 @@ module JenkinsApi
 
       # Wipe out the workspace for a job given the name
       #
-      # @param [String] job_name
+      # @param job_name [String] the name of the job to wipe out the workspace
+      #
+      # @return [String] response from the HTTP POST request
       #
       def wipe_out_workspace(job_name)
         @logger.info "Wiping out the workspace of job '#{job_name}'"
@@ -436,8 +440,8 @@ module JenkinsApi
       # is specified. The build will be stopped only if it was
       # in 'running' state.
       #
-      # @param [String] job_name
-      # @param [Number] build_number
+      # @param job_name [String] the name of the job to stop the build
+      # @param build_number [Number] the build number to stop
       #
       def stop_build(job_name, build_number = 0)
         build_number = get_current_build_number(job_name) if build_number == 0
@@ -451,11 +455,15 @@ module JenkinsApi
           @client.api_post_request("/job/#{job_name}/#{build_number}/stop")
         end
       end
+      alias_method :stop, :stop_build
+      alias_method :abort, :stop_build
 
       # Re-create the same job
       # This is a hack to clear any existing builds
       #
-      # @param [String] job_name
+      # @param job_name [String] the name of the job to recreate
+      #
+      # @return [String] the response from the HTTP POST request
       #
       def recreate(job_name)
         @logger.info "Recreating job '#{job_name}'"
@@ -466,8 +474,10 @@ module JenkinsApi
 
       # Copy a job
       #
-      # @param [String] from_job_name
-      # @param [String] to_job_name
+      # @param from_job_name [String] the name of the job to copy from
+      # @param to_job_name [String] the name of the job to copy to
+      #
+      # @return [String] the response from the HTTP POST request
       #
       def copy(from_job_name, to_job_name=nil)
         to_job_name = "copy_of_#{from_job_name}" if to_job_name.nil?
@@ -481,7 +491,7 @@ module JenkinsApi
       #
       # @param [String] job_name Name of the Jenkins job
       # @param [Number] build_num Specific build number to obtain the
-      #                 console output from. Default is the recent build
+      #   console output from. Default is the recent build
       # @param [Number] start start offset to get only a portion of the text
       # @param [String] mode Mode of text output. 'text' or 'html'
       #
@@ -520,6 +530,8 @@ module JenkinsApi
 
       # List all jobs on the Jenkins CI server
       #
+      # @return [Array<String>] the names of all jobs in jenkins
+      #
       def list_all
         response_json = @client.api_get_request("", "tree=jobs[name]")["jobs"]
         response_json.map { |job| job["name"] }.sort
@@ -527,7 +539,9 @@ module JenkinsApi
 
       # Checks if the given job exists in Jenkins
       #
-      # @param [String] job_name
+      # @param job_name [String] the name of the job to check
+      #
+      # @return [Boolean] whether the job exists in jenkins or not
       #
       def exists?(job_name)
         list(job_name).include?(job_name)
@@ -536,8 +550,12 @@ module JenkinsApi
       # List all Jobs matching the given status
       # You can optionally pass in jobs list to filter the status from
       #
-      # @param [String] status
-      # @param [Array] jobs
+      # @param status [String] the job status to filter
+      # @param jobs [Array<String>] if specified this array will be used for
+      #   filtering by the status otherwise the filtering will be done using
+      #   all jobs available in jenkins
+      #
+      # @return [Array<String>] filtered jobs
       #
       def list_by_status(status, jobs = [])
         jobs = list_all if jobs.empty?
@@ -555,8 +573,10 @@ module JenkinsApi
 
       # List all jobs that match the given regex
       #
-      # @param [String] filter - a regex
-      # @param [Boolean] ignorecase
+      # @param filter [String] a regular expression or a string to filter jobs
+      # @param ignorecase [Boolean] whether to ignore case or not
+      #
+      # @return [Array<String>] jobs matching the given pattern
       #
       def list(filter, ignorecase = true)
         @logger.info "Obtaining jobs matching filter '#{filter}'"
@@ -574,6 +594,8 @@ module JenkinsApi
 
       # List all jobs on the Jenkins CI server along with their details
       #
+      # @return [Array<Hash>] the details of all jobs in jenkins
+      #
       def list_all_with_details
         @logger.info "Obtaining the details of all jobs"
         response_json = @client.api_get_request("")
@@ -582,7 +604,9 @@ module JenkinsApi
 
       # List details of a specific job
       #
-      # @param [String] job_name
+      # @param job_name [String] the name of the job to obtain the details from
+      #
+      # @return [Hash] the details of the specified job
       #
       def list_details(job_name)
         @logger.info "Obtaining the details of '#{job_name}'"
@@ -591,7 +615,8 @@ module JenkinsApi
 
       # List upstream projects of a specific job
       #
-      # @param [String] job_name
+      # @param job_name [String] the name of the job to obtain upstream
+      #  projects for
       #
       def get_upstream_projects(job_name)
         @logger.info "Obtaining the upstream projects of '#{job_name}'"
@@ -601,7 +626,8 @@ module JenkinsApi
 
       # List downstream projects of a specific job
       #
-      # @param [String] job_name
+      # @param job_name [String] the name of the job to obtain downstream
+      #   projects for
       #
       def get_downstream_projects(job_name)
         @logger.info "Obtaining the down stream projects of '#{job_name}'"
@@ -660,6 +686,7 @@ module JenkinsApi
         response_json = @client.api_get_request("/job/#{job_name}")
         color_to_status(response_json["color"])
       end
+      alias_method :status, :get_current_build_status
 
       # Obtain the current build number of the given job
       # This function returns nil if there were no builds for the given job.
@@ -672,6 +699,7 @@ module JenkinsApi
         @logger.info "Obtaining the current build number of '#{job_name}'"
         @client.api_get_request("/job/#{job_name}")['nextBuildNumber'].to_i - 1
       end
+      alias_method :build_number, :get_current_build_number
 
       # Build a job given the name of the job
       # You can optionally pass in a list of params for Jenkins to use for

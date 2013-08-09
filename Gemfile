@@ -11,5 +11,6 @@ group :development do
   gem "jeweler", ">= 1.6.4"
   gem "rspec", "~> 2.13.0"
   gem "simplecov"
+  gem "yard-thor"
   gem "yard"
 end
