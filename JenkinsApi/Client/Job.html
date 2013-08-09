@@ -371,7 +371,7 @@ params for Jenkins to use for parameterized builds.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#copy-instance_method" title="#copy (instance method)">- (Object) <strong>copy</strong>(from_job_name, to_job_name = nil) </a>
+      <a href="#copy-instance_method" title="#copy (instance method)">- (String) <strong>copy</strong>(from_job_name, to_job_name = nil) </a>
     
 
     
@@ -493,7 +493,7 @@ doesn’t have to learn about handling xml.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#delete-instance_method" title="#delete (instance method)">- (Object) <strong>delete</strong>(job_name) </a>
+      <a href="#delete-instance_method" title="#delete (instance method)">- (String) <strong>delete</strong>(job_name) </a>
     
 
     
@@ -761,6 +761,8 @@ doesn’t have to learn about handling xml.</p>
     
 
     
+      (also: #build_number)
+    
   </span>
   
   
@@ -785,6 +787,8 @@ if there were no builds for the given job.</p>
       <a href="#get_current_build_status-instance_method" title="#get_current_build_status (instance method)">- (String) <strong>get_current_build_status</strong>(job_name) </a>
     
 
+    
+      (also: #status)
     
   </span>
   
@@ -906,7 +910,7 @@ meaningful status.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#list-instance_method" title="#list (instance method)">- (Object) <strong>list</strong>(filter, ignorecase = true) </a>
+      <a href="#list-instance_method" title="#list (instance method)">- (Array&lt;String&gt;) <strong>list</strong>(filter, ignorecase = true) </a>
     
 
     
@@ -930,7 +934,7 @@ meaningful status.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#list_all-instance_method" title="#list_all (instance method)">- (Object) <strong>list_all</strong> </a>
+      <a href="#list_all-instance_method" title="#list_all (instance method)">- (Array&lt;String&gt;) <strong>list_all</strong> </a>
     
 
     
@@ -954,7 +958,7 @@ meaningful status.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#list_all_with_details-instance_method" title="#list_all_with_details (instance method)">- (Object) <strong>list_all_with_details</strong> </a>
+      <a href="#list_all_with_details-instance_method" title="#list_all_with_details (instance method)">- (Array&lt;Hash&gt;) <strong>list_all_with_details</strong> </a>
     
 
     
@@ -978,7 +982,7 @@ meaningful status.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#list_by_status-instance_method" title="#list_by_status (instance method)">- (Object) <strong>list_by_status</strong>(status, jobs = []) </a>
+      <a href="#list_by_status-instance_method" title="#list_by_status (instance method)">- (Array&lt;String&gt;) <strong>list_by_status</strong>(status, jobs = []) </a>
     
 
     
@@ -1003,7 +1007,7 @@ list to filter the status from.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#list_details-instance_method" title="#list_details (instance method)">- (Object) <strong>list_details</strong>(job_name) </a>
+      <a href="#list_details-instance_method" title="#list_details (instance method)">- (Hash) <strong>list_details</strong>(job_name) </a>
     
 
     
@@ -1075,7 +1079,7 @@ list to filter the status from.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#recreate-instance_method" title="#recreate (instance method)">- (Object) <strong>recreate</strong>(job_name) </a>
+      <a href="#recreate-instance_method" title="#recreate (instance method)">- (String) <strong>recreate</strong>(job_name) </a>
     
 
     
@@ -1174,6 +1178,8 @@ list to filter the status from.</p>
       <a href="#stop_build-instance_method" title="#stop_build (instance method)">- (Object) <strong>stop_build</strong>(job_name, build_number = 0) </a>
     
 
+    
+      (also: #stop, #abort)
     
   </span>
   
@@ -1340,7 +1346,7 @@ recent build if no build number is specified.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#wipe_out_workspace-instance_method" title="#wipe_out_workspace (instance method)">- (Object) <strong>wipe_out_workspace</strong>(job_name) </a>
+      <a href="#wipe_out_workspace-instance_method" title="#wipe_out_workspace (instance method)">- (String) <strong>wipe_out_workspace</strong>(job_name) </a>
     
 
     
@@ -1545,34 +1551,6 @@ be added as downstream projects, and the threshold</p>
       <pre class="lines">
 
 
-1038
-1039
-1040
-1041
-1042
-1043
-1044
-1045
-1046
-1047
-1048
-1049
-1050
-1051
-1052
-1053
-1054
-1055
-1056
-1057
-1058
-1059
-1060
-1061
-1062
-1063
-1064
-1065
 1066
 1067
 1068
@@ -1580,10 +1558,38 @@ be added as downstream projects, and the threshold</p>
 1070
 1071
 1072
-1073</pre>
+1073
+1074
+1075
+1076
+1077
+1078
+1079
+1080
+1081
+1082
+1083
+1084
+1085
+1086
+1087
+1088
+1089
+1090
+1091
+1092
+1093
+1094
+1095
+1096
+1097
+1098
+1099
+1100
+1101</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 1038</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 1066</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_add_downstream_projects identifier id'>add_downstream_projects</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='comma token'>,</span>
                             <span class='rubyid_downstream_projects identifier id'>downstream_projects</span><span class='comma token'>,</span>
@@ -1640,8 +1646,6 @@ be added as downstream projects, and the threshold</p>
   <div class="discussion">
     
 <p>Adding email notification to a job</p>
-
-<p>Send email notification email for every unstable build</p>
 
 
   </div>
@@ -1706,6 +1710,10 @@ be added as downstream projects, and the threshold</p>
           <span class="default">
             
           </span>
+          
+            &mdash; <div class='inline'>
+<p>Send email notification email for every unstable build</p>
+</div>
           
         </li>
       
@@ -1939,21 +1947,21 @@ summary_scm_changes_and_failed_tests. Default: summary_and_scm_changes</p>
       <pre class="lines">
 
 
-832
-833
-834
-835
-836
-837
-838
-839
-840
-841
-842
-843</pre>
+860
+861
+862
+863
+864
+865
+866
+867
+868
+869
+870
+871</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 832</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 860</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_block_build_when_downstream_building identifier id'>block_build_when_downstream_building</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Blocking builds of '#{job_name}' when downstream&quot;</span> <span class='plus op'>+</span>
@@ -2032,21 +2040,21 @@ summary_scm_changes_and_failed_tests. Default: summary_and_scm_changes</p>
       <pre class="lines">
 
 
-870
-871
-872
-873
-874
-875
-876
-877
-878
-879
-880
-881</pre>
+898
+899
+900
+901
+902
+903
+904
+905
+906
+907
+908
+909</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 870</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 898</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_block_build_when_upstream_building identifier id'>block_build_when_upstream_building</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Blocking builds of '#{job_name}' when upstream&quot;</span> <span class='plus op'>+</span>
@@ -2171,34 +2179,6 @@ disabled.</p>
       <pre class="lines">
 
 
-691
-692
-693
-694
-695
-696
-697
-698
-699
-700
-701
-702
-703
-704
-705
-706
-707
-708
-709
-710
-711
-712
-713
-714
-715
-716
-717
-718
 719
 720
 721
@@ -2206,10 +2186,38 @@ disabled.</p>
 723
 724
 725
-726</pre>
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 691</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 719</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_build identifier id'>build</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='comma token'>,</span> <span class='rubyid_params identifier id'>params</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='comma token'>,</span> <span class='rubyid_return_build_number identifier id'>return_build_number</span> <span class='assign token'>=</span> <span class='rubyid_false false kw'>false</span><span class='rparen token'>)</span>
   <span class='rubyid_msg identifier id'>msg</span> <span class='assign token'>=</span> <span class='dstring node'>&quot;Building job '#{job_name}'&quot;</span>
@@ -2672,38 +2680,38 @@ disabled.</p>
       <pre class="lines">
 
 
-1152
-1153
-1154
-1155
-1156
-1157
-1158
-1159
-1160
-1161
-1162
-1163
-1164
-1165
-1166
-1167
-1168
-1169
-1170
-1171
-1172
-1173
-1174
-1175
-1176
-1177
-1178
-1179
-1180</pre>
+1180
+1181
+1182
+1183
+1184
+1185
+1186
+1187
+1188
+1189
+1190
+1191
+1192
+1193
+1194
+1195
+1196
+1197
+1198
+1199
+1200
+1201
+1202
+1203
+1204
+1205
+1206
+1207
+1208</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 1152</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 1180</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_chain identifier id'>chain</span><span class='lparen token'>(</span><span class='rubyid_job_names identifier id'>job_names</span><span class='comma token'>,</span> <span class='rubyid_threshold identifier id'>threshold</span><span class='comma token'>,</span> <span class='rubyid_criteria identifier id'>criteria</span><span class='comma token'>,</span> <span class='rubyid_parallel identifier id'>parallel</span> <span class='assign token'>=</span> <span class='integer val'>1</span><span class='rparen token'>)</span>
   <span class='rubyid_raise identifier id'>raise</span> <span class='string val'>&quot;Parallel jobs should be at least 1&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_parallel identifier id'>parallel</span> <span class='lt op'>&lt;</span> <span class='integer val'>1</span>
@@ -2810,18 +2818,18 @@ disabled.</p>
       <pre class="lines">
 
 
-816
-817
-818
-819
-820
-821
-822
-823
-824</pre>
+844
+845
+846
+847
+848
+849
+850
+851
+852</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 816</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 844</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_change_description identifier id'>change_description</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='comma token'>,</span> <span class='rubyid_description identifier id'>description</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Changing the description of '#{job_name}' to '#{description}'&quot;</span>
@@ -2902,30 +2910,30 @@ disabled.</p>
       <pre class="lines">
 
 
-628
-629
-630
-631
-632
-633
-634
-635
-636
-637
-638
-639
-640
-641
-642
-643
-644
-645
-646
-647
-648</pre>
+654
+655
+656
+657
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670
+671
+672
+673
+674</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 628</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 654</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_color_to_status identifier id'>color_to_status</span><span class='lparen token'>(</span><span class='rubyid_color identifier id'>color</span><span class='rparen token'>)</span>
   <span class='rubyid_case case kw'>case</span> <span class='rubyid_color identifier id'>color</span>
@@ -2957,7 +2965,7 @@ disabled.</p>
       <div class="method_details ">
   <h3 class="signature " id="copy-instance_method">
   
-    - (<tt>Object</tt>) <strong>copy</strong>(from_job_name, to_job_name = nil) 
+    - (<tt>String</tt>) <strong>copy</strong>(from_job_name, to_job_name = nil) 
   
 
   
@@ -2984,6 +2992,11 @@ disabled.</p>
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>the name of the job to copy from</p>
+</div>
+      
     </li>
   
     <li>
@@ -2997,10 +3010,33 @@ disabled.</p>
         <em class="default">(defaults to: <tt>nil</tt>)</em>
       
       
+        &mdash;
+        <div class='inline'>
+<p>the name of the job to copy to</p>
+</div>
+      
     </li>
   
 </ul>
 
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the response from the HTTP POST request</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -3008,16 +3044,16 @@ disabled.</p>
       <pre class="lines">
 
 
-472
-473
-474
-475
-476
-477
-478</pre>
+482
+483
+484
+485
+486
+487
+488</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 472</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 482</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_copy identifier id'>copy</span><span class='lparen token'>(</span><span class='rubyid_from_job_name identifier id'>from_job_name</span><span class='comma token'>,</span> <span class='rubyid_to_job_name identifier id'>to_job_name</span><span class='assign token'>=</span><span class='rubyid_nil nil kw'>nil</span><span class='rparen token'>)</span>
   <span class='rubyid_to_job_name identifier id'>to_job_name</span> <span class='assign token'>=</span> <span class='dstring node'>&quot;copy_of_#{from_job_name}&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_to_job_name identifier id'>to_job_name</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
@@ -3836,7 +3872,7 @@ unstable.</p>
       <div class="method_details ">
   <h3 class="signature " id="delete-instance_method">
   
-    - (<tt>Object</tt>) <strong>delete</strong>(job_name) 
+    - (<tt>String</tt>) <strong>delete</strong>(job_name) 
   
 
   
@@ -3863,10 +3899,33 @@ unstable.</p>
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>the name of the job to delete</p>
+</div>
+      
     </li>
   
 </ul>
 
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the response from the HTTP POST request</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -3874,13 +3933,13 @@ unstable.</p>
       <pre class="lines">
 
 
-410
-411
 412
-413</pre>
+413
+414
+415</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 410</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 412</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_delete identifier id'>delete</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Deleting job '#{job_name}'&quot;</span>
@@ -3926,13 +3985,13 @@ unstable.</p>
       <pre class="lines">
 
 
-420
-421
 422
-423</pre>
+423
+424
+425</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 420</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 422</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_delete_all! fid id'>delete_all!</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='string val'>&quot;Deleting all jobs from jenkins&quot;</span>
@@ -3985,13 +4044,13 @@ unstable.</p>
       <pre class="lines">
 
 
-752
-753
-754
-755</pre>
+780
+781
+782
+783</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 752</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 780</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_disable identifier id'>disable</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Disabling job '#{job_name}'&quot;</span>
@@ -4044,13 +4103,13 @@ unstable.</p>
       <pre class="lines">
 
 
-743
-744
-745
-746</pre>
+771
+772
+773
+774</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 743</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 771</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_enable identifier id'>enable</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Enabling job '#{job_name}'&quot;</span>
@@ -4137,21 +4196,21 @@ unstable.</p>
       <pre class="lines">
 
 
-909
-910
-911
-912
-913
-914
-915
-916
-917
-918
-919
-920</pre>
+937
+938
+939
+940
+941
+942
+943
+944
+945
+946
+947
+948</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 909</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 937</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_execute_concurrent_builds identifier id'>execute_concurrent_builds</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='comma token'>,</span> <span class='rubyid_option identifier id'>option</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='string val'>&quot;Setting the concurrent build execution option of&quot;</span> <span class='plus op'>+</span>
@@ -4201,6 +4260,11 @@ unstable.</p>
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>the name of the job to check</p>
+</div>
+      
     </li>
   
 </ul>
@@ -4215,6 +4279,11 @@ unstable.</p>
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>whether the job exists in jenkins or not</p>
+</div>
+      
     </li>
   
 </ul>
@@ -4225,12 +4294,12 @@ unstable.</p>
       <pre class="lines">
 
 
-532
-533
-534</pre>
+546
+547
+548</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 532</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 546</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_exists? fid id'>exists?</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_list identifier id'>list</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_include? fid id'>include?</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
@@ -4293,16 +4362,16 @@ unstable.</p>
       <pre class="lines">
 
 
-801
-802
-803
-804
-805
-806
-807</pre>
+829
+830
+831
+832
+833
+834
+835</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 801</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 829</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get_build_details identifier id'>get_build_details</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='comma token'>,</span> <span class='rubyid_build_num identifier id'>build_num</span><span class='rparen token'>)</span>
   <span class='rubyid_build_num identifier id'>build_num</span> <span class='assign token'>=</span> <span class='rubyid_get_current_build_number identifier id'>get_current_build_number</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_build_num identifier id'>build_num</span> <span class='eq op'>==</span> <span class='integer val'>0</span>
@@ -4377,34 +4446,6 @@ details of job params.</p>
       <pre class="lines">
 
 
-929
-930
-931
-932
-933
-934
-935
-936
-937
-938
-939
-940
-941
-942
-943
-944
-945
-946
-947
-948
-949
-950
-951
-952
-953
-954
-955
-956
 957
 958
 959
@@ -4474,10 +4515,38 @@ details of job params.</p>
 1023
 1024
 1025
-1026</pre>
+1026
+1027
+1028
+1029
+1030
+1031
+1032
+1033
+1034
+1035
+1036
+1037
+1038
+1039
+1040
+1041
+1042
+1043
+1044
+1045
+1046
+1047
+1048
+1049
+1050
+1051
+1052
+1053
+1054</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 929</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 957</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get_build_params identifier id'>get_build_params</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the build params of '#{job_name}'&quot;</span>
@@ -4624,14 +4693,14 @@ details of job params.</p>
       <pre class="lines">
 
 
-616
-617
-618
-619
-620</pre>
+642
+643
+644
+645
+646</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 616</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 642</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get_builds identifier id'>get_builds</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the build details of '#{job_name}'&quot;</span>
@@ -4703,13 +4772,13 @@ details of job params.</p>
       <pre class="lines">
 
 
-763
-764
-765
-766</pre>
+791
+792
+793
+794</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 763</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 791</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get_config identifier id'>get_config</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the config.xml of '#{job_name}'&quot;</span>
@@ -4849,16 +4918,6 @@ and nil otherwise</p>
       <pre class="lines">
 
 
-495
-496
-497
-498
-499
-500
-501
-502
-503
-504
 505
 506
 507
@@ -4873,10 +4932,20 @@ and nil otherwise</p>
 516
 517
 518
-519</pre>
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 495</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 505</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get_console_output identifier id'>get_console_output</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='comma token'>,</span> <span class='rubyid_build_num identifier id'>build_num</span> <span class='assign token'>=</span> <span class='integer val'>0</span><span class='comma token'>,</span> <span class='rubyid_start identifier id'>start</span> <span class='assign token'>=</span> <span class='integer val'>0</span><span class='comma token'>,</span> <span class='rubyid_mode identifier id'>mode</span> <span class='assign token'>=</span> <span class='string val'>'text'</span><span class='rparen token'>)</span>
   <span class='rubyid_build_num identifier id'>build_num</span> <span class='assign token'>=</span> <span class='rubyid_get_current_build_number identifier id'>get_current_build_number</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_build_num identifier id'>build_num</span> <span class='eq op'>==</span> <span class='integer val'>0</span>
@@ -4915,6 +4984,10 @@ and nil otherwise</p>
     - (<tt>Integer</tt>) <strong>get_current_build_number</strong>(job_name) 
   
 
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='build_number-instance_method'>build_number</span></span>
+    </span>
   
 
   
@@ -4969,13 +5042,13 @@ if there were no builds for the given job.</p>
       <pre class="lines">
 
 
-671
-672
-673
-674</pre>
+698
+699
+700
+701</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 671</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 698</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get_current_build_number identifier id'>get_current_build_number</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the current build number of '#{job_name}'&quot;</span>
@@ -4993,6 +5066,10 @@ if there were no builds for the given job.</p>
     - (<tt>String</tt>) <strong>get_current_build_status</strong>(job_name) 
   
 
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='status-instance_method'>status</span></span>
+    </span>
   
 
   
@@ -5048,14 +5125,14 @@ meaningful status</p>
       <pre class="lines">
 
 
-658
-659
-660
-661
-662</pre>
+684
+685
+686
+687
+688</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 658</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 684</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get_current_build_status identifier id'>get_current_build_status</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the current build status of '#{job_name}'&quot;</span>
@@ -5098,6 +5175,11 @@ meaningful status</p>
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>the name of the job to obtain downstream projects for</p>
+</div>
+      
     </li>
   
 </ul>
@@ -5109,14 +5191,14 @@ meaningful status</p>
       <pre class="lines">
 
 
-606
-607
-608
-609
-610</pre>
+632
+633
+634
+635
+636</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 606</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 632</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get_downstream_projects identifier id'>get_downstream_projects</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the down stream projects of '#{job_name}'&quot;</span>
@@ -5181,19 +5263,19 @@ meaningful status</p>
       <pre class="lines">
 
 
-785
-786
-787
-788
-789
-790
-791
-792
-793
-794</pre>
+813
+814
+815
+816
+817
+818
+819
+820
+821
+822</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 785</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 813</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get_test_results identifier id'>get_test_results</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='comma token'>,</span> <span class='rubyid_build_num identifier id'>build_num</span><span class='rparen token'>)</span>
   <span class='rubyid_build_num identifier id'>build_num</span> <span class='assign token'>=</span> <span class='rubyid_get_current_build_number identifier id'>get_current_build_number</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_build_num identifier id'>build_num</span> <span class='eq op'>==</span> <span class='integer val'>0</span>
@@ -5241,6 +5323,11 @@ meaningful status</p>
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>the name of the job to obtain upstream projects for</p>
+</div>
+      
     </li>
   
 </ul>
@@ -5252,14 +5339,14 @@ meaningful status</p>
       <pre class="lines">
 
 
-596
-597
-598
-599
-600</pre>
+621
+622
+623
+624
+625</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 596</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 621</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get_upstream_projects identifier id'>get_upstream_projects</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the upstream projects of '#{job_name}'&quot;</span>
@@ -5275,7 +5362,7 @@ meaningful status</p>
       <div class="method_details ">
   <h3 class="signature " id="list-instance_method">
   
-    - (<tt>Object</tt>) <strong>list</strong>(filter, ignorecase = true) 
+    - (<tt>Array&lt;String&gt;</tt>) <strong>list</strong>(filter, ignorecase = true) 
   
 
   
@@ -5303,9 +5390,8 @@ meaningful status</p>
       
       
         &mdash;
-        <div class='inline'><ul><li>
-<p>a regex</p>
-</li></ul>
+        <div class='inline'>
+<p>a regular expression or a string to filter jobs</p>
 </div>
       
     </li>
@@ -5321,10 +5407,33 @@ meaningful status</p>
         <em class="default">(defaults to: <tt>true</tt>)</em>
       
       
+        &mdash;
+        <div class='inline'>
+<p>whether to ignore case or not</p>
+</div>
+      
     </li>
   
 </ul>
 
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>jobs matching the given pattern</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -5332,22 +5441,22 @@ meaningful status</p>
       <pre class="lines">
 
 
-561
-562
-563
-564
-565
-566
-567
-568
-569
-570
-571
-572
-573</pre>
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 561</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 581</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_list identifier id'>list</span><span class='lparen token'>(</span><span class='rubyid_filter identifier id'>filter</span><span class='comma token'>,</span> <span class='rubyid_ignorecase identifier id'>ignorecase</span> <span class='assign token'>=</span> <span class='rubyid_true true kw'>true</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining jobs matching filter '#{filter}'&quot;</span>
@@ -5371,7 +5480,7 @@ meaningful status</p>
       <div class="method_details ">
   <h3 class="signature " id="list_all-instance_method">
   
-    - (<tt>Object</tt>) <strong>list_all</strong> 
+    - (<tt>Array&lt;String&gt;</tt>) <strong>list_all</strong> 
   
 
   
@@ -5387,6 +5496,24 @@ meaningful status</p>
 </div>
 <div class="tags">
   
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the names of all jobs in jenkins</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -5394,13 +5521,13 @@ meaningful status</p>
       <pre class="lines">
 
 
-523
-524
-525
-526</pre>
+535
+536
+537
+538</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 523</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 535</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_list_all identifier id'>list_all</span>
   <span class='rubyid_response_json identifier id'>response_json</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_get_request identifier id'>api_get_request</span><span class='lparen token'>(</span><span class='string val'>&quot;&quot;</span><span class='comma token'>,</span> <span class='string val'>&quot;tree=jobs[name]&quot;</span><span class='rparen token'>)</span><span class='lbrack token'>[</span><span class='string val'>&quot;jobs&quot;</span><span class='rbrack token'>]</span>
@@ -5415,7 +5542,7 @@ meaningful status</p>
       <div class="method_details ">
   <h3 class="signature " id="list_all_with_details-instance_method">
   
-    - (<tt>Object</tt>) <strong>list_all_with_details</strong> 
+    - (<tt>Array&lt;Hash&gt;</tt>) <strong>list_all_with_details</strong> 
   
 
   
@@ -5431,6 +5558,24 @@ meaningful status</p>
 </div>
 <div class="tags">
   
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;Hash&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the details of all jobs in jenkins</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -5438,14 +5583,14 @@ meaningful status</p>
       <pre class="lines">
 
 
-577
-578
-579
-580
-581</pre>
+599
+600
+601
+602
+603</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 577</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 599</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_list_all_with_details identifier id'>list_all_with_details</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='string val'>&quot;Obtaining the details of all jobs&quot;</span>
@@ -5461,7 +5606,7 @@ meaningful status</p>
       <div class="method_details ">
   <h3 class="signature " id="list_by_status-instance_method">
   
-    - (<tt>Object</tt>) <strong>list_by_status</strong>(status, jobs = []) 
+    - (<tt>Array&lt;String&gt;</tt>) <strong>list_by_status</strong>(status, jobs = []) 
   
 
   
@@ -5489,6 +5634,11 @@ list to filter the status from</p>
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>the job status to filter</p>
+</div>
+      
     </li>
   
     <li>
@@ -5496,16 +5646,40 @@ list to filter the status from</p>
         <span class='name'>jobs</span>
       
       
-        <span class='type'>(<tt>Array</tt>)</span>
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>[]</tt>)</em>
       
       
+        &mdash;
+        <div class='inline'>
+<p>if specified this array will be used for filtering by the status otherwise
+the filtering will be done using all jobs available in jenkins</p>
+</div>
+      
     </li>
   
 </ul>
 
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>filtered jobs</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -5513,22 +5687,22 @@ list to filter the status from</p>
       <pre class="lines">
 
 
-542
-543
-544
-545
-546
-547
-548
-549
-550
-551
-552
-553
-554</pre>
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 542</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 560</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_list_by_status identifier id'>list_by_status</span><span class='lparen token'>(</span><span class='rubyid_status identifier id'>status</span><span class='comma token'>,</span> <span class='rubyid_jobs identifier id'>jobs</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
   <span class='rubyid_jobs identifier id'>jobs</span> <span class='assign token'>=</span> <span class='rubyid_list_all identifier id'>list_all</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_jobs identifier id'>jobs</span><span class='dot token'>.</span><span class='rubyid_empty? fid id'>empty?</span>
@@ -5552,7 +5726,7 @@ list to filter the status from</p>
       <div class="method_details ">
   <h3 class="signature " id="list_details-instance_method">
   
-    - (<tt>Object</tt>) <strong>list_details</strong>(job_name) 
+    - (<tt>Hash</tt>) <strong>list_details</strong>(job_name) 
   
 
   
@@ -5579,10 +5753,33 @@ list to filter the status from</p>
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>the name of the job to obtain the details from</p>
+</div>
+      
     </li>
   
 </ul>
 
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the details of the specified job</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -5590,13 +5787,13 @@ list to filter the status from</p>
       <pre class="lines">
 
 
-587
-588
-589
-590</pre>
+611
+612
+613
+614</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 587</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 611</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_list_details identifier id'>list_details</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the details of '#{job_name}'&quot;</span>
@@ -5672,13 +5869,13 @@ list to filter the status from</p>
       <pre class="lines">
 
 
-734
-735
-736
-737</pre>
+762
+763
+764
+765</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 734</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 762</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_poll identifier id'>poll</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Polling SCM changes for job '#{job_name}'&quot;</span>
@@ -5760,13 +5957,13 @@ list to filter the status from</p>
       <pre class="lines">
 
 
-775
-776
-777
-778</pre>
+803
+804
+805
+806</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 775</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 803</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_post_config identifier id'>post_config</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='comma token'>,</span> <span class='rubyid_xml identifier id'>xml</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Posting the config.xml of '#{job_name}'&quot;</span>
@@ -5781,7 +5978,7 @@ list to filter the status from</p>
       <div class="method_details ">
   <h3 class="signature " id="recreate-instance_method">
   
-    - (<tt>Object</tt>) <strong>recreate</strong>(job_name) 
+    - (<tt>String</tt>) <strong>recreate</strong>(job_name) 
   
 
   
@@ -5808,10 +6005,33 @@ list to filter the status from</p>
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>the name of the job to recreate</p>
+</div>
+      
     </li>
   
 </ul>
 
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the response from the HTTP POST request</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -5819,15 +6039,15 @@ list to filter the status from</p>
       <pre class="lines">
 
 
-460
-461
-462
-463
-464
-465</pre>
+468
+469
+470
+471
+472
+473</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 460</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 468</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_recreate identifier id'>recreate</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Recreating job '#{job_name}'&quot;</span>
@@ -5900,36 +6120,36 @@ list to filter the status from</p>
       <pre class="lines">
 
 
-1081
-1082
-1083
-1084
-1085
-1086
-1087
-1088
-1089
-1090
-1091
-1092
-1093
-1094
-1095
-1096
-1097
-1098
-1099
-1100
-1101
-1102
-1103
-1104
-1105
-1106
-1107</pre>
+1109
+1110
+1111
+1112
+1113
+1114
+1115
+1116
+1117
+1118
+1119
+1120
+1121
+1122
+1123
+1124
+1125
+1126
+1127
+1128
+1129
+1130
+1131
+1132
+1133
+1134
+1135</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 1081</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 1109</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_remove_downstream_projects identifier id'>remove_downstream_projects</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Removing the downstream projects of '#{job_name}'&quot;</span>
@@ -6114,24 +6334,24 @@ list to filter the status from</p>
       <pre class="lines">
 
 
-1116
-1117
-1118
-1119
-1120
-1121
-1122
-1123
-1124
-1125
-1126
-1127
-1128
-1129
-1130</pre>
+1144
+1145
+1146
+1147
+1148
+1149
+1150
+1151
+1152
+1153
+1154
+1155
+1156
+1157
+1158</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 1116</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 1144</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_restrict_to_node identifier id'>restrict_to_node</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='comma token'>,</span> <span class='rubyid_node_name identifier id'>node_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Restricting '#{job_name}' to '#{node_name}' node&quot;</span>
@@ -6161,6 +6381,10 @@ list to filter the status from</p>
   
 
   
+    <span class="aliases">Also known as:
+    <span class="names"><span id='stop-instance_method'>stop</span>, <span id='abort-instance_method'>abort</span></span>
+    </span>
+  
 
   
 </h3><div class="docstring">
@@ -6186,6 +6410,11 @@ only if it was in ‘running’ state.</p>
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>the name of the job to stop the build</p>
+</div>
+      
     </li>
   
     <li>
@@ -6199,6 +6428,11 @@ only if it was in ‘running’ state.</p>
         <em class="default">(defaults to: <tt>0</tt>)</em>
       
       
+        &mdash;
+        <div class='inline'>
+<p>the build number to stop</p>
+</div>
+      
     </li>
   
 </ul>
@@ -6210,10 +6444,6 @@ only if it was in ‘running’ state.</p>
       <pre class="lines">
 
 
-442
-443
-444
-445
 446
 447
 448
@@ -6221,10 +6451,14 @@ only if it was in ‘running’ state.</p>
 450
 451
 452
-453</pre>
+453
+454
+455
+456
+457</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 442</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 446</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_stop_build identifier id'>stop_build</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='comma token'>,</span> <span class='rubyid_build_number identifier id'>build_number</span> <span class='assign token'>=</span> <span class='integer val'>0</span><span class='rparen token'>)</span>
   <span class='rubyid_build_number identifier id'>build_number</span> <span class='assign token'>=</span> <span class='rubyid_get_current_build_number identifier id'>get_current_build_number</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_build_number identifier id'>build_number</span> <span class='eq op'>==</span> <span class='integer val'>0</span>
@@ -6345,21 +6579,21 @@ only if it was in ‘running’ state.</p>
       <pre class="lines">
 
 
-851
-852
-853
-854
-855
-856
-857
-858
-859
-860
-861
-862</pre>
+879
+880
+881
+882
+883
+884
+885
+886
+887
+888
+889
+890</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 851</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 879</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_unblock_build_when_downstream_building identifier id'>unblock_build_when_downstream_building</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Unblocking builds of '#{job_name}' when downstream&quot;</span> <span class='plus op'>+</span>
@@ -6438,21 +6672,21 @@ only if it was in ‘running’ state.</p>
       <pre class="lines">
 
 
-889
-890
-891
-892
-893
-894
-895
-896
-897
-898
-899
-900</pre>
+917
+918
+919
+920
+921
+922
+923
+924
+925
+926
+927
+928</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 889</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 917</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_unblock_build_when_upstream_building identifier id'>unblock_build_when_upstream_building</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Unblocking builds of '#{job_name}' when upstream&quot;</span> <span class='plus op'>+</span>
@@ -6518,13 +6752,13 @@ only if it was in ‘running’ state.</p>
       <pre class="lines">
 
 
-1136
-1137
-1138
-1139</pre>
+1164
+1165
+1166
+1167</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 1136</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 1164</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_unchain identifier id'>unchain</span><span class='lparen token'>(</span><span class='rubyid_job_names identifier id'>job_names</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Unchaining jobs: #{job_names.inspect}&quot;</span>
@@ -6674,6 +6908,11 @@ parameter description see #create_or_update_freestyle</p>
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>parameters to update a freestyle project</p>
+</div>
+      
     </li>
   
 </ul>
@@ -6735,7 +6974,7 @@ parameter description see #create_or_update_freestyle</p>
       <div class="method_details ">
   <h3 class="signature " id="wipe_out_workspace-instance_method">
   
-    - (<tt>Object</tt>) <strong>wipe_out_workspace</strong>(job_name) 
+    - (<tt>String</tt>) <strong>wipe_out_workspace</strong>(job_name) 
   
 
   
@@ -6762,10 +7001,33 @@ parameter description see #create_or_update_freestyle</p>
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>the name of the job to wipe out the workspace</p>
+</div>
+      
     </li>
   
 </ul>
 
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>response from the HTTP POST request</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -6773,13 +7035,13 @@ parameter description see #create_or_update_freestyle</p>
       <pre class="lines">
 
 
-429
-430
-431
-432</pre>
+433
+434
+435
+436</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 429</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 433</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_wipe_out_workspace identifier id'>wipe_out_workspace</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
   <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Wiping out the workspace of job '#{job_name}'&quot;</span>
@@ -6796,7 +7058,7 @@ parameter description see #create_or_update_freestyle</p>
 </div>
 
     <div id="footer">
-  Generated on Thu Aug  8 10:14:57 2013 by
+  Generated on Fri Aug  9 05:13:14 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7 (ruby-1.8.7).
 </div>
