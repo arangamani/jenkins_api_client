@@ -30,7 +30,9 @@ module JenkinsApi
 
       # Initializes a new BuildQueue object.
       #
-      # @param [Object] client a reference to Client
+      # @param client [Client] the client object
+      #
+      # @return [BuildQueue] the build queue object
       #
       def initialize(client)
         @client = client
@@ -95,6 +97,17 @@ module JenkinsApi
           details = item if item["task"]["name"]
         end
         details
+      end
+
+      # Obtain the item in the queue provided the ID of the task
+      #
+      # @param task_id [String] the ID of the task
+      #
+      # @return [Hash] the details of the item in the queue
+      #
+      def get_item_by_id(task_id)
+        @logger.info "Obtaining the details of task with ID '#{task_id}'"
+        @client.api_get_request("/queue/item/#{task_id}")
       end
 
       # Obtains the causes from the build queue for the specified task
@@ -197,7 +210,7 @@ module JenkinsApi
       #
       # @param [String] task_name name of the task
       #
-      # @return [TrueClass|FalseClass] buildable or not
+      # @return [Boolean] buildable or not
       #
       def is_buildable?(task_name)
         @logger.info "Checking if task '#{task_name}' from the build queue" +
@@ -214,7 +227,7 @@ module JenkinsApi
       #
       # @param [String] task_name name of the task
       #
-      # @return [TrueClass|FalseClass] blocked or not
+      # @return [Boolean] blocked or not
       #
       def is_blocked?(task_name)
         @logger.info "Checking if task '#{task_name}' from the build queue" +
@@ -231,7 +244,7 @@ module JenkinsApi
       #
       # @param [String] task_name name of the task
       #
-      # @return [TrueClass|FalseClass] stuck or not
+      # @return [Boolean] stuck or not
       #
       def is_stuck?(task_name)
         @logger.info "Checking if task '#{task_name}' from the build queue" +

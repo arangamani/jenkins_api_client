@@ -31,7 +31,9 @@ module JenkinsApi
 
       # Initializes a new System object.
       #
-      # @param [Object] client a reference to Client
+      # @param client [Client] the client object
+      #
+      # @return [System] the system object
       #
       def initialize(client)
         @client = client
@@ -61,7 +63,7 @@ module JenkinsApi
 
       # Restarts the Jenkins server
       #
-      # @param [Bool] force whether to force restart or wait till all
+      # @param [Boolean] force whether to force restart or wait till all
       #               jobs are completed.
       #
       def restart(force = false)
@@ -74,6 +76,12 @@ module JenkinsApi
         end
       end
 
+      # Performs a force restart of Jenkins server
+      #
+      def restart!
+        restart(true)
+      end
+
       # Reload the Jenkins server
       #
       def reload
@@ -84,6 +92,7 @@ module JenkinsApi
       # List all users known to Jenkins by their Full Name
       #
       def list_users
+        warn "DEPRECATION: System#list_users is deprecated. Please use User#list instead"
         @logger.info "Obtaining the list of users from jenkins"
         users = @client.api_get_request("/asynchPeople")
         names = []

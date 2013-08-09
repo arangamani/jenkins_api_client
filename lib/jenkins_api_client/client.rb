@@ -59,7 +59,8 @@ module JenkinsApi
       "log_level",
       "timeout",
       "ssl",
-      "follow_redirects"
+      "follow_redirects",
+      "identity_file"
     ].freeze
 
     # Initialize a Client object with Jenkins CI server credentials
@@ -79,22 +80,28 @@ module JenkinsApi
     # @option args [String] :password_base64
     #   the password with base64 encoded format for connecting to the CI
     #   server (optional)
+    # @option args [String] :identity_file
+    #   the priviate key file for Jenkins CLI authentication,
+    #   it is used only for executing CLI commands.
+    #   also remember to upload the public key to
+    #   http://<Server IP>:<Server Port>/user/<Username>/configure
     # @option args [String] :proxy_ip
     #   the proxy IP address
     # @option args [String] :proxy_port
     #   the proxy port
-    # @option args [String] :jenkins_path
+    # @option args [String] :jenkins_path ("/")
     #   the optional context path for Jenkins
-    # @option args [Boolean] :ssl
-    #   indicates if Jenkins is accessible over HTTPS (defaults to false)
+    # @option args [Boolean] :ssl (false)
+    #   indicates if Jenkins is accessible over HTTPS
     # @option args [Boolean] :follow_redirects
     #   This argument causes the client to follow a redirect (jenkins can
     #   return a 30x when starting a build)
-    # @option args [Fixnum] :timeout
-    #   This argument sets the timeout for the jenkins system to become ready
-    # @option args [String] :log_location
-    #   The location for the log file (Defaults to STDOUT)
-    # @option args [Fixnum] :log_level
+    # @option args [Fixnum] :timeout (120)
+    #   This argument sets the timeout for operations that take longer (in
+    #   seconds)
+    # @option args [String] :log_location (STDOUT)
+    #   The location for the log file
+    # @option args [Fixnum] :log_level (Logger::INFO)
     #   The level for messages to be logged. Should be one of:
     #   Logger::DEBUG (0), Logger::INFO (1), Logger::WARN (2), Logger::ERROR
     #   (2), Logger::FATAL (3) (Defaults to Logger::INFO)
@@ -214,6 +221,14 @@ module JenkinsApi
       JenkinsApi::Client::PluginManager.new(self)
     end
 
+    # Creates an instance of the User class by passing a reference to self
+    #
+    # @return [JenkinsApi::Client::User] An object of User subclass
+    #
+    def user
+      JenkinsApi::Client::User.new(self)
+    end
+
     # Returns a string representing the class name
     #
     # @return [String] string representation of class name
@@ -282,6 +297,7 @@ module JenkinsApi
     # @return [Net::HTTP::Response] Response from Jenkins for "/"
     #
     def get_root
+      @logger.info "GET /"
       request = Net::HTTP::Get.new("/")
       make_http_request(request)
     end
@@ -323,12 +339,10 @@ module JenkinsApi
     #
     # @return [String] Response code form Jenkins Response
     #
-    def api_post_request(url_prefix, form_data = {})
+    def api_post_request(url_prefix, form_data = {}, raw_response = false)
       retries = @crumb_max_retries
       begin
-        # Identify whether to use crumbs if this is the first POST request.
-        @crumbs_enabled = use_crumbs? if @crumbs_enabled.nil?
-        @crumb = get_crumb if @crumbs_enabled && @crumb.empty?
+        refresh_crumbs
 
         # Added form_data default {} instead of nil to help with proxies
         # that barf with empty post
@@ -341,14 +355,27 @@ module JenkinsApi
         end
         request.set_form_data(form_data)
         response = make_http_request(request)
-        handle_exception(response)
-      rescue Exceptions::ForbiddenException
-        @logger.info "Crumb expired. Refetching from the server. Trying" +
-          " #{@crumb_max_retries - retries + 1} out of #{@crumb_max_retries}" +
-          " times..."
-        @crumb = get_crumb
-        retries -= 1
-        retries > 0 ? retry : raise
+        if raw_response
+          handle_exception(response, "raw")
+        else
+          handle_exception(response)
+        end
+      rescue Exceptions::ForbiddenException => e
+        refresh_crumbs(true)
+
+        if @crumbs_enabled
+          @logger.info "Retrying: #{@crumb_max_retries - retries + 1} out of" +
+            " #{@crumb_max_retries} times..."
+          retries -= 1
+
+          if retries > 0
+            retry
+          else
+            raise Exceptions::ForbiddenWithCrumb.new(@logger, e.message)
+          end
+        else
+          raise
+        end
       end
     end
 
@@ -376,9 +403,7 @@ module JenkinsApi
     def post_config(url_prefix, xml)
       retries = @crumb_max_retries
       begin
-        # Identify whether to use crumbs if this is the first POST request.
-        @crumbs_enabled = use_crumbs? if @crumbs_enabled.nil?
-        @crumb = get_crumb if @crumbs_enabled && @crumb.empty?
+        refresh_crumbs
 
         url_prefix = URI.escape("#{@jenkins_path}#{url_prefix}")
         request = Net::HTTP::Post.new("#{url_prefix}")
@@ -390,21 +415,39 @@ module JenkinsApi
         end
         response = make_http_request(request)
         handle_exception(response)
-      rescue Exceptions::ForbiddenException
-        @logger.info "Crumb expired. Refetching from the server. Trying" +
-          " #{@crumb_max_retries - retries + 1} out of #{@crumb_max_retries}" +
-          " times..."
-        @crumb = get_crumb
-        retries -= 1
-        retries > 0 ? retry : raise
+      rescue Exceptions::ForbiddenException => e
+        refresh_crumbs(true)
+
+        if @crumbs_enabled
+          @logger.info "Retrying: #{@crumb_max_retries - retries + 1} out of" +
+            " #{@crumb_max_retries} times..."
+          retries -= 1
+
+          if retries > 0
+            retry
+          else
+            raise Exceptions::ForbiddenWithCrumb.new(@logger, e.message)
+          end
+        else
+          raise
+        end
       end
     end
 
+    # Checks if Jenkins uses crumbs (i.e) the XSS disable option is checked in
+    # Jenkins' security settings
+    #
+    # @return [Boolean] whether Jenkins uses crumbs or not
+    #
     def use_crumbs?
       response = api_get_request("")
       response["useCrumbs"]
     end
 
+    # Checks if Jenkins uses security
+    #
+    # @return [Boolean] whether Jenkins uses security or not
+    #
     def use_security?
       response = api_get_request("")
       response["useSecurity"]
@@ -450,10 +493,12 @@ module JenkinsApi
     def exec_cli(command, args = [])
       base_dir = File.dirname(__FILE__)
       server_url = "http://#{@server_ip}:#{@server_port}/#{@jenkins_path}"
-      cmd = "java -jar #{base_dir}/../../java_deps/jenkins-cli.jar" +
-        " -s #{server_url} #{command}" +
-        " --username #{@username} --password #{@password} " +
-        args.join(' ')
+      cmd = "java -jar #{base_dir}/../../java_deps/jenkins-cli.jar -s #{server_url}"
+      cmd << " -i #{@identity_file}" if @identity_file && !@identity_file.empty?
+      cmd << " #{command}"
+      cmd << " --username #{@username} --password #{@password}" if @identity_file.nil? || @identity_file.empty?
+      cmd << ' '
+      cmd << args.join(' ')
       java_cmd = Mixlib::ShellOut.new(cmd)
 
       # Run the command
@@ -473,6 +518,14 @@ module JenkinsApi
 
     private
 
+    # Obtains the crumb from Jenkins' crumb issuer
+    #
+    # @return [Hash<String, String>] the crumb response from Jenkins' crumb
+    #   issuer
+    #
+    # @raise Exceptions::CrumbNotFoundException if the crumb is not provided
+    #   (i.e) XSS disable option is not checked in Jenkins' security setting
+    #
     def get_crumb
       begin
         @logger.debug "Obtaining crumb from the jenkins server"
@@ -484,6 +537,46 @@ module JenkinsApi
           " Perhaps the client was initialized when the CSRF setting was" +
           " enabled. Please re-initialize the client."
         )
+      end
+    end
+
+    # Used to determine whether crumbs are enabled, and populate/clear our
+    # local crumb accordingly.
+    #
+    # @param force_refresh [Boolean] determines whether the check is
+    #   cursory or deeper.  The default is cursory - i.e. if crumbs
+    #   enabled is 'nil' then figure out what to do, otherwise skip
+    #   If 'true' the method will check to see if the crumbs require-
+    #   ment has changed (by querying Jenkins), and updating crumb
+    #   (refresh, delete, create) as appropriate.
+    #
+    def refresh_crumbs(force_refresh = false)
+      # Quick check to see if someone has changed XSS settings and not
+      # restarted us
+      if force_refresh || @crumbs_enabled.nil?
+        old_crumbs_setting = @crumbs_enabled
+        new_crumbs_setting = use_crumbs?
+
+        if old_crumbs_setting != new_crumbs_setting
+          @crumbs_enabled = new_crumbs_setting
+        end
+
+        # Get or clear crumbs setting appropriately
+        # Works as refresh if crumbs still enabled
+        if @crumbs_enabled
+          if old_crumbs_setting
+            @logger.info "Crumb expired.  Refetching from the server."
+          else
+            @logger.info "Crumbs turned on.  Fetching from the server."
+          end
+
+          @crumb = get_crumb if force_refresh || !old_crumbs_setting
+        else
+          if old_crumbs_setting
+            @logger.info "Crumbs turned off.  Clearing crumb."
+            @crumb.clear
+          end
+        end
       end
     end
 

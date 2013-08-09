@@ -6,7 +6,7 @@ describe JenkinsApi::Client::Job do
 
     before do
       mock_logger = Logger.new "/dev/null"
-      @client = mock
+      @client = double
       @client.should_receive(:logger).and_return(mock_logger)
       @job = JenkinsApi::Client::Job.new(@client)
       @sample_json_response = {
@@ -356,13 +356,25 @@ describe JenkinsApi::Client::Job do
       describe "#build" do
         it "accepts the job name and builds the job" do
           @client.should_receive(:api_post_request).with(
-            "/job/test_job/build").and_return(302)
+            "/job/test_job/build", {}, false).and_return(302)
           @job.build("test_job").should == 302
         end
         it "accepts the job name with params and builds the job" do
           @client.should_receive(:api_post_request).with(
-              "/job/test_job/buildWithParameters",{:branch => 'feature/new-stuff'}).and_return(302)
-          @job.build("test_job",{:branch => 'feature/new-stuff'}).should == 302
+            "/job/test_job/buildWithParameters",
+            {:branch => 'feature/new-stuff'},
+            false
+          ).and_return(302)
+          @job.build("test_job", {:branch => 'feature/new-stuff'}).should == 302
+        end
+      end
+
+      describe "#poll" do
+        it "accepts the job name and polls the job for scm changes" do
+          @client.should_receive(:api_post_request).with(
+            "/job/test_job/polling"
+          ).and_return(302)
+          @job.poll("test_job").should == 302
         end
       end
 

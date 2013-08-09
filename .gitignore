@@ -17,6 +17,9 @@ doc
 #
 Gemfile.lock
 
+# graphviz dot file
+*.dot
+
 # MacOS:
 .DS_Store
 

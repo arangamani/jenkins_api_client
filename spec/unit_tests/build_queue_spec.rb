@@ -3,7 +3,7 @@ require File.expand_path('../spec_helper', __FILE__)
 describe JenkinsApi::Client::BuildQueue do
   context "With properly initialized Client" do
     before do
-      @client = mock
+      @client = double
       mock_logger = Logger.new "/dev/null"
       @client.should_receive(:logger).and_return(mock_logger)
       @queue = JenkinsApi::Client::BuildQueue.new(@client)

@@ -86,7 +86,9 @@ module JenkinsApi
 
       # Initializes a new node object
       #
-      # @param [Object] client reference to Client
+      # @param client [Client] the client object
+      #
+      # @return [Node] the node object
       #
       def initialize(client)
         @client = client

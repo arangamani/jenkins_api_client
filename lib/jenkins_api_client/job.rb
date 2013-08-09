@@ -29,6 +29,10 @@ module JenkinsApi
 
       # Initialize the Job object and store the reference to Client object
       #
+      # @param client [Client] the client object
+      #
+      # @return [Job] the job object
+      #
       def initialize(client)
         @client = client
         @logger = @client.logger
@@ -40,53 +44,133 @@ module JenkinsApi
         "#<JenkinsApi::Client::Job>"
       end
 
+      # Create or Update a job with the name specified and the xml given
+      #
+      # @param job_name [String] the name of the job
+      # @param xml [String] the xml configuration of the job
+      #
+      # @see #create
+      # @see #update
+      #
+      # @return [String] the HTTP status code from the POST request
+      #
+      def create_or_update(job_name, xml)
+        if exists?(name)
+          update(job_name, xml)
+        else
+          create(job_name, xml)
+        end
+      end
+
       # Create a job with the name specified and the xml given
       #
-      # @param [String] job_name
-      # @param [XML] xml
+      # @param job_name [String] the name of the job
+      # @param xml [String] the xml configuration of the job
+      #
+      # @see #create_or_update
+      # @see #update
+      #
+      # @return [String] the HTTP status code from the POST request
       #
       def create(job_name, xml)
         @logger.info "Creating job '#{job_name}'"
         @client.post_config("/createItem?name=#{job_name}", xml)
       end
 
-      # Create a job with params given as a hash instead of the xml
-      # This gives some flexibility for creating simple jobs so the user
-      # doesn't have to learn about handling xml.
+      # Update a job with the name specified and the xml given
       #
-      # @param [Hash] params
-      #  * +:name+ name of the job
-      #  * +:keep_dependencies+ true or false
-      #  * +:block_build_when_downstream_building+ true or false
-      #  * +:block_build_when_upstream_building+ true or false
-      #  * +:concurrent_build+ true or false
-      #  * +:scm_provider+ type of source control. Supported: Git, SVN, and CVS
-      #  * +:scm_url+ remote url for scm
-      #  * +:scm_module+ Module to download. Only for CVS.
-      #  * +:scm_branch+ branch to use in scm. Uses master by default
-      #  * +:scm_tag+ tag to download from scm. Only for CVS.
-      #  * +:scm_use_head_if_tag_not_found+ Only for CVS.
-      #  * +:timer+ timer for running builds periodically.
-      #  * +:shell_command+ command to execute in the shell
-      #  * +:notification_email+ email for sending notification
-      #  * +:skype_targets+ skype targets for sending notifications to. Use *
-      #    to specify group chats. Use space to separate multiple targets.
-      #    Example: testuser *testgroup.
-      #  * +:skype_strategy+ skype strategy to be used for sending
-      #    notifications. Valid values: all, failure, failure_and_fixed,
-      #    change. Default: change.
-      #  * +:skype_notify_on_build_start+ Default: false
-      #  * +:skype_notify_suspects+ Default: false
-      #  * +:skype_notify_culprits+ Default: false
-      #  * +:skype_notify_fixers+ Default: false
-      #  * +:skype_notify_upstream_committers+ Default: false
-      #  * +:skype_message+ what should be sent as notification message. Valid:
-      #    just_summary, summary_and_scm_changes,
-      #    summary_and_build_parameters, summary_scm_changes_and_failed_tests.
-      #    Default: summary_and_scm_changes
-      #  * +:child_projects+ projects to add as downstream projects
-      #  * +:child_threshold+ threshold for child projects.
-      #    success, failure, or unstable. Default: failure.
+      # @param job_name [String] the name of the job
+      # @param xml [String] the xml configuration of the job
+      #
+      # @see #create_or_update
+      # @see #create
+      #
+      # @return [String] the HTTP status code from the POST request
+      #
+      def update(job_name, xml)
+        @logger.info "Updating job '#{job_name}'"
+        post_config(job_name, xml)
+      end
+
+      # Create or Update a job with params given as a hash instead of the xml
+      # This gives some flexibility for creating/updating simple jobs so the
+      # user doesn't have to learn about handling xml.
+      #
+      # @param params [Hash] parameters to create a freestyle project
+      #
+      # @option params [String] :name
+      #   the name of the job
+      # @option params [Boolean] :keep_dependencies (false)
+      #   whether to keep the dependencies or not
+      # @option params [Boolean] :block_build_when_downstream_building (false)
+      #   whether to block build when the downstream project is building
+      # @option params [Boolean] :block_build_when_upstream_building (false)
+      #   whether to block build when the upstream project is building
+      # @option params [Boolean] :concurrent_build (false)
+      #   whether to allow concurrent execution of builds
+      # @option params [String] :scm_provider
+      #   the type of source control. Supported providers: git, svn, and cvs
+      # @option params [String] :scm_url
+      #   the remote url for the selected scm provider
+      # @option params [String] :scm_module
+      #   the module to download. Only for use with "cvs" scm provider
+      # @option params [String] :scm_branch (master)
+      #   the branch to use in scm.
+      # @option params [String] :scm_tag
+      #   the tag to download from scm. Only for use with "cvs" scm provider
+      # @option params [Boolean] :scm_use_head_if_tag_not_found
+      #   whether to use head if specified tag is not found. Only for "cvs"
+      # @option params [String] :timer
+      #   the timer for running builds periodically
+      # @option params [String] :shell_command
+      #   the command to execute in the shell
+      # @option params [String] :notification_email
+      #   the email for sending notification
+      # @option params [String] :skype_targets
+      #   the skype targets for sending notifications to. Use * to specify
+      #   group chats. Use space to separate multiple targets. Note that this
+      #   option requires the "skype" plugin to be installed in jenkins.
+      #   Example: testuser *testgroup
+      # @option params [String] :skype_strategy (change)
+      #   the skype strategy to be used for sending notifications.
+      #   Valid values: all, failure, failure_and_fixed, change.
+      # @option params [Boolean] :skype_notify_on_build_start (false)
+      #   whether to notify skype targets on build start
+      # @option params [Boolean] :skype_notify_suspects (false)
+      #   whether to notify suspects on skype
+      # @option params [Boolean] :skype_notify_culprits (false)
+      #   whether to notify culprits on skype
+      # @option params [Boolean] :skype_notify_fixers (false)
+      #   whether to notify fixers on skype
+      # @option params [Boolean] :skype_notify_upstream_committers (false)
+      #   whether to notify upstream committers on skype
+      # @option params [String] :skype_message (summary_and_scm_changes)
+      #   the information to be sent as notification message. Valid:
+      #   just_summary, summary_and_scm_changes,
+      #   summary_and_build_parameters, summary_scm_changes_and_failed_tests.
+      # @option params [String] :child_projects
+      #   the projects to add as downstream projects
+      # @option params [String] :child_threshold (failure)
+      #   the threshold for child projects. Valid options: success, failure,
+      #   or unstable.
+      #
+      # @see #create_freestyle
+      # @see #update_freestyle
+      #
+      # @return [String] the HTTP status code from the POST request
+      #
+      def create_or_update_freestyle(params)
+        if exists?(params[:name])
+          update_freestyle(params)
+        else
+          create_freestyle(params)
+        end
+      end
+
+      # Create a freestyle project by accepting a Hash of parameters. For the
+      # parameter description see #create_of_update_freestyle
+      #
+      # @param params [Hash] the parameters for creating a job
       #
       # @example Create a Freestype Project
       #   create_freestyle(
@@ -99,23 +183,56 @@ module JenkinsApi
       #     :shell_command => "bundle install\n rake func_tests"
       #   )
       #
+      # @see #create_or_update_freestyle
+      # @see #create
+      # @see #update_freestyle
+      #
+      # @return [String] the HTTP status code from the POST request
+      #
       def create_freestyle(params)
+        xml = build_freestyle_config(params)
+        create(params[:name], xml)
+      end
+
+      # Update a job with params given as a hash instead of the xml. For the
+      # parameter description see #create_or_update_freestyle
+      #
+      # @param params [Hash] parameters to update a freestyle project
+      #
+      # @see #create_or_update_freestyle
+      # @see #update
+      # @see #create_freestyle
+      #
+      # @return [String] the HTTP status code from the POST request
+      #
+      def update_freestyle(params)
+        xml = build_freestyle_config(params)
+        update(params[:name], xml)
+      end
+
+      # Builds the XML configuration based on the parameters passed as a Hash
+      #
+      # @param params [Hash] the parameters for building XML configuration
+      #
+      # @return [String] the generated XML configuration of the project
+      #
+      def build_freestyle_config(params)
         # Supported SCM providers
         supported_scm = ["git", "subversion", "cvs"]
 
         # Set default values for params that are not specified.
         raise ArgumentError, "Job name must be specified" \
           unless params.is_a?(Hash) && params[:name]
-        if params[:keep_dependencies].nil?
-          params[:keep_dependencies] = false
+
+        [
+          :keep_dependencies,
+          :block_build_when_downstream_building,
+          :block_build_when_upstream_building,
+          :concurrent_build
+        ].each do |param|
+          params[param] = false if params[param].nil?
         end
-        if params[:block_build_when_downstream_building].nil?
-          params[:block_build_when_downstream_building] = false
-        end
-        if params[:block_build_when_upstream_building].nil?
-          params[:block_build_when_upstream_building] = false
-        end
-        params[:concurrent_build] = false if params[:concurrent_build].nil?
+
         if params[:notification_email]
           if params[:notification_email_for_every_unstable].nil?
             params[:notification_email_for_every_unstable] = false
@@ -126,30 +243,27 @@ module JenkinsApi
         end
 
         # SCM configurations and Error handling.
-        unless supported_scm.include?(params[:scm_provider]) ||
-          params[:scm_provider].nil?
-          raise "SCM #{params[:scm_provider]} is currently not supported"
-        end
-        if params[:scm_url].nil? && !params[:scm_provider].nil?
-          raise 'SCM URL must be specified'
-        end
-        if params[:scm_branch].nil? && !params[:scm_provider].nil?
-          params[:scm_branch] = "master"
-        end
-        if params[:scm_use_head_if_tag_not_found].nil?
-          params[:scm_use_head_if_tag_not_found] = false
+        unless params[:scm_provider].nil?
+          unless supported_scm.include?(params[:scm_provider])
+            raise "SCM #{params[:scm_provider]} is currently not supported"
+          end
+          raise "SCM URL must be specified" if params[:scm_url].nil?
+          params[:scm_branch] = "master" if params[:scm_branch].nil?
+          if params[:scm_use_head_if_tag_not_found].nil?
+            params[:scm_use_head_if_tag_not_found] = false
+          end
         end
 
         # Child projects configuration and Error handling
         if params[:child_threshold].nil? && !params[:child_projects].nil?
-          params[:child_threshold] = 'failure'
+          params[:child_threshold] = "failure"
         end
 
         @logger.debug "Creating a freestyle job with params: #{params.inspect}"
 
         # Build the Job xml file based on the parameters given
-        builder = Nokogiri::XML::Builder.new(:encoding => 'UTF-8') { |xml|
-          xml.project {
+        builder = Nokogiri::XML::Builder.new(:encoding => 'UTF-8') do |xml|
+          xml.project do
             xml.actions
             xml.description
             xml.keepDependencies "#{params[:keep_dependencies]}"
@@ -180,45 +294,47 @@ module JenkinsApi
             xml.blockBuildWhenUpstreamBuilding(
               "#{params[:block_build_when_upstream_building]}")
             if params[:timer]
-              xml.triggers.vector {
-                xml.send("hudson.triggers.TimerTrigger") {
+              xml.triggers.vector do
+                xml.send("hudson.triggers.TimerTrigger") do
                   xml.spec params[:timer]
-                }
-              }
+                end
+              end
             else
               xml.triggers.vector
             end
             xml.concurrentBuild "#{params[:concurrent_build]}"
             # Shell command stuff
-            xml.builders {
+            xml.builders do
               if params[:shell_command]
-                xml.send("hudson.tasks.Shell") {
+                xml.send("hudson.tasks.Shell") do
                   xml.command "#{params[:shell_command]}"
-                }
+                end
               end
-            }
+            end
             # Adding Downstream projects
-            xml.publishers {
+            xml.publishers do
               # Build portion of XML that adds child projects
               child_projects(params, xml) if params[:child_projects]
               # Build portion of XML that adds email notification
               notification_email(params, xml) if params[:notification_email]
               # Build portion of XML that adds skype notification
               skype_notification(params, xml) if params[:skype_targets]
-            }
+            end
             xml.buildWrappers
-          }
-        }
-        create(params[:name], builder.to_xml)
+          end
+        end
+        builder.to_xml
       end
+
 
       # Adding email notification to a job
       #
       # @param [Hash] params parameters to add email notification
+      #
       # @option params [String] :name Name of the job
       # @option params [String] :notification_email Email address to send
-      # @option params [TrueClass|FalseClass] :notification_email_for_every_unstable
-      # Send email notification email for every unstable build
+      # @option params [Boolean] :notification_email_for_every_unstable
+      #   Send email notification email for every unstable build
       #
       def add_email_notification(params)
         raise "No job name specified" unless params[:name]
@@ -228,9 +344,9 @@ module JenkinsApi
         xml = get_config(params[:name])
         n_xml = Nokogiri::XML(xml)
         if n_xml.xpath("//hudson.tasks.Mailer").empty?
-          p_xml = Nokogiri::XML::Builder.new(:encoding => "UTF-8") { |xml|
-            notification_email(params, xml)
-          }
+          p_xml = Nokogiri::XML::Builder.new(:encoding => "UTF-8") do |b_xml|
+            notification_email(params, b_xml)
+          end
           email_xml = Nokogiri::XML(p_xml.to_xml).xpath(
             "//hudson.tasks.Mailer"
           ).first
@@ -266,9 +382,9 @@ module JenkinsApi
         xml = get_config(params[:name])
         n_xml = Nokogiri::XML(xml)
         if n_xml.xpath("//hudson.plugins.skype.im.transport.SkypePublisher").empty?
-          p_xml = Nokogiri::XML::Builder.new(:encoding => "UTF-8") { |xml|
-            skype_notification(params, xml)
-          }
+          p_xml = Nokogiri::XML::Builder.new(:encoding => "UTF-8") do |b_xml|
+            skype_notification(params, b_xml)
+          end
           skype_xml = Nokogiri::XML(p_xml.to_xml).xpath(
             "//hudson.plugins.skype.im.transport.SkypePublisher"
           ).first
@@ -289,7 +405,9 @@ module JenkinsApi
 
       # Delete a job given the name
       #
-      # @param [String] job_name
+      # @param job_name [String] the name of the job to delete
+      #
+      # @return [String] the response from the HTTP POST request
       #
       def delete(job_name)
         @logger.info "Deleting job '#{job_name}'"
@@ -308,7 +426,9 @@ module JenkinsApi
 
       # Wipe out the workspace for a job given the name
       #
-      # @param [String] job_name
+      # @param job_name [String] the name of the job to wipe out the workspace
+      #
+      # @return [String] response from the HTTP POST request
       #
       def wipe_out_workspace(job_name)
         @logger.info "Wiping out the workspace of job '#{job_name}'"
@@ -320,8 +440,8 @@ module JenkinsApi
       # is specified. The build will be stopped only if it was
       # in 'running' state.
       #
-      # @param [String] job_name
-      # @param [Number] build_number
+      # @param job_name [String] the name of the job to stop the build
+      # @param build_number [Number] the build number to stop
       #
       def stop_build(job_name, build_number = 0)
         build_number = get_current_build_number(job_name) if build_number == 0
@@ -341,7 +461,9 @@ module JenkinsApi
       # Re-create the same job
       # This is a hack to clear any existing builds
       #
-      # @param [String] job_name
+      # @param job_name [String] the name of the job to recreate
+      #
+      # @return [String] the response from the HTTP POST request
       #
       def recreate(job_name)
         @logger.info "Recreating job '#{job_name}'"
@@ -352,8 +474,10 @@ module JenkinsApi
 
       # Copy a job
       #
-      # @param [String] from_job_name
-      # @param [String] to_job_name
+      # @param from_job_name [String] the name of the job to copy from
+      # @param to_job_name [String] the name of the job to copy to
+      #
+      # @return [String] the response from the HTTP POST request
       #
       def copy(from_job_name, to_job_name=nil)
         to_job_name = "copy_of_#{from_job_name}" if to_job_name.nil?
@@ -367,16 +491,16 @@ module JenkinsApi
       #
       # @param [String] job_name Name of the Jenkins job
       # @param [Number] build_num Specific build number to obtain the
-      #                 console output from. Default is the recent build
+      #   console output from. Default is the recent build
       # @param [Number] start start offset to get only a portion of the text
       # @param [String] mode Mode of text output. 'text' or 'html'
       #
       # @return [Hash] response
-      #   * +output+ Console output of the job
-      #   * +size+ Size of the text. This can be used as 'start' for the
-      #   next call to get progressive output
-      #   * +more+ More data available for the job. 'true' if available
-      #            and nil otherwise
+      #   * +output+ console output of the job
+      #   * +size+ size of the text. This can be used as 'start' for the
+      #     next call to get progressive output
+      #   * +more+ more data available for the job. 'true' if available
+      #     and nil otherwise
       #
       def get_console_output(job_name, build_num = 0, start = 0, mode = 'text')
         build_num = get_current_build_number(job_name) if build_num == 0
@@ -406,6 +530,8 @@ module JenkinsApi
 
       # List all jobs on the Jenkins CI server
       #
+      # @return [Array<String>] the names of all jobs in jenkins
+      #
       def list_all
         response_json = @client.api_get_request("", "tree=jobs[name]")["jobs"]
         response_json.map { |job| job["name"] }.sort
@@ -413,7 +539,9 @@ module JenkinsApi
 
       # Checks if the given job exists in Jenkins
       #
-      # @param [String] job_name
+      # @param job_name [String] the name of the job to check
+      #
+      # @return [Boolean] whether the job exists in jenkins or not
       #
       def exists?(job_name)
         list(job_name).include?(job_name)
@@ -422,8 +550,12 @@ module JenkinsApi
       # List all Jobs matching the given status
       # You can optionally pass in jobs list to filter the status from
       #
-      # @param [String] status
-      # @param [Array] jobs
+      # @param status [String] the job status to filter
+      # @param jobs [Array<String>] if specified this array will be used for
+      #   filtering by the status otherwise the filtering will be done using
+      #   all jobs available in jenkins
+      #
+      # @return [Array<String>] filtered jobs
       #
       def list_by_status(status, jobs = [])
         jobs = list_all if jobs.empty?
@@ -441,8 +573,10 @@ module JenkinsApi
 
       # List all jobs that match the given regex
       #
-      # @param [String] filter - a regex
-      # @param [Boolean] ignorecase
+      # @param filter [String] a regular expression or a string to filter jobs
+      # @param ignorecase [Boolean] whether to ignore case or not
+      #
+      # @return [Array<String>] jobs matching the given pattern
       #
       def list(filter, ignorecase = true)
         @logger.info "Obtaining jobs matching filter '#{filter}'"
@@ -460,6 +594,8 @@ module JenkinsApi
 
       # List all jobs on the Jenkins CI server along with their details
       #
+      # @return [Array<Hash>] the details of all jobs in jenkins
+      #
       def list_all_with_details
         @logger.info "Obtaining the details of all jobs"
         response_json = @client.api_get_request("")
@@ -468,7 +604,9 @@ module JenkinsApi
 
       # List details of a specific job
       #
-      # @param [String] job_name
+      # @param job_name [String] the name of the job to obtain the details from
+      #
+      # @return [Hash] the details of the specified job
       #
       def list_details(job_name)
         @logger.info "Obtaining the details of '#{job_name}'"
@@ -477,7 +615,8 @@ module JenkinsApi
 
       # List upstream projects of a specific job
       #
-      # @param [String] job_name
+      # @param job_name [String] the name of the job to obtain upstream
+      #  projects for
       #
       def get_upstream_projects(job_name)
         @logger.info "Obtaining the upstream projects of '#{job_name}'"
@@ -487,7 +626,8 @@ module JenkinsApi
 
       # List downstream projects of a specific job
       #
-      # @param [String] job_name
+      # @param job_name [String] the name of the job to obtain downstream
+      #   projects for
       #
       def get_downstream_projects(job_name)
         @logger.info "Obtaining the down stream projects of '#{job_name}'"
@@ -553,7 +693,7 @@ module JenkinsApi
       #
       # @param [String] job_name
       #
-      # @return [Number] build_unumber current build number of the given job
+      # @return [Integer] current build number of the given job
       #
       def get_current_build_number(job_name)
         @logger.info "Obtaining the current build number of '#{job_name}'"
@@ -565,19 +705,63 @@ module JenkinsApi
       # You can optionally pass in a list of params for Jenkins to use for
       # parameterized builds
       #
-      # @param [String] job_name
-      # @param [Hash] params
+      # @param [String] job_name the name of the job
+      # @param [Hash] params the parameters for parameterized builds
+      # @param [Boolean] return_build_number whether to wait and obtain the build
+      #   number
       #
-      # @return [String] response_code return code from HTTP POST
+      # @return [String, Integer] the response code from the build POST request
+      #   if return_build_number is not requested and the build number if the
+      #   return_build_number is requested. nil will be returned if the build
+      #   number is requested and not available. This can happen if there is
+      #   already a job in the queue and concurrent build is disabled.
       #
-      def build(job_name, params={})
-        @logger.info "Building job '#{job_name}'"
-        if params.empty?
-          @client.api_post_request("/job/#{job_name}/build")
+      def build(job_name, params={}, return_build_number = false)
+        msg = "Building job '#{job_name}'"
+        msg << " with parameters: #{params.inspect}" unless params.empty?
+        @logger.info msg
+        build_endpoint = params.empty? ? "build" : "buildWithParameters"
+        raw_response = return_build_number
+        response =@client.api_post_request(
+          "/job/#{job_name}/#{build_endpoint}",
+          params,
+          raw_response
+        )
+        # If return_build_number is enabled, obtain the queue ID from the location
+        # header and wait till the build is moved to one of the executors and a
+        # build number is assigned
+        if return_build_number
+          if response["location"]
+            task_id_match = response["location"].match(/\/item\/(\d*)\//)
+            task_id = task_id_match.nil? ? nil : task_id_match[1]
+            unless task_id.nil?
+              @logger.debug "Queue task ID for job '#{job_name}': #{task_id}"
+              Timeout::timeout(@client.timeout) do
+                while @client.queue.get_item_by_id(task_id)["executable"].nil?
+                  sleep 5
+                end
+              end
+              @client.queue.get_item_by_id(task_id)["executable"]["number"]
+            else
+              nil
+            end
+          else
+            nil
+          end
         else
-          @logger.debug "Build parameters for '#{job_name}': #{params.inspect}"
-          @client.api_post_request("/job/#{job_name}/buildWithParameters", params)
+          response
         end
+      end
+
+      # Programatically schedule SCM polling for the specified job
+      #
+      # @param job_name [String] the name of the job
+      #
+      # @return [String] the response code from the HTTP post request
+      #
+      def poll(job_name)
+        @logger.info "Polling SCM changes for job '#{job_name}'"
+        @client.api_post_request("/job/#{job_name}/polling")
       end
 
       # Enable a job given the name of the job

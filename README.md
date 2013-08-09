@@ -9,7 +9,7 @@ Copyright &copy; 2012-2013, Kannan Manickam [![endorse](http://api.coderwall.com
 
 Client libraries for communicating with a Jenkins CI server and programatically managing jobs.
 
-IRC Channel: ##jenkins-api-client
+IRC Channel: ##jenkins-api-client (on freenode)
 
 Mailing list: jenkins_api_client@googlegroups.com
 
@@ -66,6 +66,14 @@ parameter to specify the password either in the arguments or in the credentials
 file. To use the client without credentials, just leave out the
 <tt>username</tt> and <tt>password</tt> parameters. The <tt>password</tt>
 parameter is only required if <tt>username</tt> is specified.
+
+### Cross-site Scripting (XSS) and Crumb Support
+
+Support for Jenkins crumbs has been added.  These allow an application to
+use the Jenkins API POST methods without requiring the 'Prevent Cross Site
+Request Forgery exploits' to be disabled.  The API will check in with the
+Jenkins server to determine whether crumbs are enabled or not, and use them
+if appropriate.
 
 ### Basic Usage
 
@@ -164,9 +172,22 @@ end
 ### Running Jenkins CLI
 To running [Jenkins CLI](https://wiki.jenkins-ci.org/display/JENKINS/Jenkins+CLI)
 
+* authentication with username/password (deprecated)
+
 ```ruby
-@client = JenkinsApi::Client.new(:server_ip => '0.0.0.0',
+@client = JenkinsApi::Client.new(:server_ip => '127.0.0.1',
          :username => 'somename', :password => 'secret password')
+# The following call will return the version of Jenkins instance
+puts @client.exec_cli("version")
+```
+
+* authentication with public/private key file
+remember to upload the public key to
+http://<Server IP>:<Server Port>/user/<Username>/configure
+
+```ruby
+@client = JenkinsApi::Client.new(:server_ip => '127.0.0.1',
+         :identity_file => '~/.ssh/id_rsa')
 # The following call will return the version of Jenkins instance
 puts @client.exec_cli("version")
 ```
