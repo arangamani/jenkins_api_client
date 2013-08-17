@@ -30,4 +30,4 @@ notifications:
     on_success: change
     on_failure: always
     channels:
-      - "irc.freenode.org##jenins-api-client"
+      - "irc.freenode.org##jenkins-api-client"
