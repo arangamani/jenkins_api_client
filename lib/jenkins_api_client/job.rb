@@ -55,7 +55,7 @@ module JenkinsApi
       # @return [String] the HTTP status code from the POST request
       #
       def create_or_update(job_name, xml)
-        if exists?(name)
+        if exists?(job_name)
           update(job_name, xml)
         else
           create(job_name, xml)
