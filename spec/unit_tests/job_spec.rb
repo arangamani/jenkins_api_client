@@ -37,6 +37,32 @@ describe JenkinsApi::Client::Job do
         end
       end
 
+      describe "#create_or_update" do
+        it "creates jobs if they do not exist" do
+            job_name = 'test_job'
+            xml = '<name>somename</name>'
+
+            mock_lob_list_response = { "jobs" => [] } # job response w/ 0 jobs
+
+            @client.should_receive(:api_get_request).with('').and_return(mock_lob_list_response)
+            @job.should_receive(:create).with(job_name, xml).and_return(nil)
+
+            @job.create_or_update(job_name, xml)
+        end
+
+        it "updates existing jobs if they exist" do
+            job_name = 'test_job'
+            xml = '<name>somename</name>'
+
+            mock_lob_list_response = { "jobs" => [ { "name" => job_name } ] } # job response w/ 1 job
+
+            @client.should_receive(:api_get_request).with('').and_return(mock_lob_list_response)
+            @job.should_receive(:update).with(job_name, xml).and_return(nil)
+
+            @job.create_or_update(job_name, xml)
+        end
+      end
+
       describe "#create_freestyle" do
         it "creates a simple freestyle job" do
           params = {
