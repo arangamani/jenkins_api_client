@@ -1179,7 +1179,7 @@ list to filter the status from.</p>
     
 
     
-      (also: #abort, #stop)
+      (also: #stop, #abort)
     
   </span>
   
@@ -3391,7 +3391,7 @@ parameter description see #create_of_update_freestyle</p>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/job.rb', line 57</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_create_or_update identifier id'>create_or_update</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='comma token'>,</span> <span class='rubyid_xml identifier id'>xml</span><span class='rparen token'>)</span>
-  <span class='rubyid_if if kw'>if</span> <span class='rubyid_exists? fid id'>exists?</span><span class='lparen token'>(</span><span class='rubyid_name identifier id'>name</span><span class='rparen token'>)</span>
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_exists? fid id'>exists?</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
     <span class='rubyid_update identifier id'>update</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='comma token'>,</span> <span class='rubyid_xml identifier id'>xml</span><span class='rparen token'>)</span>
   <span class='rubyid_else else kw'>else</span>
     <span class='rubyid_create identifier id'>create</span><span class='lparen token'>(</span><span class='rubyid_job_name identifier id'>job_name</span><span class='comma token'>,</span> <span class='rubyid_xml identifier id'>xml</span><span class='rparen token'>)</span>
@@ -6382,7 +6382,7 @@ the filtering will be done using all jobs available in jenkins</p>
 
   
     <span class="aliases">Also known as:
-    <span class="names"><span id='abort-instance_method'>abort</span>, <span id='stop-instance_method'>stop</span></span>
+    <span class="names"><span id='stop-instance_method'>stop</span>, <span id='abort-instance_method'>abort</span></span>
     </span>
   
 
@@ -7058,7 +7058,7 @@ parameter description see #create_or_update_freestyle</p>
 </div>
 
     <div id="footer">
-  Generated on Mon Aug 19 01:41:10 2013 by
+  Generated on Mon Aug 19 02:22:14 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7 (ruby-1.8.7).
 </div>
