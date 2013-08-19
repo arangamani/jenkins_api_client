@@ -11,3 +11,4 @@ Thank you very much to all who contributed to this project.
 * [rubytester](https://github.com/rubytester)
 * [dougforpres](https://github.com/dougforpres)
 * [brettporter](https://github.com/brettporter)
+* [bobbrez](https://github.com/bobbrez)
