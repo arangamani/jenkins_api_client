@@ -4,6 +4,10 @@ CHANGELOG
 upcoming
 --------
 
+v0.14.1  [18-AUG-2013]
+----------------------
+* Fixed a bug in Job#create_or_update method. Credit: @bobbrez
+
 v0.14.0  [07-AUG-2013]
 ----------------------
 * Fixed a bug where a space was missing in the exec_cli method argument list.
