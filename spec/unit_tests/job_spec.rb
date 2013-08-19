@@ -42,9 +42,9 @@ describe JenkinsApi::Client::Job do
             job_name = 'test_job'
             xml = '<name>somename</name>'
 
-            mock_lob_list_response = { "jobs" => [] } # job response w/ 0 jobs
+            mock_job_list_response = { "jobs" => [] } # job response w/ 0 jobs
 
-            @client.should_receive(:api_get_request).with('').and_return(mock_lob_list_response)
+            @client.should_receive(:api_get_request).with('').and_return(mock_job_list_response)
             @job.should_receive(:create).with(job_name, xml).and_return(nil)
 
             @job.create_or_update(job_name, xml)
@@ -54,9 +54,9 @@ describe JenkinsApi::Client::Job do
             job_name = 'test_job'
             xml = '<name>somename</name>'
 
-            mock_lob_list_response = { "jobs" => [ { "name" => job_name } ] } # job response w/ 1 job
+            mock_job_list_response = { "jobs" => [ { "name" => job_name } ] } # job response w/ 1 job
 
-            @client.should_receive(:api_get_request).with('').and_return(mock_lob_list_response)
+            @client.should_receive(:api_get_request).with('').and_return(mock_job_list_response)
             @job.should_receive(:update).with(job_name, xml).and_return(nil)
 
             @job.create_or_update(job_name, xml)
