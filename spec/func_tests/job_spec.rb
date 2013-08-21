@@ -217,6 +217,14 @@ describe JenkinsApi::Client::Job do
           }
           test_and_validate(name, params)
         end
+        it "Should create a freestyle job with SCM trigger option" do
+          name = "test_job_using_scm_trigger"
+          params = {
+            :name => name,
+            :timer => "* * * * *"
+          }
+          test_and_validate(name, params)
+        end
         it "Should create a freestyle job with timer option" do
           name = "test_job_using_timer"
           params = {

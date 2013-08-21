@@ -121,7 +121,7 @@ module JenkinsApi
       # @option params [Boolean] :scm_use_head_if_tag_not_found
       #   whether to use head if specified tag is not found. Only for "cvs"
       # @option params [String] :scm_trigger
-      #   the poll trigger schedule
+      #   the schedule used to trigger polling
       # @option params [String] :timer
       #   the timer for running builds periodically
       # @option params [String] :shell_command
