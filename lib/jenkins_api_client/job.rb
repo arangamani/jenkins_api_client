@@ -120,6 +120,8 @@ module JenkinsApi
       #   the tag to download from scm. Only for use with "cvs" scm provider
       # @option params [Boolean] :scm_use_head_if_tag_not_found
       #   whether to use head if specified tag is not found. Only for "cvs"
+      # @option params [String] :scm_trigger
+      #   the poll trigger schedule
       # @option params [String] :timer
       #   the timer for running builds periodically
       # @option params [String] :shell_command
@@ -297,6 +299,12 @@ module JenkinsApi
               xml.triggers.vector do
                 xml.send("hudson.triggers.TimerTrigger") do
                   xml.spec params[:timer]
+                end
+              end
+            elsif params[:scm_trigger]
+              xml.triggers.vector do
+                xml.send("hudson.triggers.SCMTrigger") do
+                  xml.spec params[:scm_trigger]
                 end
               end
             else
