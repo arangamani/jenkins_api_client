@@ -159,6 +159,12 @@ module JenkinsApi
       #   whether to include xvfb plugin
       # @option params [Boolean] :build_wrappers_ansicolor
       #   whether to include ansicolor plugin
+      # @option params [Boolean] :log_rotator
+      #   whether to include discard old builds (defaults to keep for 7 days, max 10 builds)
+      # @option params [String] :days_to_keep_builds
+      #   number of days to keep builds, only applies when :log_rotator is true
+      # @option params [String] :max_no_builds_to_keep
+      #   max number of builds to keep, only applies when :log_rotator is true
       #
       # @see #create_freestyle
       # @see #update_freestyle
@@ -272,6 +278,14 @@ module JenkinsApi
           xml.project do
             xml.actions
             xml.description
+            if params[:log_rotator]
+              xml.logRotator do
+                xml.daysToKeep params[:days_to_keep_builds] || '7'
+                xml.numToKeep params[:max_no_builds_to_keep] || '10'
+                xml.artifactDaysToKeep '-1'
+                xml.artifactNumToKeep '-1'
+              end
+            end
             xml.keepDependencies "#{params[:keep_dependencies]}"
             xml.properties
             # SCM related stuff
