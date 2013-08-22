@@ -155,6 +155,8 @@ module JenkinsApi
       # @option params [String] :child_threshold (failure)
       #   the threshold for child projects. Valid options: success, failure,
       #   or unstable.
+      # @option params [Boolean] :build_wrappers_xvfb
+      #   whether to include xvfb plugin
       #
       # @see #create_freestyle
       # @see #update_freestyle
@@ -328,7 +330,20 @@ module JenkinsApi
               # Build portion of XML that adds skype notification
               skype_notification(params, xml) if params[:skype_targets]
             end
-            xml.buildWrappers
+            if params[:build_wrappers_xvfb]
+              xml.buildWrappers do
+                xml.send('org.jenkinsci.plugins.xvfb.XvfbBuildWrapper') do
+                  #plugin=\"xvfb@1.0.7\"
+                  xml.installationName 'default'
+                  xml.screen '1024x768x24'
+                  xml.debug 'false'
+                  xml.timeout '0'
+                  xml.displayNameOffset '1'
+                  xml.additionalOptions
+                  xml.shutdownWithBuild 'false'
+                end
+              end
+            end
           end
         end
         builder.to_xml
