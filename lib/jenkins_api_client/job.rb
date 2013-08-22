@@ -157,6 +157,8 @@ module JenkinsApi
       #   or unstable.
       # @option params [Boolean] :build_wrappers_xvfb
       #   whether to include xvfb plugin
+      # @option params [Boolean] :build_wrappers_ansicolor
+      #   whether to include ansicolor plugin
       #
       # @see #create_freestyle
       # @see #update_freestyle
@@ -330,8 +332,8 @@ module JenkinsApi
               # Build portion of XML that adds skype notification
               skype_notification(params, xml) if params[:skype_targets]
             end
-            if params[:build_wrappers_xvfb]
-              xml.buildWrappers do
+            xml.buildWrappers do
+              if params[:build_wrappers_xvfb]
                 xml.send('org.jenkinsci.plugins.xvfb.XvfbBuildWrapper') do
                   #plugin=\"xvfb@1.0.7\"
                   xml.installationName 'default'
@@ -341,6 +343,12 @@ module JenkinsApi
                   xml.displayNameOffset '1'
                   xml.additionalOptions
                   xml.shutdownWithBuild 'false'
+                end
+              end
+              if params[:build_wrappers_ansicolor]
+                xml.send('hudson.plugins.ansicolor.AnsiColorBuildWrapper') do
+                  # plugin=\"ansicolor@0.3.1\"
+                  xml.colorMapName 'xterm'
                 end
               end
             end
