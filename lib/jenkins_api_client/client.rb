@@ -274,6 +274,12 @@ module JenkinsApi
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
       end
 
+      if @timeout != DEFAULT_TIMEOUT
+        # If the user specified the timeout we should probably use that value.
+        http.open_timeout = @timeout
+        http.read_timeout = @timeout
+      end
+
       response = http.request(request)
       case response
         when Net::HTTPRedirection then
