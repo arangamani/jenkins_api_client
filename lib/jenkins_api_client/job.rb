@@ -345,6 +345,8 @@ module JenkinsApi
               notification_email(params, xml) if params[:notification_email]
               # Build portion of XML that adds skype notification
               skype_notification(params, xml) if params[:skype_targets]
+              # Build portion of XML that adds s3 artifacts publisher
+              s3_publisher(params, xml) if params[:s3_artifact_publisher]
             end
             xml.buildWrappers do
               if params[:build_wrappers_xvfb]
@@ -436,6 +438,20 @@ module JenkinsApi
           n_xml.xpath("//publishers").first.add_child(skype_xml)
           post_config(params[:name], n_xml.to_xml)
         end
+      end
+
+      def add_s3_artifacts_publisher(params)
+        raise "No job name specified" unless params[:name]
+        s3_params = params[:s3_artifact_publisher]
+        raise "No s3 options specified" unless s3_params
+        @logger.info "Adding s3 artifact publsher for '#{params[:name]}'"
+        xml = get_config(params[:name])
+        n_xml = Nokogiri::XML(xml)
+        s3_xml = Nokogiri::XML::Builder.new(:encoding => "UTF-8") do |b_xml|
+          s3_publisher(params, b_xml)
+        end
+        n_xml.xpath("//publishers").first.add_child(s3_xml.to_xml)
+        post_config(params[:name], n_xml.to_xml)
       end
 
       # Rename a job given the old name and new name
@@ -1445,6 +1461,22 @@ module JenkinsApi
           end
           xml.buildToChatNotifier(:class => notification_class)
           xml.matrixMultiplier "ONLY_CONFIGURATIONS"
+        }
+      end
+
+      def s3_publisher(params, xml)
+        s3_params = params[:s3_artifact_publisher]
+        xml.send('hudson.plugins.s3.S3BucketPublisher', plugin: 's3@0.5') {
+          xml.profileName s3_params[:profile]
+          xml.entries {
+            xml.send('hudson.plugins.s3.Entry') {
+              xml.bucket s3_params[:bucket]
+              xml.sourceFile s3_params[:tar_file]
+              xml.storageClass 'STANDARD'
+              xml.selectedRegion s3_params[:region]
+            }
+          }
+          xml.userMetadata ''
         }
       end
 

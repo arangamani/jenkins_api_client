@@ -209,6 +209,27 @@ describe JenkinsApi::Client::Job do
         end
       end
 
+      describe "#add_s3_artifacts_publisher" do
+        it "accepts S3 configuration and add to existing job" do
+          params = {
+            :name => "add_s3_artifacts_publisher_test_job"
+          }
+          @client.should_receive(:post_config)
+          @job.create_freestyle(params)
+          @client.should_receive(:get_config).and_return(@sample_job_xml)
+          @client.should_receive(:post_config)
+          @job.add_s3_artifacts_publisher(
+            name: "add_s3_artifacts_publisher_test_job",
+            s3_artifact_publisher: {
+              profile: 'Auser',
+              bucket: 'bucket',
+              tar_file: 'tar_file',
+              region: 'Region'
+            }
+          )
+        end
+      end
+
       describe "#rename" do
         it "accepts the old and new job names and renames the job" do
           @client.should_receive(:api_post_request).with(
