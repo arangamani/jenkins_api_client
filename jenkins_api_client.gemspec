@@ -40,6 +40,7 @@ Gem::Specification.new do |s|
     "lib/jenkins_api_client/exceptions.rb",
     "lib/jenkins_api_client/job.rb",
     "lib/jenkins_api_client/node.rb",
+    "lib/jenkins_api_client/plugin_manager.rb",
     "lib/jenkins_api_client/system.rb",
     "lib/jenkins_api_client/user.rb",
     "lib/jenkins_api_client/version.rb",
