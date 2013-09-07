@@ -2182,8 +2182,8 @@ is running</p>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 299</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_get_root identifier id'>get_root</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='string val'>&quot;GET /&quot;</span>
-  <span class='rubyid_request identifier id'>request</span> <span class='assign token'>=</span> <span class='rubyid_Net constant id'>Net</span><span class='colon2 op'>::</span><span class='rubyid_HTTP constant id'>HTTP</span><span class='colon2 op'>::</span><span class='rubyid_Get constant id'>Get</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='string val'>&quot;/&quot;</span><span class='rparen token'>)</span>
+  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;GET #{@jenkins_path}/&quot;</span>
+  <span class='rubyid_request identifier id'>request</span> <span class='assign token'>=</span> <span class='rubyid_Net constant id'>Net</span><span class='colon2 op'>::</span><span class='rubyid_HTTP constant id'>HTTP</span><span class='colon2 op'>::</span><span class='rubyid_Get constant id'>Get</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='dstring node'>&quot;#{@jenkins_path}/&quot;</span><span class='rparen token'>)</span>
   <span class='rubyid_make_http_request identifier id'>make_http_request</span><span class='lparen token'>(</span><span class='rubyid_request identifier id'>request</span><span class='rparen token'>)</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
@@ -3229,7 +3229,7 @@ Jenkins’ security settings</p>
 </div>
 
     <div id="footer">
-  Generated on Sat Sep  7 01:41:29 2013 by
+  Generated on Sat Sep  7 08:40:34 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7 (ruby-1.8.7).
 </div>
