@@ -102,7 +102,7 @@ puts @client.job.list_all
 ### Chaining and Building Jobs
 
 Sometimes we want certain jobs to be added as downstream projects and run them
-sequencially. The following example will explain how this could be done.
+sequentially. The following example will explain how this could be done.
 
 ```ruby
 require 'jenkins_api_client'
