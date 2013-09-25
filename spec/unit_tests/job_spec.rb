@@ -538,4 +538,50 @@ describe JenkinsApi::Client::Job do
 
     end
   end
+
+  describe :scm_git do
+
+    before do
+      client.stub!(:logger).and_return double('logger').as_null_object
+    end
+
+    let(:client) { double('client') }
+    let(:job) { JenkinsApi::Client::Job.new client }
+    let(:git_options) { {} }
+    let(:job_params) { {git: git_options} }
+    let(:xml) { Nokogiri::XML::Builder.new(:encoding => 'UTF-8') }
+    let(:doc) { xml.doc }
+
+    subject { job.send :scm_git, job_params, xml }
+
+    it 'should build xml elements when no GIT options' do
+      job_params.merge! git: nil
+      subject
+      doc.xpath("/scm").should_not be_nil
+    end
+
+    describe 'GIT scm' do
+
+      describe 'uses fast remote polling' do
+        it 'should disable the fast remote polling option by default' do
+          subject
+          doc.xpath("/scm/remotePoll").text.should eql 'false'
+        end
+
+        it 'should set the fast remote polling option' do
+          git_options.merge! fast_remote_polling: true
+          subject
+          doc.xpath("/scm/remotePoll").text.should eql 'true'
+        end
+
+        it 'should disable fast remote polling option when no boolean value' do
+          git_options.merge! fast_remote_polling: 'true'
+          subject
+          doc.xpath("/scm/remotePoll").text.should eql 'false'
+        end
+      end
+
+    end
+
+  end
 end

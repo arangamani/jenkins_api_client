@@ -1354,6 +1354,7 @@ module JenkinsApi
       # @param [XML] xml Nokogiri XML object
       #
       def scm_git(params, xml)
+        git_opts = params[:git] || {}
         xml.scm(:class => "hudson.plugins.git.GitSCM") {
           xml.configVersion "2"
           xml.userRemoteConfigs {
@@ -1375,7 +1376,7 @@ module JenkinsApi
           xml.clean "false"
           xml.wipeOutWorkspace "false"
           xml.pruneBranches "false"
-          xml.remotePoll "false"
+          xml.remotePoll git_opts[:fast_remote_polling] == true
           xml.ignoreNotifyCommit "false"
           xml.useShallowClone "false"
           xml.buildChooser(:class =>
