@@ -213,6 +213,53 @@ describe JenkinsApi::Client do
           ).not_to raise_error(NoMethodError)
         end
       end
+
+      describe "#deconstruct_version_string" do
+        it "is defined and accepts a single param" do
+          expect(
+            lambda { @client.deconstruct_version_string("1.0") }
+          ).not_to raise_error(NoMethodError)
+        end
+
+        it "takes a version string in the form 'a.b' and returns an array [a,b]" do
+          TEST_VERSION_STRING = "1.002"
+          version = @client.deconstruct_version_string(TEST_VERSION_STRING)
+          version.should_not be_nil
+          version.should_not be_empty
+          version.size.should eql 2
+          version[0].should eql 1
+          version[1].should eql 2
+        end
+
+        it "should fail if parameter is not a string" do
+          expect(
+            lambda { @client.deconstruct_version_string(1) }
+          ).to raise_error(NoMethodError) # match for fixnum
+        end
+
+        it "should return nil if parameter is not a string in the form '\d+.\d+'" do
+          @client.deconstruct_version_string("A.B").should be_nil
+          @client.deconstruct_version_string("1").should be_nil
+          @client.deconstruct_version_string("1.").should be_nil
+          @client.deconstruct_version_string("1.2.3").should be_nil
+        end
+      end
+
+      describe "#compare_version" do
+        it "is defined and accepts two params" do
+          expect(
+            lambda { @client.compare_version("1.0", "2.0") }
+          ).not_to raise_error
+        end
+
+        it "should correctly compare version numbers" do
+          @client.compare_version("1.0", "1.0").should eql(0)
+          @client.compare_version("1.0", "1.1").should eql(-1)
+          @client.compare_version("1.1", "1.0").should eql(1)
+          @client.compare_version("2.0", "1.99").should eql(1)
+          @client.compare_version("1.10", "1.2").should eql(1)
+        end
+      end
     end
   end
 
