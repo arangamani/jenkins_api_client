@@ -437,7 +437,7 @@ describe JenkinsApi::Client::Job do
           @client.should_receive(:api_get_request).with(
             "/job/test_job/1/").twice.ordered.and_raise(JenkinsApi::Exceptions::NotFound.new(@client.logger))
           @client.should_receive(:get_jenkins_version).and_return("1.1")
-          @job.build("test_job", {}, {'build_start_timeout' => 3}).should be_nil
+          expect( lambda { @job.build("test_job", {}, {'build_start_timeout' => 3}) }).to raise_error(Timeout::Error)
         end
 
         ### JENKINS POST 1.519 (QUEUE RESPONSE) ###
@@ -475,7 +475,7 @@ describe JenkinsApi::Client::Job do
           @client.should_receive(:api_get_request).with(
             "/queue/item/42").and_return({}, {})
           @client.should_receive(:get_jenkins_version).and_return("1.519")
-          @job.build("test_job", {}, {'build_start_timeout' => 3}).should be_nil
+          expect( lambda { @job.build("test_job", {}, {'build_start_timeout' => 3}) }).to raise_error(Timeout::Error)
         end
       end
 

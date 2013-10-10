@@ -858,6 +858,9 @@ module JenkinsApi
                 @logger.info "Jenkins build for '#{job_name}' failed to start in a timely manner"
                 completion_proc.call(nil, false) if completion_proc
               end
+
+              # Old version used to throw timeout error, so we should let that go thru now
+              raise
             rescue JenkinsApi::Exceptions::ApiException => e
               # Jenkins Api threw an error at us
               completion_proc.call(nil, false) if completion_proc
@@ -920,7 +923,9 @@ module JenkinsApi
           # Now we need to raise an exception so that the build can be officially failed
           completion_proc.call(nil, false) if completion_proc
           @logger.info "Jenkins '#{job_name}' build failed to start in a timely manner"
-          return nil
+
+          # Old version used to propagate timeout error
+          raise
         rescue JenkinsApi::Exceptions::ApiException => e
           completion_proc.call(nil, false) if completion_proc
           # Jenkins Api threw an error at us
