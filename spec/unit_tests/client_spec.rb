@@ -245,19 +245,19 @@ describe JenkinsApi::Client do
         end
       end
 
-      describe "#compare_version" do
+      describe "#compare_versions" do
         it "is defined and accepts two params" do
           expect(
-            lambda { @client.compare_version("1.0", "2.0") }
+            lambda { @client.compare_versions("1.0", "2.0") }
           ).not_to raise_error
         end
 
         it "should correctly compare version numbers" do
-          @client.compare_version("1.0", "1.0").should eql(0)
-          @client.compare_version("1.0", "1.1").should eql(-1)
-          @client.compare_version("1.1", "1.0").should eql(1)
-          @client.compare_version("2.0", "1.99").should eql(1)
-          @client.compare_version("1.10", "1.2").should eql(1)
+          @client.compare_versions("1.0", "1.0").should eql(0)
+          @client.compare_versions("1.0", "1.1").should eql(-1)
+          @client.compare_versions("1.1", "1.0").should eql(1)
+          @client.compare_versions("2.0", "1.99").should eql(1)
+          @client.compare_versions("1.10", "1.2").should eql(1)
         end
       end
     end

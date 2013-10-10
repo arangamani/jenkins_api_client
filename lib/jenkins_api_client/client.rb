@@ -502,7 +502,7 @@ module JenkinsApi
     # if A == B, returns 0
     # if A > B, returns 1
     # if A < B, returns -1
-    def compare_version(version_a, version_b)
+    def compare_versions(version_a, version_b)
       if version_a == version_b
         return 0
       else

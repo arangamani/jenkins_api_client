@@ -1,13 +1,14 @@
 require File.expand_path('../spec_helper', __FILE__)
 require 'net/http'
+require File.expand_path('../fake_http_response', __FILE__)
 
 describe JenkinsApi::Client::Job do
   context "With properly initialized Client and all methods defined" do
 
     before do
       mock_logger = Logger.new "/dev/null"
-      @client = double
-      @client.should_receive(:logger).and_return(mock_logger)
+      @client = JenkinsApi::Client.new({:server_ip => '127.0.0.1'})
+      @client.should_receive(:logger).any_number_of_times.and_return(mock_logger)
       @job = JenkinsApi::Client::Job.new(@client)
       @sample_json_response = {
         "jobs" => [
@@ -248,7 +249,7 @@ describe JenkinsApi::Client::Job do
           msg = "/job/test_job/1/logText/progressiveText?start=0"
           @client.should_receive(:api_get_request).
                   with(msg, nil, nil, true).
-                  and_return(Net::HTTP.get_response(URI('http://example.com/index.html')))
+                  and_return(FakeResponse.new)
           @job.get_console_output('test_job', 1, 0, 'text')
         end
 
@@ -380,18 +381,101 @@ describe JenkinsApi::Client::Job do
       end
 
       describe "#build" do
+        # First tests confirm the build method works the same as it used to
         it "accepts the job name and builds the job" do
+          @client.should_receive(:api_get_request).with(
+            "/job/test_job").and_return({})
           @client.should_receive(:api_post_request).with(
-            "/job/test_job/build", {}, false).and_return(302)
+            "/job/test_job/build", {}, true).and_return(FakeResponse.new(302))
           @job.build("test_job").should == 302
         end
         it "accepts the job name with params and builds the job" do
+          @client.should_receive(:api_get_request).with(
+            "/job/test_job").and_return({})
           @client.should_receive(:api_post_request).with(
             "/job/test_job/buildWithParameters",
             {:branch => 'feature/new-stuff'},
-            false
-          ).and_return(302)
+            true
+          ).and_return(FakeResponse.new(302))
           @job.build("test_job", {:branch => 'feature/new-stuff'}).should == 302
+        end
+
+        ### OLD NON-QUEUE RESPONSE JENKINS ###
+        # Next tests confirm it deals with different jenkins versions and waits
+        # for build to start (or not)
+        it "accepts the job name and builds the job (w/timeout)" do
+          @client.should_receive(:api_get_request).with(
+            "/job/test_job").and_return({})
+          @client.should_receive(:api_post_request).with(
+            "/job/test_job/build", {}, true).and_return(FakeResponse.new(302))
+          @client.should_receive(:api_get_request).with(
+            "/job/test_job/1/").and_return({})
+          @client.should_receive(:get_jenkins_version).and_return("1.1")
+          @job.build("test_job", {}, {'build_start_timeout' => 10}).should == 1
+        end
+
+        # wait for build to start (or not) (initial response will fail)
+        it "accepts the job name and builds the job after short delay (w/timeout)" do
+          @client.should_receive(:api_get_request).with(
+            "/job/test_job").and_return({})
+          @client.should_receive(:api_post_request).with(
+            "/job/test_job/build", {}, true).and_return(FakeResponse.new(302))
+          @client.should_receive(:api_get_request).with(
+            "/job/test_job/1/").ordered.and_raise(JenkinsApi::Exceptions::NotFound.new(@client.logger))
+          @client.should_receive(:api_get_request).with(
+            "/job/test_job/1/").ordered.and_return({})
+          @client.should_receive(:get_jenkins_version).and_return("1.1")
+          @job.build("test_job", {}, {'build_start_timeout' => 3}).should == 1
+        end
+
+        # wait for build to start - will fail
+        it "accepts the job name and builds the job, but the job doesn't start" do
+          @client.should_receive(:api_get_request).with(
+            "/job/test_job").and_return({})
+          @client.should_receive(:api_post_request).with(
+            "/job/test_job/build", {}, true).and_return(FakeResponse.new(302))
+          @client.should_receive(:api_get_request).with(
+            "/job/test_job/1/").twice.ordered.and_raise(JenkinsApi::Exceptions::NotFound.new(@client.logger))
+          @client.should_receive(:get_jenkins_version).and_return("1.1")
+          @job.build("test_job", {}, {'build_start_timeout' => 3}).should be_nil
+        end
+
+        ### JENKINS POST 1.519 (QUEUE RESPONSE) ###
+        # Next tests confirm it deals with different jenkins versions and waits
+        # for build to start (or not)
+        it "accepts the job name and builds the job (w/timeout)" do
+          @client.should_receive(:api_get_request).with(
+            "/job/test_job").and_return({})
+          @client.should_receive(:api_post_request).with(
+            "/job/test_job/build", {}, true).and_return({"location" => "/item/42/"})
+          @client.should_receive(:api_get_request).with(
+            "/queue/item/42").and_return({'executable' => {'number' => 1}})
+          @client.should_receive(:get_jenkins_version).and_return("1.519")
+          @job.build("test_job", {}, {'build_start_timeout' => 10}).should == 1
+        end
+
+        # wait for build to start (or not) (initial response will fail)
+        it "accepts the job name and builds the job after short delay (w/timeout)" do
+          @client.should_receive(:api_get_request).with(
+            "/job/test_job").and_return({})
+          @client.should_receive(:api_post_request).with(
+            "/job/test_job/build", {}, true).and_return({"location" => "/item/42/"})
+          @client.should_receive(:api_get_request).with(
+            "/queue/item/42").and_return({}, {'executable' => {'number' => 1}})
+          @client.should_receive(:get_jenkins_version).and_return("1.519")
+          @job.build("test_job", {}, {'build_start_timeout' => 3}).should == 1
+        end
+
+        # wait for build to start - will fail
+        it "accepts the job name and builds the job, but the job doesn't start" do
+          @client.should_receive(:api_get_request).with(
+            "/job/test_job").and_return({})
+          @client.should_receive(:api_post_request).with(
+            "/job/test_job/build", {}, true).and_return({"location" => "/item/42/"})
+          @client.should_receive(:api_get_request).with(
+            "/queue/item/42").and_return({}, {})
+          @client.should_receive(:get_jenkins_version).and_return("1.519")
+          @job.build("test_job", {}, {'build_start_timeout' => 3}).should be_nil
         end
       end
 
