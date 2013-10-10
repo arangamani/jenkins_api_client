@@ -181,20 +181,23 @@ If you wish to take advantage of this hands-off approach, the build method
 supports an additional 'opts' hash that lets you specify how long you wish to
 wait for the build to start.
 
-## Old Jenkins vs New Jenkins (1.519+)
-# Old (v < 1.519)
+#### Old Jenkins vs New Jenkins (1.519+)
+
+##### Old (v < 1.519)
 The 'opts' parameter will work with older versions of Jenkins with the following
 caveats:
 * The 'cancel_on_build_start_timeout' option has no effect
 * The build_number is calculated by calling 'current_build_number' and adding
   1 before the build is started.  This might break if there are multiple
   entities running builds on the same job, or there are queued builds.
-# New (v >= 1.519)
+
+##### New (v >= 1.519)
 * All options work, and build number is accurately determined from queue
   info.
 
-## Initiating a build and returning the build_number
-# Minimum required
+#### Initiating a build and returning the build_number
+
+##### Minimum required
 ```ruby
 # Minimum options required
 opts = {'build_start_timeout' => 30}
@@ -206,7 +209,7 @@ build_number, or if the build has not started will raise 'Timeout::Error'
 Note: to maintain legacy compatibility, passing 'true' will set the timeout
 to the default timeout specified when creating the @client.
 
-# Auto cancel the queued-build on timeout
+##### Auto cancel the queued-build on timeout
 ```ruby
 # Wait for up to 30 seconds, attempt to cancel queued build
 opts = {'build_start_timeout' => 30,
@@ -219,22 +222,22 @@ build_number, or if the build has not started will raise 'Timeout::Error'.
 Prior to raising the Timeout::Error, it will attempt to cancel the queued
 build - thus preventing it from starting.
 
-# Getting some feedback while you're waiting
+##### Getting some feedback while you're waiting
 The opts parameter supports two values that can be assigned proc objects
 (which will be 'call'ed).  Both are optional, and will only be called if
 specified in opts.
 These are initially intended to assist with logging progress.
-'progress_proc' - called when job is initially queued, and periodically
+
+* 'progress_proc' - called when job is initially queued, and periodically
   thereafter.
-  Params:
-    max_wait - the value of 'build_start_timeout'
-    current_wait - how long we've been waiting so far
-    poll_count - how many times we've polled the queue
-'completion_proc' - called just prior to return/Timeout::Error
-  Params:
-    build_number - the build number assigned (or nil if timeout)
-    cancelled - whether the build was cancelled (true if 'new' Jenkins
-      and it was able to cancel the build, false otherwise)
+  * max_wait - the value of 'build_start_timeout'
+  * current_wait - how long we've been waiting so far
+  * poll_count - how many times we've polled the queue
+* 'completion_proc' - called just prior to return/Timeout::Error
+  * build_number - the build number assigned (or nil if timeout)
+  * cancelled - whether the build was cancelled (true if 'new' Jenkins
+    and it was able to cancel the build, false otherwise)
+
 To use a class method, just specify 'instance.method(:method_name)', or
 use a proc or lambda
 
