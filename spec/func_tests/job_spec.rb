@@ -548,8 +548,7 @@ describe JenkinsApi::Client::Job do
               end
             end
           }
-          build_id = @client.job.build(@job_name, {}, build_opts)
-          build_id.should be_nil
+          expect( lambda { @client.job.build(@job_name, {}, build_opts) } ).to raise_error(Timeout::Error)
           # Sleep for 6 seconds so we don't hit the Jenkins quiet period (5
           # seconds)
           sleep 6
@@ -562,7 +561,7 @@ describe JenkinsApi::Client::Job do
 
         # This build doesn't start in time, and we will attempt to cancel it so it
         # doesn't run
-        it "Should build the specified job (wait for start - but not long enoughi, cancelled)" do
+        it "Should build the specified job (wait for start - but not long enough, cancelled)" do
           @client.job.get_current_build_status(
             @job_name
           ).should_not == "running"
@@ -581,8 +580,7 @@ describe JenkinsApi::Client::Job do
               end
             end
           }
-          build_id = @client.job.build(@job_name, {}, build_opts)
-          build_id.should be_nil
+          expect( lambda { @client.job.build(@job_name, {}, build_opts) } ).to raise_error(Timeout::Error)
         end
       end
 
