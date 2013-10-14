@@ -1374,7 +1374,7 @@ module JenkinsApi
           xml.doGenerateSubmoduleConfigurations "false"
           xml.authorOrCommitter "false"
           xml.clean "false"
-          xml.wipeOutWorkspace "false"
+          xml.wipeOutWorkspace "true"
           xml.pruneBranches "false"
           xml.remotePoll git_opts[:fast_remote_polling] == true
           xml.ignoreNotifyCommit "false"
