@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "jenkins_api_client"
-  s.version = "0.14.1"
+  s.version = "1.0.0.alpha.1"
 
-  s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
+  s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kannan Manickam"]
-  s.date = "2013-08-19"
+  s.date = "2013-10-20"
   s.description = "\nThis is a simple and easy-to-use Jenkins Api client with features focused on\nautomating Job configuration programaticaly and so forth"
   s.email = ["arangamani.kannan@gmail.com"]
   s.executables = ["jenkinscli"]
@@ -49,20 +49,26 @@ Gem::Specification.new do |s|
     "spec/func_tests/client_spec.rb",
     "spec/func_tests/job_spec.rb",
     "spec/func_tests/node_spec.rb",
+    "spec/func_tests/plugin_spec.rb.pending",
     "spec/func_tests/spec_helper.rb",
     "spec/func_tests/system_spec.rb",
     "spec/func_tests/user_spec.rb",
     "spec/func_tests/view_spec.rb",
     "spec/unit_tests/build_queue_spec.rb",
     "spec/unit_tests/client_spec.rb",
+    "spec/unit_tests/fixtures/files/available_plugins.json",
     "spec/unit_tests/fixtures/files/computer_sample.xml",
+    "spec/unit_tests/fixtures/files/installed_plugins.json",
     "spec/unit_tests/fixtures/files/job_sample.xml",
+    "spec/unit_tests/fixtures/files/updatable_plugins.json",
     "spec/unit_tests/job_spec.rb",
     "spec/unit_tests/node_spec.rb",
+    "spec/unit_tests/plugin_spec.rb",
     "spec/unit_tests/spec_helper.rb",
     "spec/unit_tests/system_spec.rb",
     "spec/unit_tests/user_spec.rb",
     "spec/unit_tests/view_spec.rb",
+    "travis/hudson.model.UpdateCenter.xml",
     "travis/jenkins_config.xml",
     "travis/jenkins_config_with_crumb.xml",
     "travis/setup.sh",
@@ -72,6 +78,7 @@ Gem::Specification.new do |s|
   ]
   s.homepage = "https://github.com/arangamani/jenkins_api_client"
   s.require_paths = ["lib"]
+  s.required_ruby_version = Gem::Requirement.new(">= 1.9.2")
   s.rubygems_version = "1.8.23"
   s.summary = "Jenkins JSON API Client"
 
@@ -88,6 +95,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<jeweler>, [">= 1.6.4"])
       s.add_development_dependency(%q<rspec>, ["~> 2.13.0"])
       s.add_development_dependency(%q<simplecov>, [">= 0"])
+      s.add_development_dependency(%q<yard-thor>, [">= 0"])
       s.add_development_dependency(%q<yard>, [">= 0"])
     else
       s.add_dependency(%q<nokogiri>, ["~> 1.5.0"])
@@ -99,6 +107,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<jeweler>, [">= 1.6.4"])
       s.add_dependency(%q<rspec>, ["~> 2.13.0"])
       s.add_dependency(%q<simplecov>, [">= 0"])
+      s.add_dependency(%q<yard-thor>, [">= 0"])
       s.add_dependency(%q<yard>, [">= 0"])
     end
   else
@@ -111,6 +120,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<jeweler>, [">= 1.6.4"])
     s.add_dependency(%q<rspec>, ["~> 2.13.0"])
     s.add_dependency(%q<simplecov>, [">= 0"])
+    s.add_dependency(%q<yard-thor>, [">= 0"])
     s.add_dependency(%q<yard>, [">= 0"])
   end
 end
