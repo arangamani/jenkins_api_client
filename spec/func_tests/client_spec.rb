@@ -65,12 +65,6 @@ describe JenkinsApi::Client do
           @client.get_hudson_version.class.should == String
         end
       end
-
-      describe "#get_server_date" do
-        it "Should return the server date" do
-          @client.get_server_date.class.should == String
-        end
-      end
     end
 
     describe "SubClassAccessorMethods" do
