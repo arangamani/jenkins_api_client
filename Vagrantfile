@@ -9,11 +9,11 @@ Vagrant.configure("2") do |config|
   config.vm.hostname = "jenkins-api-client"
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "Ubuntu-12.04-LTS"
+  config.vm.box = "opscode-ubuntu-12.04"
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
-  config.vm.box_url = "https://s3-us-west-2.amazonaws.com/squishy.vagrant-boxes/precise64_squishy_2013-02-09.box"
+  config.vm.box_url = "https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_provisionerless.box"
 
   # Assign this VM to a host-only network IP, allowing you to access it
   # via the IP. Host-only networks can talk to the host machine as well as
@@ -73,11 +73,12 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder ".", "/opt/jenkins_api_client"
 
   config.vm.provision :shell, :inline =>
-    " sudo apt-get install -y git rubygems libxslt-dev libxml2-dev;" +
+    " sudo apt-get update;" +
+    " sudo apt-get install -y git ruby1.9.1-full rubygems libxslt-dev libxml2-dev;" +
     " cd /opt/jenkins_api_client;" +
     " ls -lrt;" +
-    " ruby --version;" +
-    " sudo gem install bundler;" +
+    " ruby1.9.1 --version;" +
+    " sudo gem1.9.1 install bundler;" +
     " bundle install;" +
     " travis/setup.sh;" +
     " bundle exec rake unit_tests;" +
