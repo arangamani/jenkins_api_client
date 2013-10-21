@@ -487,12 +487,12 @@ module JenkinsApi
     # v 1.2 is a lot older than v 1.102 - and simple < > on version
     # strings doesn't work so well
     def deconstruct_version_string(version)
-      match = version.match(/^(\d+)\.(\d+)$/)
+      match = version.match(/^(\d+)\.(\d+)(?:\.(\d+))?$/)
 
-      # Match should have 3 parts [0] = input string, [1] = major
-      # [2] = minor
-      if match && match.size == 3
-        return [match[1].to_i, match[2].to_i]
+      # Match should have 4 parts [0] = input string, [1] = major
+      # [2] = minor, [3] = patch (possibly blank)
+      if match && match.size == 4
+        return [match[1].to_i, match[2].to_i, match[3].to_i || 0]
       else
         return nil
       end
@@ -509,7 +509,9 @@ module JenkinsApi
         version_a_d = deconstruct_version_string(version_a)
         version_b_d = deconstruct_version_string(version_b)
 
-        if version_a_d[0] > version_b_d[0] || (version_a_d[0] == version_b_d[0] && version_a_d[1] > version_b_d[1])
+        if version_a_d[0] > version_b_d[0] ||
+          (version_a_d[0] == version_b_d[0] && version_a_d[1] > version_b_d[1]) ||
+          (version_a_d[0] == version_b_d[0] && version_a_d[1] == version_b_d[1] && version_a_d[2] > version_b_d[2])
           return 1
         else
           return -1

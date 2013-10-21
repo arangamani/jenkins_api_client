@@ -221,14 +221,26 @@ describe JenkinsApi::Client do
           ).not_to raise_error(NoMethodError)
         end
 
-        it "takes a version string in the form 'a.b' and returns an array [a,b]" do
-          TEST_VERSION_STRING = "1.002"
-          version = @client.deconstruct_version_string(TEST_VERSION_STRING)
+        it "takes a version string in the form 'a.b' and returns an array [a,b,c]" do
+          TEST_2_PART_VERSION_STRING = "1.002"
+          version = @client.deconstruct_version_string(TEST_2_PART_VERSION_STRING)
           version.should_not be_nil
           version.should_not be_empty
-          version.size.should eql 2
+          version.size.should eql 3
           version[0].should eql 1
           version[1].should eql 2
+          version[2].should eql 0
+        end
+
+        it "takes a version string in the form 'a.b.c' and returns an array [a,b]" do
+          TEST_3_PART_VERSION_STRING = "1.002.3"
+          version = @client.deconstruct_version_string(TEST_3_PART_VERSION_STRING)
+          version.should_not be_nil
+          version.should_not be_empty
+          version.size.should eql 3
+          version[0].should eql 1
+          version[1].should eql 2
+          version[2].should eql 3
         end
 
         it "should fail if parameter is not a string" do
@@ -237,11 +249,11 @@ describe JenkinsApi::Client do
           ).to raise_error(NoMethodError) # match for fixnum
         end
 
-        it "should return nil if parameter is not a string in the form '\d+.\d+'" do
+        it "should return nil if parameter is not a string in the form '\d+.\d+(.\d+)'" do
           @client.deconstruct_version_string("A.B").should be_nil
           @client.deconstruct_version_string("1").should be_nil
           @client.deconstruct_version_string("1.").should be_nil
-          @client.deconstruct_version_string("1.2.3").should be_nil
+          @client.deconstruct_version_string("1.2.3.4").should be_nil
         end
       end
 
@@ -258,6 +270,12 @@ describe JenkinsApi::Client do
           @client.compare_versions("1.1", "1.0").should eql(1)
           @client.compare_versions("2.0", "1.99").should eql(1)
           @client.compare_versions("1.10", "1.2").should eql(1)
+          
+          @client.compare_versions("1.0.0", "1.0.0").should eql(0)
+          @client.compare_versions("1.0", "1.0.1").should eql(-1)
+          @client.compare_versions("1.1", "1.0.1").should eql(1)
+          @client.compare_versions("2.0.0", "1.999.99").should eql(1)
+          @client.compare_versions("1.0.10", "1.0.2").should eql(1)
         end
       end
     end
