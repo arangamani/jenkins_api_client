@@ -401,6 +401,14 @@ module JenkinsApi
     # @return [String] Response code returned from Jenkins
     #
     def post_config(url_prefix, xml)
+      post_data(url_prefix, xml, 'application/xml')
+    end
+
+    def post_json(url_prefix, json)
+      post_data(url_prefix, json, 'application/json')
+    end
+
+    def post_data(url_prefix, data, content_type)
       retries = @crumb_max_retries
       begin
         refresh_crumbs
@@ -408,8 +416,8 @@ module JenkinsApi
         url_prefix = URI.escape("#{@jenkins_path}#{url_prefix}")
         request = Net::HTTP::Post.new("#{url_prefix}")
         @logger.info "POST #{url_prefix}"
-        request.body = xml
-        request.content_type = 'application/xml'
+        request.body = data
+        request.content_type = content_type
         if @crumbs_enabled
           request[@crumb["crumbRequestField"]] = @crumb["crumb"]
         end
@@ -432,6 +440,24 @@ module JenkinsApi
           raise
         end
       end
+    end
+
+    def init_update_center
+      @logger.info "Initializing Jenkins Update Center..."
+      @logger.debug "Obtaining the JSON data for Update Center..."
+      # TODO: Clean me up
+      update_center_data = open("http://updates.jenkins-ci.org/update-center.json").read
+      # The Jenkins mirror returns the data in the following format
+      #   updateCenter.post(
+      #     {.. JSON data...}
+      #   );
+      # which is used by the Javascript used by the Jenkins UI to send to Jenkins.
+      #
+      update_center_data.gsub!("updateCenter.post(\n", "")
+      update_center_data.gsub!("\n);", "")
+
+      @logger.debug "Posting the obtained JSON to Jenkins Update Center..."
+      post_json("/updateCenter/byId/default/postBack", update_center_data)
     end
 
     # Checks if Jenkins uses crumbs (i.e) the XSS disable option is checked in
