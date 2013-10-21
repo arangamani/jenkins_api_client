@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 # Install Jenkins
 wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
