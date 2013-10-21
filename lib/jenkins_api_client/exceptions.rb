@@ -202,7 +202,7 @@ module JenkinsApi
       def initialize(logger, message = "", log_level = Logger::ERROR)
         message = "Internel Server Error. Perhaps the in-memory configuration" +
           " Jenkins is different from the disk configuration. Please try to" +
-          " reload the configuration" if message.empty?
+          " reload the configuration" if message.nil? || message.empty?
         super(logger, message)
       end
     end

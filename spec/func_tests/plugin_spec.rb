@@ -17,7 +17,7 @@ describe JenkinsApi::Client::PluginManager do
         @client = JenkinsApi::Client.new(
           YAML.load_file(File.expand_path(@creds_file, __FILE__))
         )
-        @client.plugin.check_for_updates
+        @client.init_update_center
         sleep 30
       rescue Exception => e
         puts "WARNING: Credentials are not set properly."
@@ -70,7 +70,7 @@ describe JenkinsApi::Client::PluginManager do
         it "installs multiple plugins given as an array" do
           @client.plugin.install(@test_plugins)
           # Plugin installation might take a bit
-          sleep 5
+          sleep 15
           @client.system.restart(true) if @client.plugin.restart_required?
           @client.system.wait_for_ready
           installed = @client.plugin.list_installed.keys
