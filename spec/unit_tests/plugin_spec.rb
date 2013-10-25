@@ -5,7 +5,7 @@ describe JenkinsApi::Client::PluginManager do
   context "With properly initialized Client" do
     before do
       mock_logger = Logger.new "/dev/null"
-      @client = mock
+      @client = double
       @client.should_receive(:logger).and_return(mock_logger)
       @plugin = JenkinsApi::Client::PluginManager.new(@client)
       @installed_plugins = load_json_from_fixture("installed_plugins.json")
