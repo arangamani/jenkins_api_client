@@ -67,6 +67,14 @@ file. To use the client without credentials, just leave out the
 <tt>username</tt> and <tt>password</tt> parameters. The <tt>password</tt>
 parameter is only required if <tt>username</tt> is specified.
 
+#### Using with Open ID
+
+It is very simple to authenticate with your Jenkins server that has Open ID
+authentication enabled. You will have to obtain your API token and use the API
+token as the password. For obtaining the API token, go to your user configuration
+page and click 'Show API Token'. Use this token for the `password` parameter when
+initializing the client.
+
 ### Cross-site Scripting (XSS) and Crumb Support
 
 Support for Jenkins crumbs has been added.  These allow an application to
