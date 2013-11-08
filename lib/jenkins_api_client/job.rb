@@ -833,6 +833,19 @@ module JenkinsApi
 
         @client.api_get_request("/job/#{job_name}/#{build_num}/")
       end
+      
+      # Toggles the build's "keep forever" (a.k.a. "keepLog") status
+      #
+      # @param [String] job_name
+      # @param [Number] build_num
+      #
+      def toggle_keep_build_forever(job_name, build_num)
+        build_num = get_current_build_number(job_name) if build_num == 0
+        @logger.info "Toggling 'keepLog' for '#{job_name}'" +
+          " Build ##{build_num}"
+
+        @client.api_post_request("/job/#{job_name}/#{build_num}/toggleLogKeep")
+      end
 
       # Change the description of a specific job
       #
