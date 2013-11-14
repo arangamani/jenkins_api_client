@@ -489,9 +489,9 @@ describe JenkinsApi::Client::Job do
           # As of Jenkins version 1.519 the job build responds with a 201
           # status code.
           @valid_post_responses.should include(response.to_i)
-          # Sleep for 6 seconds so we don't hit the Jenkins quiet period (5
+          # Sleep for 10 seconds so we don't hit the Jenkins quiet period (5
           # seconds)
-          sleep 6
+          sleep 10
           @client.job.get_current_build_status(@job_name).should == "running"
           while @client.job.get_current_build_status(@job_name) == "running" do
             # Waiting for this job to finish so it doesn't affect other tests
@@ -527,7 +527,7 @@ describe JenkinsApi::Client::Job do
             @job_name
           ).should_not == "running"
           @client.job.build(@job_name)
-          sleep 6
+          sleep 8
           @client.job.get_current_build_status(@job_name).should == "running"
           sleep 5
           @valid_post_responses.should include(
