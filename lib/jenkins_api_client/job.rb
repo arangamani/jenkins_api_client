@@ -1207,6 +1207,31 @@ module JenkinsApi
         filtered_job_names[0..parallel-1]
       end
 
+      # Get a list of promoted builds for given job
+      #
+      # @param  [String] job_name
+      # @return [Hash]   Hash map of promitions and the promoted builds. Promotions that didn't took place yet
+      #                  return nil
+      def get_promotions(job_name)
+        result = {}
+
+        @logger.info "Obtaining the promotions of '#{job_name}'"
+        response_json = @client.api_get_request("/job/#{job_name}/promotion")
+
+        response_json["processes"].each do |promotion|
+          @logger.info "Getting promotion details of '#{promotion['name']}'"
+
+          if promotion['color'] == 'notbuilt'
+            result[promotion['name']] = nil
+          else
+            promo_json = @client.api_get_request("/job/#{job_name}/promotion/latest/#{promotion['name']}")
+            result[promotion['name']] = promo_json['target']['number']
+          end
+        end
+
+        result
+      end
+
       private
 
       # Obtains the threshold params used by jenkins in the XML file

@@ -515,6 +515,25 @@ describe JenkinsApi::Client::Job do
         end
       end
 
+      describe "#get_promotions" do
+        it "accepts the jon name and returns the promotions" do
+            mock_job_promotions_response = {
+              "processes" => [ { "name"  => "dev",
+                                 "url"   => "not_required",
+                                 "color" => "blue",
+                               },
+                               { "name"  => "stage",
+                                 "url"   => "not_required",
+                                 "color" => "notbuilt",
+                               },
+                             ], }
+
+          @client.should_receive(:api_get_request).with('/job/test_job/promotion').and_return(
+            mock_job_promotions_response)
+          @client.should_receive(:api_get_request).and_return({'target' => {'number' => 42}})
+          @job.get_promotions("test_job").should == {'dev' => 42, 'stage' => nil}
+        end
+      end
     end
   end
 end
