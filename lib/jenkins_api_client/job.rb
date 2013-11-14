@@ -20,12 +20,15 @@
 # THE SOFTWARE.
 #
 
+require 'jenkins_api_client/urihelper'
+
 module JenkinsApi
   class Client
     # This class communicates with the Jenkins "/job" API to obtain details
     # about jobs, creating, deleting, building, and various other operations.
     #
     class Job
+      include JenkinsApi::UriHelper
 
       # Initialize the Job object and store the reference to Client object
       #
@@ -74,7 +77,7 @@ module JenkinsApi
       #
       def create(job_name, xml)
         @logger.info "Creating job '#{job_name}'"
-        @client.post_config("/createItem?name=#{job_name}", xml)
+        @client.post_config("/createItem?name=#{form_encode job_name}", xml)
       end
 
       # Update a job with the name specified and the xml given
@@ -400,7 +403,7 @@ module JenkinsApi
       #
       def rename(old_job, new_job)
         @logger.info "Renaming job '#{old_job}' to '#{new_job}'"
-        @client.api_post_request("/job/#{old_job}/doRename?newName=#{new_job}")
+        @client.api_post_request("/job/#{path_encode old_job}/doRename?newName=#{form_encode new_job}")
       end
 
       # Delete a job given the name
@@ -411,7 +414,7 @@ module JenkinsApi
       #
       def delete(job_name)
         @logger.info "Deleting job '#{job_name}'"
-        @client.api_post_request("/job/#{job_name}/doDelete")
+        @client.api_post_request("/job/#{path_encode job_name}/doDelete")
       end
 
       # Deletes all jobs from Jenkins
@@ -432,7 +435,7 @@ module JenkinsApi
       #
       def wipe_out_workspace(job_name)
         @logger.info "Wiping out the workspace of job '#{job_name}'"
-        @client.api_post_request("/job/#{job_name}/doWipeOutWorkspace")
+        @client.api_post_request("/job/#{path_encode job_name}/doWipeOutWorkspace")
       end
 
       # Stops a running build of a job
@@ -449,10 +452,10 @@ module JenkinsApi
         @logger.info "Stopping job '#{job_name}' Build ##{build_number}"
         # Check and see if the build is running
         is_building = @client.api_get_request(
-          "/job/#{job_name}/#{build_number}"
+          "/job/#{path_encode job_name}/#{build_number}"
         )["building"]
         if is_building
-          @client.api_post_request("/job/#{job_name}/#{build_number}/stop")
+          @client.api_post_request("/job/#{path_encode job_name}/#{build_number}/stop")
         end
       end
       alias_method :stop, :stop_build
@@ -515,7 +518,7 @@ module JenkinsApi
         else
           raise "Mode should either be 'text' or 'html'. You gave: #{mode}"
         end
-        get_msg = "/job/#{job_name}/#{build_num}/logText/progressive#{mode}?"
+        get_msg = "/job/#{path_encode job_name}/#{build_num}/logText/progressive#{mode}?"
         get_msg << "start=#{start}"
         raw_response = true
         api_response = @client.api_get_request(get_msg, nil, nil, raw_response)
@@ -610,7 +613,7 @@ module JenkinsApi
       #
       def list_details(job_name)
         @logger.info "Obtaining the details of '#{job_name}'"
-        @client.api_get_request("/job/#{job_name}")
+        @client.api_get_request("/job/#{path_encode job_name}")
       end
 
       # List upstream projects of a specific job
@@ -620,7 +623,7 @@ module JenkinsApi
       #
       def get_upstream_projects(job_name)
         @logger.info "Obtaining the upstream projects of '#{job_name}'"
-        response_json = @client.api_get_request("/job/#{job_name}")
+        response_json = @client.api_get_request("/job/#{path_encode job_name}")
         response_json["upstreamProjects"]
       end
 
@@ -631,7 +634,7 @@ module JenkinsApi
       #
       def get_downstream_projects(job_name)
         @logger.info "Obtaining the down stream projects of '#{job_name}'"
-        response_json = @client.api_get_request("/job/#{job_name}")
+        response_json = @client.api_get_request("/job/#{path_encode job_name}")
         response_json["downstreamProjects"]
       end
 
@@ -641,7 +644,7 @@ module JenkinsApi
       #
       def get_builds(job_name)
         @logger.info "Obtaining the build details of '#{job_name}'"
-        response_json = @client.api_get_request("/job/#{job_name}")
+        response_json = @client.api_get_request("/job/#{path_encode job_name}")
         response_json["builds"]
       end
 
@@ -683,7 +686,7 @@ module JenkinsApi
       #
       def get_current_build_status(job_name)
         @logger.info "Obtaining the current build status of '#{job_name}'"
-        response_json = @client.api_get_request("/job/#{job_name}")
+        response_json = @client.api_get_request("/job/#{path_encode job_name}")
         color_to_status(response_json["color"])
       end
       alias_method :status, :get_current_build_status
@@ -697,7 +700,7 @@ module JenkinsApi
       #
       def get_current_build_number(job_name)
         @logger.info "Obtaining the current build number of '#{job_name}'"
-        @client.api_get_request("/job/#{job_name}")['nextBuildNumber'].to_i - 1
+        @client.api_get_request("/job/#{path_encode job_name}")['nextBuildNumber'].to_i - 1
       end
       alias_method :build_number, :get_current_build_number
 
@@ -723,7 +726,7 @@ module JenkinsApi
         build_endpoint = params.empty? ? "build" : "buildWithParameters"
         raw_response = return_build_number
         response =@client.api_post_request(
-          "/job/#{job_name}/#{build_endpoint}",
+          "/job/#{path_encode job_name}/#{build_endpoint}",
           params,
           raw_response
         )
@@ -779,7 +782,7 @@ module JenkinsApi
       #
       def disable(job_name)
         @logger.info "Disabling job '#{job_name}'"
-        @client.api_post_request("/job/#{job_name}/disable")
+        @client.api_post_request("/job/#{path_encode job_name}/disable")
       end
 
       # Obtain the configuration stored in config.xml of a specific job
@@ -790,7 +793,7 @@ module JenkinsApi
       #
       def get_config(job_name)
         @logger.info "Obtaining the config.xml of '#{job_name}'"
-        @client.get_config("/job/#{job_name}")
+        @client.get_config("/job/#{path_encode job_name}")
       end
 
       # Post the configuration of a job given the job name and the config.xml
@@ -802,7 +805,7 @@ module JenkinsApi
       #
       def post_config(job_name, xml)
         @logger.info "Posting the config.xml of '#{job_name}'"
-        @client.post_config("/job/#{job_name}/config.xml", xml)
+        @client.post_config("/job/#{path_encode job_name}/config.xml", xml)
       end
 
       # Obtain the test results for a specific build of a job
@@ -814,7 +817,7 @@ module JenkinsApi
         build_num = get_current_build_number(job_name) if build_num == 0
         @logger.info "Obtaining the test results of '#{job_name}'" +
           " Build ##{build_num}"
-        @client.api_get_request("/job/#{job_name}/#{build_num}/testReport")
+        @client.api_get_request("/job/#{path_encode job_name}/#{build_num}/testReport")
       rescue Exceptions::NotFound
         # Not found is acceptable, as not all builds will have test results
         # and this is what jenkins throws at us in that case
@@ -831,7 +834,7 @@ module JenkinsApi
         @logger.info "Obtaining the build details of '#{job_name}'" +
           " Build ##{build_num}"
 
-        @client.api_get_request("/job/#{job_name}/#{build_num}/")
+        @client.api_get_request("/job/#{path_encode job_name}/#{build_num}/")
       end
 
       # Change the description of a specific job
