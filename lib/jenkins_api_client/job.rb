@@ -703,51 +703,58 @@ module JenkinsApi
       end
       alias_method :build_number, :get_current_build_number
 
-      # Alternate take on the build method.
-      # Allows return of build number, but adds support for new/old
-      # Jenkins servers where build_queue id may not be available.
-      # Also adds support for periodic callbacks, and optional
-      # cancellation of queued_job if not started within allowable
+      # Build a Jenkins job, optionally waiting for build to start and
+      # returning the build number.
+      # Adds support for new/old Jenkins servers where build_queue id may
+      # not be available. Also adds support for periodic callbacks, and
+      # optional cancellation of queued_job if not started within allowable
       # time window (if build_queue option available)
+      #
+      #   Notes:
+      #     'opts' may be a 'true' or 'false' value to maintain
+      #       compatibility with old method signature, where true indicates
+      #     'return_build_number'. In this case, true is translated to:
+      #       { 'build_start_timeout' => @client_timeout }
+      #       which simulates earlier behavior.
+      #
+      #   progress_proc
+      #     Optional proc that is called periodically while waiting for
+      #     build to start.
+      #     Initial call (with poll_count == 0) indicates build has been
+      #     requested, and that polling is starting.
+      #     Final call will indicate one of build_started or cancelled.
+      #     params:
+      #       max_wait [Integer] Same as opts['build_start_timeout']
+      #       current_wait [Integer]
+      #       poll_count [Integer] How many times has queue been polled
+      #
+      #   completion_proc
+      #     Optional proc that is called <just before> the 'build' method
+      #     exits.
+      #     params:
+      #       build_number [Integer]  Present if build started or nil
+      #       build_cancelled [Boolean]  True if build timed out and was
+      #         successfully removed from build-queue
       #
       # @param [String] job_name the name of the job
       # @param [Hash]   params   the parameters for parameterized build
       # @param [Hash]   opts     options for this method
-      #   Note: opts may be a 'true' or 'false' value to maintain
-      #         compatibility with old method signature, where true
-      #         indicates 'return_build_number'
-      #         In this case, true is translated to:
-      #           { 'build_start_timeout' => @client_timeout }
-      #         Which simulates earlier behavior.
+      #  * +build_start_timeout+ [Integer] How long to wait for queued
+      #    build to start before giving up. Default: 0/nil
+      #  * +cancel_on_build_start_timeout+ [Boolean] Should an attempt be
+      #    made to cancel the queued build if it hasn't started within
+      #    'build_start_timeout' seconds? This only works on newer versions
+      #    of Jenkins where JobQueue is exposed in build post response.
+      #    Default: false
+      #  * +poll_interval+ [Integer] How often should we check with CI
+      #    Server while waiting for start. Default: 2 (seconds)
+      #  * +progress_proc+ [Proc] A proc that will receive progress notitications. Default: nil
+      #  * +completion_proc+ [Proc] A proc that is called <just before>
+      #    this method (build) exits.  Default: nil
       #
-      # opts['build_start_timeout'] [Integer] Default: 0/nil
-      #   How long to wait for queued build to start before giving up and...
-      # opts['cancel_on_build_start_timeout'] [Boolean] Default: false
-      #   Should an attempt be made to cancel the queued build if it hasn't
-      #   started within 'build_start_timeout' seconds?
-      #   This only works on newer versions of Jenkins where JobQueue is
-      #   exposed in build post response.
-      # opts['poll_interval'] [Integer] Default: 2 (seconds)
-      #   How often should we check with CI Server while waiting for start
-      # opts['progress_proc'] [Proc] Default: nil
-      #   A proc that will receive progress notitications
-      #   Called periodically while waiting for build to start
-      #   Initial call (with poll_count == 0) indicates build has been
-      #     requested, and that polling is starting
-      #   Final call will indicate one of build_started or cancelled
-      #   params:
-      #     max_wait [Integer] Same as opts['build_start_timeout']
-      #     current_wait [Integer]
-      #     poll_count [Integer] How many times has queue been polled
-      # opts['completion_proc'] [Proc] Default: nil
-      #   A proc that is called <just before> this method exits
-      #   params:
-      #     build_number [Integer]  Present if build started or nil
-      #     build_cancelled [Boolean]  True if build timed out and was
-      #       successfully removed from build-queue
+      # @return [Integer] build number, or nil if not started (IF TIMEOUT SPECIFIED)
+      # @return [Integer] HTTP response code (per prev. behavior) (NO TIMEOUT SPECIFIED)
       #
-      # @return [Integer] build number, or nil if not started (if timeout specified)
-      #         [Response] http response code (per prev. behavior) (no timeout specified)
       def build(job_name, params={}, opts = {})
         if opts.nil? || opts.class.is_a?(FalseClass)
           opts = {}

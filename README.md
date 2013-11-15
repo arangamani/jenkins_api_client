@@ -263,8 +263,9 @@ puts @client.exec_cli("version")
 ```
 
 * authentication with public/private key file
-remember to upload the public key to
-http://<Server IP>:<Server Port>/user/<Username>/configure
+remember to upload the public key to:
+
+    `http://#{Server IP}:#{Server Port}/user/#{Username}/configure`
 
 ```ruby
 @client = JenkinsApi::Client.new(:server_ip => '127.0.0.1',
