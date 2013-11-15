@@ -124,9 +124,8 @@ module JenkinsApi
       #   )
       #
       def create_dump_slave(params)
-        unless params[:name] && params[:slave_host] && params[:private_key_file]
-          raise ArgumentError, "Name, slave host, and private key file are" +
-            " required for creating a slave."
+        unless params[:name] && params[:slave_host]
+          raise ArgumentError, "Name, slave host are required for creating a slave."
         end
 
         @logger.info "Creating a dump slave '#{params[:name]}'"
@@ -137,7 +136,11 @@ module JenkinsApi
           :remote_fs => "/var/jenkins",
           :labels => params[:name],
           :slave_port => 22,
-          :mode => "normal"
+          :mode => "normal",
+          :credential_id => "",
+          :java_path => "",
+          :prefix_start_slave_cmd => "",
+          :suffix_start_slave_cmd => ""
         }
 
         params = default_params.merge(params)
@@ -165,8 +168,13 @@ module JenkinsApi
               "stapler-class" => "hudson.plugins.sshslaves.SSHLauncher",
               "host" => params[:slave_host],
               "port" => params[:slave_port],
-              "username" => params[:slave_user],
-              "privatekey" => params[:private_key_file],
+              "credentialsId" => params[:credential_id],
+              "javaPath" => params[:java_path],
+              "jvmOptions" => params[:jvm_options],
+              "prefixStartSlaveCmd" => params[:prefix_start_slave_cmd],
+              "suffixStartSlaveCmd" => params[:suffix_start_slave_cmd]
+              #"username" => params[:slave_user],
+              #"privatekey" => params[:private_key_file],
             }
           }.to_json
         }
@@ -292,6 +300,37 @@ module JenkinsApi
         @logger.info "Posting the config.xml of node '#{node_name}'"
         node_name = "(master)" if node_name == "master"
         @client.post_config("/computer/#{node_name}/config.xml", xml)
+      end
+
+
+      def create_cred
+        post_params = {
+          "name" => "testcred",
+          "description" => "test cred description",
+          "json" => {
+            "domainCredentials" => {
+              "domain" => {
+                "name" => "",
+                "description" => "",
+              },
+              "credentials" => {
+                "scope" => "GLOBAL",
+                "id" => "",
+                "username" => "root",
+                "description" => "root users credential",
+                "privateKeySource" => {
+                  "value" => "0",
+                  "privateKey" => "blah blah blah",
+                  "stapler-class" => "com.cloudbees.jenkins.plugins.sshcredentials.impl.BasicSSHUserPrivateKey$DirectEntryPrivateKeySource"
+                },
+                "passphrase" => "",
+                "stapler-class" => "com.cloudbees.jenkins.plugins.sshcredentials.impl.BasicSSHUserPrivateKey",
+                "kind" => "com.cloudbees.jenkins.plugins.sshcredentials.impl.BasicSSHUserPrivateKey"
+              }
+            }
+          }.to_json
+        }
+        @client.api_post_request("/credentials/configSubmit", post_params)
       end
 
     end
