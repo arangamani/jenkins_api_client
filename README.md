@@ -360,3 +360,7 @@ FEATURE REQUEST:
 If you use this gem for your project and you think it would be nice to have a
 particular feature that is presently not implemented, I would love to hear that
 and consider working on it. Just open an issue in Github as a feature request.
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/arangamani/jenkins_api_client/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
