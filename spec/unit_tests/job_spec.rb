@@ -8,7 +8,7 @@ describe JenkinsApi::Client::Job do
     before do
       mock_logger = Logger.new "/dev/null"
       @client = JenkinsApi::Client.new({:server_ip => '127.0.0.1'})
-      @client.should_receive(:logger).any_number_of_times.and_return(mock_logger)
+      @client.should_receive(:logger).at_least(1).and_return(mock_logger)
       @job = JenkinsApi::Client::Job.new(@client)
       @sample_json_response = {
         "jobs" => [

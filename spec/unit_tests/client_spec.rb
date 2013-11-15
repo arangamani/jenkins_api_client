@@ -207,9 +207,8 @@ describe JenkinsApi::Client do
 
       describe "#deconstruct_version_string" do
         it "is defined and accepts a single param" do
-          expect(
-            lambda { @client.deconstruct_version_string("1.0") }
-          ).not_to raise_error(NoMethodError)
+          @client.respond_to?(:deconstruct_version_string).should be_true
+          @client.method(:deconstruct_version_string).arity.should == 1
         end
 
         it "takes a version string in the form 'a.b' and returns an array [a,b,c]" do
@@ -250,9 +249,8 @@ describe JenkinsApi::Client do
 
       describe "#compare_versions" do
         it "is defined and accepts two params" do
-          expect(
-            lambda { @client.compare_versions("1.0", "2.0") }
-          ).not_to raise_error
+          @client.respond_to?(:compare_versions).should be_true
+          @client.method(:compare_versions).arity.should == 2
         end
 
         it "should correctly compare version numbers" do
@@ -261,7 +259,7 @@ describe JenkinsApi::Client do
           @client.compare_versions("1.1", "1.0").should eql(1)
           @client.compare_versions("2.0", "1.99").should eql(1)
           @client.compare_versions("1.10", "1.2").should eql(1)
-          
+
           @client.compare_versions("1.0.0", "1.0.0").should eql(0)
           @client.compare_versions("1.0", "1.0.1").should eql(-1)
           @client.compare_versions("1.1", "1.0.1").should eql(1)
