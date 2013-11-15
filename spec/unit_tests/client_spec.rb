@@ -142,75 +142,66 @@ describe JenkinsApi::Client do
     end
 
     describe "InstanceMethods" do
-      describe "#getroot" do
+      describe "#get_root" do
         it "is defined with no parameters" do
-          expect(
-            lambda { @client.get_root }
-          ).not_to raise_error(NoMethodError)
+          @client.respond_to?(:get_root).should be_true
+          @client.method(:get_root).arity.should == 0
         end
       end
 
       describe "#api_get_request" do
         it "defined and should accept url_prefix, tree, and url_suffix" do
-          expect(
-            lambda { @client.api_get_request("/some/prefix", "tree", "/json") }
-          ).not_to raise_error(NoMethodError)
+          @client.respond_to?(:api_get_request).should be_true
+          @client.method(:api_get_request).arity.should == -2
         end
       end
 
       describe "#api_post_request" do
         it "is defined and should accept url_prefix" do
-          expect(
-            lambda { @client.api_post_request("/some/prefix") }
-          ).not_to raise_error(NoMethodError)
+          @client.respond_to?(:api_post_request).should be_true
+          @client.method(:api_post_request).arity.should == -2
         end
       end
 
       describe "#get_config" do
         it "is defined and should accept url_prefix" do
-          expect(
-            lambda { @client.get_config("/some/prefix") }
-          ).not_to raise_error(NoMethodError)
+          @client.respond_to?(:get_config).should be_true
+          @client.method(:get_config).arity.should == 1
         end
       end
 
       describe "#post_config" do
         it "is defined and should accept url_prefix and xml" do
-          expect(
-            lambda { @client.post_config("/some/prefix", "<tag></tag>") }
-          ).not_to raise_error(NoMethodError)
+          @client.respond_to?(:post_config).should be_true
+          @client.method(:post_config).arity.should == 2
         end
       end
 
       describe "#get_jenkins_version" do
         it "is defined and accepts no parameters" do
-          expect(
-            lambda { @client.get_jenkins_version }
-          ).not_to raise_error(NoMethodError)
+          @client.respond_to?(:get_jenkins_version).should be_true
+          @client.method(:get_jenkins_version).arity.should == 0
         end
       end
 
       describe "#get_hudson_version" do
         it "is defined and accepts no parameters" do
-          expect(
-            lambda { @client.get_hudson_version }
-          ).not_to raise_error(NoMethodError)
+          @client.respond_to?(:get_hudson_version).should be_true
+          @client.method(:get_hudson_version).arity.should == 0
         end
       end
 
       describe "#get_server_date" do
         it "is defined and accepts no parameters" do
-          expect(
-            lambda { @client.get_server_date }
-          ).not_to raise_error(NoMethodError)
+          @client.respond_to?(:get_server_date).should be_true
+          @client.method(:get_server_date).arity.should == 0
         end
       end
 
       describe "#exec_cli" do
         it "is defined and should execute the CLI" do
-          expect(
-            lambda { @client.exec_cli("version") }
-          ).not_to raise_error(NoMethodError)
+          @client.respond_to?(:exec_cli).should be_true
+          @client.method(:exec_cli).arity.should == -2
         end
       end
 
