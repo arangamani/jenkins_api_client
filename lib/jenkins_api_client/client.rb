@@ -287,6 +287,11 @@ module JenkinsApi
             )
           end
       end
+
+      # Pick out some useful header info before we return
+      @jenkins_version = response['X-Jenkins']
+      @hudson_version = response['X-Hudson']
+
       return response
     end
     protected :make_http_request
@@ -480,21 +485,64 @@ module JenkinsApi
     end
 
     # Obtains the jenkins version from the API
+    # Only queries Jenkins if the version is not already stored.
+    # Note that the version is auto-updated after every request made to Jenkins
+    # since it is returned as a header in every response
     #
-    # @return Jenkins version
+    # @return [String] Jenkins version
     #
     def get_jenkins_version
-      response = get_root
-      response["X-Jenkins"]
+      get_root if @jenkins_version.nil?
+      @jenkins_version
     end
 
     # Obtain the Hudson version of the CI server
+    # Only queries Hudson/Jenkins if the version is not already stored.
+    # Note that the version is auto-updated after every request made to Jenkins
+    # since it is returned as a header in every response
     #
     # @return [String] Version of Hudson on Jenkins server
     #
     def get_hudson_version
-      response = get_root
-      response["X-Hudson"]
+      get_root if @hudson_version.nil?
+      @hudson_version
+    end
+
+    # Converts a version string to a list of integers
+    # This makes it easier to compare versions since in 'version-speak',
+    # v 1.2 is a lot older than v 1.102 - and simple < > on version
+    # strings doesn't work so well
+    def deconstruct_version_string(version)
+      match = version.match(/^(\d+)\.(\d+)(?:\.(\d+))?$/)
+
+      # Match should have 4 parts [0] = input string, [1] = major
+      # [2] = minor, [3] = patch (possibly blank)
+      if match && match.size == 4
+        return [match[1].to_i, match[2].to_i, match[3].to_i || 0]
+      else
+        return nil
+      end
+    end
+
+    # Compare two version strings (A and B)
+    # if A == B, returns 0
+    # if A > B, returns 1
+    # if A < B, returns -1
+    def compare_versions(version_a, version_b)
+      if version_a == version_b
+        return 0
+      else
+        version_a_d = deconstruct_version_string(version_a)
+        version_b_d = deconstruct_version_string(version_b)
+
+        if version_a_d[0] > version_b_d[0] ||
+          (version_a_d[0] == version_b_d[0] && version_a_d[1] > version_b_d[1]) ||
+          (version_a_d[0] == version_b_d[0] && version_a_d[1] == version_b_d[1] && version_a_d[2] > version_b_d[2])
+          return 1
+        else
+          return -1
+        end
+      end
     end
 
     # Obtain the date of the Jenkins server

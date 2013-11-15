@@ -26,6 +26,8 @@ module JenkinsApi
     # about jobs, creating, deleting, building, and various other operations.
     #
     class Job
+      # Version that jenkins started to include queued build info in build response
+      JENKINS_QUEUE_ID_SUPPORT_VERSION = '1.519'
 
       # Initialize the Job object and store the reference to Client object
       #
@@ -701,57 +703,244 @@ module JenkinsApi
       end
       alias_method :build_number, :get_current_build_number
 
-      # Build a job given the name of the job
-      # You can optionally pass in a list of params for Jenkins to use for
-      # parameterized builds
+      # Build a Jenkins job, optionally waiting for build to start and
+      # returning the build number.
+      # Adds support for new/old Jenkins servers where build_queue id may
+      # not be available. Also adds support for periodic callbacks, and
+      # optional cancellation of queued_job if not started within allowable
+      # time window (if build_queue option available)
+      #
+      #   Notes:
+      #     'opts' may be a 'true' or 'false' value to maintain
+      #       compatibility with old method signature, where true indicates
+      #     'return_build_number'. In this case, true is translated to:
+      #       { 'build_start_timeout' => @client_timeout }
+      #       which simulates earlier behavior.
+      #
+      #   progress_proc
+      #     Optional proc that is called periodically while waiting for
+      #     build to start.
+      #     Initial call (with poll_count == 0) indicates build has been
+      #     requested, and that polling is starting.
+      #     Final call will indicate one of build_started or cancelled.
+      #     params:
+      #       max_wait [Integer] Same as opts['build_start_timeout']
+      #       current_wait [Integer]
+      #       poll_count [Integer] How many times has queue been polled
+      #
+      #   completion_proc
+      #     Optional proc that is called <just before> the 'build' method
+      #     exits.
+      #     params:
+      #       build_number [Integer]  Present if build started or nil
+      #       build_cancelled [Boolean]  True if build timed out and was
+      #         successfully removed from build-queue
       #
       # @param [String] job_name the name of the job
-      # @param [Hash] params the parameters for parameterized builds
-      # @param [Boolean] return_build_number whether to wait and obtain the build
-      #   number
+      # @param [Hash]   params   the parameters for parameterized build
+      # @param [Hash]   opts     options for this method
+      #  * +build_start_timeout+ [Integer] How long to wait for queued
+      #    build to start before giving up. Default: 0/nil
+      #  * +cancel_on_build_start_timeout+ [Boolean] Should an attempt be
+      #    made to cancel the queued build if it hasn't started within
+      #    'build_start_timeout' seconds? This only works on newer versions
+      #    of Jenkins where JobQueue is exposed in build post response.
+      #    Default: false
+      #  * +poll_interval+ [Integer] How often should we check with CI
+      #    Server while waiting for start. Default: 2 (seconds)
+      #  * +progress_proc+ [Proc] A proc that will receive progress notitications. Default: nil
+      #  * +completion_proc+ [Proc] A proc that is called <just before>
+      #    this method (build) exits.  Default: nil
       #
-      # @return [String, Integer] the response code from the build POST request
-      #   if return_build_number is not requested and the build number if the
-      #   return_build_number is requested. nil will be returned if the build
-      #   number is requested and not available. This can happen if there is
-      #   already a job in the queue and concurrent build is disabled.
+      # @return [Integer] build number, or nil if not started (IF TIMEOUT SPECIFIED)
+      # @return [Integer] HTTP response code (per prev. behavior) (NO TIMEOUT SPECIFIED)
       #
-      def build(job_name, params={}, return_build_number = false)
+      def build(job_name, params={}, opts = {})
+        if opts.nil? || opts.class.is_a?(FalseClass)
+          opts = {}
+        elsif opts.class.is_a?(TrueClass)
+          opts = { 'build_start_timeout' => @client_timeout }
+        end
+
+        opts['job_name'] = job_name
+
         msg = "Building job '#{job_name}'"
         msg << " with parameters: #{params.inspect}" unless params.empty?
         @logger.info msg
-        build_endpoint = params.empty? ? "build" : "buildWithParameters"
-        raw_response = return_build_number
-        response =@client.api_post_request(
-          "/job/#{job_name}/#{build_endpoint}",
-          params,
-          raw_response
-        )
-        # If return_build_number is enabled, obtain the queue ID from the location
-        # header and wait till the build is moved to one of the executors and a
-        # build number is assigned
-        if return_build_number
-          if response["location"]
-            task_id_match = response["location"].match(/\/item\/(\d*)\//)
-            task_id = task_id_match.nil? ? nil : task_id_match[1]
-            unless task_id.nil?
-              @logger.debug "Queue task ID for job '#{job_name}': #{task_id}"
-              Timeout::timeout(@client.timeout) do
-                while @client.queue.get_item_by_id(task_id)["executable"].nil?
-                  sleep 5
-                end
-              end
-              @client.queue.get_item_by_id(task_id)["executable"]["number"]
-            else
-              nil
-            end
+
+        # Best-guess build-id
+        # This is only used if we go the old-way below... but we can use this number to detect if multiple
+        # builds were queued
+        current_build_id = get_current_build_number(job_name)
+        expected_build_id = current_build_id > 0 ? current_build_id + 1 : 1
+
+        if (params.nil? or params.empty?)
+          response = @client.api_post_request("/job/#{job_name}/build",
+            {},
+            true)
+        else
+          response = @client.api_post_request("/job/#{job_name}/buildWithParameters",
+            params,
+            true)
+        end
+
+        if (opts['build_start_timeout'] || 0) > 0
+          if @client.compare_versions(@client.get_jenkins_version, JENKINS_QUEUE_ID_SUPPORT_VERSION) >= 0
+            return get_build_id_from_queue(response, expected_build_id, opts)
           else
-            nil
+            return get_build_id_the_old_way(expected_build_id, opts)
           end
         else
-          response
+          return response.code
         end
       end
+
+      def get_build_id_from_queue(response, expected_build_id, opts)
+        # If we get this far the API hasn't detected an error response (it would raise Exception)
+        # So no need to check response code
+        # Obtain the queue ID from the location
+        # header and wait till the build is moved to one of the executors and a
+        # build number is assigned
+        build_start_timeout = opts['build_start_timeout']
+        poll_interval = opts['poll_interval'] || 2
+        poll_interval = 1 if poll_interval < 1
+        progress_proc = opts['progress_proc']
+        completion_proc = opts['completion_proc']
+        job_name = opts['job_name']
+
+        if response["location"]
+          task_id_match = response["location"].match(/\/item\/(\d*)\//)
+          task_id = task_id_match.nil? ? nil : task_id_match[1]
+          unless task_id.nil?
+            @logger.info "Job queued for #{job_name}, will wait up to #{build_start_timeout} seconds for build to start..."
+
+            # Let progress proc know we've queued the build
+            progress_proc.call(build_start_timeout, 0, 0) if progress_proc
+
+            # Wait for the build to start
+            begin
+              start = Time.now.to_i
+              Timeout::timeout(build_start_timeout) do
+                started = false
+                attempts = 0
+
+                while !started
+                  # Don't really care about the response... if we get thru here, then it must have worked.
+                  # Jenkins will return 404's until the job starts
+                  queue_item = @client.queue.get_item_by_id(task_id)
+
+                  if queue_item['executable'].nil?
+                    # Job not started yet
+                    attempts += 1
+
+                    progress_proc.call(build_start_timeout, (Time.now.to_i - start), attempts) if progress_proc
+                    # Every 5 attempts (~10 seconds)
+                    @logger.info "Still waiting..." if attempts % 5 == 0
+
+                    sleep poll_interval
+                  else
+                    build_number = queue_item['executable']['number']
+                    completion_proc.call(build_number, false) if completion_proc
+
+                    return build_number
+                  end
+                end
+              end
+            rescue Timeout::Error
+              # Well, we waited - and the job never started building
+              # Attempt to kill off queued job (if flag set)
+              if opts['cancel_on_build_start_timeout']
+                @logger.info "Job for '#{job_name}' did not start in a timely manner, attempting to cancel pending build..."
+
+                begin
+                  @client.api_post_request("/queue/cancelItem?id=#{task_id}")
+                  @logger.info "Job cancelled"
+                  completion_proc.call(nil, true) if completion_proc
+                rescue JenkinsApi::Exceptions::ApiException => e
+                  completion_proc.call(nil, false) if completion_proc
+                  @logger.warn "Error while attempting to cancel pending job for '#{job_name}'. #{e.class} #{e}"
+                  raise
+                end
+              else
+                @logger.info "Jenkins build for '#{job_name}' failed to start in a timely manner"
+                completion_proc.call(nil, false) if completion_proc
+              end
+
+              # Old version used to throw timeout error, so we should let that go thru now
+              raise
+            rescue JenkinsApi::Exceptions::ApiException => e
+              # Jenkins Api threw an error at us
+              completion_proc.call(nil, false) if completion_proc
+              @logger.warn "Problem while waiting for '#{job_name}' build to start.  #{e.class} #{e}"
+              raise
+            end
+          else
+            @logger.warn "Jenkins did not return a queue_id for '#{job_name}' build (location: #{response['location']})"
+            return get_build_id_the_old_way(expected_build_id, opts)
+          end
+        else
+          @logger.warn "Jenkins did not return a location header for '#{job_name}' build"
+          return get_build_id_the_old_way(expected_build_id, opts)
+        end
+      end
+      private :get_build_id_from_queue
+
+      def get_build_id_the_old_way(expected_build_id, opts)
+        # Try to wait until the build starts so we can mimic queue
+        # Wait for the build to start
+        build_start_timeout = opts['build_start_timeout']
+        poll_interval = opts['poll_interval'] || 2
+        poll_interval = 1 if poll_interval < 1
+        progress_proc = opts['progress_proc']
+        completion_proc = opts['completion_proc']
+        job_name = opts['job_name']
+
+        @logger.info "Build requested for '#{job_name}', will wait up to #{build_start_timeout} seconds for build to start..."
+
+        # Let progress proc know we've queued the build
+        progress_proc.call(build_start_timeout, 0, 0) if progress_proc
+
+        begin
+          start = Time.now.to_i
+          Timeout::timeout(build_start_timeout) do
+            attempts = 0
+
+            while true
+              attempts += 1
+
+              # Don't really care about the response... if we get thru here, then it must have worked.
+              # Jenkins will return 404's until the job starts
+              begin
+                get_build_details(job_name, expected_build_id)
+                completion_proc.call(expected_build_number, false) if completion_proc
+
+                return expected_build_id
+              rescue JenkinsApi::Exceptions::NotFound => e
+                progress_proc.call(build_start_timeout, (Time.now.to_i - start), attempts) if progress_proc
+
+                # Every 5 attempts (~10 seconds)
+                @logger.info "Still waiting..." if attempts % 5 == 0
+
+                sleep poll_interval
+              end
+            end
+          end
+        rescue Timeout::Error
+          # Well, we waited - and the job never started building
+          # Now we need to raise an exception so that the build can be officially failed
+          completion_proc.call(nil, false) if completion_proc
+          @logger.info "Jenkins '#{job_name}' build failed to start in a timely manner"
+
+          # Old version used to propagate timeout error
+          raise
+        rescue JenkinsApi::Exceptions::ApiException => e
+          completion_proc.call(nil, false) if completion_proc
+          # Jenkins Api threw an error at us
+          @logger.warn "Problem while waiting for '#{job_name}' build ##{expected_build_number} to start.  #{e.class} #{e}"
+          raise
+        end
+      end
+      private :get_build_id_the_old_way
 
       # Programatically schedule SCM polling for the specified job
       #

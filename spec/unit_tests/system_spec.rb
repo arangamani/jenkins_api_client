@@ -1,4 +1,5 @@
 require File.expand_path('../spec_helper', __FILE__)
+require File.expand_path('../fake_http_response', __FILE__)
 
 describe JenkinsApi::Client::System do
   context "With properly initialized Client" do
@@ -65,7 +66,7 @@ describe JenkinsApi::Client::System do
 
       describe "#wait_for_ready" do
         it "exits if the response body doesn't have the wait message" do
-          @client.should_receive(:get_root).and_return(Net::HTTP.get_response(URI('http://example.com/index.html')))
+          @client.should_receive(:get_root).and_return(FakeResponse.new)
           @system.wait_for_ready
         end
       end

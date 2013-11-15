@@ -498,6 +498,90 @@ describe JenkinsApi::Client::Job do
             sleep 10
           end
         end
+
+        it "Should build the specified job (wait for start)" do
+          @client.job.get_current_build_status(
+            @job_name
+          ).should_not == "running"
+          expected_build_id = (@client.job.get_current_build_number(@job_name) || 0) + 1
+
+          build_opts = {
+            'build_start_timeout' => 10,
+            'progress_proc' => lambda do |max_wait, curr_wait, poll_count|
+              puts "Waited #{curr_wait}s of #{max_wait}s max - poll count = #{poll_count}"
+            end,
+            'completion_proc' => lambda do |build_number, cancelled|
+              if build_number
+                puts "Wait over: build #{build_number} started"
+              else
+                puts "Wait over: build not started, build #{cancelled ? "" : "NOT "} cancelled"
+              end
+            end
+          }
+          build_id = @client.job.build(@job_name, {}, build_opts)
+          build_id.should_not be_nil
+          build_id.should eql(expected_build_id)
+          @client.job.get_current_build_status(@job_name).should == "running"
+          while @client.job.get_current_build_status(@job_name) == "running" do
+            # Waiting for this job to finish so it doesn't affect other tests
+            sleep 10
+          end
+        end
+
+        # This build doesn't start in time, but we don't cancel it, so it will run if
+        # Jenkins gets to it
+        it "Should build the specified job (wait for start - but not long enough)" do
+          @client.job.get_current_build_status(
+            @job_name
+          ).should_not == "running"
+
+          build_opts = {
+            'build_start_timeout' => 1,
+            'progress_proc' => lambda do |max_wait, curr_wait, poll_count|
+              puts "Waited #{curr_wait}s of #{max_wait}s max - poll count = #{poll_count}"
+            end,
+            'completion_proc' => lambda do |build_number, cancelled|
+              if build_number
+                puts "Wait over: build #{build_number} started"
+              else
+                puts "Wait over: build not started, build #{cancelled ? "" : "NOT "}cancelled"
+              end
+            end
+          }
+          expect( lambda { @client.job.build(@job_name, {}, build_opts) } ).to raise_error(Timeout::Error)
+          # Sleep for 6 seconds so we don't hit the Jenkins quiet period (5
+          # seconds)
+          sleep 6
+          @client.job.get_current_build_status(@job_name).should == "running"
+          while @client.job.get_current_build_status(@job_name) == "running" do
+            # Waiting for this job to finish so it doesn't affect other tests
+            sleep 10
+          end
+        end
+
+        # This build doesn't start in time, and we will attempt to cancel it so it
+        # doesn't run
+        it "Should build the specified job (wait for start - but not long enough, cancelled)" do
+          @client.job.get_current_build_status(
+            @job_name
+          ).should_not == "running"
+
+          build_opts = {
+            'build_start_timeout' => 1,
+            'cancel_on_build_start_timeout' => true,
+            'progress_proc' => lambda do |max_wait, curr_wait, poll_count|
+              puts "Waited #{curr_wait}s of #{max_wait}s max - poll count = #{poll_count}"
+            end,
+            'completion_proc' => lambda do |build_number, cancelled|
+              if build_number
+                puts "Wait over: build #{build_number} started"
+              else
+                puts "Wait over: build not started, build #{cancelled ? "" : "NOT "}cancelled"
+              end
+            end
+          }
+          expect( lambda { @client.job.build(@job_name, {}, build_opts) } ).to raise_error(Timeout::Error)
+        end
       end
 
       describe "#poll" do
