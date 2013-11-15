@@ -145,70 +145,70 @@ describe JenkinsApi::Client do
       describe "#get_root" do
         it "is defined with no parameters" do
           @client.respond_to?(:get_root).should be_true
-          @client.method(:get_root).arity.should == 0
+          @client.method(:get_root).parameters.size.should == 0
         end
       end
 
       describe "#api_get_request" do
         it "defined and should accept url_prefix, tree, and url_suffix" do
           @client.respond_to?(:api_get_request).should be_true
-          @client.method(:api_get_request).arity.should == -2
+          @client.method(:api_get_request).parameters.size.should == 4
         end
       end
 
       describe "#api_post_request" do
         it "is defined and should accept url_prefix" do
           @client.respond_to?(:api_post_request).should be_true
-          @client.method(:api_post_request).arity.should == -2
+          @client.method(:api_post_request).parameters.size.should == 3
         end
       end
 
       describe "#get_config" do
         it "is defined and should accept url_prefix" do
           @client.respond_to?(:get_config).should be_true
-          @client.method(:get_config).arity.should == 1
+          @client.method(:get_config).parameters.size.should == 1
         end
       end
 
       describe "#post_config" do
         it "is defined and should accept url_prefix and xml" do
           @client.respond_to?(:post_config).should be_true
-          @client.method(:post_config).arity.should == 2
+          @client.method(:post_config).parameters.size.should == 2
         end
       end
 
       describe "#get_jenkins_version" do
         it "is defined and accepts no parameters" do
           @client.respond_to?(:get_jenkins_version).should be_true
-          @client.method(:get_jenkins_version).arity.should == 0
+          @client.method(:get_jenkins_version).parameters.size.should == 0
         end
       end
 
       describe "#get_hudson_version" do
         it "is defined and accepts no parameters" do
           @client.respond_to?(:get_hudson_version).should be_true
-          @client.method(:get_hudson_version).arity.should == 0
+          @client.method(:get_hudson_version).parameters.size.should == 0
         end
       end
 
       describe "#get_server_date" do
         it "is defined and accepts no parameters" do
           @client.respond_to?(:get_server_date).should be_true
-          @client.method(:get_server_date).arity.should == 0
+          @client.method(:get_server_date).parameters.size.should == 0
         end
       end
 
       describe "#exec_cli" do
         it "is defined and should execute the CLI" do
           @client.respond_to?(:exec_cli).should be_true
-          @client.method(:exec_cli).arity.should == -2
+          @client.method(:exec_cli).parameters.size.should == 2
         end
       end
 
       describe "#deconstruct_version_string" do
         it "is defined and accepts a single param" do
           @client.respond_to?(:deconstruct_version_string).should be_true
-          @client.method(:deconstruct_version_string).arity.should == 1
+          @client.method(:deconstruct_version_string).parameters.size.should == 1
         end
 
         it "takes a version string in the form 'a.b' and returns an array [a,b,c]" do
@@ -250,7 +250,7 @@ describe JenkinsApi::Client do
       describe "#compare_versions" do
         it "is defined and accepts two params" do
           @client.respond_to?(:compare_versions).should be_true
-          @client.method(:compare_versions).arity.should == 2
+          @client.method(:compare_versions).parameters.size.should == 2
         end
 
         it "should correctly compare version numbers" do
