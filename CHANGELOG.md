@@ -6,14 +6,14 @@ upcoming
 
 v0.14.1  [18-AUG-2013]
 ----------------------
-* Fixed a bug in Job#create_or_update method. Credit: @bobbrez
+* Fixed a bug in Job#create_or_update method. Credit: [@bobbrez][]
 
 v0.14.0  [07-AUG-2013]
 ----------------------
 * Fixed a bug where a space was missing in the exec_cli method argument list.
-  Credit: @missedone
+  Credit: [@missedone][]
 * Refactored create/update jobs by introducing create_or_update methods.
-  Credit: @riywo
+  Credit: [@riywo][]
 * Enhancement to crumb processing - auto detect the change of crumb setting and
   do proper exception handling. Credit: dougforpress
 * Added a `User` class which will handle jenkins users related functions.
@@ -37,38 +37,37 @@ v0.13.0  [09-JUL-2013]
   queue for longer than the 'timeout' parameter. This timeout parameter can be
   set during the client initialization.
 * Improved documentation
-* Support for enabling/disabling jobs. Credit: @dieterdemeyer
-* Added functionality for copying jobs. Credit: @dieterdemeyer
+* Support for enabling/disabling jobs. Credit: [@dieterdemeyer][]
+* Added functionality for copying jobs. Credit: [@dieterdemeyer][]
 * Added functionality for wiping out the workspace of a job.
-  Credit: @dieterdemeyer
-* Added functionality for listing jenkins users. Credit: @dieterdemeyer
+  Credit: [@dieterdemeyer][]
+* Added functionality for listing jenkins users. Credit: [@dieterdemeyer][]
 * Fixed a bug where the exceptions where not thrown when using the
   `get_console_output` method.
 * Fixed a bug where the jenkins_path attribute was ignored when the server_url
-  input argument is given. Credit: @woodbusy
+  input argument is given. Credit: [@woodbusy][]
 * support public/private key pair authentication for Jenkins CLI.
-  Credit: @missedone
+  Credit: [@missedone][]
 
 
 v0.12.1  [25-JUN-2013]
 ----------------------
 * Fixed a bug where the SSL support was not working properly with Ruby
-  1.8.7/JRuby 1.6. Credit: @brettporter (For more info:
-  https://github.com/arangamani/jenkins_api_client/pull/85)
+  1.8.7/JRuby 1.6. (Pull [#85][]) Credit: [@brettporter][]
 
 v0.12.0  [18-JUN-2013]
 ----------------------
 * Authentication is now optional as not all Jenkins instances have
-  authentication enabled by default. Credit: @dougforpres
+  authentication enabled by default. Credit: [@dougforpres][]
 * Ability to retrieve build details so that more than just (`lamp color`) is
-  available. Credit: @dougforpres
+  available. Credit: [@dougforpres][]
 * Ability to retrieve build test-results for those builds that have them.
-  Credit: @dougforpres
+  Credit: [@dougforpres][]
 * Option to follow any 301/302 responses. This allows POST to build to follow
-  the redirect and end up with a 200 response. Credit: @dougforpres
+  the redirect and end up with a 200 response. Credit: [@dougforpres][]
 * Minor change to the POST requests handling where jenkins instances with a
   proxy returns 411 if no form data is specified. Fixed by sending an empty
-  hash. Credit: @dougforpres
+  hash. Credit: [@dougforpres][]
 * As of Jenkins release 1.519, the job build returns a 201 code instead of 302.
   This was resulting in an exception and the exception handling is modified to
   handle this condition.
@@ -78,17 +77,17 @@ v0.12.0  [18-JUN-2013]
 v0.11.0  [09-JUN-2013]
 ----------------------
 * A new input argument `server_url` is supported which accepts the jenkins URL
-  instead of IP address and Port. Credit: @dieterdemeyer
-* When renaming the job, preserve the job history. Credit: @rubytester
-* Various exception handling improvements. Credit: @drnic
+  instead of IP address and Port. Credit: [@dieterdemeyer][]
+* When renaming the job, preserve the job history. Credit: [@rubytester][]
+* Various exception handling improvements. Credit: [@drnic][]
 
 v0.10.0  [24-APR-2013]
 ----------------------
-* new function to execute jenkins CLI `cli_exec`. Credit: @missedone
-* Add ability to use http proxy. Credit: @woodbusy
-* prompt the user for credentials when using irb login script. @woodbusy
-* bugfix for job.console_output. Credit: @drnic
-* add ssl support. Credit: @madisp
+* new function to execute jenkins CLI `cli_exec`. Credit: [@missedone][]
+* Add ability to use http proxy. Credit: [@woodbusy][]
+* prompt the user for credentials when using irb login script. [@woodbusy][]
+* bugfix for job.console_output. Credit: [@drnic][]
+* add ssl support. Credit: [@madisp][]
 
 v0.9.1  [01-APR-2013]
 ---------------------
@@ -101,18 +100,18 @@ v0.9.0  [10-MAR-2013]
 * Removed warnings from client.rb
 * Refactored and improved exception handling
 * A bug is fixed in client which allows only the valid params as options.
-  Credit: @Niarfe
+  Credit: [@Niarfe][]
 * Added a timeout parameter for waiting for jenkins to become ready.
-  Credit: @Niarfe
-* Added function to reload jenkins. Credit: @missedone
+  Credit: [@Niarfe][]
+* Added function to reload jenkins. Credit: [@missedone][]
 * Fixed a bug where jenkins_path was missing in get_config and post_config.
-  Credit: @cylol
+  Credit: [@cylol][]
 * Added capability to obtain jenkins version and other useful information
 * Added new tests for various cases, and other code improvements
 
 v0.8.1  [15-FEB-2013]
 ---------------------
-* Fixed a bug in creating view. Issue #42
+* Fixed a bug in creating view. Issue [#42][]
 
 v0.8.0  [14-FEB-2013]
 ---------------------
@@ -120,16 +119,16 @@ v0.8.0  [14-FEB-2013]
 * Added rename feature for jobs
 * Added support for sending skype notification in job creation and on existing
   jobs
-* Added support for sending Jenkins root URL configuration. Credit: @kevinhcross
+* Added support for sending Jenkins root URL configuration. Credit: [@kevinhcross][]
 * Added `delete_all!` methods for Job, View, and Node.
 * `get_eta` in BuildQueue will return "N/A" if the ETA is not given by Jenkins
 * Creating view accepts params Hash and more configuration through the API
-* Spaces are allowed in Job, Node, and View names. Credit: @kevinhcross
-* Support has been added to build a job with parameters. Credit: @tjhanley
+* Spaces are allowed in Job, Node, and View names. Credit: [@kevinhcross][]
+* Support has been added to build a job with parameters. Credit: [@tjhanley][]
 
 v0.7.3  [05-FEB-2013]
 ---------------------
-* Fixed #27 with a bug in create_view including extra character in the end of
+* Fixed [#27][] with a bug in create_view including extra character in the end of
   the name
 
 v0.7.2  [02-FEB-2013]
@@ -138,7 +137,7 @@ v0.7.2  [02-FEB-2013]
 
 v0.7.1  [30-JAN-2013]
 ---------------------
-* Fixed a bug (Issue #23) to remove the usage of "\" in Job.
+* Fixed a bug (Issue [#23][]) to remove the usage of "\" in Job.
 
 v0.7.0  [27-JAN-2013]
 ---------------------
@@ -149,7 +148,7 @@ v0.7.0  [27-JAN-2013]
 * Added support for notification_email option when setting up a job
 * Added support for CVS provider in SCM
 * Added `create_dump_slave` and `delete` methods in Node API
-* Added BuildQueue class which is accessible by `@client.queue` method
+* Added BuildQueue class which is accessible by `[@client][].queue` method
 * Improvements in all over the code for performance and error handling
 
 v0.6.2  [13-JAN-2013]
@@ -220,3 +219,25 @@ v0.0.2  [16-OCT-2012]
 v0.0.1  [15-OCT-2012]
 ---------------------
 * Initial Release
+
+
+<!--- The following link definition list is generated by PimpMyChangelog --->
+[#23]: https://github.com/arangamani/jenkins_api_client/issues/23
+[#27]: https://github.com/arangamani/jenkins_api_client/issues/27
+[#42]: https://github.com/arangamani/jenkins_api_client/issues/42
+[#85]: https://github.com/arangamani/jenkins_api_client/issues/85
+[@Niarfe]: https://github.com/Niarfe
+[@bobbrez]: https://github.com/bobbrez
+[@brettporter]: https://github.com/brettporter
+[@client]: https://github.com/client
+[@cylol]: https://github.com/cylol
+[@dieterdemeyer]: https://github.com/dieterdemeyer
+[@dougforpres]: https://github.com/dougforpres
+[@drnic]: https://github.com/drnic
+[@kevinhcross]: https://github.com/kevinhcross
+[@madisp]: https://github.com/madisp
+[@missedone]: https://github.com/missedone
+[@riywo]: https://github.com/riywo
+[@rubytester]: https://github.com/rubytester
+[@tjhanley]: https://github.com/tjhanley
+[@woodbusy]: https://github.com/woodbusy
