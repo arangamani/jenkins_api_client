@@ -326,7 +326,6 @@ module JenkinsApi
       else
         to_get = "#{url_prefix}#{url_suffix}"
       end
-      to_get = URI.escape(to_get)
       request = Net::HTTP::Get.new(to_get)
       @logger.info "GET #{to_get}"
       response = make_http_request(request)
@@ -351,8 +350,7 @@ module JenkinsApi
 
         # Added form_data default {} instead of nil to help with proxies
         # that barf with empty post
-        url_prefix = URI.escape("#{@jenkins_path}#{url_prefix}")
-        request = Net::HTTP::Post.new("#{url_prefix}")
+        request = Net::HTTP::Post.new("#{@jenkins_path}#{url_prefix}")
         @logger.info "POST #{url_prefix}"
         request.content_type = 'application/json'
         if @crumbs_enabled
@@ -391,8 +389,7 @@ module JenkinsApi
     # @return [String] XML configuration obtained from Jenkins
     #
     def get_config(url_prefix)
-      url_prefix = URI.escape("#{@jenkins_path}#{url_prefix}")
-      request = Net::HTTP::Get.new("#{url_prefix}/config.xml")
+      request = Net::HTTP::Get.new("#{@jenkins_path}#{url_prefix}/config.xml")
       @logger.info "GET #{url_prefix}/config.xml"
       response = make_http_request(request)
       handle_exception(response, "body")
@@ -418,8 +415,7 @@ module JenkinsApi
       begin
         refresh_crumbs
 
-        url_prefix = URI.escape("#{@jenkins_path}#{url_prefix}")
-        request = Net::HTTP::Post.new("#{url_prefix}")
+        request = Net::HTTP::Post.new("#{@jenkins_path}#{url_prefix}")
         @logger.info "POST #{url_prefix}"
         request.body = data
         request.content_type = content_type
