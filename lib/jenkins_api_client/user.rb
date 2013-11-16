@@ -21,6 +21,7 @@
 #
 
 require 'timeout'
+require 'jenkins_api_client/urihelper'
 
 module JenkinsApi
   class Client
@@ -31,6 +32,7 @@ module JenkinsApi
     # @since 0.14.0
     #
     class User
+      include JenkinsApi::UriHelper
 
       # Initializes a new User object.
       #
@@ -111,7 +113,7 @@ module JenkinsApi
       #   }
       #
       def get(user_id)
-        response = @client.api_get_request("/user/#{user_id}")
+        response = @client.api_get_request("/user/#{path_encode user_id}")
       end
 
     end
