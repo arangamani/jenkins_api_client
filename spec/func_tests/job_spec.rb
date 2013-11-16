@@ -481,6 +481,14 @@ describe JenkinsApi::Client::Job do
       end
 
       describe "#build" do
+
+        def wait_for_job_to_finish(job_name)
+          while @client.job.get_current_build_status(@job_name) == "running" do
+            # Waiting for this job to finish so it doesn't affect other tests
+            sleep 10
+          end
+        end
+
         it "Should build the specified job" do
           @client.job.get_current_build_status(
             @job_name
@@ -493,10 +501,7 @@ describe JenkinsApi::Client::Job do
           # seconds)
           sleep 10
           @client.job.get_current_build_status(@job_name).should == "running"
-          while @client.job.get_current_build_status(@job_name) == "running" do
-            # Waiting for this job to finish so it doesn't affect other tests
-            sleep 10
-          end
+          wait_for_job_to_finish(@job_name)
         end
 
         it "Should build the specified job (wait for start)" do
@@ -522,10 +527,7 @@ describe JenkinsApi::Client::Job do
           build_id.should_not be_nil
           build_id.should eql(expected_build_id)
           @client.job.get_current_build_status(@job_name).should == "running"
-          while @client.job.get_current_build_status(@job_name) == "running" do
-            # Waiting for this job to finish so it doesn't affect other tests
-            sleep 10
-          end
+          wait_for_job_to_finish(@job_name)
         end
 
         # This build doesn't start in time, but we don't cancel it, so it will run if
@@ -549,14 +551,11 @@ describe JenkinsApi::Client::Job do
             end
           }
           expect( lambda { @client.job.build(@job_name, {}, build_opts) } ).to raise_error(Timeout::Error)
-          # Sleep for 6 seconds so we don't hit the Jenkins quiet period (5
+          # Sleep for 10 seconds so we don't hit the Jenkins quiet period (5
           # seconds)
-          sleep 6
+          sleep 10
           @client.job.get_current_build_status(@job_name).should == "running"
-          while @client.job.get_current_build_status(@job_name) == "running" do
-            # Waiting for this job to finish so it doesn't affect other tests
-            sleep 10
-          end
+          wait_for_job_to_finish(@job_name)
         end
 
         # This build doesn't start in time, and we will attempt to cancel it so it
@@ -611,7 +610,7 @@ describe JenkinsApi::Client::Job do
             @job_name
           ).should_not == "running"
           @client.job.build(@job_name)
-          sleep 8
+          sleep 10
           @client.job.get_current_build_status(@job_name).should == "running"
           sleep 5
           @valid_post_responses.should include(
