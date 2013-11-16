@@ -33,3 +33,6 @@ Gemfile.lock
 *.tmproj
 tmtags
 *.swp
+
+# Skip the log file
+jenkins_api_client.log
