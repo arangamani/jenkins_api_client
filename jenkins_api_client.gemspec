@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "jenkins_api_client"
-  s.version = "1.0.0.alpha.2"
+  s.version = "1.0.0.beta.1"
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kannan Manickam"]
-  s.date = "2013-10-25"
+  s.date = "2013-11-17"
   s.description = "\nThis is a simple and easy-to-use Jenkins Api client with features focused on\nautomating Job configuration programaticaly and so forth"
   s.email = ["arangamani.kannan@gmail.com"]
   s.executables = ["jenkinscli"]
@@ -42,13 +42,14 @@ Gem::Specification.new do |s|
     "lib/jenkins_api_client/node.rb",
     "lib/jenkins_api_client/plugin_manager.rb",
     "lib/jenkins_api_client/system.rb",
+    "lib/jenkins_api_client/urihelper.rb",
     "lib/jenkins_api_client/user.rb",
     "lib/jenkins_api_client/version.rb",
     "lib/jenkins_api_client/view.rb",
     "scripts/login_with_irb.rb",
     "spec/func_tests/client_spec.rb",
     "spec/func_tests/job_spec.rb",
-    "spec/func_tests/node_spec.rb",
+    "spec/func_tests/node_spec.rb.pending",
     "spec/func_tests/plugin_spec.rb",
     "spec/func_tests/spec_helper.rb",
     "spec/func_tests/system_spec.rb",
@@ -56,6 +57,7 @@ Gem::Specification.new do |s|
     "spec/func_tests/view_spec.rb",
     "spec/unit_tests/build_queue_spec.rb",
     "spec/unit_tests/client_spec.rb",
+    "spec/unit_tests/fake_http_response.rb",
     "spec/unit_tests/fixtures/files/available_plugins.json",
     "spec/unit_tests/fixtures/files/computer_sample.xml",
     "spec/unit_tests/fixtures/files/installed_plugins.json",
