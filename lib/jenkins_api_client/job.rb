@@ -916,7 +916,7 @@ module JenkinsApi
               # Jenkins will return 404's until the job starts
               begin
                 get_build_details(job_name, expected_build_id)
-                completion_proc.call(expected_build_number, false) if completion_proc
+                completion_proc.call(expected_build_id, false) if completion_proc
 
                 return expected_build_id
               rescue JenkinsApi::Exceptions::NotFound => e
@@ -940,7 +940,7 @@ module JenkinsApi
         rescue JenkinsApi::Exceptions::ApiException => e
           completion_proc.call(nil, false) if completion_proc
           # Jenkins Api threw an error at us
-          @logger.warn "Problem while waiting for '#{job_name}' build ##{expected_build_number} to start.  #{e.class} #{e}"
+          @logger.warn "Problem while waiting for '#{job_name}' build ##{expected_build_id} to start.  #{e.class} #{e}"
           raise
         end
       end
