@@ -67,44 +67,26 @@ module JenkinsApi
     #
     # @param args [Hash] Arguments to connect to Jenkins server
     #
-    # @option args [String] :server_ip
-    #   the IP address of the Jenkins CI server
-    # @option args [String] :server_port
-    #   the port on which the Jenkins listens
-    # @option args [String] :server_url
-    #   the full URL address of the Jenkins CI server (http/https)
-    # @option args [String] :username
-    #   the username used for connecting to the server (optional)
-    # @option args [String] :password
-    #   the password for connecting to the CI server (optional)
-    # @option args [String] :password_base64
-    #   the password with base64 encoded format for connecting to the CI
+    # @option args [String] :server_ip the IP address of the Jenkins CI server
+    # @option args [String] :server_port the port on which the Jenkins listens
+    # @option args [String] :server_url the full URL address of the Jenkins CI server (http/https)
+    # @option args [String] :username the username used for connecting to the server (optional)
+    # @option args [String] :password the password or API Key for connecting to the CI server (optional)
+    # @option args [String] :password_base64 the password with base64 encoded format for connecting to the CI
     #   server (optional)
-    # @option args [String] :identity_file
-    #   the priviate key file for Jenkins CLI authentication,
-    #   it is used only for executing CLI commands.
-    #   also remember to upload the public key to
-    #   http://<Server IP>:<Server Port>/user/<Username>/configure
-    # @option args [String] :proxy_ip
-    #   the proxy IP address
-    # @option args [String] :proxy_port
-    #   the proxy port
-    # @option args [String] :jenkins_path ("/")
-    #   the optional context path for Jenkins
-    # @option args [Boolean] :ssl (false)
-    #   indicates if Jenkins is accessible over HTTPS
-    # @option args [Boolean] :follow_redirects
-    #   This argument causes the client to follow a redirect (jenkins can
+    # @option args [String] :identity_file the priviate key file for Jenkins CLI authentication,
+    #   it is used only for executing CLI commands. Also remember to upload the public key to
+    #   <Server IP>:<Server Port>/user/<Username>/configure
+    # @option args [String] :proxy_ip the proxy IP address
+    # @option args [String] :proxy_port the proxy port
+    # @option args [String] :jenkins_path ("/") the optional context path for Jenkins
+    # @option args [Boolean] :ssl (false) indicates if Jenkins is accessible over HTTPS
+    # @option args [Boolean] :follow_redirects this argument causes the client to follow a redirect (jenkins can
     #   return a 30x when starting a build)
-    # @option args [Fixnum] :timeout (120)
-    #   This argument sets the timeout for operations that take longer (in
-    #   seconds)
-    # @option args [String] :log_location (STDOUT)
-    #   The location for the log file
-    # @option args [Fixnum] :log_level (Logger::INFO)
-    #   The level for messages to be logged. Should be one of:
-    #   Logger::DEBUG (0), Logger::INFO (1), Logger::WARN (2), Logger::ERROR
-    #   (2), Logger::FATAL (3) (Defaults to Logger::INFO)
+    # @option args [Fixnum] :timeout (120) This argument sets the timeout for operations that take longer (in seconds)
+    # @option args [String] :log_location (STDOUT) the location for the log file
+    # @option args [Fixnum] :log_level (Logger::INFO) The level for messages to be logged. Should be one of:
+    #   Logger::DEBUG (0), Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
     #
     # @return [JenkinsApi::Client] a client object to Jenkins API
     #
@@ -315,7 +297,7 @@ module JenkinsApi
     # @param [Boolean] raw_response Return complete Response object instead of
     #   JSON body of response
     #
-    # @return [String, JSON] JSON response from Jenkins
+    # @return [String, Hash] JSON response from Jenkins
     #
     def api_get_request(url_prefix, tree = nil, url_suffix ="/api/json",
                         raw_response = false)
@@ -660,7 +642,7 @@ module JenkinsApi
     # @param [Boolean] send_json Boolean value used to determine whether to
     #   load the JSON or send the response as is.
     #
-    # @return [String, JSON] Response returned whether loaded JSON or raw
+    # @return [String, Hash] Response returned whether loaded JSON or raw
     #   string
     #
     # @raise [Exceptions::Unauthorized] When invalid credentials are
