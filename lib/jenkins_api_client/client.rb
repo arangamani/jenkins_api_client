@@ -105,6 +105,17 @@ module JenkinsApi
           " to Jenkins"
       end
 
+      # Get info from the server_url, if we got one
+      if @server_url
+        server_uri = URI.parse(@server_url)
+        @server_ip = server_uri.host
+        @server_port = server_uri.port
+        @ssl = server_uri.scheme == "https"
+        @jenkins_path = server_uri.path
+        @username ||= server_uri.user
+        @password ||= server_uri.password
+      end
+
       # Username/password are optional as some jenkins servers do not require
       # authentication
       if @username && !(@password || @password_base64)
@@ -113,15 +124,6 @@ module JenkinsApi
       if @proxy_ip.nil? ^ @proxy_port.nil?
         raise ArgumentError, "Proxy IP and port must both be specified or" +
           " both left nil"
-      end
-
-      # Get info from the server_url, if we got one
-      if @server_url
-        server_uri = URI.parse(@server_url)
-        @server_ip = server_uri.host
-        @server_port = server_uri.port
-        @ssl = server_uri.scheme == "https"
-        @jenkins_path = server_uri.path
       end
 
       @jenkins_path ||= ""
