@@ -69,7 +69,7 @@ module JenkinsApi
     #
     # @option args [String] :server_ip the IP address of the Jenkins CI server
     # @option args [String] :server_port the port on which the Jenkins listens
-    # @option args [String] :server_url the full URL address of the Jenkins CI server (http/https)
+    # @option args [String] :server_url the full URL address of the Jenkins CI server (http/https). This can include username/password. :username/:password options will override any user/pass value in the URL
     # @option args [String] :username the username used for connecting to the server (optional)
     # @option args [String] :password the password or API Key for connecting to the CI server (optional)
     # @option args [String] :password_base64 the password with base64 encoded format for connecting to the CI
@@ -105,6 +105,20 @@ module JenkinsApi
           " to Jenkins"
       end
 
+      # Get info from the server_url, if we got one
+      if @server_url
+        server_uri = URI.parse(@server_url)
+        @server_ip = server_uri.host
+        @server_port = server_uri.port
+        @ssl = server_uri.scheme == "https"
+        @jenkins_path = server_uri.path
+
+        # read username and password from the URL
+        # only set if @username and @password are not already set via explicit options
+        @username ||= server_uri.user
+        @password ||= server_uri.password
+      end
+
       # Username/password are optional as some jenkins servers do not require
       # authentication
       if @username && !(@password || @password_base64)
@@ -113,15 +127,6 @@ module JenkinsApi
       if @proxy_ip.nil? ^ @proxy_port.nil?
         raise ArgumentError, "Proxy IP and port must both be specified or" +
           " both left nil"
-      end
-
-      # Get info from the server_url, if we got one
-      if @server_url
-        server_uri = URI.parse(@server_url)
-        @server_ip = server_uri.host
-        @server_port = server_uri.port
-        @ssl = server_uri.scheme == "https"
-        @jenkins_path = server_uri.path
       end
 
       @jenkins_path ||= ""

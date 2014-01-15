@@ -49,6 +49,26 @@ describe JenkinsApi::Client do
         ).not_to raise_error
       end
 
+      it "initializes the username and password from server_url" do
+        client = JenkinsApi::Client.new(
+          :server_url => 'http://someuser:asdf@localhost'
+        )
+
+        client.instance_variable_get('@username').should == 'someuser'
+        client.instance_variable_get('@password').should == 'asdf'
+      end
+
+      it "uses explicit username, password over one in the server_url" do
+        client = JenkinsApi::Client.new(
+          :server_url => 'http://someuser:asdf@localhost',
+          :username => 'otheruser',
+          :password => '1234'
+        )
+
+        client.instance_variable_get('@username').should == 'otheruser'
+        client.instance_variable_get('@password').should == '1234'
+      end
+
       it "initializes with proxy args without exception" do
         expect(
           lambda do
