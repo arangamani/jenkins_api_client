@@ -537,6 +537,22 @@ module JenkinsApi
       response["Date"]
     end
 
+    # Executes the provided groovy script on the Jenkins CI server
+    #
+    # @param [String] script_text The text of the groovy script to execute
+    #
+    # @return [String] The output of the executed groovy script
+    #
+    def exec_script(script_text)
+      url = URI.escape("#{@jenkins_path}/scriptText")
+      request = Net::HTTP::Post.new("#{url}")
+      request.form_data = { 'script' =>  script_text }
+      @logger.info "POST #{url}"
+
+      response = make_http_request(request)
+      handle_exception(response, 'body')
+    end
+
     # Execute the Jenkins CLI
     #
     # @param command [String] command name
