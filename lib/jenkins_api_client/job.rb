@@ -159,6 +159,8 @@ module JenkinsApi
       #   whether to include xvfb plugin
       # @option params [Boolean] :build_wrappers_ansicolor
       #   whether to include ansicolor plugin
+      # @option params [Boolean] :build_wrappers_mask_password
+      #   whether to include mask password plugin
       # @option params [Boolean] :log_rotator
       #   whether to include discard old builds (defaults to keep for 7 days, max 10 builds)
       # @option params [String] :days_to_keep_builds
@@ -366,6 +368,9 @@ module JenkinsApi
                   # plugin=\"ansicolor@0.3.1\"
                   xml.colorMapName 'xterm'
                 end
+              end
+              if params[:build_wrappers_mask_password]
+                xml.send('com.michelin.cio.hudson.plugins.maskpasswords.MaskPasswordsBuildWrapper')
               end
             end
           end
