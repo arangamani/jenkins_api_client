@@ -218,6 +218,13 @@ describe JenkinsApi::Client do
         end
       end
 
+      describe "#exec_script" do
+        it "is defined and should accept script to execute" do
+          @client.respond_to?(:exec_script).should be_true
+          @client.method(:exec_script).parameters.size.should == 1
+        end
+      end
+
       describe "#exec_cli" do
         it "is defined and should execute the CLI" do
           @client.respond_to?(:exec_cli).should be_true

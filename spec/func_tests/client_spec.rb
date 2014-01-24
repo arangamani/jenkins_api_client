@@ -65,6 +65,12 @@ describe JenkinsApi::Client do
           @client.get_hudson_version.class.should == String
         end
       end
+
+      describe "#exec_script" do
+        it "Should execute the provided groovy script" do
+          @client.exec_script('println("hi")').should == "hi\n"
+        end
+      end
     end
 
     describe "SubClassAccessorMethods" do
