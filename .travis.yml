@@ -18,6 +18,6 @@ notifications:
   webhooks: https://www.buildheroes.com/api/projects/588c9dffdc8f0deff4d89d87bf370e8dba8a8a95/builds
   email: false
   irc:
-    channels: ["irc.freenode.org##jenkins-api-client"]
+    channels: ["chat.freenode.net##jenkins-api-client"]
     use_notice: true
     skip_join: true
