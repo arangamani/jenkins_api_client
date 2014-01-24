@@ -3,20 +3,12 @@ language: ruby
 rvm:
   - 2.0.0
   - 1.9.3
-  - jruby-19mode
-  - rbx-19mode
-
-matrix:
-  allow_failures:
-    - rvm: jruby-19mode
-    - rvm: rbx-19mode
 
 script:
   - bundle exec rake unit_tests
 
 notifications:
   webhooks: https://www.buildheroes.com/api/projects/588c9dffdc8f0deff4d89d87bf370e8dba8a8a95/builds
-  email: false
   irc:
     channels: ["chat.freenode.net##jenkins-api-client"]
     use_notice: true
