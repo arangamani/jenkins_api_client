@@ -29,7 +29,7 @@ module JenkinsApi
     # Tiny version of the gem used for patches
     TINY    = 0
     # Used for pre-releases
-    PRE     = 'beta.2'
+    PRE     = 'beta.3'
     # Version String of Jenkins API Client.
     VERSION = [MAJOR, MINOR, TINY, PRE].compact.join('.')
   end
