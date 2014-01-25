@@ -46,7 +46,7 @@ module JenkinsApi
         @timeout = @client.timeout
       end
 
-      # Returns a string representation of System class.
+      # Returns a string representation of User class.
       #
       def to_s
         "#<JenkinsApi::Client::User>"
