@@ -113,6 +113,7 @@ module JenkinsApi
       #  * +:slave_host+ Hostname/IP of the slave
       #  * +:slave_port+ Slave port
       #  * +:private_key_file+ Private key file of master
+      #  * +:credentials_id+ Id for credential in Jenkins
       #
       # @example Create a Dump Slave
       #   create_dump_slave(
@@ -137,7 +138,9 @@ module JenkinsApi
           :remote_fs => "/var/jenkins",
           :labels => params[:name],
           :slave_port => 22,
-          :mode => "normal"
+          :mode => "normal",
+          :private_key_file => "",
+          :credentials_id => ""
         }
 
         params = default_params.merge(params)
@@ -167,6 +170,7 @@ module JenkinsApi
               "port" => params[:slave_port],
               "username" => params[:slave_user],
               "privatekey" => params[:private_key_file],
+              "credentialsId" => params[:credentials_id]
             }
           }.to_json
         }
