@@ -653,6 +653,24 @@ module JenkinsApi
       end
     end
 
+
+
+
+    def symbolize_keys(hash)
+      hash.inject({}){|result, (key, value)|
+        new_key = case key
+          when String then key.to_sym
+          else key
+          end
+        new_value = case value
+          when Hash then symbolize_keys(value)
+          else value
+          end
+        result[new_key] = new_value
+        result
+      }
+    end
+
     # Private method that handles the exception and raises with proper error
     # message with the type of exception and returns the required values if no
     # exceptions are raised.
