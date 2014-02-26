@@ -5,7 +5,7 @@
 $LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__) + "/../lib"))
 require 'jenkins_api_client'
 require 'yaml'
-require 'pry'
+require 'irb'
 
 def prompt_for_username
   get_from_stdin("Username: ", false)
@@ -51,4 +51,4 @@ begin
   puts "logged-in to the Jenkins API, use the '@client' variable to use the client"
 end
 
-pry
+IRB.start
