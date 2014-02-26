@@ -1,0 +1,112 @@
+<?xmlversion="1.0"encoding="UTF-8"?>
+<com.tikal.jenkins.plugins.multijob.MultiJobProject plugin="jenkins-multijob-plugin@1.12">
+  <actions/>
+  <description/>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.plugins.git.GitSCM">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <name/>
+        <refspec/>
+        <url>git@github.com:USER/Repo.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>origin/ABC</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <disableSubmodules>false</disableSubmodules>
+    <recursiveSubmodules>false</recursiveSubmodules>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <authorOrCommitter>false</authorOrCommitter>
+    <clean>false</clean>
+    <wipeOutWorkspace>true</wipeOutWorkspace>
+    <pruneBranches>false</pruneBranches>
+    <remotePoll>true</remotePoll>
+    <ignoreNotifyCommit>false</ignoreNotifyCommit>
+    <useShallowClone>false</useShallowClone>
+    <buildChooser class="hudson.plugins.git.util.DefaultBuildChooser"/>
+    <gitTool>Default</gitTool>
+    <submoduleCfg class="list"/>
+    <relativeTargetDir/>
+    <reference/>
+    <excludedRegions/>
+    <excludedUsers/>
+    <gitConfigName/>
+    <gitConfigEmail/>
+    <skipTag>false</skipTag>
+    <includedRegions/>
+    <scmName/>
+  </scm>
+  <assignedNode>selfservice</assignedNode>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector">
+    <hudson.triggers.SCMTrigger>
+      <spec>*/5 * * * *</spec>
+    </hudson.triggers.SCMTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <org.jenkinsci.plugins.conditionalbuildstep.ConditionalBuilder plugin="conditional-buildstep@1.3.3">
+      <runner class="org.jenkins_ci.plugins.run_condition.BuildStepRunner$Fail" plugin="run-condition@1.0"/>
+      <runCondition class="org.jenkins_ci.plugins.run_condition.core.AlwaysRun" plugin="run-condition@1.0"/>
+      <conditionalbuilders>
+        <com.tikal.jenkins.plugins.multijob.MultiJobBuilder plugin="jenkins-multijob-plugin@1.12">
+          <phaseName>Cukes</phaseName>
+          <phaseJobs>
+            <com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
+              <jobName>ABC-SPEC</jobName>
+              <currParams>true</currParams>
+              <exposedSCM>false</exposedSCM>
+              <disableJob>false</disableJob>
+              <configs class="empty-list"/>
+              <killPhaseOnJobResultCondition>FAILURE</killPhaseOnJobResultCondition>
+            </com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
+            <com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
+              <jobName>ABC-CUKE1</jobName>
+              <currParams>true</currParams>
+              <exposedSCM>false</exposedSCM>
+              <disableJob>false</disableJob>
+              <configs class="empty-list"/>
+              <killPhaseOnJobResultCondition>FAILURE</killPhaseOnJobResultCondition>
+            </com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
+            <com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
+              <jobName>ABC-CUKE2</jobName>
+              <currParams>true</currParams>
+              <exposedSCM>false</exposedSCM>
+              <disableJob>false</disableJob>
+              <configs class="empty-list"/>
+              <killPhaseOnJobResultCondition>FAILURE</killPhaseOnJobResultCondition>
+            </com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
+          </phaseJobs>
+          <continuationCondition>SUCCESSFUL</continuationCondition>
+        </com.tikal.jenkins.plugins.multijob.MultiJobBuilder>
+      </conditionalbuilders>
+    </org.jenkinsci.plugins.conditionalbuildstep.ConditionalBuilder>
+    <hudson.tasks.Shell>
+      <command>SomeCommand
+      </command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.plugins.s3.S3BucketPublisher plugin="s3@0.5">
+      <profileName>JenkinsUser</profileName>
+      <entries>
+        <hudson.plugins.s3.Entry>
+          <bucket>the/bucket/that/it/goes/in</bucket>
+          <sourceFile>ABC-build.tar.gz
+          </sourceFile>
+          <storageClass>STANDARD</storageClass>
+          <selectedRegion>S3_REGION</selectedRegion>
+        </hudson.plugins.s3.Entry>
+      </entries>
+      <userMetadata/>
+    </hudson.plugins.s3.S3BucketPublisher>
+  </publishers>
+</com.tikal.jenkins.plugins.multijob.MultiJobProject>

@@ -180,6 +180,14 @@ module JenkinsApi
       JenkinsApi::Client::Job.new(self)
     end
 
+    # Creates an instance to the Multijob class by passing a reference to self
+    #
+    # @return [JenkinsApi::Client::Multijob] An object to Multijob subclass
+    #
+    def multijob
+      JenkinsApi::Client::Multijob.new(self)
+    end
+
     # Creates an instance to the System class by passing a reference to self
     #
     # @return [JenkinsApi::Client::System] An object to System subclass
