@@ -60,7 +60,8 @@ module JenkinsApi
       "timeout",
       "ssl",
       "follow_redirects",
-      "identity_file"
+      "identity_file",
+      "cookies"
     ].freeze
 
     # Initialize a Client object with Jenkins CI server credentials
@@ -87,6 +88,7 @@ module JenkinsApi
     # @option args [String] :log_location (STDOUT) the location for the log file
     # @option args [Fixnum] :log_level (Logger::INFO) The level for messages to be logged. Should be one of:
     #   Logger::DEBUG (0), Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
+    # @option args [String] :cookies Cookies to be sent with all requests in the format: name=value; name2=value2
     #
     # @return [JenkinsApi::Client] a client object to Jenkins API
     #
@@ -249,6 +251,7 @@ module JenkinsApi
     #
     def make_http_request(request, follow_redirect = @follow_redirects)
       request.basic_auth @username, @password if @username
+      request['Cookie'] = @cookies if @cookies
 
       if @proxy_ip
         http = Net::HTTP::Proxy(@proxy_ip, @proxy_port).new(@server_ip, @server_port)
