@@ -196,11 +196,11 @@ module JenkinsApi
     end
 
     # This exception class handles cases where the Jenkins API returns with a
-    # 500 Internel Server Error.
+    # 500 Internal Server Error.
     #
     class InternalServerError < ApiException
       def initialize(logger, message = "", log_level = Logger::ERROR)
-        message = "Internel Server Error. Perhaps the in-memory configuration" +
+        message = "Internal Server Error. Perhaps the in-memory configuration" +
           " Jenkins is different from the disk configuration. Please try to" +
           " reload the configuration" if message.nil? || message.empty?
         super(logger, message)
