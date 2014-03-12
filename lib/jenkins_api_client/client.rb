@@ -546,13 +546,8 @@ module JenkinsApi
     # @return [String] The output of the executed groovy script
     #
     def exec_script(script_text)
-      url = URI.escape("#{@jenkins_path}/scriptText")
-      request = Net::HTTP::Post.new("#{url}")
-      request.form_data = { 'script' =>  script_text }
-      @logger.info "POST #{url}"
-
-      response = make_http_request(request)
-      handle_exception(response, 'body')
+      response = api_post_request('/scriptText', {'script' => script_text}, true)
+      response.body
     end
 
     # Execute the Jenkins CLI
