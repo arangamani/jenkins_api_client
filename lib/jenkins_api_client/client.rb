@@ -342,7 +342,6 @@ module JenkinsApi
         # that barf with empty post
         request = Net::HTTP::Post.new("#{@jenkins_path}#{url_prefix}")
         @logger.info "POST #{url_prefix}"
-        request.content_type = 'application/json'
         if @crumbs_enabled
           request[@crumb["crumbRequestField"]] = @crumb["crumb"]
         end
