@@ -13,4 +13,5 @@ group :development do
   gem "simplecov"
   gem "yard-thor"
   gem "yard"
+  gem "pry"
 end

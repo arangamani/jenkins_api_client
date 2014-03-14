@@ -20,12 +20,15 @@
 # THE SOFTWARE.
 #
 
+require 'jenkins_api_client/urihelper'
+
 module JenkinsApi
   class Client
     # This class communicates with Jenkins "/computer" API to obtain details
     # about nodes or slaves connected to the Jenkins.
     #
     class Node
+      include JenkinsApi::UriHelper
 
       # General attributes of a node.
       # This allows the following methods to be called on this node object.
@@ -186,7 +189,7 @@ module JenkinsApi
       def delete(node_name)
         @logger.info "Deleting node '#{node_name}'"
         if list.include?(node_name)
-          @client.api_post_request("/computer/#{node_name}/doDelete")
+          @client.api_post_request("/computer/#{path_encode node_name}/doDelete")
         else
           raise "The specified node '#{node_name}' doesn't exist in Jenkins."
         end
@@ -284,7 +287,7 @@ module JenkinsApi
       def get_config(node_name)
         @logger.info "Obtaining the config.xml of node '#{node_name}'"
         node_name = "(master)" if node_name == "master"
-        @client.get_config("/computer/#{node_name}")
+        @client.get_config("/computer/#{ path_encode node_name}")
       end
 
       # Posts the given config.xml to the Jenkins node
@@ -295,7 +298,7 @@ module JenkinsApi
       def post_config(node_name, xml)
         @logger.info "Posting the config.xml of node '#{node_name}'"
         node_name = "(master)" if node_name == "master"
-        @client.post_config("/computer/#{node_name}/config.xml", xml)
+        @client.post_config("/computer/#{path_encode node_name}/config.xml", xml)
       end
 
     end
