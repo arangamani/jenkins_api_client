@@ -963,7 +963,7 @@ module JenkinsApi
       #
       def enable(job_name)
         @logger.info "Enabling job '#{job_name}'"
-        @client.api_post_request("/job/#{job_name}/enable")
+        @client.api_post_request("/job/#{path_encode job_name}/enable")
       end
 
       # Disable a job given the name of the job
