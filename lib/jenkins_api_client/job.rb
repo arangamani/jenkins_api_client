@@ -489,7 +489,7 @@ module JenkinsApi
         to_job_name = "copy_of_#{from_job_name}" if to_job_name.nil?
         @logger.info "Copying job '#{from_job_name}' to '#{to_job_name}'"
         @client.api_post_request(
-          "/createItem?name=#{to_job_name}&mode=copy&from=#{from_job_name}"
+          "/createItem?name=#{path_encode to_job_name}&mode=copy&from=#{path_encode from_job_name}"
         )
       end
 
