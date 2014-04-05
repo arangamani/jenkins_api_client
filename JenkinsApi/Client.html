@@ -6,7 +6,7 @@
 <title>
   Class: JenkinsApi::Client
   
-    &mdash; Documentation by YARD 0.8.7.2
+    &mdash; Documentation by YARD 0.8.7.3
   
 </title>
 
@@ -95,7 +95,7 @@
   
     <dt class="r2 last">Defined in:</dt>
     <dd class="r2 last">lib/jenkins_api_client/client.rb<span class="defines">,<br />
-  lib/jenkins_api_client/job.rb,<br /> lib/jenkins_api_client/node.rb,<br /> lib/jenkins_api_client/view.rb,<br /> lib/jenkins_api_client/user.rb,<br /> lib/jenkins_api_client/system.rb,<br /> lib/jenkins_api_client/version.rb,<br /> lib/jenkins_api_client/build_queue.rb,<br /> lib/jenkins_api_client/plugin_manager.rb</span>
+  lib/jenkins_api_client/job.rb,<br /> lib/jenkins_api_client/node.rb,<br /> lib/jenkins_api_client/user.rb,<br /> lib/jenkins_api_client/view.rb,<br /> lib/jenkins_api_client/system.rb,<br /> lib/jenkins_api_client/version.rb,<br /> lib/jenkins_api_client/build_queue.rb,<br /> lib/jenkins_api_client/plugin_manager.rb</span>
 </dd>
   
 </dl>
@@ -143,8 +143,7 @@ for various operations.</p>
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='integer val'>8080</span>
-</pre></dd>
+        <dd><pre class="code"><span class='int'>8080</span></pre></dd>
       
         <dt id="DEFAULT_TIMEOUT-constant" class="">DEFAULT_TIMEOUT =
           <div class="docstring">
@@ -160,8 +159,7 @@ for various operations.</p>
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='integer val'>120</span>
-</pre></dd>
+        <dd><pre class="code"><span class='int'>120</span></pre></dd>
       
         <dt id="VALID_PARAMS-constant" class="">VALID_PARAMS =
           <div class="docstring">
@@ -177,24 +175,24 @@ for various operations.</p>
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='lbrack token'>[</span>
-  <span class='string val'>&quot;server_url&quot;</span><span class='comma token'>,</span>
-  <span class='string val'>&quot;server_ip&quot;</span><span class='comma token'>,</span>
-  <span class='string val'>&quot;server_port&quot;</span><span class='comma token'>,</span>
-  <span class='string val'>&quot;proxy_ip&quot;</span><span class='comma token'>,</span>
-  <span class='string val'>&quot;proxy_port&quot;</span><span class='comma token'>,</span>
-  <span class='string val'>&quot;jenkins_path&quot;</span><span class='comma token'>,</span>
-  <span class='string val'>&quot;username&quot;</span><span class='comma token'>,</span>
-  <span class='string val'>&quot;password&quot;</span><span class='comma token'>,</span>
-  <span class='string val'>&quot;password_base64&quot;</span><span class='comma token'>,</span>
-  <span class='string val'>&quot;log_location&quot;</span><span class='comma token'>,</span>
-  <span class='string val'>&quot;log_level&quot;</span><span class='comma token'>,</span>
-  <span class='string val'>&quot;timeout&quot;</span><span class='comma token'>,</span>
-  <span class='string val'>&quot;ssl&quot;</span><span class='comma token'>,</span>
-  <span class='string val'>&quot;follow_redirects&quot;</span><span class='comma token'>,</span>
-  <span class='string val'>&quot;identity_file&quot;</span>
-<span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_freeze identifier id'>freeze</span>
-</pre></dd>
+        <dd><pre class="code"><span class='lbracket'>[</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>server_url</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>server_ip</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>server_port</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>proxy_ip</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>proxy_port</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>jenkins_path</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>username</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>password</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>password_base64</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>log_location</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>log_level</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>timeout</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ssl</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>follow_redirects</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>identity_file</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cookies</span><span class='tstring_end'>&quot;</span></span>
+<span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
       
         <dt id="MAJOR-constant" class="">MAJOR =
           <div class="docstring">
@@ -210,8 +208,7 @@ for various operations.</p>
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='integer val'>0</span>
-</pre></dd>
+        <dd><pre class="code"><span class='int'>1</span></pre></dd>
       
         <dt id="MINOR-constant" class="">MINOR =
           <div class="docstring">
@@ -227,8 +224,7 @@ for various operations.</p>
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='integer val'>14</span>
-</pre></dd>
+        <dd><pre class="code"><span class='int'>0</span></pre></dd>
       
         <dt id="TINY-constant" class="">TINY =
           <div class="docstring">
@@ -244,8 +240,7 @@ for various operations.</p>
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='integer val'>1</span>
-</pre></dd>
+        <dd><pre class="code"><span class='int'>0</span></pre></dd>
       
         <dt id="PRE-constant" class="">PRE =
           <div class="docstring">
@@ -261,8 +256,7 @@ for various operations.</p>
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='rubyid_nil nil kw'>nil</span>
-</pre></dd>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>beta.5</span><span class='tstring_end'>'</span></span></pre></dd>
       
         <dt id="VERSION-constant" class="">VERSION =
           <div class="docstring">
@@ -278,8 +272,7 @@ for various operations.</p>
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='lbrack token'>[</span><span class='rubyid_MAJOR constant id'>MAJOR</span><span class='comma token'>,</span> <span class='rubyid_MINOR constant id'>MINOR</span><span class='comma token'>,</span> <span class='rubyid_TINY constant id'>TINY</span><span class='comma token'>,</span> <span class='rubyid_PRE constant id'>PRE</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_compact identifier id'>compact</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='string val'>'.'</span><span class='rparen token'>)</span>
-</pre></dd>
+        <dd><pre class="code"><span class='lbracket'>[</span><span class='const'>MAJOR</span><span class='comma'>,</span> <span class='const'>MINOR</span><span class='comma'>,</span> <span class='const'>TINY</span><span class='comma'>,</span> <span class='const'>PRE</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>.</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span></pre></dd>
       
     </dl>
   
@@ -360,7 +353,7 @@ for various operations.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#api_get_request-instance_method" title="#api_get_request (instance method)">- (String, JSON) <strong>api_get_request</strong>(url_prefix, tree = nil, url_suffix = &quot;/api/json&quot;, raw_response = false) </a>
+      <a href="#api_get_request-instance_method" title="#api_get_request (instance method)">- (String, Hash) <strong>api_get_request</strong>(url_prefix, tree = nil, url_suffix = &quot;/api/json&quot;, raw_response = false) </a>
     
 
     
@@ -408,6 +401,57 @@ for various operations.</p>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#compare_versions-instance_method" title="#compare_versions (instance method)">- (Object) <strong>compare_versions</strong>(version_a, version_b) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Compare two version strings (A and B) if A == B, returns 0 if A &gt; B,
+returns 1 if A &lt; B, returns -1.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#deconstruct_version_string-instance_method" title="#deconstruct_version_string (instance method)">- (Object) <strong>deconstruct_version_string</strong>(version) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Converts a version string to a list of integers This makes it easier to
+compare versions since in 'version-speak', v 1.2 is a lot older than v
+1.102 - and simple  on version strings doesn't work so well.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#exec_cli-instance_method" title="#exec_cli (instance method)">- (String) <strong>exec_cli</strong>(command, args = []) </a>
     
 
@@ -424,6 +468,30 @@ for various operations.</p>
   
     <span class="summary_desc"><div class='inline'>
 <p>Execute the Jenkins CLI.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#exec_script-instance_method" title="#exec_script (instance method)">- (String) <strong>exec_script</strong>(script_text) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Executes the provided groovy script on the Jenkins CI server.</p>
 </div></span>
   
 </li>
@@ -471,7 +539,8 @@ for various operations.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Obtain the Hudson version of the CI server.</p>
+<p>Obtain the Hudson version of the CI server Only queries Hudson/Jenkins if
+the version is not already stored.</p>
 </div></span>
   
 </li>
@@ -480,7 +549,7 @@ for various operations.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#get_jenkins_version-instance_method" title="#get_jenkins_version (instance method)">- (Object) <strong>get_jenkins_version</strong> </a>
+      <a href="#get_jenkins_version-instance_method" title="#get_jenkins_version (instance method)">- (String) <strong>get_jenkins_version</strong> </a>
     
 
     
@@ -495,7 +564,8 @@ for various operations.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Obtains the jenkins version from the API.</p>
+<p>Obtains the jenkins version from the API Only queries Jenkins if the
+version is not already stored.</p>
 </div></span>
   
 </li>
@@ -545,6 +615,28 @@ for various operations.</p>
     <span class="summary_desc"><div class='inline'>
 <p>Obtain the date of the Jenkins server.</p>
 </div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#init_update_center-instance_method" title="#init_update_center (instance method)">- (Object) <strong>init_update_center</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -625,31 +717,6 @@ called.</p>
 </li>
 
       
-        <li class="protected ">
-  <span class="summary_signature">
-    
-      <a href="#make_http_request-instance_method" title="#make_http_request (instance method)">- (Net::HTTPResponse) <strong>make_http_request</strong>(request, follow_redirect = @follow_redirects) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  <span class="note title protected">protected</span>
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Connects to the Jenkins server, sends the specified request and returns the
-response.</p>
-</div></span>
-  
-</li>
-
-      
         <li class="public ">
   <span class="summary_signature">
     
@@ -718,6 +785,50 @@ response.</p>
     <span class="summary_desc"><div class='inline'>
 <p>Posts the given xml configuration to the url given.</p>
 </div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#post_data-instance_method" title="#post_data (instance method)">- (Object) <strong>post_data</strong>(url_prefix, data, content_type) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#post_json-instance_method" title="#post_json (instance method)">- (Object) <strong>post_json</strong>(url_prefix, json) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -813,7 +924,7 @@ response.</p>
   
     <span class="summary_desc"><div class='inline'>
 <p>Checks if Jenkins uses crumbs (i.e) the XSS disable option is checked in
-Jenkins’ security settings.</p>
+Jenkins' security settings.</p>
 </div></span>
   
 </li>
@@ -976,7 +1087,9 @@ Jenkins’ security settings.</p>
           </span>
           
             &mdash; <div class='inline'>
-<p>the full URL address of the Jenkins CI server (http/https)</p>
+<p>the full URL address of the Jenkins CI server (http/https). This can
+include username/password. :username/:password options will override any
+user/pass value in the URL</p>
 </div>
           
         </li>
@@ -1002,7 +1115,7 @@ Jenkins’ security settings.</p>
           </span>
           
             &mdash; <div class='inline'>
-<p>the password for connecting to the CI server (optional)</p>
+<p>the password or API Key for connecting to the CI server (optional)</p>
 </div>
           
         </li>
@@ -1030,9 +1143,8 @@ Jenkins’ security settings.</p>
           
             &mdash; <div class='inline'>
 <p>the priviate key file for Jenkins CLI authentication, it is used only for
-executing CLI commands. also remember to upload the public key to <a
-href="http://<Server"><Server</a> IP&gt;:&lt;Server
-Port&gt;/user/&lt;Username&gt;/configure</p>
+executing CLI commands. Also remember to upload the public key to
+&lt;Server IP&gt;:&lt;Server Port&gt;/user/&lt;Username&gt;/configure</p>
 </div>
           
         </li>
@@ -1103,7 +1215,7 @@ Port&gt;/user/&lt;Username&gt;/configure</p>
           </span>
           
             &mdash; <div class='inline'>
-<p>This argument causes the client to follow a redirect (jenkins can return a
+<p>this argument causes the client to follow a redirect (jenkins can return a
 30x when starting a build)</p>
 </div>
           
@@ -1136,7 +1248,7 @@ Port&gt;/user/&lt;Username&gt;/configure</p>
           </span>
           
             &mdash; <div class='inline'>
-<p>The location for the log file</p>
+<p>the location for the log file</p>
 </div>
           
         </li>
@@ -1153,8 +1265,21 @@ Port&gt;/user/&lt;Username&gt;/configure</p>
           
             &mdash; <div class='inline'>
 <p>The level for messages to be logged. Should be one of: Logger::DEBUG (0),
-Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
-(Defaults to Logger::INFO)</p>
+Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:cookies</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'>
+<p>Cookies to be sent with all requests in the format: name=value;
+name2=value2</p>
 </div>
           
         </li>
@@ -1187,6 +1312,22 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
       <pre class="lines">
 
 
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
 113
 114
 115
@@ -1236,84 +1377,77 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
 159
 160
 161
-162
-163
-164
-165
-166
-167
-168
-169
-170
-171
-172
-173</pre>
+162</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 113</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 97</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_args identifier id'>args</span><span class='rparen token'>)</span>
-  <span class='rubyid_args identifier id'>args</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_key identifier id'>key</span><span class='comma token'>,</span> <span class='rubyid_value identifier id'>value</span><span class='bitor op'>|</span>
-    <span class='rubyid_if if kw'>if</span> <span class='rubyid_value identifier id'>value</span> <span class='andop op'>&amp;&amp;</span> <span class='rubyid_VALID_PARAMS constant id'>VALID_PARAMS</span><span class='dot token'>.</span><span class='rubyid_include? fid id'>include?</span><span class='lparen token'>(</span><span class='rubyid_key identifier id'>key</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span><span class='rparen token'>)</span>
-      <span class='rubyid_instance_variable_set identifier id'>instance_variable_set</span><span class='lparen token'>(</span><span class='dstring node'>&quot;@#{key}&quot;</span><span class='comma token'>,</span> <span class='rubyid_value identifier id'>value</span><span class='rparen token'>)</span>
-    <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_end end kw'>end</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_args identifier id'>args</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span> <span class='rubyid_Hash constant id'>Hash</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_value'>value</span> <span class='op'>&amp;&amp;</span> <span class='const'>VALID_PARAMS</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_instance_variable_set'>instance_variable_set</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>@</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_key'>key</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span> <span class='kw'>if</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='const'>Hash</span>
 
-  <span class='comment val'># Server IP or Server URL must be specifiec</span>
-  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_@server_ip ivar id'>@server_ip</span> <span class='orop op'>||</span> <span class='rubyid_@server_url ivar id'>@server_url</span>
-    <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_ArgumentError constant id'>ArgumentError</span><span class='comma token'>,</span> <span class='string val'>&quot;Server IP or Server URL is required to connect&quot;</span> <span class='plus op'>+</span>
-      <span class='string val'>&quot; to Jenkins&quot;</span>
-  <span class='rubyid_end end kw'>end</span>
+  <span class='comment'># Server IP or Server URL must be specifiec
+</span>  <span class='kw'>unless</span> <span class='ivar'>@server_ip</span> <span class='op'>||</span> <span class='ivar'>@server_url</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Server IP or Server URL is required to connect</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> to Jenkins</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
 
-  <span class='comment val'># Username/password are optional as some jenkins servers do not require</span>
-  <span class='comment val'># authentication</span>
-  <span class='rubyid_if if kw'>if</span> <span class='rubyid_@username ivar id'>@username</span> <span class='andop op'>&amp;&amp;</span> <span class='notop op'>!</span><span class='lparen token'>(</span><span class='rubyid_@password ivar id'>@password</span> <span class='orop op'>||</span> <span class='rubyid_@password_base64 ivar id'>@password_base64</span><span class='rparen token'>)</span>
-    <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_ArgumentError constant id'>ArgumentError</span><span class='comma token'>,</span> <span class='string val'>&quot;If username is provided, password is required&quot;</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_if if kw'>if</span> <span class='rubyid_@proxy_ip ivar id'>@proxy_ip</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span> <span class='bitxor op'>^</span> <span class='rubyid_@proxy_port ivar id'>@proxy_port</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
-    <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_ArgumentError constant id'>ArgumentError</span><span class='comma token'>,</span> <span class='string val'>&quot;Proxy IP and port must both be specified or&quot;</span> <span class='plus op'>+</span>
-      <span class='string val'>&quot; both left nil&quot;</span>
-  <span class='rubyid_end end kw'>end</span>
+  <span class='comment'># Get info from the server_url, if we got one
+</span>  <span class='kw'>if</span> <span class='ivar'>@server_url</span>
+    <span class='id identifier rubyid_server_uri'>server_uri</span> <span class='op'>=</span> <span class='const'>URI</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='ivar'>@server_url</span><span class='rparen'>)</span>
+    <span class='ivar'>@server_ip</span> <span class='op'>=</span> <span class='id identifier rubyid_server_uri'>server_uri</span><span class='period'>.</span><span class='id identifier rubyid_host'>host</span>
+    <span class='ivar'>@server_port</span> <span class='op'>=</span> <span class='id identifier rubyid_server_uri'>server_uri</span><span class='period'>.</span><span class='id identifier rubyid_port'>port</span>
+    <span class='ivar'>@ssl</span> <span class='op'>=</span> <span class='id identifier rubyid_server_uri'>server_uri</span><span class='period'>.</span><span class='id identifier rubyid_scheme'>scheme</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https</span><span class='tstring_end'>&quot;</span></span>
+    <span class='ivar'>@jenkins_path</span> <span class='op'>=</span> <span class='id identifier rubyid_server_uri'>server_uri</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span>
 
-  <span class='comment val'># Get info from the server_url, if we got one</span>
-  <span class='rubyid_if if kw'>if</span> <span class='rubyid_@server_url ivar id'>@server_url</span>
-    <span class='rubyid_server_uri identifier id'>server_uri</span> <span class='assign token'>=</span> <span class='rubyid_URI constant id'>URI</span><span class='dot token'>.</span><span class='rubyid_parse identifier id'>parse</span><span class='lparen token'>(</span><span class='rubyid_@server_url ivar id'>@server_url</span><span class='rparen token'>)</span>
-    <span class='rubyid_@server_ip ivar id'>@server_ip</span> <span class='assign token'>=</span> <span class='rubyid_server_uri identifier id'>server_uri</span><span class='dot token'>.</span><span class='rubyid_host identifier id'>host</span>
-    <span class='rubyid_@server_port ivar id'>@server_port</span> <span class='assign token'>=</span> <span class='rubyid_server_uri identifier id'>server_uri</span><span class='dot token'>.</span><span class='rubyid_port identifier id'>port</span>
-    <span class='rubyid_@ssl ivar id'>@ssl</span> <span class='assign token'>=</span> <span class='rubyid_server_uri identifier id'>server_uri</span><span class='dot token'>.</span><span class='rubyid_scheme identifier id'>scheme</span> <span class='eq op'>==</span> <span class='string val'>&quot;https&quot;</span>
-    <span class='rubyid_@jenkins_path ivar id'>@jenkins_path</span> <span class='assign token'>=</span> <span class='rubyid_server_uri identifier id'>server_uri</span><span class='dot token'>.</span><span class='rubyid_path identifier id'>path</span>
-  <span class='rubyid_end end kw'>end</span>
+    <span class='comment'># read username and password from the URL
+</span>    <span class='comment'># only set if @username and @password are not already set via explicit options
+</span>    <span class='ivar'>@username</span> <span class='op'>||=</span> <span class='id identifier rubyid_server_uri'>server_uri</span><span class='period'>.</span><span class='id identifier rubyid_user'>user</span>
+    <span class='ivar'>@password</span> <span class='op'>||=</span> <span class='id identifier rubyid_server_uri'>server_uri</span><span class='period'>.</span><span class='id identifier rubyid_password'>password</span>
+  <span class='kw'>end</span>
 
-  <span class='rubyid_@jenkins_path ivar id'>@jenkins_path</span> <span class='opasgn op'>||=</span> <span class='string val'>&quot;&quot;</span>
-  <span class='rubyid_@jenkins_path ivar id'>@jenkins_path</span><span class='dot token'>.</span><span class='rubyid_gsub! fid id'>gsub!</span><span class='lparen token'>(</span><span class='regexp val'>/\/$/</span><span class='comma token'>,</span><span class='string val'>&quot;&quot;</span><span class='rparen token'>)</span> <span class='comment val'># remove trailing slash if there is one</span>
-  <span class='rubyid_@server_port ivar id'>@server_port</span> <span class='assign token'>=</span> <span class='rubyid_DEFAULT_SERVER_PORT constant id'>DEFAULT_SERVER_PORT</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_@server_port ivar id'>@server_port</span>
-  <span class='rubyid_@timeout ivar id'>@timeout</span> <span class='assign token'>=</span> <span class='rubyid_DEFAULT_TIMEOUT constant id'>DEFAULT_TIMEOUT</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_@timeout ivar id'>@timeout</span>
-  <span class='rubyid_@ssl ivar id'>@ssl</span> <span class='opasgn op'>||=</span> <span class='rubyid_false false kw'>false</span>
+  <span class='comment'># Username/password are optional as some jenkins servers do not require
+</span>  <span class='comment'># authentication
+</span>  <span class='kw'>if</span> <span class='ivar'>@username</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='lparen'>(</span><span class='ivar'>@password</span> <span class='op'>||</span> <span class='ivar'>@password_base64</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>If username is provided, password is required</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+  <span class='kw'>if</span> <span class='ivar'>@proxy_ip</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>^</span> <span class='ivar'>@proxy_port</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Proxy IP and port must both be specified or</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> both left nil</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
 
-  <span class='comment val'># Setting log options</span>
-  <span class='rubyid_@log_location ivar id'>@log_location</span> <span class='assign token'>=</span> <span class='rubyid_STDOUT constant id'>STDOUT</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_@log_location ivar id'>@log_location</span>
-  <span class='rubyid_@log_level ivar id'>@log_level</span> <span class='assign token'>=</span> <span class='rubyid_Logger constant id'>Logger</span><span class='colon2 op'>::</span><span class='rubyid_INFO constant id'>INFO</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_@log_level ivar id'>@log_level</span>
-  <span class='rubyid_@logger ivar id'>@logger</span> <span class='assign token'>=</span> <span class='rubyid_Logger constant id'>Logger</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_@log_location ivar id'>@log_location</span><span class='rparen token'>)</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_level identifier id'>level</span> <span class='assign token'>=</span> <span class='rubyid_@log_level ivar id'>@log_level</span>
+  <span class='ivar'>@jenkins_path</span> <span class='op'>||=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
+  <span class='ivar'>@jenkins_path</span><span class='period'>.</span><span class='id identifier rubyid_gsub!'>gsub!</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\/$</span><span class='regexp_end'>/</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='comment'># remove trailing slash if there is one
+</span>  <span class='ivar'>@server_port</span> <span class='op'>=</span> <span class='const'>DEFAULT_SERVER_PORT</span> <span class='kw'>unless</span> <span class='ivar'>@server_port</span>
+  <span class='ivar'>@timeout</span> <span class='op'>=</span> <span class='const'>DEFAULT_TIMEOUT</span> <span class='kw'>unless</span> <span class='ivar'>@timeout</span>
+  <span class='ivar'>@ssl</span> <span class='op'>||=</span> <span class='kw'>false</span>
+
+  <span class='comment'># Setting log options
+</span>  <span class='ivar'>@log_location</span> <span class='op'>=</span> <span class='const'>STDOUT</span> <span class='kw'>unless</span> <span class='ivar'>@log_location</span>
+  <span class='ivar'>@log_level</span> <span class='op'>=</span> <span class='const'>Logger</span><span class='op'>::</span><span class='const'>INFO</span> <span class='kw'>unless</span> <span class='ivar'>@log_level</span>
+  <span class='ivar'>@logger</span> <span class='op'>=</span> <span class='const'>Logger</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@log_location</span><span class='rparen'>)</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_level'>level</span> <span class='op'>=</span> <span class='ivar'>@log_level</span>
 
 
-  <span class='comment val'># Base64 decode inserts a newline character at the end. As a workaround</span>
-  <span class='comment val'># added chomp to remove newline characters. I hope nobody uses newline</span>
-  <span class='comment val'># characters at the end of their passwords :)</span>
-  <span class='rubyid_@password ivar id'>@password</span> <span class='assign token'>=</span> <span class='rubyid_Base64 constant id'>Base64</span><span class='dot token'>.</span><span class='rubyid_decode64 identifier id'>decode64</span><span class='lparen token'>(</span><span class='rubyid_@password_base64 ivar id'>@password_base64</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_chomp identifier id'>chomp</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_@password_base64 ivar id'>@password_base64</span>
+  <span class='comment'># Base64 decode inserts a newline character at the end. As a workaround
+</span>  <span class='comment'># added chomp to remove newline characters. I hope nobody uses newline
+</span>  <span class='comment'># characters at the end of their passwords :)
+</span>  <span class='ivar'>@password</span> <span class='op'>=</span> <span class='const'>Base64</span><span class='period'>.</span><span class='id identifier rubyid_decode64'>decode64</span><span class='lparen'>(</span><span class='ivar'>@password_base64</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_chomp'>chomp</span> <span class='kw'>if</span> <span class='ivar'>@password_base64</span>
 
-  <span class='comment val'># No connections are made to the Jenkins server during initialize to</span>
-  <span class='comment val'># allow the unit tests to behave normally as mocking is simpler this way.</span>
-  <span class='comment val'># If this variable is nil, the first POST request will query the API and</span>
-  <span class='comment val'># populate this variable.</span>
-  <span class='rubyid_@crumbs_enabled ivar id'>@crumbs_enabled</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span>
-  <span class='comment val'># The crumbs hash. Store it so that we don't have to obtain the crumb for</span>
-  <span class='comment val'># every POST request. It appears that the crumb doesn't change often.</span>
-  <span class='rubyid_@crumb ivar id'>@crumb</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
-  <span class='comment val'># This is the number of times to refetch the crumb if it ever expires.</span>
-  <span class='rubyid_@crumb_max_retries ivar id'>@crumb_max_retries</span> <span class='assign token'>=</span> <span class='integer val'>3</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+  <span class='comment'># No connections are made to the Jenkins server during initialize to
+</span>  <span class='comment'># allow the unit tests to behave normally as mocking is simpler this way.
+</span>  <span class='comment'># If this variable is nil, the first POST request will query the API and
+</span>  <span class='comment'># populate this variable.
+</span>  <span class='ivar'>@crumbs_enabled</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='comment'># The crumbs hash. Store it so that we don't have to obtain the crumb for
+</span>  <span class='comment'># every POST request. It appears that the crumb doesn't change often.
+</span>  <span class='ivar'>@crumb</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='comment'># This is the number of times to refetch the crumb if it ever expires.
+</span>  <span class='ivar'>@crumb_max_retries</span> <span class='op'>=</span> <span class='int'>3</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1359,10 +1493,9 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 42</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_logger identifier id'>logger</span>
-  <span class='rubyid_@logger ivar id'>@logger</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_logger'>logger</span>
+  <span class='ivar'>@logger</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1403,10 +1536,9 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 42</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_timeout identifier id'>timeout</span>
-  <span class='rubyid_@timeout ivar id'>@timeout</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_timeout'>timeout</span>
+  <span class='ivar'>@timeout</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1422,7 +1554,7 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
       <div class="method_details first">
   <h3 class="signature first" id="api_get_request-instance_method">
   
-    - (<tt>String</tt>, <tt>JSON</tt>) <strong>api_get_request</strong>(url_prefix, tree = nil, url_suffix = &quot;/api/json&quot;, raw_response = false) 
+    - (<tt>String</tt>, <tt>Hash</tt>) <strong>api_get_request</strong>(url_prefix, tree = nil, url_suffix = &quot;/api/json&quot;, raw_response = false) 
   
 
   
@@ -1518,7 +1650,7 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
     <li>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>JSON</tt>)</span>
+        <span class='type'>(<tt>String</tt>, <tt>Hash</tt>)</span>
       
       
       
@@ -1537,6 +1669,11 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
       <pre class="lines">
 
 
+310
+311
+312
+313
+314
 315
 316
 317
@@ -1549,37 +1686,29 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
 324
 325
 326
-327
-328
-329
-330
-331
-332
-333</pre>
+327</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 315</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 310</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_api_get_request identifier id'>api_get_request</span><span class='lparen token'>(</span><span class='rubyid_url_prefix identifier id'>url_prefix</span><span class='comma token'>,</span> <span class='rubyid_tree identifier id'>tree</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='comma token'>,</span> <span class='rubyid_url_suffix identifier id'>url_suffix</span> <span class='assign token'>=</span><span class='string val'>&quot;/api/json&quot;</span><span class='comma token'>,</span>
-                    <span class='rubyid_raw_response identifier id'>raw_response</span> <span class='assign token'>=</span> <span class='rubyid_false false kw'>false</span><span class='rparen token'>)</span>
-  <span class='rubyid_url_prefix identifier id'>url_prefix</span> <span class='assign token'>=</span> <span class='dstring node'>&quot;#{@jenkins_path}#{url_prefix}&quot;</span>
-  <span class='rubyid_to_get identifier id'>to_get</span> <span class='assign token'>=</span> <span class='string val'>&quot;&quot;</span>
-  <span class='rubyid_if if kw'>if</span> <span class='rubyid_tree identifier id'>tree</span>
-    <span class='rubyid_to_get identifier id'>to_get</span> <span class='assign token'>=</span> <span class='dstring node'>&quot;#{url_prefix}#{url_suffix}?#{tree}&quot;</span>
-  <span class='rubyid_else else kw'>else</span>
-    <span class='rubyid_to_get identifier id'>to_get</span> <span class='assign token'>=</span> <span class='dstring node'>&quot;#{url_prefix}#{url_suffix}&quot;</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_to_get identifier id'>to_get</span> <span class='assign token'>=</span> <span class='rubyid_URI constant id'>URI</span><span class='dot token'>.</span><span class='rubyid_escape identifier id'>escape</span><span class='lparen token'>(</span><span class='rubyid_to_get identifier id'>to_get</span><span class='rparen token'>)</span>
-  <span class='rubyid_request identifier id'>request</span> <span class='assign token'>=</span> <span class='rubyid_Net constant id'>Net</span><span class='colon2 op'>::</span><span class='rubyid_HTTP constant id'>HTTP</span><span class='colon2 op'>::</span><span class='rubyid_Get constant id'>Get</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_to_get identifier id'>to_get</span><span class='rparen token'>)</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;GET #{to_get}&quot;</span>
-  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_make_http_request identifier id'>make_http_request</span><span class='lparen token'>(</span><span class='rubyid_request identifier id'>request</span><span class='rparen token'>)</span>
-  <span class='rubyid_if if kw'>if</span> <span class='rubyid_raw_response identifier id'>raw_response</span>
-    <span class='rubyid_handle_exception identifier id'>handle_exception</span><span class='lparen token'>(</span><span class='rubyid_response identifier id'>response</span><span class='comma token'>,</span> <span class='string val'>&quot;raw&quot;</span><span class='rparen token'>)</span>
-  <span class='rubyid_else else kw'>else</span>
-    <span class='rubyid_handle_exception identifier id'>handle_exception</span><span class='lparen token'>(</span><span class='rubyid_response identifier id'>response</span><span class='comma token'>,</span> <span class='string val'>&quot;body&quot;</span><span class='comma token'>,</span> <span class='rubyid_url_suffix identifier id'>url_suffix</span> <span class='match op'>=~</span> <span class='regexp val'>/json/</span><span class='rparen token'>)</span>
-  <span class='rubyid_end end kw'>end</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_api_get_request'>api_get_request</span><span class='lparen'>(</span><span class='id identifier rubyid_url_prefix'>url_prefix</span><span class='comma'>,</span> <span class='id identifier rubyid_tree'>tree</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_url_suffix'>url_suffix</span> <span class='op'>=</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/api/json</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+                    <span class='id identifier rubyid_raw_response'>raw_response</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_url_prefix'>url_prefix</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@jenkins_path</span><span class='rbrace'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_url_prefix'>url_prefix</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_to_get'>to_get</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_tree'>tree</span>
+    <span class='id identifier rubyid_to_get'>to_get</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_url_prefix'>url_prefix</span><span class='rbrace'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_url_suffix'>url_suffix</span><span class='rbrace'>}</span><span class='tstring_content'>?</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_tree'>tree</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_to_get'>to_get</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_url_prefix'>url_prefix</span><span class='rbrace'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_url_suffix'>url_suffix</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_request'>request</span> <span class='op'>=</span> <span class='const'>Net</span><span class='op'>::</span><span class='const'>HTTP</span><span class='op'>::</span><span class='const'>Get</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_to_get'>to_get</span><span class='rparen'>)</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>GET </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_to_get'>to_get</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_make_http_request'>make_http_request</span><span class='lparen'>(</span><span class='id identifier rubyid_request'>request</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_raw_response'>raw_response</span>
+    <span class='id identifier rubyid_handle_exception'>handle_exception</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>raw</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_handle_exception'>handle_exception</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>body</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_url_suffix'>url_suffix</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>json</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1667,6 +1796,12 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
       <pre class="lines">
 
 
+336
+337
+338
+339
+340
+341
 342
 343
 344
@@ -1697,59 +1832,175 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
 369
 370
 371
-372
-373
-374
-375
-376
-377
-378
-379
-380</pre>
+372</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 342</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 336</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_api_post_request identifier id'>api_post_request</span><span class='lparen token'>(</span><span class='rubyid_url_prefix identifier id'>url_prefix</span><span class='comma token'>,</span> <span class='rubyid_form_data identifier id'>form_data</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='comma token'>,</span> <span class='rubyid_raw_response identifier id'>raw_response</span> <span class='assign token'>=</span> <span class='rubyid_false false kw'>false</span><span class='rparen token'>)</span>
-  <span class='rubyid_retries identifier id'>retries</span> <span class='assign token'>=</span> <span class='rubyid_@crumb_max_retries ivar id'>@crumb_max_retries</span>
-  <span class='rubyid_begin begin kw'>begin</span>
-    <span class='rubyid_refresh_crumbs identifier id'>refresh_crumbs</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_api_post_request'>api_post_request</span><span class='lparen'>(</span><span class='id identifier rubyid_url_prefix'>url_prefix</span><span class='comma'>,</span> <span class='id identifier rubyid_form_data'>form_data</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_raw_response'>raw_response</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_retries'>retries</span> <span class='op'>=</span> <span class='ivar'>@crumb_max_retries</span>
+  <span class='kw'>begin</span>
+    <span class='id identifier rubyid_refresh_crumbs'>refresh_crumbs</span>
 
-    <span class='comment val'># Added form_data default {} instead of nil to help with proxies</span>
-    <span class='comment val'># that barf with empty post</span>
-    <span class='rubyid_url_prefix identifier id'>url_prefix</span> <span class='assign token'>=</span> <span class='rubyid_URI constant id'>URI</span><span class='dot token'>.</span><span class='rubyid_escape identifier id'>escape</span><span class='lparen token'>(</span><span class='dstring node'>&quot;#{@jenkins_path}#{url_prefix}&quot;</span><span class='rparen token'>)</span>
-    <span class='rubyid_request identifier id'>request</span> <span class='assign token'>=</span> <span class='rubyid_Net constant id'>Net</span><span class='colon2 op'>::</span><span class='rubyid_HTTP constant id'>HTTP</span><span class='colon2 op'>::</span><span class='rubyid_Post constant id'>Post</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='dstring node'>&quot;#{url_prefix}&quot;</span><span class='rparen token'>)</span>
-    <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;POST #{url_prefix}&quot;</span>
-    <span class='rubyid_request identifier id'>request</span><span class='dot token'>.</span><span class='rubyid_content_type identifier id'>content_type</span> <span class='assign token'>=</span> <span class='string val'>'application/json'</span>
-    <span class='rubyid_if if kw'>if</span> <span class='rubyid_@crumbs_enabled ivar id'>@crumbs_enabled</span>
-      <span class='rubyid_request identifier id'>request</span><span class='lbrack token'>[</span><span class='rubyid_@crumb ivar id'>@crumb</span><span class='lbrack token'>[</span><span class='string val'>&quot;crumbRequestField&quot;</span><span class='rbrack token'>]</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_@crumb ivar id'>@crumb</span><span class='lbrack token'>[</span><span class='string val'>&quot;crumb&quot;</span><span class='rbrack token'>]</span>
-    <span class='rubyid_end end kw'>end</span>
-    <span class='rubyid_request identifier id'>request</span><span class='dot token'>.</span><span class='rubyid_set_form_data identifier id'>set_form_data</span><span class='lparen token'>(</span><span class='rubyid_form_data identifier id'>form_data</span><span class='rparen token'>)</span>
-    <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_make_http_request identifier id'>make_http_request</span><span class='lparen token'>(</span><span class='rubyid_request identifier id'>request</span><span class='rparen token'>)</span>
-    <span class='rubyid_if if kw'>if</span> <span class='rubyid_raw_response identifier id'>raw_response</span>
-      <span class='rubyid_handle_exception identifier id'>handle_exception</span><span class='lparen token'>(</span><span class='rubyid_response identifier id'>response</span><span class='comma token'>,</span> <span class='string val'>&quot;raw&quot;</span><span class='rparen token'>)</span>
-    <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_handle_exception identifier id'>handle_exception</span><span class='lparen token'>(</span><span class='rubyid_response identifier id'>response</span><span class='rparen token'>)</span>
-    <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_rescue rescue kw'>rescue</span> <span class='rubyid_Exceptions constant id'>Exceptions</span><span class='colon2 op'>::</span><span class='rubyid_ForbiddenException constant id'>ForbiddenException</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_e identifier id'>e</span>
-    <span class='rubyid_refresh_crumbs identifier id'>refresh_crumbs</span><span class='lparen token'>(</span><span class='rubyid_true true kw'>true</span><span class='rparen token'>)</span>
+    <span class='comment'># Added form_data default {} instead of nil to help with proxies
+</span>    <span class='comment'># that barf with empty post
+</span>    <span class='id identifier rubyid_request'>request</span> <span class='op'>=</span> <span class='const'>Net</span><span class='op'>::</span><span class='const'>HTTP</span><span class='op'>::</span><span class='const'>Post</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@jenkins_path</span><span class='rbrace'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_url_prefix'>url_prefix</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>POST </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_url_prefix'>url_prefix</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>if</span> <span class='ivar'>@crumbs_enabled</span>
+      <span class='id identifier rubyid_request'>request</span><span class='lbracket'>[</span><span class='ivar'>@crumb</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>crumbRequestField</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='ivar'>@crumb</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>crumb</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+    <span class='kw'>end</span>
+    <span class='id identifier rubyid_request'>request</span><span class='period'>.</span><span class='id identifier rubyid_set_form_data'>set_form_data</span><span class='lparen'>(</span><span class='id identifier rubyid_form_data'>form_data</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_make_http_request'>make_http_request</span><span class='lparen'>(</span><span class='id identifier rubyid_request'>request</span><span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_raw_response'>raw_response</span>
+      <span class='id identifier rubyid_handle_exception'>handle_exception</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>raw</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_handle_exception'>handle_exception</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>rescue</span> <span class='const'>Exceptions</span><span class='op'>::</span><span class='const'>ForbiddenException</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+    <span class='id identifier rubyid_refresh_crumbs'>refresh_crumbs</span><span class='lparen'>(</span><span class='kw'>true</span><span class='rparen'>)</span>
 
-    <span class='rubyid_if if kw'>if</span> <span class='rubyid_@crumbs_enabled ivar id'>@crumbs_enabled</span>
-      <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Retrying: #{@crumb_max_retries - retries + 1} out of&quot;</span> <span class='plus op'>+</span>
-        <span class='dstring node'>&quot; #{@crumb_max_retries} times...&quot;</span>
-      <span class='rubyid_retries identifier id'>retries</span> <span class='opasgn op'>-=</span> <span class='integer val'>1</span>
+    <span class='kw'>if</span> <span class='ivar'>@crumbs_enabled</span>
+      <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Retrying: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@crumb_max_retries</span> <span class='op'>-</span> <span class='id identifier rubyid_retries'>retries</span> <span class='op'>+</span> <span class='int'>1</span><span class='rbrace'>}</span><span class='tstring_content'> out of</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='ivar'>@crumb_max_retries</span><span class='rbrace'>}</span><span class='tstring_content'> times...</span><span class='tstring_end'>&quot;</span></span>
+      <span class='id identifier rubyid_retries'>retries</span> <span class='op'>-=</span> <span class='int'>1</span>
 
-      <span class='rubyid_if if kw'>if</span> <span class='rubyid_retries identifier id'>retries</span> <span class='gt op'>&gt;</span> <span class='integer val'>0</span>
-        <span class='rubyid_retry retry kw'>retry</span>
-      <span class='rubyid_else else kw'>else</span>
-        <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_Exceptions constant id'>Exceptions</span><span class='colon2 op'>::</span><span class='rubyid_ForbiddenWithCrumb constant id'>ForbiddenWithCrumb</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_@logger ivar id'>@logger</span><span class='comma token'>,</span> <span class='rubyid_e identifier id'>e</span><span class='dot token'>.</span><span class='rubyid_message identifier id'>message</span><span class='rparen token'>)</span>
-      <span class='rubyid_end end kw'>end</span>
-    <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_raise identifier id'>raise</span>
-    <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_end end kw'>end</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+      <span class='kw'>if</span> <span class='id identifier rubyid_retries'>retries</span> <span class='op'>&gt;</span> <span class='int'>0</span>
+        <span class='kw'>retry</span>
+      <span class='kw'>else</span>
+        <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Exceptions</span><span class='op'>::</span><span class='const'>ForbiddenWithCrumb</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@logger</span><span class='comma'>,</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
+      <span class='kw'>end</span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_raise'>raise</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="compare_versions-instance_method">
+  
+    - (<tt>Object</tt>) <strong>compare_versions</strong>(version_a, version_b) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Compare two version strings (A and B) if A == B, returns 0 if A &gt; B,
+returns 1 if A &lt; B, returns -1</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 516</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_compare_versions'>compare_versions</span><span class='lparen'>(</span><span class='id identifier rubyid_version_a'>version_a</span><span class='comma'>,</span> <span class='id identifier rubyid_version_b'>version_b</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_version_a'>version_a</span> <span class='op'>==</span> <span class='id identifier rubyid_version_b'>version_b</span>
+    <span class='kw'>return</span> <span class='int'>0</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_version_a_d'>version_a_d</span> <span class='op'>=</span> <span class='id identifier rubyid_deconstruct_version_string'>deconstruct_version_string</span><span class='lparen'>(</span><span class='id identifier rubyid_version_a'>version_a</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_version_b_d'>version_b_d</span> <span class='op'>=</span> <span class='id identifier rubyid_deconstruct_version_string'>deconstruct_version_string</span><span class='lparen'>(</span><span class='id identifier rubyid_version_b'>version_b</span><span class='rparen'>)</span>
+
+    <span class='kw'>if</span> <span class='id identifier rubyid_version_a_d'>version_a_d</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>&gt;</span> <span class='id identifier rubyid_version_b_d'>version_b_d</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>||</span>
+      <span class='lparen'>(</span><span class='id identifier rubyid_version_a_d'>version_a_d</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='id identifier rubyid_version_b_d'>version_b_d</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_version_a_d'>version_a_d</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>&gt;</span> <span class='id identifier rubyid_version_b_d'>version_b_d</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>||</span>
+      <span class='lparen'>(</span><span class='id identifier rubyid_version_a_d'>version_a_d</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='id identifier rubyid_version_b_d'>version_b_d</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_version_a_d'>version_a_d</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='id identifier rubyid_version_b_d'>version_b_d</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_version_a_d'>version_a_d</span><span class='lbracket'>[</span><span class='int'>2</span><span class='rbracket'>]</span> <span class='op'>&gt;</span> <span class='id identifier rubyid_version_b_d'>version_b_d</span><span class='lbracket'>[</span><span class='int'>2</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+      <span class='kw'>return</span> <span class='int'>1</span>
+    <span class='kw'>else</span>
+      <span class='kw'>return</span> <span class='op'>-</span><span class='int'>1</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="deconstruct_version_string-instance_method">
+  
+    - (<tt>Object</tt>) <strong>deconstruct_version_string</strong>(version) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Converts a version string to a list of integers This makes it easier to
+compare versions since in 'version-speak', v 1.2 is a lot older than v
+1.102 - and simple &lt; &gt; on version strings doesn't work so well</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 500</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_deconstruct_version_string'>deconstruct_version_string</span><span class='lparen'>(</span><span class='id identifier rubyid_version'>version</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_match'>match</span> <span class='op'>=</span> <span class='id identifier rubyid_version'>version</span><span class='period'>.</span><span class='id identifier rubyid_match'>match</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^(\d+)\.(\d+)(?:\.(\d+))?$</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span>
+
+  <span class='comment'># Match should have 4 parts [0] = input string, [1] = major
+</span>  <span class='comment'># [2] = minor, [3] = patch (possibly blank)
+</span>  <span class='kw'>if</span> <span class='id identifier rubyid_match'>match</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_match'>match</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span> <span class='op'>==</span> <span class='int'>4</span>
+    <span class='kw'>return</span> <span class='lbracket'>[</span><span class='id identifier rubyid_match'>match</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='comma'>,</span> <span class='id identifier rubyid_match'>match</span><span class='lbracket'>[</span><span class='int'>2</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='comma'>,</span> <span class='id identifier rubyid_match'>match</span><span class='lbracket'>[</span><span class='int'>3</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span> <span class='op'>||</span> <span class='int'>0</span><span class='rbracket'>]</span>
+  <span class='kw'>else</span>
+    <span class='kw'>return</span> <span class='kw'>nil</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1855,61 +2106,141 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
       <pre class="lines">
 
 
-493
-494
-495
-496
-497
-498
-499
-500
-501
-502
-503
-504
-505
-506
-507
-508
-509
-510
-511
-512
-513
-514
-515
-516
-517</pre>
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 493</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 563</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_exec_cli identifier id'>exec_cli</span><span class='lparen token'>(</span><span class='rubyid_command identifier id'>command</span><span class='comma token'>,</span> <span class='rubyid_args identifier id'>args</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
-  <span class='rubyid_base_dir identifier id'>base_dir</span> <span class='assign token'>=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_dirname identifier id'>dirname</span><span class='lparen token'>(</span><span class='rubyid___FILE__ __file__ kw'>__FILE__</span><span class='rparen token'>)</span>
-  <span class='rubyid_server_url identifier id'>server_url</span> <span class='assign token'>=</span> <span class='dstring node'>&quot;http://#{@server_ip}:#{@server_port}/#{@jenkins_path}&quot;</span>
-  <span class='rubyid_cmd identifier id'>cmd</span> <span class='assign token'>=</span> <span class='dstring node'>&quot;java -jar #{base_dir}/../../java_deps/jenkins-cli.jar -s #{server_url}&quot;</span>
-  <span class='rubyid_cmd identifier id'>cmd</span> <span class='lshft op'>&lt;&lt;</span> <span class='dstring node'>&quot; -i #{@identity_file}&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_@identity_file ivar id'>@identity_file</span> <span class='andop op'>&amp;&amp;</span> <span class='notop op'>!</span><span class='rubyid_@identity_file ivar id'>@identity_file</span><span class='dot token'>.</span><span class='rubyid_empty? fid id'>empty?</span>
-  <span class='rubyid_cmd identifier id'>cmd</span> <span class='lshft op'>&lt;&lt;</span> <span class='dstring node'>&quot; #{command}&quot;</span>
-  <span class='rubyid_cmd identifier id'>cmd</span> <span class='lshft op'>&lt;&lt;</span> <span class='dstring node'>&quot; --username #{@username} --password #{@password}&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_@identity_file ivar id'>@identity_file</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span> <span class='orop op'>||</span> <span class='rubyid_@identity_file ivar id'>@identity_file</span><span class='dot token'>.</span><span class='rubyid_empty? fid id'>empty?</span>
-  <span class='rubyid_cmd identifier id'>cmd</span> <span class='lshft op'>&lt;&lt;</span> <span class='string val'>' '</span>
-  <span class='rubyid_cmd identifier id'>cmd</span> <span class='lshft op'>&lt;&lt;</span> <span class='rubyid_args identifier id'>args</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='string val'>' '</span><span class='rparen token'>)</span>
-  <span class='rubyid_java_cmd identifier id'>java_cmd</span> <span class='assign token'>=</span> <span class='rubyid_Mixlib constant id'>Mixlib</span><span class='colon2 op'>::</span><span class='rubyid_ShellOut constant id'>ShellOut</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_cmd identifier id'>cmd</span><span class='rparen token'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_exec_cli'>exec_cli</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_base_dir'>base_dir</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_dirname'>dirname</span><span class='lparen'>(</span><span class='kw'>__FILE__</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_server_url'>server_url</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>http://</span><span class='embexpr_beg'>#{</span><span class='ivar'>@server_ip</span><span class='rbrace'>}</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='ivar'>@server_port</span><span class='rbrace'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='ivar'>@jenkins_path</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_cmd'>cmd</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>java -jar </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_base_dir'>base_dir</span><span class='rbrace'>}</span><span class='tstring_content'>/../../java_deps/jenkins-cli.jar -s </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_server_url'>server_url</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_cmd'>cmd</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> -i </span><span class='embexpr_beg'>#{</span><span class='ivar'>@identity_file</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@identity_file</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='ivar'>@identity_file</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+  <span class='id identifier rubyid_cmd'>cmd</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_command'>command</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_cmd'>cmd</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> --username </span><span class='embexpr_beg'>#{</span><span class='ivar'>@username</span><span class='rbrace'>}</span><span class='tstring_content'> --password </span><span class='embexpr_beg'>#{</span><span class='ivar'>@password</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='ivar'>@identity_file</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>||</span> <span class='ivar'>@identity_file</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+  <span class='id identifier rubyid_cmd'>cmd</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'> </span><span class='tstring_end'>'</span></span>
+  <span class='id identifier rubyid_cmd'>cmd</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'> </span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_java_cmd'>java_cmd</span> <span class='op'>=</span> <span class='const'>Mixlib</span><span class='op'>::</span><span class='const'>ShellOut</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_cmd'>cmd</span><span class='rparen'>)</span>
 
-  <span class='comment val'># Run the command</span>
-  <span class='rubyid_java_cmd identifier id'>java_cmd</span><span class='dot token'>.</span><span class='rubyid_run_command identifier id'>run_command</span>
-  <span class='rubyid_if if kw'>if</span> <span class='rubyid_java_cmd identifier id'>java_cmd</span><span class='dot token'>.</span><span class='rubyid_stderr identifier id'>stderr</span><span class='dot token'>.</span><span class='rubyid_empty? fid id'>empty?</span>
-    <span class='rubyid_java_cmd identifier id'>java_cmd</span><span class='dot token'>.</span><span class='rubyid_stdout identifier id'>stdout</span><span class='dot token'>.</span><span class='rubyid_chomp identifier id'>chomp</span>
-  <span class='rubyid_else else kw'>else</span>
-    <span class='comment val'># The stderr has a stack trace of the Java program. We'll already have</span>
-    <span class='comment val'># a stack trace for Ruby. So just display a descriptive message for the</span>
-    <span class='comment val'># error thrown by the CLI.</span>
-    <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_Exceptions constant id'>Exceptions</span><span class='colon2 op'>::</span><span class='rubyid_CLIException constant id'>CLIException</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span>
-      <span class='rubyid_@logger ivar id'>@logger</span><span class='comma token'>,</span>
-      <span class='rubyid_java_cmd identifier id'>java_cmd</span><span class='dot token'>.</span><span class='rubyid_stderr identifier id'>stderr</span><span class='dot token'>.</span><span class='rubyid_split identifier id'>split</span><span class='lparen token'>(</span><span class='string val'>&quot;\n&quot;</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_first identifier id'>first</span>
-    <span class='rparen token'>)</span>
-  <span class='rubyid_end end kw'>end</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+  <span class='comment'># Run the command
+</span>  <span class='id identifier rubyid_java_cmd'>java_cmd</span><span class='period'>.</span><span class='id identifier rubyid_run_command'>run_command</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_java_cmd'>java_cmd</span><span class='period'>.</span><span class='id identifier rubyid_stderr'>stderr</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+    <span class='id identifier rubyid_java_cmd'>java_cmd</span><span class='period'>.</span><span class='id identifier rubyid_stdout'>stdout</span><span class='period'>.</span><span class='id identifier rubyid_chomp'>chomp</span>
+  <span class='kw'>else</span>
+    <span class='comment'># The stderr has a stack trace of the Java program. We'll already have
+</span>    <span class='comment'># a stack trace for Ruby. So just display a descriptive message for the
+</span>    <span class='comment'># error thrown by the CLI.
+</span>    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Exceptions</span><span class='op'>::</span><span class='const'>CLIException</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
+      <span class='ivar'>@logger</span><span class='comma'>,</span>
+      <span class='id identifier rubyid_java_cmd'>java_cmd</span><span class='period'>.</span><span class='id identifier rubyid_stderr'>stderr</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span>
+    <span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="exec_script-instance_method">
+  
+    - (<tt>String</tt>) <strong>exec_script</strong>(script_text) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Executes the provided groovy script on the Jenkins CI server</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>script_text</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The text of the groovy script to execute</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The output of the executed groovy script</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+548
+549
+550
+551</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 548</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_exec_script'>exec_script</span><span class='lparen'>(</span><span class='id identifier rubyid_script_text'>script_text</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_api_post_request'>api_post_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>/scriptText</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>script</span><span class='tstring_end'>'</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_script_text'>script_text</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1979,25 +2310,22 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
       <pre class="lines">
 
 
-388
-389
-390
-391
-392
-393
-394</pre>
+380
+381
+382
+383
+384
+385</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 388</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 380</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_get_config identifier id'>get_config</span><span class='lparen token'>(</span><span class='rubyid_url_prefix identifier id'>url_prefix</span><span class='rparen token'>)</span>
-  <span class='rubyid_url_prefix identifier id'>url_prefix</span> <span class='assign token'>=</span> <span class='rubyid_URI constant id'>URI</span><span class='dot token'>.</span><span class='rubyid_escape identifier id'>escape</span><span class='lparen token'>(</span><span class='dstring node'>&quot;#{@jenkins_path}#{url_prefix}&quot;</span><span class='rparen token'>)</span>
-  <span class='rubyid_request identifier id'>request</span> <span class='assign token'>=</span> <span class='rubyid_Net constant id'>Net</span><span class='colon2 op'>::</span><span class='rubyid_HTTP constant id'>HTTP</span><span class='colon2 op'>::</span><span class='rubyid_Get constant id'>Get</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='dstring node'>&quot;#{url_prefix}/config.xml&quot;</span><span class='rparen token'>)</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;GET #{url_prefix}/config.xml&quot;</span>
-  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_make_http_request identifier id'>make_http_request</span><span class='lparen token'>(</span><span class='rubyid_request identifier id'>request</span><span class='rparen token'>)</span>
-  <span class='rubyid_handle_exception identifier id'>handle_exception</span><span class='lparen token'>(</span><span class='rubyid_response identifier id'>response</span><span class='comma token'>,</span> <span class='string val'>&quot;body&quot;</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_get_config'>get_config</span><span class='lparen'>(</span><span class='id identifier rubyid_url_prefix'>url_prefix</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_request'>request</span> <span class='op'>=</span> <span class='const'>Net</span><span class='op'>::</span><span class='const'>HTTP</span><span class='op'>::</span><span class='const'>Get</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@jenkins_path</span><span class='rbrace'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_url_prefix'>url_prefix</span><span class='rbrace'>}</span><span class='tstring_content'>/config.xml</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>GET </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_url_prefix'>url_prefix</span><span class='rbrace'>}</span><span class='tstring_content'>/config.xml</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_make_http_request'>make_http_request</span><span class='lparen'>(</span><span class='id identifier rubyid_request'>request</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_handle_exception'>handle_exception</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>body</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -2015,7 +2343,10 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Obtain the Hudson version of the CI server</p>
+<p>Obtain the Hudson version of the CI server Only queries Hudson/Jenkins if
+the version is not already stored. Note that the version is auto-updated
+after every request made to Jenkins since it is returned as a header in
+every response</p>
 
 
   </div>
@@ -2047,19 +2378,18 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
       <pre class="lines">
 
 
-469
-470
-471
-472</pre>
+491
+492
+493
+494</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 469</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 491</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_get_hudson_version identifier id'>get_hudson_version</span>
-  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_get_root identifier id'>get_root</span>
-  <span class='rubyid_response identifier id'>response</span><span class='lbrack token'>[</span><span class='string val'>&quot;X-Hudson&quot;</span><span class='rbrack token'>]</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_get_hudson_version'>get_hudson_version</span>
+  <span class='id identifier rubyid_get_root'>get_root</span> <span class='kw'>if</span> <span class='ivar'>@hudson_version</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+  <span class='ivar'>@hudson_version</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -2068,7 +2398,7 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
       <div class="method_details ">
   <h3 class="signature " id="get_jenkins_version-instance_method">
   
-    - (<tt>Object</tt>) <strong>get_jenkins_version</strong> 
+    - (<tt>String</tt>) <strong>get_jenkins_version</strong> 
   
 
   
@@ -2077,7 +2407,10 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Obtains the jenkins version from the API</p>
+<p>Obtains the jenkins version from the API Only queries Jenkins if the
+version is not already stored. Note that the version is auto-updated after
+every request made to Jenkins since it is returned as a header in every
+response</p>
 
 
   </div>
@@ -2090,11 +2423,11 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
     <li>
       
       
-        <span class='type'></span>
+        <span class='type'>(<tt>String</tt>)</span>
       
       
       
-        
+        &mdash;
         <div class='inline'>
 <p>Jenkins version</p>
 </div>
@@ -2109,19 +2442,18 @@ Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
       <pre class="lines">
 
 
-460
-461
-462
-463</pre>
+479
+480
+481
+482</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 460</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 479</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_get_jenkins_version identifier id'>get_jenkins_version</span>
-  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_get_root identifier id'>get_root</span>
-  <span class='rubyid_response identifier id'>response</span><span class='lbrack token'>[</span><span class='string val'>&quot;X-Jenkins&quot;</span><span class='rbrack token'>]</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_get_jenkins_version'>get_jenkins_version</span>
+  <span class='id identifier rubyid_get_root'>get_root</span> <span class='kw'>if</span> <span class='ivar'>@jenkins_version</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+  <span class='ivar'>@jenkins_version</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -2172,21 +2504,20 @@ is running</p>
       <pre class="lines">
 
 
-299
-300
-301
-302
-303</pre>
+294
+295
+296
+297
+298</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 299</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 294</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_get_root identifier id'>get_root</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;GET #{@jenkins_path}/&quot;</span>
-  <span class='rubyid_request identifier id'>request</span> <span class='assign token'>=</span> <span class='rubyid_Net constant id'>Net</span><span class='colon2 op'>::</span><span class='rubyid_HTTP constant id'>HTTP</span><span class='colon2 op'>::</span><span class='rubyid_Get constant id'>Get</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='dstring node'>&quot;#{@jenkins_path}/&quot;</span><span class='rparen token'>)</span>
-  <span class='rubyid_make_http_request identifier id'>make_http_request</span><span class='lparen token'>(</span><span class='rubyid_request identifier id'>request</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_get_root'>get_root</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>GET </span><span class='embexpr_beg'>#{</span><span class='ivar'>@jenkins_path</span><span class='rbrace'>}</span><span class='tstring_content'>/</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_request'>request</span> <span class='op'>=</span> <span class='const'>Net</span><span class='op'>::</span><span class='const'>HTTP</span><span class='op'>::</span><span class='const'>Get</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@jenkins_path</span><span class='rbrace'>}</span><span class='tstring_content'>/</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_make_http_request'>make_http_request</span><span class='lparen'>(</span><span class='id identifier rubyid_request'>request</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -2236,19 +2567,76 @@ is running</p>
       <pre class="lines">
 
 
-478
-479
-480
-481</pre>
+537
+538
+539
+540</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 478</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 537</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_get_server_date identifier id'>get_server_date</span>
-  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_get_root identifier id'>get_root</span>
-  <span class='rubyid_response identifier id'>response</span><span class='lbrack token'>[</span><span class='string val'>&quot;Date&quot;</span><span class='rbrack token'>]</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_get_server_date'>get_server_date</span>
+  <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_get_root'>get_root</span>
+  <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Date</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="init_update_center-instance_method">
+  
+    - (<tt>Object</tt>) <strong>init_update_center</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 435</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_init_update_center'>init_update_center</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Initializing Jenkins Update Center...</span><span class='tstring_end'>&quot;</span></span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_debug'>debug</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining the JSON data for Update Center...</span><span class='tstring_end'>&quot;</span></span>
+  <span class='comment'># TODO: Clean me up
+</span>  <span class='id identifier rubyid_update_center_data'>update_center_data</span> <span class='op'>=</span> <span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>http://updates.jenkins-ci.org/update-center.json</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span>
+  <span class='comment'># The Jenkins mirror returns the data in the following format
+</span>  <span class='comment'>#   updateCenter.post(
+</span>  <span class='comment'>#     {.. JSON data...}
+</span>  <span class='comment'>#   );
+</span>  <span class='comment'># which is used by the Javascript used by the Jenkins UI to send to Jenkins.
+</span>  <span class='comment'>#
+</span>  <span class='id identifier rubyid_update_center_data'>update_center_data</span><span class='period'>.</span><span class='id identifier rubyid_gsub!'>gsub!</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>updateCenter.post(\n</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_update_center_data'>update_center_data</span><span class='period'>.</span><span class='id identifier rubyid_gsub!'>gsub!</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>\n);</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_debug'>debug</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Posting the obtained JSON to Jenkins Update Center...</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_post_json'>post_json</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/updateCenter/byId/default/postBack</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_update_center_data'>update_center_data</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -2282,31 +2670,30 @@ called. Just print the important variables.</p>
       <pre class="lines">
 
 
-244
-245
-246
-247
-248
-249
-250
-251
-252
-253</pre>
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 244</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 233</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_inspect identifier id'>inspect</span>
-  <span class='dstring node'>&quot;#&lt;JenkinsApi::Client:0x#{(self.__id__ * 2).to_s(16)}&quot;</span> <span class='plus op'>+</span>
-    <span class='dstring node'>&quot; @ssl=#{@ssl.inspect},&quot;</span> <span class='plus op'>+</span>
-    <span class='dstring node'>&quot; @log_location=#{@log_location.inspect},&quot;</span> <span class='plus op'>+</span>
-    <span class='dstring node'>&quot; @log_level=#{@log_level.inspect},&quot;</span> <span class='plus op'>+</span>
-    <span class='dstring node'>&quot; @crumbs_enabled=#{@crumbs_enabled.inspect},&quot;</span> <span class='plus op'>+</span>
-    <span class='dstring node'>&quot; @follow_redirects=#{@follow_redirects.inspect},&quot;</span> <span class='plus op'>+</span>
-    <span class='dstring node'>&quot; @jenkins_path=#{@jenkins_path.inspect},&quot;</span> <span class='plus op'>+</span>
-    <span class='dstring node'>&quot; @timeout=#{@timeout.inspect}&gt;&quot;</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_inspect'>inspect</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>#&lt;JenkinsApi::Client:0x</span><span class='embexpr_beg'>#{</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid___id__'>__id__</span> <span class='op'>*</span> <span class='int'>2</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='lparen'>(</span><span class='int'>16</span><span class='rparen'>)</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> @ssl=</span><span class='embexpr_beg'>#{</span><span class='ivar'>@ssl</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='rbrace'>}</span><span class='tstring_content'>,</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> @log_location=</span><span class='embexpr_beg'>#{</span><span class='ivar'>@log_location</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='rbrace'>}</span><span class='tstring_content'>,</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> @log_level=</span><span class='embexpr_beg'>#{</span><span class='ivar'>@log_level</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='rbrace'>}</span><span class='tstring_content'>,</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> @crumbs_enabled=</span><span class='embexpr_beg'>#{</span><span class='ivar'>@crumbs_enabled</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='rbrace'>}</span><span class='tstring_content'>,</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> @follow_redirects=</span><span class='embexpr_beg'>#{</span><span class='ivar'>@follow_redirects</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='rbrace'>}</span><span class='tstring_content'>,</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> @jenkins_path=</span><span class='embexpr_beg'>#{</span><span class='ivar'>@jenkins_path</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='rbrace'>}</span><span class='tstring_content'>,</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> @timeout=</span><span class='embexpr_beg'>#{</span><span class='ivar'>@timeout</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='rbrace'>}</span><span class='tstring_content'>&gt;</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -2356,168 +2743,16 @@ called. Just print the important variables.</p>
       <pre class="lines">
 
 
-179
-180
-181</pre>
+168
+169
+170</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 179</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 168</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_job identifier id'>job</span>
-  <span class='rubyid_JenkinsApi constant id'>JenkinsApi</span><span class='colon2 op'>::</span><span class='rubyid_Client constant id'>Client</span><span class='colon2 op'>::</span><span class='rubyid_Job constant id'>Job</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_self self kw'>self</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="make_http_request-instance_method">
-  
-    - (<tt>Net::HTTPResponse</tt>) <strong>make_http_request</strong>(request, follow_redirect = @follow_redirects)  <span class="extras">(protected)</span>
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Connects to the Jenkins server, sends the specified request and returns the
-response.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>request</span>
-      
-      
-        <span class='type'>(<tt>Net::HTTPRequest</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>The request object to send</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>follow_redirect</span>
-      
-      
-        <span class='type'>(<tt>Boolean</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>@follow_redirects</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>whether to follow redirects or not</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Net::HTTPResponse</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>Response from Jenkins</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-263
-264
-265
-266
-267
-268
-269
-270
-271
-272
-273
-274
-275
-276
-277
-278
-279
-280
-281
-282
-283
-284
-285
-286
-287
-288
-289
-290
-291</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 263</span>
-
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_make_http_request identifier id'>make_http_request</span><span class='lparen token'>(</span><span class='rubyid_request identifier id'>request</span><span class='comma token'>,</span> <span class='rubyid_follow_redirect identifier id'>follow_redirect</span> <span class='assign token'>=</span> <span class='rubyid_@follow_redirects ivar id'>@follow_redirects</span><span class='rparen token'>)</span>
-  <span class='rubyid_request identifier id'>request</span><span class='dot token'>.</span><span class='rubyid_basic_auth identifier id'>basic_auth</span> <span class='rubyid_@username ivar id'>@username</span><span class='comma token'>,</span> <span class='rubyid_@password ivar id'>@password</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_@username ivar id'>@username</span>
-
-  <span class='rubyid_if if kw'>if</span> <span class='rubyid_@proxy_ip ivar id'>@proxy_ip</span>
-    <span class='rubyid_http identifier id'>http</span> <span class='assign token'>=</span> <span class='rubyid_Net constant id'>Net</span><span class='colon2 op'>::</span><span class='rubyid_HTTP constant id'>HTTP</span><span class='colon2 op'>::</span><span class='rubyid_Proxy constant id'>Proxy</span><span class='lparen token'>(</span><span class='rubyid_@proxy_ip ivar id'>@proxy_ip</span><span class='comma token'>,</span> <span class='rubyid_@proxy_port ivar id'>@proxy_port</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_@server_ip ivar id'>@server_ip</span><span class='comma token'>,</span> <span class='rubyid_@server_port ivar id'>@server_port</span><span class='rparen token'>)</span>
-  <span class='rubyid_else else kw'>else</span>
-    <span class='rubyid_http identifier id'>http</span> <span class='assign token'>=</span> <span class='rubyid_Net constant id'>Net</span><span class='colon2 op'>::</span><span class='rubyid_HTTP constant id'>HTTP</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_@server_ip ivar id'>@server_ip</span><span class='comma token'>,</span> <span class='rubyid_@server_port ivar id'>@server_port</span><span class='rparen token'>)</span>
-  <span class='rubyid_end end kw'>end</span>
-
-  <span class='rubyid_if if kw'>if</span> <span class='rubyid_@ssl ivar id'>@ssl</span>
-    <span class='rubyid_http identifier id'>http</span><span class='dot token'>.</span><span class='rubyid_use_ssl identifier id'>use_ssl</span> <span class='assign token'>=</span> <span class='rubyid_true true kw'>true</span>
-    <span class='rubyid_http identifier id'>http</span><span class='dot token'>.</span><span class='rubyid_verify_mode identifier id'>verify_mode</span> <span class='assign token'>=</span> <span class='rubyid_OpenSSL constant id'>OpenSSL</span><span class='colon2 op'>::</span><span class='rubyid_SSL constant id'>SSL</span><span class='colon2 op'>::</span><span class='rubyid_VERIFY_NONE constant id'>VERIFY_NONE</span>
-  <span class='rubyid_end end kw'>end</span>
-
-  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_http identifier id'>http</span><span class='dot token'>.</span><span class='rubyid_request identifier id'>request</span><span class='lparen token'>(</span><span class='rubyid_request identifier id'>request</span><span class='rparen token'>)</span>
-  <span class='rubyid_case case kw'>case</span> <span class='rubyid_response identifier id'>response</span>
-    <span class='rubyid_when when kw'>when</span> <span class='rubyid_Net constant id'>Net</span><span class='colon2 op'>::</span><span class='rubyid_HTTPRedirection constant id'>HTTPRedirection</span> <span class='rubyid_then then kw'>then</span>
-      <span class='comment val'># If we got a redirect request, follow it (if flag set), but don't</span>
-      <span class='comment val'># go any deeper (only one redirect supported - don't want to follow</span>
-      <span class='comment val'># our tail)</span>
-      <span class='rubyid_if if kw'>if</span> <span class='rubyid_follow_redirect identifier id'>follow_redirect</span>
-        <span class='rubyid_redir_uri identifier id'>redir_uri</span> <span class='assign token'>=</span> <span class='rubyid_URI constant id'>URI</span><span class='dot token'>.</span><span class='rubyid_parse identifier id'>parse</span><span class='lparen token'>(</span><span class='rubyid_response identifier id'>response</span><span class='lbrack token'>[</span><span class='string val'>'location'</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
-        <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_make_http_request identifier id'>make_http_request</span><span class='lparen token'>(</span>
-          <span class='rubyid_Net constant id'>Net</span><span class='colon2 op'>::</span><span class='rubyid_HTTP constant id'>HTTP</span><span class='colon2 op'>::</span><span class='rubyid_Get constant id'>Get</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_redir_uri identifier id'>redir_uri</span><span class='dot token'>.</span><span class='rubyid_path identifier id'>path</span><span class='comma token'>,</span> <span class='rubyid_false false kw'>false</span><span class='rparen token'>)</span>
-        <span class='rparen token'>)</span>
-      <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_return return kw'>return</span> <span class='rubyid_response identifier id'>response</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_job'>job</span>
+  <span class='const'>JenkinsApi</span><span class='op'>::</span><span class='const'>Client</span><span class='op'>::</span><span class='const'>Job</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -2567,17 +2802,16 @@ response.</p>
       <pre class="lines">
 
 
-195
-196
-197</pre>
+184
+185
+186</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 195</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 184</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_node identifier id'>node</span>
-  <span class='rubyid_JenkinsApi constant id'>JenkinsApi</span><span class='colon2 op'>::</span><span class='rubyid_Client constant id'>Client</span><span class='colon2 op'>::</span><span class='rubyid_Node constant id'>Node</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_self self kw'>self</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_node'>node</span>
+  <span class='const'>JenkinsApi</span><span class='op'>::</span><span class='const'>Client</span><span class='op'>::</span><span class='const'>Node</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -2627,17 +2861,16 @@ response.</p>
       <pre class="lines">
 
 
-220
-221
-222</pre>
+209
+210
+211</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 220</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 209</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_plugin identifier id'>plugin</span>
-  <span class='rubyid_JenkinsApi constant id'>JenkinsApi</span><span class='colon2 op'>::</span><span class='rubyid_Client constant id'>Client</span><span class='colon2 op'>::</span><span class='rubyid_PluginManager constant id'>PluginManager</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_self self kw'>self</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_plugin'>plugin</span>
+  <span class='const'>JenkinsApi</span><span class='op'>::</span><span class='const'>Client</span><span class='op'>::</span><span class='const'>PluginManager</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -2723,6 +2956,37 @@ response.</p>
       <pre class="lines">
 
 
+394
+395
+396</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 394</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_post_config'>post_config</span><span class='lparen'>(</span><span class='id identifier rubyid_url_prefix'>url_prefix</span><span class='comma'>,</span> <span class='id identifier rubyid_xml'>xml</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_post_data'>post_data</span><span class='lparen'>(</span><span class='id identifier rubyid_url_prefix'>url_prefix</span><span class='comma'>,</span> <span class='id identifier rubyid_xml'>xml</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>application/xml</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="post_data-instance_method">
+  
+    - (<tt>Object</tt>) <strong>post_data</strong>(url_prefix, data, content_type) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+402
 403
 404
 405
@@ -2753,47 +3017,73 @@ response.</p>
 430
 431
 432
-433
-434
-435</pre>
+433</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 403</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 402</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_post_config identifier id'>post_config</span><span class='lparen token'>(</span><span class='rubyid_url_prefix identifier id'>url_prefix</span><span class='comma token'>,</span> <span class='rubyid_xml identifier id'>xml</span><span class='rparen token'>)</span>
-  <span class='rubyid_retries identifier id'>retries</span> <span class='assign token'>=</span> <span class='rubyid_@crumb_max_retries ivar id'>@crumb_max_retries</span>
-  <span class='rubyid_begin begin kw'>begin</span>
-    <span class='rubyid_refresh_crumbs identifier id'>refresh_crumbs</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_post_data'>post_data</span><span class='lparen'>(</span><span class='id identifier rubyid_url_prefix'>url_prefix</span><span class='comma'>,</span> <span class='id identifier rubyid_data'>data</span><span class='comma'>,</span> <span class='id identifier rubyid_content_type'>content_type</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_retries'>retries</span> <span class='op'>=</span> <span class='ivar'>@crumb_max_retries</span>
+  <span class='kw'>begin</span>
+    <span class='id identifier rubyid_refresh_crumbs'>refresh_crumbs</span>
 
-    <span class='rubyid_url_prefix identifier id'>url_prefix</span> <span class='assign token'>=</span> <span class='rubyid_URI constant id'>URI</span><span class='dot token'>.</span><span class='rubyid_escape identifier id'>escape</span><span class='lparen token'>(</span><span class='dstring node'>&quot;#{@jenkins_path}#{url_prefix}&quot;</span><span class='rparen token'>)</span>
-    <span class='rubyid_request identifier id'>request</span> <span class='assign token'>=</span> <span class='rubyid_Net constant id'>Net</span><span class='colon2 op'>::</span><span class='rubyid_HTTP constant id'>HTTP</span><span class='colon2 op'>::</span><span class='rubyid_Post constant id'>Post</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='dstring node'>&quot;#{url_prefix}&quot;</span><span class='rparen token'>)</span>
-    <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;POST #{url_prefix}&quot;</span>
-    <span class='rubyid_request identifier id'>request</span><span class='dot token'>.</span><span class='rubyid_body identifier id'>body</span> <span class='assign token'>=</span> <span class='rubyid_xml identifier id'>xml</span>
-    <span class='rubyid_request identifier id'>request</span><span class='dot token'>.</span><span class='rubyid_content_type identifier id'>content_type</span> <span class='assign token'>=</span> <span class='string val'>'application/xml'</span>
-    <span class='rubyid_if if kw'>if</span> <span class='rubyid_@crumbs_enabled ivar id'>@crumbs_enabled</span>
-      <span class='rubyid_request identifier id'>request</span><span class='lbrack token'>[</span><span class='rubyid_@crumb ivar id'>@crumb</span><span class='lbrack token'>[</span><span class='string val'>&quot;crumbRequestField&quot;</span><span class='rbrack token'>]</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_@crumb ivar id'>@crumb</span><span class='lbrack token'>[</span><span class='string val'>&quot;crumb&quot;</span><span class='rbrack token'>]</span>
-    <span class='rubyid_end end kw'>end</span>
-    <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_make_http_request identifier id'>make_http_request</span><span class='lparen token'>(</span><span class='rubyid_request identifier id'>request</span><span class='rparen token'>)</span>
-    <span class='rubyid_handle_exception identifier id'>handle_exception</span><span class='lparen token'>(</span><span class='rubyid_response identifier id'>response</span><span class='rparen token'>)</span>
-  <span class='rubyid_rescue rescue kw'>rescue</span> <span class='rubyid_Exceptions constant id'>Exceptions</span><span class='colon2 op'>::</span><span class='rubyid_ForbiddenException constant id'>ForbiddenException</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_e identifier id'>e</span>
-    <span class='rubyid_refresh_crumbs identifier id'>refresh_crumbs</span><span class='lparen token'>(</span><span class='rubyid_true true kw'>true</span><span class='rparen token'>)</span>
+    <span class='id identifier rubyid_request'>request</span> <span class='op'>=</span> <span class='const'>Net</span><span class='op'>::</span><span class='const'>HTTP</span><span class='op'>::</span><span class='const'>Post</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@jenkins_path</span><span class='rbrace'>}</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_url_prefix'>url_prefix</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>POST </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_url_prefix'>url_prefix</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_request'>request</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='id identifier rubyid_data'>data</span>
+    <span class='id identifier rubyid_request'>request</span><span class='period'>.</span><span class='id identifier rubyid_content_type'>content_type</span> <span class='op'>=</span> <span class='id identifier rubyid_content_type'>content_type</span>
+    <span class='kw'>if</span> <span class='ivar'>@crumbs_enabled</span>
+      <span class='id identifier rubyid_request'>request</span><span class='lbracket'>[</span><span class='ivar'>@crumb</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>crumbRequestField</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='ivar'>@crumb</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>crumb</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+    <span class='kw'>end</span>
+    <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_make_http_request'>make_http_request</span><span class='lparen'>(</span><span class='id identifier rubyid_request'>request</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_handle_exception'>handle_exception</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='rparen'>)</span>
+  <span class='kw'>rescue</span> <span class='const'>Exceptions</span><span class='op'>::</span><span class='const'>ForbiddenException</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+    <span class='id identifier rubyid_refresh_crumbs'>refresh_crumbs</span><span class='lparen'>(</span><span class='kw'>true</span><span class='rparen'>)</span>
 
-    <span class='rubyid_if if kw'>if</span> <span class='rubyid_@crumbs_enabled ivar id'>@crumbs_enabled</span>
-      <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Retrying: #{@crumb_max_retries - retries + 1} out of&quot;</span> <span class='plus op'>+</span>
-        <span class='dstring node'>&quot; #{@crumb_max_retries} times...&quot;</span>
-      <span class='rubyid_retries identifier id'>retries</span> <span class='opasgn op'>-=</span> <span class='integer val'>1</span>
+    <span class='kw'>if</span> <span class='ivar'>@crumbs_enabled</span>
+      <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Retrying: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@crumb_max_retries</span> <span class='op'>-</span> <span class='id identifier rubyid_retries'>retries</span> <span class='op'>+</span> <span class='int'>1</span><span class='rbrace'>}</span><span class='tstring_content'> out of</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='ivar'>@crumb_max_retries</span><span class='rbrace'>}</span><span class='tstring_content'> times...</span><span class='tstring_end'>&quot;</span></span>
+      <span class='id identifier rubyid_retries'>retries</span> <span class='op'>-=</span> <span class='int'>1</span>
 
-      <span class='rubyid_if if kw'>if</span> <span class='rubyid_retries identifier id'>retries</span> <span class='gt op'>&gt;</span> <span class='integer val'>0</span>
-        <span class='rubyid_retry retry kw'>retry</span>
-      <span class='rubyid_else else kw'>else</span>
-        <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_Exceptions constant id'>Exceptions</span><span class='colon2 op'>::</span><span class='rubyid_ForbiddenWithCrumb constant id'>ForbiddenWithCrumb</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_@logger ivar id'>@logger</span><span class='comma token'>,</span> <span class='rubyid_e identifier id'>e</span><span class='dot token'>.</span><span class='rubyid_message identifier id'>message</span><span class='rparen token'>)</span>
-      <span class='rubyid_end end kw'>end</span>
-    <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_raise identifier id'>raise</span>
-    <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_end end kw'>end</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+      <span class='kw'>if</span> <span class='id identifier rubyid_retries'>retries</span> <span class='op'>&gt;</span> <span class='int'>0</span>
+        <span class='kw'>retry</span>
+      <span class='kw'>else</span>
+        <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Exceptions</span><span class='op'>::</span><span class='const'>ForbiddenWithCrumb</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@logger</span><span class='comma'>,</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
+      <span class='kw'>end</span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_raise'>raise</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="post_json-instance_method">
+  
+    - (<tt>Object</tt>) <strong>post_json</strong>(url_prefix, json) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+398
+399
+400</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 398</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_post_json'>post_json</span><span class='lparen'>(</span><span class='id identifier rubyid_url_prefix'>url_prefix</span><span class='comma'>,</span> <span class='id identifier rubyid_json'>json</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_post_data'>post_data</span><span class='lparen'>(</span><span class='id identifier rubyid_url_prefix'>url_prefix</span><span class='comma'>,</span> <span class='id identifier rubyid_json'>json</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>application/json</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -2843,17 +3133,16 @@ response.</p>
       <pre class="lines">
 
 
-211
-212
-213</pre>
+200
+201
+202</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 211</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 200</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_queue identifier id'>queue</span>
-  <span class='rubyid_JenkinsApi constant id'>JenkinsApi</span><span class='colon2 op'>::</span><span class='rubyid_Client constant id'>Client</span><span class='colon2 op'>::</span><span class='rubyid_BuildQueue constant id'>BuildQueue</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_self self kw'>self</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_queue'>queue</span>
+  <span class='const'>JenkinsApi</span><span class='op'>::</span><span class='const'>Client</span><span class='op'>::</span><span class='const'>BuildQueue</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -2903,17 +3192,16 @@ response.</p>
       <pre class="lines">
 
 
-187
-188
-189</pre>
+176
+177
+178</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 187</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 176</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_system identifier id'>system</span>
-  <span class='rubyid_JenkinsApi constant id'>JenkinsApi</span><span class='colon2 op'>::</span><span class='rubyid_Client constant id'>Client</span><span class='colon2 op'>::</span><span class='rubyid_System constant id'>System</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_self self kw'>self</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_system'>system</span>
+  <span class='const'>JenkinsApi</span><span class='op'>::</span><span class='const'>Client</span><span class='op'>::</span><span class='const'>System</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -2963,17 +3251,16 @@ response.</p>
       <pre class="lines">
 
 
-236
-237
-238</pre>
+225
+226
+227</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 236</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 225</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_to_s identifier id'>to_s</span>
-  <span class='string val'>&quot;#&lt;JenkinsApi::Client&gt;&quot;</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>#&lt;JenkinsApi::Client&gt;</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -2992,7 +3279,7 @@ response.</p>
   <div class="discussion">
     
 <p>Checks if Jenkins uses crumbs (i.e) the XSS disable option is checked in
-Jenkins’ security settings</p>
+Jenkins' security settings</p>
 
 
   </div>
@@ -3024,19 +3311,18 @@ Jenkins’ security settings</p>
       <pre class="lines">
 
 
-442
-443
-444
-445</pre>
+458
+459
+460
+461</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 442</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 458</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_use_crumbs? fid id'>use_crumbs?</span>
-  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_api_get_request identifier id'>api_get_request</span><span class='lparen token'>(</span><span class='string val'>&quot;&quot;</span><span class='rparen token'>)</span>
-  <span class='rubyid_response identifier id'>response</span><span class='lbrack token'>[</span><span class='string val'>&quot;useCrumbs&quot;</span><span class='rbrack token'>]</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_use_crumbs?'>use_crumbs?</span>
+  <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_api_get_request'>api_get_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>useCrumbs</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -3086,19 +3372,18 @@ Jenkins’ security settings</p>
       <pre class="lines">
 
 
-451
-452
-453
-454</pre>
+467
+468
+469
+470</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 451</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 467</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_use_security? fid id'>use_security?</span>
-  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_api_get_request identifier id'>api_get_request</span><span class='lparen token'>(</span><span class='string val'>&quot;&quot;</span><span class='rparen token'>)</span>
-  <span class='rubyid_response identifier id'>response</span><span class='lbrack token'>[</span><span class='string val'>&quot;useSecurity&quot;</span><span class='rbrack token'>]</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_use_security?'>use_security?</span>
+  <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_api_get_request'>api_get_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>useSecurity</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -3148,17 +3433,16 @@ Jenkins’ security settings</p>
       <pre class="lines">
 
 
-228
-229
-230</pre>
+217
+218
+219</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 228</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 217</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_user identifier id'>user</span>
-  <span class='rubyid_JenkinsApi constant id'>JenkinsApi</span><span class='colon2 op'>::</span><span class='rubyid_Client constant id'>Client</span><span class='colon2 op'>::</span><span class='rubyid_User constant id'>User</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_self self kw'>self</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_user'>user</span>
+  <span class='const'>JenkinsApi</span><span class='op'>::</span><span class='const'>Client</span><span class='op'>::</span><span class='const'>User</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -3208,17 +3492,16 @@ Jenkins’ security settings</p>
       <pre class="lines">
 
 
-203
-204
-205</pre>
+192
+193
+194</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 203</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/client.rb', line 192</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_view identifier id'>view</span>
-  <span class='rubyid_JenkinsApi constant id'>JenkinsApi</span><span class='colon2 op'>::</span><span class='rubyid_Client constant id'>Client</span><span class='colon2 op'>::</span><span class='rubyid_View constant id'>View</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_self self kw'>self</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_view'>view</span>
+  <span class='const'>JenkinsApi</span><span class='op'>::</span><span class='const'>Client</span><span class='op'>::</span><span class='const'>View</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -3229,9 +3512,9 @@ Jenkins’ security settings</p>
 </div>
 
     <div id="footer">
-  Generated on Mon Oct  7 01:41:33 2013 by
+  Generated on Fri Apr  4 21:56:23 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.2 (ruby-1.8.7).
+  0.8.7.3 (ruby-1.9.3).
 </div>
 
         <script type="text/javascript">

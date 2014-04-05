@@ -6,7 +6,7 @@
 <title>
   Class: JenkinsApi::CLI::Job
   
-    &mdash; Documentation by YARD 0.8.7.2
+    &mdash; Documentation by YARD 0.8.7.3
   
 </title>
 
@@ -365,11 +365,10 @@ regular expression.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/cli/job.rb', line 64</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_build identifier id'>build</span><span class='lparen token'>(</span><span class='rubyid_job identifier id'>job</span><span class='rparen token'>)</span>
-  <span class='rubyid_@client ivar id'>@client</span> <span class='assign token'>=</span> <span class='rubyid_Helper constant id'>Helper</span><span class='dot token'>.</span><span class='rubyid_setup identifier id'>setup</span><span class='lparen token'>(</span><span class='rubyid_parent_options identifier id'>parent_options</span><span class='rparen token'>)</span>
-  <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_job identifier id'>job</span><span class='dot token'>.</span><span class='rubyid_build identifier id'>build</span><span class='lparen token'>(</span><span class='rubyid_job identifier id'>job</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_build'>build</span><span class='lparen'>(</span><span class='id identifier rubyid_job'>job</span><span class='rparen'>)</span>
+  <span class='ivar'>@client</span> <span class='op'>=</span> <span class='const'>Helper</span><span class='period'>.</span><span class='id identifier rubyid_setup'>setup</span><span class='lparen'>(</span><span class='id identifier rubyid_parent_options'>parent_options</span><span class='rparen'>)</span>
+  <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_job'>job</span><span class='period'>.</span><span class='id identifier rubyid_build'>build</span><span class='lparen'>(</span><span class='id identifier rubyid_job'>job</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -442,21 +441,20 @@ get garbled.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/cli/job.rb', line 99</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_console identifier id'>console</span><span class='lparen token'>(</span><span class='rubyid_job identifier id'>job</span><span class='rparen token'>)</span>
-  <span class='rubyid_@client ivar id'>@client</span> <span class='assign token'>=</span> <span class='rubyid_Helper constant id'>Helper</span><span class='dot token'>.</span><span class='rubyid_setup identifier id'>setup</span><span class='lparen token'>(</span><span class='rubyid_parent_options identifier id'>parent_options</span><span class='rparen token'>)</span>
-  <span class='comment val'># Print progressive console output</span>
-  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_job identifier id'>job</span><span class='dot token'>.</span><span class='rubyid_get_console_output identifier id'>get_console_output</span><span class='lparen token'>(</span><span class='rubyid_job identifier id'>job</span><span class='rparen token'>)</span>
-  <span class='rubyid_puts identifier id'>puts</span> <span class='rubyid_response identifier id'>response</span><span class='lbrack token'>[</span><span class='string val'>'output'</span><span class='rbrack token'>]</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_response identifier id'>response</span><span class='lbrack token'>[</span><span class='string val'>'more'</span><span class='rbrack token'>]</span>
-  <span class='rubyid_while while kw'>while</span> <span class='rubyid_response identifier id'>response</span><span class='lbrack token'>[</span><span class='string val'>'more'</span><span class='rbrack token'>]</span>
-    <span class='rubyid_size identifier id'>size</span> <span class='assign token'>=</span> <span class='rubyid_response identifier id'>response</span><span class='lbrack token'>[</span><span class='string val'>'size'</span><span class='rbrack token'>]</span>
-    <span class='rubyid_puts identifier id'>puts</span> <span class='rubyid_response identifier id'>response</span><span class='lbrack token'>[</span><span class='string val'>'output'</span><span class='rbrack token'>]</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_response identifier id'>response</span><span class='lbrack token'>[</span><span class='string val'>'output'</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_chomp identifier id'>chomp</span><span class='dot token'>.</span><span class='rubyid_empty? fid id'>empty?</span>
-    <span class='rubyid_sleep identifier id'>sleep</span> <span class='rubyid_options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:sleep</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_to_i identifier id'>to_i</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:sleep</span><span class='rbrack token'>]</span>
-    <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_job identifier id'>job</span><span class='dot token'>.</span><span class='rubyid_get_console_output identifier id'>get_console_output</span><span class='lparen token'>(</span><span class='rubyid_job identifier id'>job</span><span class='comma token'>,</span> <span class='integer val'>0</span><span class='comma token'>,</span> <span class='rubyid_size identifier id'>size</span><span class='rparen token'>)</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='comment val'># Print the last few lines</span>
-  <span class='rubyid_puts identifier id'>puts</span> <span class='rubyid_response identifier id'>response</span><span class='lbrack token'>[</span><span class='string val'>'output'</span><span class='rbrack token'>]</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_response identifier id'>response</span><span class='lbrack token'>[</span><span class='string val'>'output'</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_chomp identifier id'>chomp</span><span class='dot token'>.</span><span class='rubyid_empty? fid id'>empty?</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_console'>console</span><span class='lparen'>(</span><span class='id identifier rubyid_job'>job</span><span class='rparen'>)</span>
+  <span class='ivar'>@client</span> <span class='op'>=</span> <span class='const'>Helper</span><span class='period'>.</span><span class='id identifier rubyid_setup'>setup</span><span class='lparen'>(</span><span class='id identifier rubyid_parent_options'>parent_options</span><span class='rparen'>)</span>
+  <span class='comment'># Print progressive console output
+</span>  <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_job'>job</span><span class='period'>.</span><span class='id identifier rubyid_get_console_output'>get_console_output</span><span class='lparen'>(</span><span class='id identifier rubyid_job'>job</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>output</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>more</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span>
+  <span class='kw'>while</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>more</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_size'>size</span> <span class='op'>=</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>size</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>output</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>output</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_chomp'>chomp</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+    <span class='id identifier rubyid_sleep'>sleep</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:sleep</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span> <span class='kw'>if</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:sleep</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_job'>job</span><span class='period'>.</span><span class='id identifier rubyid_get_console_output'>get_console_output</span><span class='lparen'>(</span><span class='id identifier rubyid_job'>job</span><span class='comma'>,</span> <span class='int'>0</span><span class='comma'>,</span> <span class='id identifier rubyid_size'>size</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+  <span class='comment'># Print the last few lines
+</span>  <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>output</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>output</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_chomp'>chomp</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -516,11 +514,10 @@ get garbled.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/cli/job.rb', line 84</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_delete identifier id'>delete</span><span class='lparen token'>(</span><span class='rubyid_job identifier id'>job</span><span class='rparen token'>)</span>
-  <span class='rubyid_@client ivar id'>@client</span> <span class='assign token'>=</span> <span class='rubyid_Helper constant id'>Helper</span><span class='dot token'>.</span><span class='rubyid_setup identifier id'>setup</span><span class='lparen token'>(</span><span class='rubyid_parent_options identifier id'>parent_options</span><span class='rparen token'>)</span>
-  <span class='rubyid_puts identifier id'>puts</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_job identifier id'>job</span><span class='dot token'>.</span><span class='rubyid_delete identifier id'>delete</span><span class='lparen token'>(</span><span class='rubyid_job identifier id'>job</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_job'>job</span><span class='rparen'>)</span>
+  <span class='ivar'>@client</span> <span class='op'>=</span> <span class='const'>Helper</span><span class='period'>.</span><span class='id identifier rubyid_setup'>setup</span><span class='lparen'>(</span><span class='id identifier rubyid_parent_options'>parent_options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_job'>job</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_job'>job</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -570,20 +567,19 @@ regular expression</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/cli/job.rb', line 38</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_list identifier id'>list</span>
-  <span class='rubyid_@client ivar id'>@client</span> <span class='assign token'>=</span> <span class='rubyid_Helper constant id'>Helper</span><span class='dot token'>.</span><span class='rubyid_setup identifier id'>setup</span><span class='lparen token'>(</span><span class='rubyid_parent_options identifier id'>parent_options</span><span class='rparen token'>)</span>
-  <span class='rubyid_if if kw'>if</span> <span class='rubyid_options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:filter</span><span class='rbrack token'>]</span> <span class='andop op'>&amp;&amp;</span> <span class='rubyid_options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:status</span><span class='rbrack token'>]</span>
-    <span class='rubyid_name_filtered identifier id'>name_filtered</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_job identifier id'>job</span><span class='dot token'>.</span><span class='rubyid_list identifier id'>list</span><span class='lparen token'>(</span><span class='rubyid_options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:filter</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
-    <span class='rubyid_puts identifier id'>puts</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_job identifier id'>job</span><span class='dot token'>.</span><span class='rubyid_list_by_status identifier id'>list_by_status</span><span class='lparen token'>(</span><span class='rubyid_options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:status</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='rubyid_name_filtered identifier id'>name_filtered</span><span class='rparen token'>)</span>
-  <span class='rubyid_elsif elsif kw'>elsif</span> <span class='rubyid_options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:filter</span><span class='rbrack token'>]</span>
-    <span class='rubyid_puts identifier id'>puts</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_job identifier id'>job</span><span class='dot token'>.</span><span class='rubyid_list identifier id'>list</span><span class='lparen token'>(</span><span class='rubyid_options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:filter</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
-  <span class='rubyid_elsif elsif kw'>elsif</span> <span class='rubyid_options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:status</span><span class='rbrack token'>]</span>
-    <span class='rubyid_puts identifier id'>puts</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_job identifier id'>job</span><span class='dot token'>.</span><span class='rubyid_list_by_status identifier id'>list_by_status</span><span class='lparen token'>(</span><span class='rubyid_options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:status</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
-  <span class='rubyid_else else kw'>else</span>
-    <span class='rubyid_puts identifier id'>puts</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_job identifier id'>job</span><span class='dot token'>.</span><span class='rubyid_list_all identifier id'>list_all</span>
-  <span class='rubyid_end end kw'>end</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_list'>list</span>
+  <span class='ivar'>@client</span> <span class='op'>=</span> <span class='const'>Helper</span><span class='period'>.</span><span class='id identifier rubyid_setup'>setup</span><span class='lparen'>(</span><span class='id identifier rubyid_parent_options'>parent_options</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:filter</span><span class='rbracket'>]</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:status</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_name_filtered'>name_filtered</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_job'>job</span><span class='period'>.</span><span class='id identifier rubyid_list'>list</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:filter</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_puts'>puts</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_job'>job</span><span class='period'>.</span><span class='id identifier rubyid_list_by_status'>list_by_status</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:status</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_name_filtered'>name_filtered</span><span class='rparen'>)</span>
+  <span class='kw'>elsif</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:filter</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_puts'>puts</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_job'>job</span><span class='period'>.</span><span class='id identifier rubyid_list'>list</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:filter</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='kw'>elsif</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:status</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_puts'>puts</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_job'>job</span><span class='period'>.</span><span class='id identifier rubyid_list_by_status'>list_by_status</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:status</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_puts'>puts</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_job'>job</span><span class='period'>.</span><span class='id identifier rubyid_list_all'>list_all</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -623,11 +619,10 @@ regular expression</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/cli/job.rb', line 54</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_recreate identifier id'>recreate</span><span class='lparen token'>(</span><span class='rubyid_job identifier id'>job</span><span class='rparen token'>)</span>
-  <span class='rubyid_@client ivar id'>@client</span> <span class='assign token'>=</span> <span class='rubyid_Helper constant id'>Helper</span><span class='dot token'>.</span><span class='rubyid_setup identifier id'>setup</span><span class='lparen token'>(</span><span class='rubyid_parent_options identifier id'>parent_options</span><span class='rparen token'>)</span>
-  <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_job identifier id'>job</span><span class='dot token'>.</span><span class='rubyid_recreate identifier id'>recreate</span><span class='lparen token'>(</span><span class='rubyid_job identifier id'>job</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_recreate'>recreate</span><span class='lparen'>(</span><span class='id identifier rubyid_job'>job</span><span class='rparen'>)</span>
+  <span class='ivar'>@client</span> <span class='op'>=</span> <span class='const'>Helper</span><span class='period'>.</span><span class='id identifier rubyid_setup'>setup</span><span class='lparen'>(</span><span class='id identifier rubyid_parent_options'>parent_options</span><span class='rparen'>)</span>
+  <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_job'>job</span><span class='period'>.</span><span class='id identifier rubyid_recreate'>recreate</span><span class='lparen'>(</span><span class='id identifier rubyid_job'>job</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -691,15 +686,14 @@ regular expression</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/cli/job.rb', line 120</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_restrict identifier id'>restrict</span><span class='lparen token'>(</span><span class='rubyid_job identifier id'>job</span><span class='rparen token'>)</span>
-  <span class='rubyid_@client ivar id'>@client</span> <span class='assign token'>=</span> <span class='rubyid_Helper constant id'>Helper</span><span class='dot token'>.</span><span class='rubyid_setup identifier id'>setup</span><span class='lparen token'>(</span><span class='rubyid_parent_options identifier id'>parent_options</span><span class='rparen token'>)</span>
-  <span class='rubyid_if if kw'>if</span> <span class='rubyid_options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:node</span><span class='rbrack token'>]</span>
-    <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_job identifier id'>job</span><span class='dot token'>.</span><span class='rubyid_restrict_to_node identifier id'>restrict_to_node</span><span class='lparen token'>(</span><span class='rubyid_job identifier id'>job</span><span class='comma token'>,</span> <span class='rubyid_options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:node</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
-  <span class='rubyid_else else kw'>else</span>
-    <span class='rubyid_say identifier id'>say</span> <span class='string val'>&quot;You need to specify the node to be restricted to.&quot;</span><span class='comma token'>,</span> <span class='symbol val'>:red</span>
-  <span class='rubyid_end end kw'>end</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_restrict'>restrict</span><span class='lparen'>(</span><span class='id identifier rubyid_job'>job</span><span class='rparen'>)</span>
+  <span class='ivar'>@client</span> <span class='op'>=</span> <span class='const'>Helper</span><span class='period'>.</span><span class='id identifier rubyid_setup'>setup</span><span class='lparen'>(</span><span class='id identifier rubyid_parent_options'>parent_options</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:node</span><span class='rbracket'>]</span>
+    <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_job'>job</span><span class='period'>.</span><span class='id identifier rubyid_restrict_to_node'>restrict_to_node</span><span class='lparen'>(</span><span class='id identifier rubyid_job'>job</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:node</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_say'>say</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>You need to specify the node to be restricted to.</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:red</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -759,11 +753,10 @@ regular expression</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/cli/job.rb', line 74</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_status identifier id'>status</span><span class='lparen token'>(</span><span class='rubyid_job identifier id'>job</span><span class='rparen token'>)</span>
-  <span class='rubyid_@client ivar id'>@client</span> <span class='assign token'>=</span> <span class='rubyid_Helper constant id'>Helper</span><span class='dot token'>.</span><span class='rubyid_setup identifier id'>setup</span><span class='lparen token'>(</span><span class='rubyid_parent_options identifier id'>parent_options</span><span class='rparen token'>)</span>
-  <span class='rubyid_puts identifier id'>puts</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_job identifier id'>job</span><span class='dot token'>.</span><span class='rubyid_get_current_build_status identifier id'>get_current_build_status</span><span class='lparen token'>(</span><span class='rubyid_job identifier id'>job</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_status'>status</span><span class='lparen'>(</span><span class='id identifier rubyid_job'>job</span><span class='rparen'>)</span>
+  <span class='ivar'>@client</span> <span class='op'>=</span> <span class='const'>Helper</span><span class='period'>.</span><span class='id identifier rubyid_setup'>setup</span><span class='lparen'>(</span><span class='id identifier rubyid_parent_options'>parent_options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_job'>job</span><span class='period'>.</span><span class='id identifier rubyid_get_current_build_status'>get_current_build_status</span><span class='lparen'>(</span><span class='id identifier rubyid_job'>job</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -774,9 +767,9 @@ regular expression</p>
 </div>
 
     <div id="footer">
-  Generated on Mon Oct  7 01:41:40 2013 by
+  Generated on Fri Apr  4 21:56:24 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.2 (ruby-1.8.7).
+  0.8.7.3 (ruby-1.9.3).
 </div>
 
         <script type="text/javascript">

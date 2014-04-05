@@ -6,7 +6,7 @@
 <title>
   Class: JenkinsApi::Client::PluginManager
   
-    &mdash; Documentation by YARD 0.8.7.2
+    &mdash; Documentation by YARD 0.8.7.3
   
 </title>
 
@@ -592,11 +592,10 @@ installations/uninstallations.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/plugin_manager.rb', line 37</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_client identifier id'>client</span><span class='rparen token'>)</span>
-  <span class='rubyid_@client ivar id'>@client</span> <span class='assign token'>=</span> <span class='rubyid_client identifier id'>client</span>
-  <span class='rubyid_@logger ivar id'>@logger</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_logger identifier id'>logger</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_client'>client</span><span class='rparen'>)</span>
+  <span class='ivar'>@client</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span>
+  <span class='ivar'>@logger</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -686,18 +685,17 @@ installations/uninstallations.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/plugin_manager.rb', line 54</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_plugin_action_method identifier id'>plugin_action_method</span><span class='lparen token'>(</span><span class='rubyid_action identifier id'>action</span><span class='comma token'>,</span> <span class='rubyid_post_endpoint identifier id'>post_endpoint</span><span class='rparen token'>)</span>
-  <span class='rubyid_define_method identifier id'>define_method</span><span class='lparen token'>(</span><span class='rubyid_action identifier id'>action</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_plugins identifier id'>plugins</span><span class='bitor op'>|</span>
-    <span class='rubyid_plugins identifier id'>plugins</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rubyid_plugins identifier id'>plugins</span><span class='rbrack token'>]</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_plugins identifier id'>plugins</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_Array constant id'>Array</span><span class='rparen token'>)</span>
-    <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Performing '#{action}' on plugins: #{plugins.inspect}&quot;</span>
-    <span class='rubyid_plugins identifier id'>plugins</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_plugin identifier id'>plugin</span><span class='bitor op'>|</span>
-      <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_post_request identifier id'>api_post_request</span><span class='lparen token'>(</span>
-        <span class='dstring node'>&quot;/pluginManager/plugin/#{plugin}/#{post_endpoint}&quot;</span>
-      <span class='rparen token'>)</span>
-    <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_end end kw'>end</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_plugin_action_method'>plugin_action_method</span><span class='lparen'>(</span><span class='id identifier rubyid_action'>action</span><span class='comma'>,</span> <span class='id identifier rubyid_post_endpoint'>post_endpoint</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_define_method'>define_method</span><span class='lparen'>(</span><span class='id identifier rubyid_action'>action</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_plugins'>plugins</span><span class='op'>|</span>
+    <span class='id identifier rubyid_plugins'>plugins</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_plugins'>plugins</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_plugins'>plugins</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span>
+    <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Performing '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_action'>action</span><span class='rbrace'>}</span><span class='tstring_content'>' on plugins: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_plugins'>plugins</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_plugins'>plugins</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_plugin'>plugin</span><span class='op'>|</span>
+      <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_post_request'>api_post_request</span><span class='lparen'>(</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/pluginManager/plugin/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_plugin'>plugin</span><span class='rbrace'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_post_endpoint'>post_endpoint</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+      <span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -750,10 +748,9 @@ the update site.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/plugin_manager.rb', line 438</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_check_for_updates identifier id'>check_for_updates</span>
-  <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_post_request identifier id'>api_post_request</span><span class='lparen token'>(</span><span class='string val'>&quot;/pluginManager/checkUpdates&quot;</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_check_for_updates'>check_for_updates</span>
+  <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_post_request'>api_post_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/pluginManager/checkUpdates</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -825,8 +822,7 @@ big list is provided.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/plugin_manager.rb', line 431</span>
 
-<span class='rubyid_plugin_action_method identifier id'>plugin_action_method</span> <span class='symbol val'>:disable</span><span class='comma token'>,</span> <span class='symbol val'>:makeDisabled</span>
-</pre>
+<span class='id identifier rubyid_plugin_action_method'>plugin_action_method</span> <span class='symbol'>:disable</span><span class='comma'>,</span> <span class='symbol'>:makeDisabled</span></pre>
     </td>
   </tr>
 </table>
@@ -898,8 +894,7 @@ a big list is provided.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/plugin_manager.rb', line 384</span>
 
-<span class='rubyid_plugin_action_method identifier id'>plugin_action_method</span> <span class='symbol val'>:downgrade</span><span class='comma token'>,</span> <span class='symbol val'>:downgrade</span>
-</pre>
+<span class='id identifier rubyid_plugin_action_method'>plugin_action_method</span> <span class='symbol'>:downgrade</span><span class='comma'>,</span> <span class='symbol'>:downgrade</span></pre>
     </td>
   </tr>
 </table>
@@ -971,8 +966,7 @@ big list is provided.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/plugin_manager.rb', line 415</span>
 
-<span class='rubyid_plugin_action_method identifier id'>plugin_action_method</span> <span class='symbol val'>:enable</span><span class='comma token'>,</span> <span class='symbol val'>:makeEnabled</span>
-</pre>
+<span class='id identifier rubyid_plugin_action_method'>plugin_action_method</span> <span class='symbol'>:enable</span><span class='comma'>,</span> <span class='symbol'>:makeEnabled</span></pre>
     </td>
   </tr>
 </table>
@@ -1006,23 +1000,22 @@ update center</p>
 <p>Obtaining the details of a plugin available in jenkins</p>
 </div></p>
       
-      <pre class="example code"><code><span class='rshft op'>&gt;&gt;</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_plugin identifier id'>plugin</span><span class='dot token'>.</span><span class='rubyid_get_available_info identifier id'>get_available_info</span> <span class='string val'>&quot;status-view&quot;</span>
-<span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span>
-     <span class='string val'>&quot;name&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='string val'>&quot;status-view&quot;</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;sourceId&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='string val'>&quot;default&quot;</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;url&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='string val'>&quot;http://updates.jenkins-ci.org/download/plugins/status-view/1.0/status-view.hpi&quot;</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;version&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='string val'>&quot;1.0&quot;</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;categories&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrack token'>[</span><span class='string val'>&quot;ui&quot;</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;compatibleSinceVersion&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='rubyid_nil nil kw'>nil</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;compatibleWithInstalledVersion&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='rubyid_true true kw'>true</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;dependencies&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;excerpt&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='string val'>&quot;View type to show jobs filtered by the status of the last completed build.&quot;</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;installed&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='rubyid_nil nil kw'>nil</span><span class='comma token'>,</span> <span class='string val'>&quot;neededDependencies&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrack token'>[</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;requiredCore&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='string val'>&quot;1.342&quot;</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;title&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='string val'>&quot;Status View Plugin&quot;</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;wiki&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='string val'>&quot;https://wiki.jenkins-ci.org/display/JENKINS/Status+View+Plugin&quot;</span>
-   <span class='rbrace token'>}</span>
-</code></pre>
+      <pre class="example code"><code>&gt;&gt; @client.plugin.get_available_info &quot;status-view&quot;
+=&gt; {
+     &quot;name&quot;=&gt;&quot;status-view&quot;,
+     &quot;sourceId&quot;=&gt;&quot;default&quot;,
+     &quot;url&quot;=&gt;&quot;http://updates.jenkins-ci.org/download/plugins/status-view/1.0/status-view.hpi&quot;,
+     &quot;version&quot;=&gt;&quot;1.0&quot;,
+     &quot;categories&quot;=&gt;[&quot;ui&quot;],
+     &quot;compatibleSinceVersion&quot;=&gt;nil,
+     &quot;compatibleWithInstalledVersion&quot;=&gt;true,
+     &quot;dependencies&quot;=&gt;{},
+     &quot;excerpt&quot;=&gt;&quot;View type to show jobs filtered by the status of the last completed build.&quot;,
+     &quot;installed&quot;=&gt;nil, &quot;neededDependencies&quot;=&gt;[],
+     &quot;requiredCore&quot;=&gt;&quot;1.342&quot;,
+     &quot;title&quot;=&gt;&quot;Status View Plugin&quot;,
+     &quot;wiki&quot;=&gt;&quot;https://wiki.jenkins-ci.org/display/JENKINS/Status+View+Plugin&quot;
+   }</code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -1092,24 +1085,23 @@ update center</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/plugin_manager.rb', line 272</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_get_available_info identifier id'>get_available_info</span><span class='lparen token'>(</span><span class='rubyid_plugin identifier id'>plugin</span><span class='rparen token'>)</span>
-  <span class='rubyid_plugins identifier id'>plugins</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_get_request identifier id'>api_get_request</span><span class='lparen token'>(</span>
-    <span class='string val'>&quot;/updateCenter/coreSource&quot;</span><span class='comma token'>,</span>
-    <span class='string val'>&quot;depth=1&quot;</span>
-  <span class='rparen token'>)</span><span class='lbrack token'>[</span><span class='string val'>&quot;availables&quot;</span><span class='rbrack token'>]</span>
-  <span class='rubyid_matched_plugin identifier id'>matched_plugin</span> <span class='assign token'>=</span> <span class='rubyid_plugins identifier id'>plugins</span><span class='dot token'>.</span><span class='rubyid_select identifier id'>select</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_a_plugin identifier id'>a_plugin</span><span class='bitor op'>|</span>
-    <span class='rubyid_a_plugin identifier id'>a_plugin</span><span class='lbrack token'>[</span><span class='string val'>&quot;name&quot;</span><span class='rbrack token'>]</span> <span class='eq op'>==</span> <span class='rubyid_plugin identifier id'>plugin</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_if if kw'>if</span> <span class='rubyid_matched_plugin identifier id'>matched_plugin</span><span class='dot token'>.</span><span class='rubyid_empty? fid id'>empty?</span>
-    <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_Exceptions constant id'>Exceptions</span><span class='colon2 op'>::</span><span class='rubyid_PluginNotFound constant id'>PluginNotFound</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span>
-      <span class='rubyid_@logger ivar id'>@logger</span><span class='comma token'>,</span>
-      <span class='dstring node'>&quot;Plugin '#{plugin}' is not found&quot;</span>
-    <span class='rparen token'>)</span>
-  <span class='rubyid_else else kw'>else</span>
-    <span class='rubyid_matched_plugin identifier id'>matched_plugin</span><span class='dot token'>.</span><span class='rubyid_first identifier id'>first</span>
-  <span class='rubyid_end end kw'>end</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_get_available_info'>get_available_info</span><span class='lparen'>(</span><span class='id identifier rubyid_plugin'>plugin</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_plugins'>plugins</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_get_request'>api_get_request</span><span class='lparen'>(</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/updateCenter/coreSource</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>depth=1</span><span class='tstring_end'>&quot;</span></span>
+  <span class='rparen'>)</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>availables</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_matched_plugin'>matched_plugin</span> <span class='op'>=</span> <span class='id identifier rubyid_plugins'>plugins</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_a_plugin'>a_plugin</span><span class='op'>|</span>
+    <span class='id identifier rubyid_a_plugin'>a_plugin</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>name</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='id identifier rubyid_plugin'>plugin</span>
+  <span class='kw'>end</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_matched_plugin'>matched_plugin</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Exceptions</span><span class='op'>::</span><span class='const'>PluginNotFound</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
+      <span class='ivar'>@logger</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Plugin '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_plugin'>plugin</span><span class='rbrace'>}</span><span class='tstring_content'>' is not found</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_matched_plugin'>matched_plugin</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1142,24 +1134,23 @@ update center</p>
 <p>Obtain the information of an installed plugin</p>
 </div></p>
       
-      <pre class="example code"><code><span class='rshft op'>&gt;&gt;</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_plugin identifier id'>plugin</span><span class='dot token'>.</span><span class='rubyid_get_installed_info identifier id'>get_installed_info</span> <span class='string val'>&quot;ldap&quot;</span>
-<span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span>
-     <span class='string val'>&quot;active&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='rubyid_false false kw'>false</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;backupVersion&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='string val'>&quot;1.2&quot;</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;bundled&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='rubyid_true true kw'>true</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;deleted&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='rubyid_false false kw'>false</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;dependencies&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrack token'>[</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;downgradable&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='rubyid_true true kw'>true</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;enabled&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='rubyid_false false kw'>false</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;hasUpdate&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='rubyid_false false kw'>false</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;longName&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='string val'>&quot;LDAP Plugin&quot;</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;pinned&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='rubyid_true true kw'>true</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;shortName&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='string val'>&quot;ldap&quot;</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;supportsDynamicLoad&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='string val'>&quot;MAYBE&quot;</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;url&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='string val'>&quot;http://wiki.jenkins-ci.org/display/JENKINS/LDAP+Plugin&quot;</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;version&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='string val'>&quot;1.5&quot;</span>
-   <span class='rbrace token'>}</span>
-</code></pre>
+      <pre class="example code"><code>&gt;&gt; @client.plugin.get_installed_info &quot;ldap&quot;
+=&gt; {
+     &quot;active&quot;=&gt;false,
+     &quot;backupVersion&quot;=&gt;&quot;1.2&quot;,
+     &quot;bundled&quot;=&gt;true,
+     &quot;deleted&quot;=&gt;false,
+     &quot;dependencies&quot;=&gt;[],
+     &quot;downgradable&quot;=&gt;true,
+     &quot;enabled&quot;=&gt;false,
+     &quot;hasUpdate&quot;=&gt;false,
+     &quot;longName&quot;=&gt;&quot;LDAP Plugin&quot;,
+     &quot;pinned&quot;=&gt;true,
+     &quot;shortName&quot;=&gt;&quot;ldap&quot;,
+     &quot;supportsDynamicLoad&quot;=&gt;&quot;MAYBE&quot;,
+     &quot;url&quot;=&gt;&quot;http://wiki.jenkins-ci.org/display/JENKINS/LDAP+Plugin&quot;,
+     &quot;version&quot;=&gt;&quot;1.5&quot;
+   }</code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -1230,25 +1221,24 @@ update center</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/plugin_manager.rb', line 155</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_get_installed_info identifier id'>get_installed_info</span><span class='lparen token'>(</span><span class='rubyid_plugin identifier id'>plugin</span><span class='rparen token'>)</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the details of plugin: #{plugin}&quot;</span>
-  <span class='rubyid_plugins identifier id'>plugins</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_get_request identifier id'>api_get_request</span><span class='lparen token'>(</span>
-    <span class='string val'>&quot;/pluginManager&quot;</span><span class='comma token'>,</span>
-    <span class='string val'>&quot;depth=1&quot;</span>
-  <span class='rparen token'>)</span><span class='lbrack token'>[</span><span class='string val'>&quot;plugins&quot;</span><span class='rbrack token'>]</span>
-  <span class='rubyid_matched_plugin identifier id'>matched_plugin</span> <span class='assign token'>=</span> <span class='rubyid_plugins identifier id'>plugins</span><span class='dot token'>.</span><span class='rubyid_select identifier id'>select</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_a_plugin identifier id'>a_plugin</span><span class='bitor op'>|</span>
-    <span class='rubyid_a_plugin identifier id'>a_plugin</span><span class='lbrack token'>[</span><span class='string val'>&quot;shortName&quot;</span><span class='rbrack token'>]</span> <span class='eq op'>==</span> <span class='rubyid_plugin identifier id'>plugin</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_if if kw'>if</span> <span class='rubyid_matched_plugin identifier id'>matched_plugin</span><span class='dot token'>.</span><span class='rubyid_empty? fid id'>empty?</span>
-    <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_Exceptions constant id'>Exceptions</span><span class='colon2 op'>::</span><span class='rubyid_PluginNotFound constant id'>PluginNotFound</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span>
-      <span class='rubyid_@logger ivar id'>@logger</span><span class='comma token'>,</span>
-      <span class='dstring node'>&quot;Plugin '#{plugin}' is not found&quot;</span>
-    <span class='rparen token'>)</span>
-  <span class='rubyid_else else kw'>else</span>
-    <span class='rubyid_matched_plugin identifier id'>matched_plugin</span><span class='dot token'>.</span><span class='rubyid_first identifier id'>first</span>
-  <span class='rubyid_end end kw'>end</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_get_installed_info'>get_installed_info</span><span class='lparen'>(</span><span class='id identifier rubyid_plugin'>plugin</span><span class='rparen'>)</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining the details of plugin: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_plugin'>plugin</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_plugins'>plugins</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_get_request'>api_get_request</span><span class='lparen'>(</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/pluginManager</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>depth=1</span><span class='tstring_end'>&quot;</span></span>
+  <span class='rparen'>)</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>plugins</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_matched_plugin'>matched_plugin</span> <span class='op'>=</span> <span class='id identifier rubyid_plugins'>plugins</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_a_plugin'>a_plugin</span><span class='op'>|</span>
+    <span class='id identifier rubyid_a_plugin'>a_plugin</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>shortName</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='id identifier rubyid_plugin'>plugin</span>
+  <span class='kw'>end</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_matched_plugin'>matched_plugin</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Exceptions</span><span class='op'>::</span><span class='const'>PluginNotFound</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
+      <span class='ivar'>@logger</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Plugin '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_plugin'>plugin</span><span class='rbrace'>}</span><span class='tstring_content'>' is not found</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_matched_plugin'>matched_plugin</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1291,13 +1281,12 @@ plugin if the plugin is outdated.</p>
 <p>Installing a plugin and restart jenkins if required</p>
 </div></p>
       
-      <pre class="example code"><code><span class='rshft op'>&gt;&gt;</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_plugin identifier id'>plugin</span><span class='dot token'>.</span><span class='rubyid_install identifier id'>install</span> <span class='string val'>&quot;s3&quot;</span>
-<span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;302&quot;</span> <span class='comment val'># Response code from plugin installation POST</span>
-<span class='rshft op'>&gt;&gt;</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_plugin identifier id'>plugin</span><span class='dot token'>.</span><span class='rubyid_restart_required? fid id'>restart_required?</span>
-<span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_true true kw'>true</span> <span class='comment val'># A restart is required for the installation completion</span>
-<span class='rshft op'>&gt;&gt;</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_system identifier id'>system</span><span class='dot token'>.</span><span class='rubyid_restart identifier id'>restart</span><span class='lparen token'>(</span><span class='rubyid_true true kw'>true</span><span class='rparen token'>)</span>
-<span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;302&quot;</span> <span class='comment val'># A force restart is performed</span>
-</code></pre>
+      <pre class="example code"><code>&gt;&gt; @client.plugin.install &quot;s3&quot;
+=&gt; &quot;302&quot; # Response code from plugin installation POST
+&gt;&gt; @client.plugin.restart_required?
+=&gt; true # A restart is required for the installation completion
+&gt;&gt; @client.system.restart(true)
+=&gt; &quot;302&quot; # A force restart is performed</code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -1373,17 +1362,16 @@ plugin if the plugin is outdated.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/plugin_manager.rb', line 338</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_install identifier id'>install</span><span class='lparen token'>(</span><span class='rubyid_plugins identifier id'>plugins</span><span class='rparen token'>)</span>
-  <span class='comment val'># Convert the input argument to an array if it is not already an array</span>
-  <span class='rubyid_plugins identifier id'>plugins</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rubyid_plugins identifier id'>plugins</span><span class='rbrack token'>]</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_plugins identifier id'>plugins</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_Array constant id'>Array</span><span class='rparen token'>)</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Installing plugins: #{plugins.inspect}&quot;</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_install'>install</span><span class='lparen'>(</span><span class='id identifier rubyid_plugins'>plugins</span><span class='rparen'>)</span>
+  <span class='comment'># Convert the input argument to an array if it is not already an array
+</span>  <span class='id identifier rubyid_plugins'>plugins</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_plugins'>plugins</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_plugins'>plugins</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Installing plugins: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_plugins'>plugins</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
 
-  <span class='comment val'># Build the form data to post to jenkins</span>
-  <span class='rubyid_form_data identifier id'>form_data</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
-  <span class='rubyid_plugins identifier id'>plugins</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_plugin identifier id'>plugin</span><span class='bitor op'>|</span> <span class='rubyid_form_data identifier id'>form_data</span><span class='lbrack token'>[</span><span class='dstring node'>&quot;plugin.#{plugin}.default&quot;</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='string val'>&quot;on&quot;</span> <span class='rbrace token'>}</span>
-  <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_post_request identifier id'>api_post_request</span><span class='lparen token'>(</span><span class='string val'>&quot;/pluginManager/install&quot;</span><span class='comma token'>,</span> <span class='rubyid_form_data identifier id'>form_data</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+  <span class='comment'># Build the form data to post to jenkins
+</span>  <span class='id identifier rubyid_form_data'>form_data</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='id identifier rubyid_plugins'>plugins</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_plugin'>plugin</span><span class='op'>|</span> <span class='id identifier rubyid_form_data'>form_data</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>plugin.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_plugin'>plugin</span><span class='rbrace'>}</span><span class='tstring_content'>.default</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>on</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+  <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_post_request'>api_post_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/pluginManager/install</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_form_data'>form_data</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1417,43 +1405,40 @@ version numbers</p>
 <p>Listing available plugins from jenkins</p>
 </div></p>
       
-      <pre class="example code"><code><span class='rshft op'>&gt;&gt;</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_plugin identifier id'>plugin</span><span class='dot token'>.</span><span class='rubyid_list_available identifier id'>list_available</span>
-<span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span>
-     <span class='string val'>&quot;accurev&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;0.6.18&quot;</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;active-directory&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;1.33&quot;</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;AdaptivePlugin&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;0.1&quot;</span><span class='comma token'>,</span>
-     <span class='dot3 op'>...</span>
-     <span class='string val'>&quot;zubhium&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;0.1.6&quot;</span>
-   <span class='rbrace token'>}</span>
-</code></pre>
+      <pre class="example code"><code>&gt;&gt; @client.plugin.list_available
+=&gt; {
+     &quot;accurev&quot; =&gt; &quot;0.6.18&quot;,
+     &quot;active-directory&quot; =&gt; &quot;1.33&quot;,
+     &quot;AdaptivePlugin&quot; =&gt; &quot;0.1&quot;,
+     ...
+     &quot;zubhium&quot; =&gt; &quot;0.1.6&quot;
+   }</code></pre>
     
       
         <p class="example_title"><div class='inline'>
 <p>Listing available plugins matching a particular category</p>
 </div></p>
       
-      <pre class="example code"><code><span class='rshft op'>&gt;&gt;</span> <span class='rubyid_pp identifier id'>pp</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_plugin identifier id'>plugin</span><span class='dot token'>.</span><span class='rubyid_list_available identifier id'>list_available</span><span class='lparen token'>(</span><span class='symbol val'>:category</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;ui&quot;</span><span class='rparen token'>)</span>
-<span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span>
-     <span class='string val'>&quot;all-changes&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='string val'>&quot;1.3&quot;</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;bruceschneier&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='string val'>&quot;0.1&quot;</span><span class='comma token'>,</span>
-     <span class='dot3 op'>...</span>
-     <span class='string val'>&quot;xfpanel&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='string val'>&quot;1.2.2&quot;</span>
-   <span class='rbrace token'>}</span>
-</code></pre>
+      <pre class="example code"><code>&gt;&gt; pp @client.plugin.list_available(:category =&gt; &quot;ui&quot;)
+=&gt; {
+     &quot;all-changes&quot;=&gt;&quot;1.3&quot;,
+     &quot;bruceschneier&quot;=&gt;&quot;0.1&quot;,
+     ...
+     &quot;xfpanel&quot;=&gt;&quot;1.2.2&quot;
+   }</code></pre>
     
       
         <p class="example_title"><div class='inline'>
 <p>Listing available plugins matching a particular dependency</p>
 </div></p>
       
-      <pre class="example code"><code><span class='rshft op'>&gt;&gt;</span> <span class='rubyid_pp identifier id'>pp</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_plugin identifier id'>plugin</span><span class='dot token'>.</span><span class='rubyid_list_available identifier id'>list_available</span><span class='lparen token'>(</span><span class='symbol val'>:dependency</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;git&quot;</span><span class='rparen token'>)</span>
-<span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span>
-     <span class='string val'>&quot;build-failure-analyzer&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='string val'>&quot;1.5.0&quot;</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;buildheroes&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='string val'>&quot;0.2&quot;</span><span class='comma token'>,</span>
-     <span class='dot3 op'>...</span>
-     <span class='string val'>&quot;xpdev&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='string val'>&quot;1.0&quot;</span>
-   <span class='rbrace token'>}</span>
-</code></pre>
+      <pre class="example code"><code>&gt;&gt; pp @client.plugin.list_available(:dependency =&gt; &quot;git&quot;)
+=&gt; {
+     &quot;build-failure-analyzer&quot;=&gt;&quot;1.5.0&quot;,
+     &quot;buildheroes&quot;=&gt;&quot;0.2&quot;,
+     ...
+     &quot;xpdev&quot;=&gt;&quot;1.0&quot;
+   }</code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -1533,19 +1518,6 @@ available.</p>
     </li>
   
 </ul>
-<p class="tag_title">Raises:</p>
-<ul class="raise">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>ArgumentError</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
 
 </div><table class="source_code">
   <tr>
@@ -1588,38 +1560,37 @@ available.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/plugin_manager.rb', line 215</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_list_available identifier id'>list_available</span><span class='lparen token'>(</span><span class='rubyid_filters identifier id'>filters</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
-  <span class='rubyid_supported_filters identifier id'>supported_filters</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='symbol val'>:category</span><span class='comma token'>,</span> <span class='symbol val'>:dependency</span><span class='rbrack token'>]</span>
-  <span class='rubyid_filter_plural_map identifier id'>filter_plural_map</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span>
-    <span class='symbol val'>:dependency</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;dependencies&quot;</span><span class='comma token'>,</span>
-    <span class='symbol val'>:category</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;categories&quot;</span>
-  <span class='rbrace token'>}</span>
-  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_filters identifier id'>filters</span><span class='dot token'>.</span><span class='rubyid_keys identifier id'>keys</span><span class='dot token'>.</span><span class='rubyid_all? fid id'>all?</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_filter identifier id'>filter</span><span class='bitor op'>|</span> <span class='rubyid_supported_filters identifier id'>supported_filters</span><span class='dot token'>.</span><span class='rubyid_include? fid id'>include?</span><span class='lparen token'>(</span><span class='rubyid_filter identifier id'>filter</span><span class='rparen token'>)</span> <span class='rbrace token'>}</span>
-    <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_ArgumentError constant id'>ArgumentError</span><span class='comma token'>,</span> <span class='string val'>&quot;Unsupported filters specified.&quot;</span> <span class='plus op'>+</span>
-      <span class='dstring node'>&quot; Supported filters: #{supported_filters.inspect}&quot;</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='comment val'># Compute the filters to be passed to the JSON tree parameter</span>
-  <span class='rubyid_tree_filters identifier id'>tree_filters</span> <span class='assign token'>=</span>
-    <span class='rubyid_if if kw'>if</span> <span class='rubyid_filters identifier id'>filters</span><span class='dot token'>.</span><span class='rubyid_empty? fid id'>empty?</span>
-      <span class='string val'>&quot;&quot;</span>
-    <span class='rubyid_else else kw'>else</span>
-      <span class='dstring node'>&quot;,#{filters.keys.map{ |key| filter_plural_map[key] }.join(&quot;,&quot;)}&quot;</span>
-    <span class='rubyid_end end kw'>end</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_list_available'>list_available</span><span class='lparen'>(</span><span class='id identifier rubyid_filters'>filters</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_supported_filters'>supported_filters</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='symbol'>:category</span><span class='comma'>,</span> <span class='symbol'>:dependency</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_filter_plural_map'>filter_plural_map</span> <span class='op'>=</span> <span class='lbrace'>{</span>
+    <span class='symbol'>:dependency</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>dependencies</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='symbol'>:category</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>categories</span><span class='tstring_end'>&quot;</span></span>
+  <span class='rbrace'>}</span>
+  <span class='kw'>unless</span> <span class='id identifier rubyid_filters'>filters</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_all?'>all?</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_filter'>filter</span><span class='op'>|</span> <span class='id identifier rubyid_supported_filters'>supported_filters</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_filter'>filter</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Unsupported filters specified.</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> Supported filters: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_supported_filters'>supported_filters</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+  <span class='comment'># Compute the filters to be passed to the JSON tree parameter
+</span>  <span class='id identifier rubyid_tree_filters'>tree_filters</span> <span class='op'>=</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_filters'>filters</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>else</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>,</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_filters'>filters</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='op'>|</span> <span class='id identifier rubyid_filter_plural_map'>filter_plural_map</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>,</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
 
-  <span class='rubyid_availables identifier id'>availables</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_get_request identifier id'>api_get_request</span><span class='lparen token'>(</span>
-    <span class='string val'>&quot;/updateCenter/coreSource&quot;</span><span class='comma token'>,</span>
-    <span class='dstring node'>&quot;tree=availables[name,version#{tree_filters}]&quot;</span>
-  <span class='rparen token'>)</span><span class='lbrack token'>[</span><span class='string val'>&quot;availables&quot;</span><span class='rbrack token'>]</span>
-  <span class='rubyid_Hash constant id'>Hash</span><span class='lbrack token'>[</span><span class='rubyid_availables identifier id'>availables</span><span class='dot token'>.</span><span class='rubyid_map identifier id'>map</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_plugin identifier id'>plugin</span><span class='bitor op'>|</span>
-    <span class='rubyid_if if kw'>if</span> <span class='rubyid_filters identifier id'>filters</span><span class='dot token'>.</span><span class='rubyid_keys identifier id'>keys</span><span class='dot token'>.</span><span class='rubyid_all? fid id'>all?</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_key identifier id'>key</span><span class='bitor op'>|</span>
-      <span class='notop op'>!</span><span class='rubyid_plugin identifier id'>plugin</span><span class='lbrack token'>[</span><span class='rubyid_filter_plural_map identifier id'>filter_plural_map</span><span class='lbrack token'>[</span><span class='rubyid_key identifier id'>key</span><span class='rbrack token'>]</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span> <span class='andop op'>&amp;&amp;</span>
-        <span class='rubyid_plugin identifier id'>plugin</span><span class='lbrack token'>[</span><span class='rubyid_filter_plural_map identifier id'>filter_plural_map</span><span class='lbrack token'>[</span><span class='rubyid_key identifier id'>key</span><span class='rbrack token'>]</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_include? fid id'>include?</span><span class='lparen token'>(</span><span class='rubyid_filters identifier id'>filters</span><span class='lbrack token'>[</span><span class='rubyid_key identifier id'>key</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
-    <span class='rubyid_end end kw'>end</span>
-      <span class='lbrack token'>[</span><span class='rubyid_plugin identifier id'>plugin</span><span class='lbrack token'>[</span><span class='string val'>&quot;name&quot;</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='rubyid_plugin identifier id'>plugin</span><span class='lbrack token'>[</span><span class='string val'>&quot;version&quot;</span><span class='rbrack token'>]</span><span class='rbrack token'>]</span>
-    <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_end end kw'>end</span><span class='rbrack token'>]</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+  <span class='id identifier rubyid_availables'>availables</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_get_request'>api_get_request</span><span class='lparen'>(</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/updateCenter/coreSource</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>tree=availables[name,version</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_tree_filters'>tree_filters</span><span class='rbrace'>}</span><span class='tstring_content'>]</span><span class='tstring_end'>&quot;</span></span>
+  <span class='rparen'>)</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>availables</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+  <span class='const'>Hash</span><span class='lbracket'>[</span><span class='id identifier rubyid_availables'>availables</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_plugin'>plugin</span><span class='op'>|</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_filters'>filters</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_all?'>all?</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='op'>|</span>
+      <span class='op'>!</span><span class='id identifier rubyid_plugin'>plugin</span><span class='lbracket'>[</span><span class='id identifier rubyid_filter_plural_map'>filter_plural_map</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>&amp;&amp;</span>
+        <span class='id identifier rubyid_plugin'>plugin</span><span class='lbracket'>[</span><span class='id identifier rubyid_filter_plural_map'>filter_plural_map</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_filters'>filters</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+      <span class='lbracket'>[</span><span class='id identifier rubyid_plugin'>plugin</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>name</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_plugin'>plugin</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>version</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rbracket'>]</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1653,33 +1624,31 @@ numbers with optional filters</p>
 <p>Listing installed plugins from jenkins</p>
 </div></p>
       
-      <pre class="example code"><code><span class='rshft op'>&gt;&gt;</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_plugin identifier id'>plugin</span><span class='dot token'>.</span><span class='rubyid_list_installed identifier id'>list_installed</span>
-<span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span>
-     <span class='string val'>&quot;mailer&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;1.5&quot;</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;external-monitor-job&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;1.1&quot;</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;ldap&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;1.2&quot;</span>
-   <span class='rbrace token'>}</span>
-<span class='rshft op'>&gt;&gt;</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_plugin identifier id'>plugin</span><span class='dot token'>.</span><span class='rubyid_list_installed identifier id'>list_installed</span><span class='lparen token'>(</span><span class='rubyid_true true kw'>true</span><span class='rparen token'>)</span>
-<span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
-</code></pre>
+      <pre class="example code"><code>&gt;&gt; @client.plugin.list_installed
+=&gt; {
+     &quot;mailer&quot; =&gt; &quot;1.5&quot;,
+     &quot;external-monitor-job&quot; =&gt; &quot;1.1&quot;,
+     &quot;ldap&quot; =&gt; &quot;1.2&quot;
+   }
+&gt;&gt; @client.plugin.list_installed(true)
+=&gt; {}</code></pre>
     
       
         <p class="example_title"><div class='inline'>
 <p>Listing installed plugins based on filters provided</p>
 </div></p>
       
-      <pre class="example code"><code><span class='rshft op'>&gt;&gt;</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_plugin identifier id'>plugin</span><span class='dot token'>.</span><span class='rubyid_list_installed identifier id'>list_installed</span><span class='lparen token'>(</span>
-     <span class='symbol val'>:active</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_true true kw'>true</span><span class='comma token'>,</span> <span class='symbol val'>:deleted</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_false false kw'>false</span><span class='comma token'>,</span> <span class='symbol val'>:bundled</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_false false kw'>false</span>
-   <span class='rparen token'>)</span>
-<span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span>
-     <span class='string val'>&quot;sourcemonitor&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;0.2&quot;</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;sms-notification&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;1.0&quot;</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;jquery&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;1.7.2-1&quot;</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;simple-theme-plugin&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;0.3&quot;</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;jquery-ui&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;1.0.2&quot;</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;analysis-core&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;1.49&quot;</span>
-   <span class='rbrace token'>}</span>
-</code></pre>
+      <pre class="example code"><code>&gt;&gt; @client.plugin.list_installed(
+     :active =&gt; true, :deleted =&gt; false, :bundled =&gt; false
+   )
+=&gt; {
+     &quot;sourcemonitor&quot; =&gt; &quot;0.2&quot;,
+     &quot;sms-notification&quot; =&gt; &quot;1.0&quot;,
+     &quot;jquery&quot; =&gt; &quot;1.7.2-1&quot;,
+     &quot;simple-theme-plugin&quot; =&gt; &quot;0.3&quot;,
+     &quot;jquery-ui&quot; =&gt; &quot;1.0.2&quot;,
+     &quot;analysis-core&quot; =&gt; &quot;1.49&quot;
+   }</code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -1784,8 +1753,8 @@ numbers with optional filters</p>
           </span>
           
             &mdash; <div class='inline'>
-<p>filter plugins that has update available. Note that ‘U’ is capitalized
-in hasUpdate.</p>
+<p>filter plugins that has update available. Note that ‘U’ is capitalized in
+hasUpdate.</p>
 </div>
           
         </li>
@@ -1826,19 +1795,6 @@ installed in jenkins.</p>
     </li>
   
 </ul>
-<p class="tag_title">Raises:</p>
-<ul class="raise">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>ArgumentError</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
 
 </div><table class="source_code">
   <tr>
@@ -1871,28 +1827,27 @@ installed in jenkins.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/plugin_manager.rb', line 108</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_list_installed identifier id'>list_installed</span><span class='lparen token'>(</span><span class='rubyid_filters identifier id'>filters</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
-  <span class='rubyid_supported_filters identifier id'>supported_filters</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span>
-    <span class='symbol val'>:active</span><span class='comma token'>,</span> <span class='symbol val'>:bundled</span><span class='comma token'>,</span> <span class='symbol val'>:deleted</span><span class='comma token'>,</span> <span class='symbol val'>:downgradable</span><span class='comma token'>,</span> <span class='symbol val'>:enabled</span><span class='comma token'>,</span> <span class='symbol val'>:hasUpdate</span><span class='comma token'>,</span>
-    <span class='symbol val'>:pinned</span>
-  <span class='rbrack token'>]</span>
-  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_filters identifier id'>filters</span><span class='dot token'>.</span><span class='rubyid_keys identifier id'>keys</span><span class='dot token'>.</span><span class='rubyid_all? fid id'>all?</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_filter identifier id'>filter</span><span class='bitor op'>|</span> <span class='rubyid_supported_filters identifier id'>supported_filters</span><span class='dot token'>.</span><span class='rubyid_include? fid id'>include?</span><span class='lparen token'>(</span><span class='rubyid_filter identifier id'>filter</span><span class='rparen token'>)</span> <span class='rbrace token'>}</span>
-    <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_ArgumentError constant id'>ArgumentError</span><span class='comma token'>,</span> <span class='string val'>&quot;Unsupported filters specified.&quot;</span> <span class='plus op'>+</span>
-      <span class='dstring node'>&quot; Supported filters: #{supported_filters.inspect}&quot;</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_tree_filters identifier id'>tree_filters</span> <span class='assign token'>=</span> <span class='rubyid_filters identifier id'>filters</span><span class='dot token'>.</span><span class='rubyid_empty? fid id'>empty?</span> <span class='integer val'>? </span><span class='string val'>&quot;&quot;</span> <span class='colon op'>:</span> <span class='dstring node'>&quot;,#{filters.keys.join(&quot;,&quot;)}&quot;</span>
-  <span class='rubyid_plugins identifier id'>plugins</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_get_request identifier id'>api_get_request</span><span class='lparen token'>(</span>
-    <span class='string val'>&quot;/pluginManager&quot;</span><span class='comma token'>,</span>
-    <span class='dstring node'>&quot;tree=plugins[shortName,version#{tree_filters}]&quot;</span>
-  <span class='rparen token'>)</span><span class='lbrack token'>[</span><span class='string val'>&quot;plugins&quot;</span><span class='rbrack token'>]</span>
-  <span class='rubyid_installed identifier id'>installed</span> <span class='assign token'>=</span> <span class='rubyid_Hash constant id'>Hash</span><span class='lbrack token'>[</span><span class='rubyid_plugins identifier id'>plugins</span><span class='dot token'>.</span><span class='rubyid_map identifier id'>map</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_plugin identifier id'>plugin</span><span class='bitor op'>|</span>
-    <span class='rubyid_if if kw'>if</span> <span class='rubyid_filters identifier id'>filters</span><span class='dot token'>.</span><span class='rubyid_keys identifier id'>keys</span><span class='dot token'>.</span><span class='rubyid_all? fid id'>all?</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_key identifier id'>key</span><span class='bitor op'>|</span> <span class='rubyid_plugin identifier id'>plugin</span><span class='lbrack token'>[</span><span class='rubyid_key identifier id'>key</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span><span class='rbrack token'>]</span> <span class='eq op'>==</span> <span class='rubyid_filters identifier id'>filters</span><span class='lbrack token'>[</span><span class='rubyid_key identifier id'>key</span><span class='rbrack token'>]</span> <span class='rbrace token'>}</span>
-      <span class='lbrack token'>[</span><span class='rubyid_plugin identifier id'>plugin</span><span class='lbrack token'>[</span><span class='string val'>&quot;shortName&quot;</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='rubyid_plugin identifier id'>plugin</span><span class='lbrack token'>[</span><span class='string val'>&quot;version&quot;</span><span class='rbrack token'>]</span><span class='rbrack token'>]</span>
-    <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_end end kw'>end</span><span class='rbrack token'>]</span>
-  <span class='rubyid_installed identifier id'>installed</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_list_installed'>list_installed</span><span class='lparen'>(</span><span class='id identifier rubyid_filters'>filters</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_supported_filters'>supported_filters</span> <span class='op'>=</span> <span class='lbracket'>[</span>
+    <span class='symbol'>:active</span><span class='comma'>,</span> <span class='symbol'>:bundled</span><span class='comma'>,</span> <span class='symbol'>:deleted</span><span class='comma'>,</span> <span class='symbol'>:downgradable</span><span class='comma'>,</span> <span class='symbol'>:enabled</span><span class='comma'>,</span> <span class='symbol'>:hasUpdate</span><span class='comma'>,</span>
+    <span class='symbol'>:pinned</span>
+  <span class='rbracket'>]</span>
+  <span class='kw'>unless</span> <span class='id identifier rubyid_filters'>filters</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_all?'>all?</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_filter'>filter</span><span class='op'>|</span> <span class='id identifier rubyid_supported_filters'>supported_filters</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_filter'>filter</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Unsupported filters specified.</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> Supported filters: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_supported_filters'>supported_filters</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_tree_filters'>tree_filters</span> <span class='op'>=</span> <span class='id identifier rubyid_filters'>filters</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>,</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_filters'>filters</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>,</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_plugins'>plugins</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_get_request'>api_get_request</span><span class='lparen'>(</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/pluginManager</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>tree=plugins[shortName,version</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_tree_filters'>tree_filters</span><span class='rbrace'>}</span><span class='tstring_content'>]</span><span class='tstring_end'>&quot;</span></span>
+  <span class='rparen'>)</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>plugins</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_installed'>installed</span> <span class='op'>=</span> <span class='const'>Hash</span><span class='lbracket'>[</span><span class='id identifier rubyid_plugins'>plugins</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_plugin'>plugin</span><span class='op'>|</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_filters'>filters</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_all?'>all?</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='op'>|</span> <span class='id identifier rubyid_plugin'>plugin</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='id identifier rubyid_filters'>filters</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
+      <span class='lbracket'>[</span><span class='id identifier rubyid_plugin'>plugin</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>shortName</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_plugin'>plugin</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>version</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rbracket'>]</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_installed'>installed</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1926,13 +1881,12 @@ with their version numbers</p>
 <p>Listing available plugin updates from jenkins</p>
 </div></p>
       
-      <pre class="example code"><code><span class='rshft op'>&gt;&gt;</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_plugin identifier id'>plugin</span><span class='dot token'>.</span><span class='rubyid_list_updates identifier id'>list_updates</span>
-<span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span>
-     <span class='string val'>&quot;ldap&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;1.5&quot;</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;ssh-slaves&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;0.27&quot;</span><span class='comma token'>,</span>
-     <span class='string val'>&quot;subversion&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;1&quot;</span><span class='integer val'>.50</span>
-   <span class='rbrace token'>}</span>
-</code></pre>
+      <pre class="example code"><code>&gt;&gt; @client.plugin.list_updates
+=&gt; {
+     &quot;ldap&quot; =&gt; &quot;1.5&quot;,
+     &quot;ssh-slaves&quot; =&gt; &quot;0.27&quot;,
+     &quot;subversion&quot; =&gt; &quot;1&quot;.50
+   }</code></pre>
     
   </div>
 
@@ -1973,14 +1927,13 @@ are available.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/plugin_manager.rb', line 304</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_list_updates identifier id'>list_updates</span>
-  <span class='rubyid_updates identifier id'>updates</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_get_request identifier id'>api_get_request</span><span class='lparen token'>(</span>
-    <span class='string val'>&quot;/updateCenter/coreSource&quot;</span><span class='comma token'>,</span>
-    <span class='string val'>&quot;tree=updates[name,version]&quot;</span>
-  <span class='rparen token'>)</span><span class='lbrack token'>[</span><span class='string val'>&quot;updates&quot;</span><span class='rbrack token'>]</span>
-  <span class='rubyid_Hash constant id'>Hash</span><span class='lbrack token'>[</span><span class='rubyid_updates identifier id'>updates</span><span class='dot token'>.</span><span class='rubyid_map identifier id'>map</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_plugin identifier id'>plugin</span><span class='bitor op'>|</span> <span class='lbrack token'>[</span><span class='rubyid_plugin identifier id'>plugin</span><span class='lbrack token'>[</span><span class='string val'>&quot;name&quot;</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='rubyid_plugin identifier id'>plugin</span><span class='lbrack token'>[</span><span class='string val'>&quot;version&quot;</span><span class='rbrack token'>]</span><span class='rbrack token'>]</span> <span class='rbrace token'>}</span><span class='rbrack token'>]</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_list_updates'>list_updates</span>
+  <span class='id identifier rubyid_updates'>updates</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_get_request'>api_get_request</span><span class='lparen'>(</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/updateCenter/coreSource</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>tree=updates[name,version]</span><span class='tstring_end'>&quot;</span></span>
+  <span class='rparen'>)</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>updates</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+  <span class='const'>Hash</span><span class='lbracket'>[</span><span class='id identifier rubyid_updates'>updates</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_plugin'>plugin</span><span class='op'>|</span> <span class='lbracket'>[</span><span class='id identifier rubyid_plugin'>plugin</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>name</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_plugin'>plugin</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>version</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rbracket'>]</span> <span class='rbrace'>}</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -2051,15 +2004,14 @@ installations/uninstallations.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/plugin_manager.rb', line 450</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_restart_required? fid id'>restart_required?</span>
-  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_get_request identifier id'>api_get_request</span><span class='lparen token'>(</span>
-    <span class='string val'>&quot;/updateCenter&quot;</span><span class='comma token'>,</span>
-    <span class='string val'>&quot;tree=restartRequiredForCompletion&quot;</span>
-  <span class='rparen token'>)</span>
-  <span class='rubyid_response identifier id'>response</span><span class='lbrack token'>[</span><span class='string val'>&quot;restartRequiredForCompletion&quot;</span><span class='rbrack token'>]</span> <span class='orop op'>||</span>
-    <span class='notop op'>!</span><span class='rubyid_list_installed identifier id'>list_installed</span><span class='lparen token'>(</span><span class='symbol val'>:deleted</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_true true kw'>true</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_empty? fid id'>empty?</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_restart_required?'>restart_required?</span>
+  <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_get_request'>api_get_request</span><span class='lparen'>(</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/updateCenter</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>tree=restartRequiredForCompletion</span><span class='tstring_end'>&quot;</span></span>
+  <span class='rparen'>)</span>
+  <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>restartRequiredForCompletion</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>||</span>
+    <span class='op'>!</span><span class='id identifier rubyid_list_installed'>list_installed</span><span class='lparen'>(</span><span class='symbol'>:deleted</span> <span class='op'>=&gt;</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -2098,10 +2050,9 @@ installations/uninstallations.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/plugin_manager.rb', line 44</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_to_s identifier id'>to_s</span>
-  <span class='string val'>&quot;#&lt;JenkinsApi::Client::PluginManager&gt;&quot;</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>#&lt;JenkinsApi::Client::PluginManager&gt;</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -2176,8 +2127,7 @@ delay if a big list is provided.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/plugin_manager.rb', line 368</span>
 
-<span class='rubyid_plugin_action_method identifier id'>plugin_action_method</span> <span class='symbol val'>:uninstall</span><span class='comma token'>,</span> <span class='symbol val'>:doUninstall</span>
-</pre>
+<span class='id identifier rubyid_plugin_action_method'>plugin_action_method</span> <span class='symbol'>:uninstall</span><span class='comma'>,</span> <span class='symbol'>:doUninstall</span></pre>
     </td>
   </tr>
 </table>
@@ -2247,8 +2197,7 @@ big list is provided.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/plugin_manager.rb', line 399</span>
 
-<span class='rubyid_plugin_action_method identifier id'>plugin_action_method</span> <span class='symbol val'>:unpin</span><span class='comma token'>,</span> <span class='symbol val'>:unpin</span>
-</pre>
+<span class='id identifier rubyid_plugin_action_method'>plugin_action_method</span> <span class='symbol'>:unpin</span><span class='comma'>,</span> <span class='symbol'>:unpin</span></pre>
     </td>
   </tr>
 </table>
@@ -2259,9 +2208,9 @@ big list is provided.</p>
 </div>
 
     <div id="footer">
-  Generated on Mon Oct  7 01:41:45 2013 by
+  Generated on Fri Apr  4 21:56:25 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.2 (ruby-1.8.7).
+  0.8.7.3 (ruby-1.9.3).
 </div>
 
         <script type="text/javascript">

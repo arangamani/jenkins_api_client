@@ -6,7 +6,7 @@
 <title>
   Class: JenkinsApi::Client::View
   
-    &mdash; Documentation by YARD 0.8.7.2
+    &mdash; Documentation by YARD 0.8.7.3
   
 </title>
 
@@ -90,11 +90,15 @@
     
   
     
+      <dt class="r2">Includes:</dt>
+      <dd class="r2"><span class='object_link'><a href="../UriHelper.html" title="JenkinsApi::UriHelper (module)">UriHelper</a></span></dd>
+      
+    
   
   
   
-    <dt class="r2 last">Defined in:</dt>
-    <dd class="r2 last">lib/jenkins_api_client/view.rb</dd>
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/jenkins_api_client/view.rb</dd>
   
 </dl>
 <div class="clear"></div>
@@ -102,7 +106,7 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>This class communicates with Jenkins “/view” API and used to create,
+<p>This class communicates with Jenkins "/view" API and used to create,
 delete, update, and various other operations permitted on the Jenkins API.</p>
 
 
@@ -443,6 +447,17 @@ delete, update, and various other operations permitted on the Jenkins API.</p>
     </ul>
   
 
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../UriHelper.html" title="JenkinsApi::UriHelper (module)">UriHelper</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../UriHelper.html#form_encode-instance_method" title="JenkinsApi::UriHelper#form_encode (method)">#form_encode</a></span>, <span class='object_link'><a href="../UriHelper.html#path_encode-instance_method" title="JenkinsApi::UriHelper#path_encode (method)">#path_encode</a></span></p>
 <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
@@ -492,19 +507,18 @@ delete, update, and various other operations permitted on the Jenkins API.</p>
       <pre class="lines">
 
 
-37
-38
-39
-40</pre>
+40
+41
+42
+43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 40</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_client identifier id'>client</span><span class='rparen token'>)</span>
-  <span class='rubyid_@client ivar id'>@client</span> <span class='assign token'>=</span> <span class='rubyid_client identifier id'>client</span>
-  <span class='rubyid_@logger ivar id'>@logger</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_logger identifier id'>logger</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_client'>client</span><span class='rparen'>)</span>
+  <span class='ivar'>@client</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span>
+  <span class='ivar'>@logger</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -569,21 +583,20 @@ delete, update, and various other operations permitted on the Jenkins API.</p>
       <pre class="lines">
 
 
-226
-227
-228
 229
-230</pre>
+230
+231
+232
+233</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 226</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 229</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_add_job identifier id'>add_job</span><span class='lparen token'>(</span><span class='rubyid_view_name identifier id'>view_name</span><span class='comma token'>,</span> <span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Adding job '#{job_name}' to view '#{view_name}'&quot;</span>
-  <span class='rubyid_post_msg identifier id'>post_msg</span> <span class='assign token'>=</span> <span class='dstring node'>&quot;/view/#{view_name}/addJobToView?name=#{job_name}&quot;</span>
-  <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_post_request identifier id'>api_post_request</span><span class='lparen token'>(</span><span class='rubyid_post_msg identifier id'>post_msg</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_add_job'>add_job</span><span class='lparen'>(</span><span class='id identifier rubyid_view_name'>view_name</span><span class='comma'>,</span> <span class='id identifier rubyid_job_name'>job_name</span><span class='rparen'>)</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Adding job '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rbrace'>}</span><span class='tstring_content'>' to view '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_view_name'>view_name</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_post_msg'>post_msg</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/view/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_path_encode'>path_encode</span> <span class='id identifier rubyid_view_name'>view_name</span><span class='rbrace'>}</span><span class='tstring_content'>/addJobToView?name=</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_form_encode'>form_encode</span> <span class='id identifier rubyid_job_name'>job_name</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_post_request'>api_post_request</span><span class='lparen'>(</span><span class='id identifier rubyid_post_msg'>post_msg</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -655,9 +668,6 @@ delete, update, and various other operations permitted on the Jenkins API.</p>
       <pre class="lines">
 
 
-54
-55
-56
 57
 58
 59
@@ -674,32 +684,34 @@ delete, update, and various other operations permitted on the Jenkins API.</p>
 70
 71
 72
-73</pre>
+73
+74
+75
+76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 57</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_create identifier id'>create</span><span class='lparen token'>(</span><span class='rubyid_view_name identifier id'>view_name</span><span class='comma token'>,</span> <span class='rubyid_type identifier id'>type</span> <span class='assign token'>=</span> <span class='string val'>&quot;listview&quot;</span><span class='rparen token'>)</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Creating a view '#{view_name}' of type '#{type}'&quot;</span>
-  <span class='rubyid_mode identifier id'>mode</span> <span class='assign token'>=</span> <span class='rubyid_case case kw'>case</span> <span class='rubyid_type identifier id'>type</span>
-  <span class='rubyid_when when kw'>when</span> <span class='string val'>&quot;listview&quot;</span>
-    <span class='string val'>&quot;hudson.model.ListView&quot;</span>
-  <span class='rubyid_when when kw'>when</span> <span class='string val'>&quot;myview&quot;</span>
-    <span class='string val'>&quot;hudson.model.MyView&quot;</span>
-  <span class='rubyid_else else kw'>else</span>
-    <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;Type #{type} is not supported by Jenkins.&quot;</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_initial_post_params identifier id'>initial_post_params</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span>
-    <span class='string val'>&quot;name&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_view_name identifier id'>view_name</span><span class='comma token'>,</span>
-    <span class='string val'>&quot;mode&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_mode identifier id'>mode</span><span class='comma token'>,</span>
-    <span class='string val'>&quot;json&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span>
-      <span class='string val'>&quot;name&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_view_name identifier id'>view_name</span><span class='comma token'>,</span>
-      <span class='string val'>&quot;mode&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_mode identifier id'>mode</span>
-    <span class='rbrace token'>}</span><span class='dot token'>.</span><span class='rubyid_to_json identifier id'>to_json</span>
-  <span class='rbrace token'>}</span>
-  <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_post_request identifier id'>api_post_request</span><span class='lparen token'>(</span><span class='string val'>&quot;/createView&quot;</span><span class='comma token'>,</span> <span class='rubyid_initial_post_params identifier id'>initial_post_params</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='id identifier rubyid_view_name'>view_name</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>listview</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Creating a view '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_view_name'>view_name</span><span class='rbrace'>}</span><span class='tstring_content'>' of type '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_type'>type</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_mode'>mode</span> <span class='op'>=</span> <span class='kw'>case</span> <span class='id identifier rubyid_type'>type</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>listview</span><span class='tstring_end'>&quot;</span></span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>hudson.model.ListView</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>myview</span><span class='tstring_end'>&quot;</span></span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>hudson.model.MyView</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Type </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_type'>type</span><span class='rbrace'>}</span><span class='tstring_content'> is not supported by Jenkins.</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_initial_post_params'>initial_post_params</span> <span class='op'>=</span> <span class='lbrace'>{</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>name</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_view_name'>view_name</span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mode</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_mode'>mode</span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>json</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>name</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_view_name'>view_name</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mode</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_mode'>mode</span>
+    <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span>
+  <span class='rbrace'>}</span>
+  <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_post_request'>api_post_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/createView</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_initial_post_params'>initial_post_params</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -844,7 +856,7 @@ enabled_jobs_only, disabled_jobs_only. Default: all_selected_jobs</p>
       
         &mdash;
         <div class='inline'>
-<p>if the required parameter <code>:name</code> is not specified</p>
+<p>if the required parameter <tt>:name</tt> is not specified</p>
 </div>
       
     </li>
@@ -857,9 +869,6 @@ enabled_jobs_only, disabled_jobs_only. Default: all_selected_jobs</p>
       <pre class="lines">
 
 
-91
-92
-93
 94
 95
 96
@@ -921,77 +930,79 @@ enabled_jobs_only, disabled_jobs_only. Default: all_selected_jobs</p>
 152
 153
 154
-155</pre>
+155
+156
+157
+158</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 91</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 94</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_create_list_view identifier id'>create_list_view</span><span class='lparen token'>(</span><span class='rubyid_params identifier id'>params</span><span class='rparen token'>)</span>
-  <span class='comment val'># Name is a required parameter. Raise an error if not specified</span>
-  <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_ArgumentError constant id'>ArgumentError</span><span class='comma token'>,</span> <span class='string val'>&quot;Name is required for creating view&quot;</span> \
-    <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_params identifier id'>params</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_Hash constant id'>Hash</span><span class='rparen token'>)</span> <span class='andop op'>&amp;&amp;</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:name</span><span class='rbrack token'>]</span>
-  <span class='rubyid_create identifier id'>create</span><span class='lparen token'>(</span><span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:name</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='string val'>&quot;listview&quot;</span><span class='rparen token'>)</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_debug identifier id'>debug</span> <span class='dstring node'>&quot;Creating a list view with params: #{params.inspect}&quot;</span>
-  <span class='rubyid_status_filter identifier id'>status_filter</span> <span class='assign token'>=</span> <span class='rubyid_case case kw'>case</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:status_filter</span><span class='rbrack token'>]</span>
-  <span class='rubyid_when when kw'>when</span> <span class='string val'>&quot;all_selected_jobs&quot;</span>
-    <span class='string val'>&quot;&quot;</span>
-  <span class='rubyid_when when kw'>when</span> <span class='string val'>&quot;enabled_jobs_only&quot;</span>
-    <span class='string val'>&quot;1&quot;</span>
-  <span class='rubyid_when when kw'>when</span> <span class='string val'>&quot;disabled_jobs_only&quot;</span>
-    <span class='string val'>&quot;2&quot;</span>
-  <span class='rubyid_else else kw'>else</span>
-    <span class='string val'>&quot;&quot;</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_post_params identifier id'>post_params</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span>
-    <span class='string val'>&quot;name&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:name</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
-    <span class='string val'>&quot;mode&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;hudson.model.ListView&quot;</span><span class='comma token'>,</span>
-    <span class='string val'>&quot;description&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:description</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
-    <span class='string val'>&quot;statusFilter&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_status_filter identifier id'>status_filter</span><span class='comma token'>,</span>
-    <span class='string val'>&quot;json&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span>
-      <span class='string val'>&quot;name&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:name</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
-      <span class='string val'>&quot;description&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:description</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
-      <span class='string val'>&quot;mode&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;hudson.model.ListView&quot;</span><span class='comma token'>,</span>
-      <span class='string val'>&quot;statusFilter&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;&quot;</span><span class='comma token'>,</span>
-      <span class='string val'>&quot;columns&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrack token'>[</span>
-        <span class='lbrace token'>{</span>
-          <span class='string val'>&quot;stapler-class&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;hudson.views.StatusColumn&quot;</span><span class='comma token'>,</span>
-          <span class='string val'>&quot;kind&quot;</span><span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;hudson.views.StatusColumn&quot;</span>
-        <span class='rbrace token'>}</span><span class='comma token'>,</span>
-        <span class='lbrace token'>{</span>
-          <span class='string val'>&quot;stapler-class&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;hudson.views.WeatherColumn&quot;</span><span class='comma token'>,</span>
-          <span class='string val'>&quot;kind&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;hudson.views.WeatherColumn&quot;</span>
-        <span class='rbrace token'>}</span><span class='comma token'>,</span>
-        <span class='lbrace token'>{</span>
-          <span class='string val'>&quot;stapler-class&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;hudson.views.JobColumn&quot;</span><span class='comma token'>,</span>
-          <span class='string val'>&quot;kind&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;hudson.views.JobColumn&quot;</span>
-        <span class='rbrace token'>}</span><span class='comma token'>,</span>
-        <span class='lbrace token'>{</span>
-          <span class='string val'>&quot;stapler-class&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;hudson.views.LastSuccessColumn&quot;</span><span class='comma token'>,</span>
-          <span class='string val'>&quot;kind&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;hudson.views.LastSuccessColumn&quot;</span>
-        <span class='rbrace token'>}</span><span class='comma token'>,</span>
-        <span class='lbrace token'>{</span>
-          <span class='string val'>&quot;stapler-class&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;hudson.views.LastFailureColumn&quot;</span><span class='comma token'>,</span>
-          <span class='string val'>&quot;kind&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;hudson.views.LastFailureColumn&quot;</span>
-        <span class='rbrace token'>}</span><span class='comma token'>,</span>
-        <span class='lbrace token'>{</span>
-          <span class='string val'>&quot;stapler-class&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;hudson.views.LastDurationColumn&quot;</span><span class='comma token'>,</span>
-          <span class='string val'>&quot;kind&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;hudson.views.LastDurationColumn&quot;</span>
-        <span class='rbrace token'>}</span><span class='comma token'>,</span>
-        <span class='lbrace token'>{</span>
-          <span class='string val'>&quot;stapler-class&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;hudson.views.BuildButtonColumn&quot;</span><span class='comma token'>,</span>
-          <span class='string val'>&quot;kind&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;hudson.views.BuildButtonColumn&quot;</span>
-        <span class='rbrace token'>}</span>
-      <span class='rbrack token'>]</span>
-    <span class='rbrace token'>}</span><span class='dot token'>.</span><span class='rubyid_to_json identifier id'>to_json</span>
-  <span class='rbrace token'>}</span>
-  <span class='rubyid_post_params identifier id'>post_params</span><span class='dot token'>.</span><span class='rubyid_merge! fid id'>merge!</span><span class='lparen token'>(</span><span class='string val'>&quot;filterQueue&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;on&quot;</span><span class='rparen token'>)</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:filter_queue</span><span class='rbrack token'>]</span>
-  <span class='rubyid_post_params identifier id'>post_params</span><span class='dot token'>.</span><span class='rubyid_merge! fid id'>merge!</span><span class='lparen token'>(</span><span class='string val'>&quot;filterExecutors&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;on&quot;</span><span class='rparen token'>)</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:filter_executors</span><span class='rbrack token'>]</span>
-  <span class='rubyid_post_params identifier id'>post_params</span><span class='dot token'>.</span><span class='rubyid_merge! fid id'>merge!</span><span class='lparen token'>(</span><span class='string val'>&quot;useincluderegex&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;on&quot;</span><span class='comma token'>,</span>
-                     <span class='string val'>&quot;includeRegex&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:regex</span><span class='rbrack token'>]</span><span class='rparen token'>)</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:regex</span><span class='rbrack token'>]</span>
-  <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_post_request identifier id'>api_post_request</span><span class='lparen token'>(</span><span class='dstring node'>&quot;/view/#{params[:name]}/configSubmit&quot;</span><span class='comma token'>,</span>
-                           <span class='rubyid_post_params identifier id'>post_params</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_create_list_view'>create_list_view</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
+  <span class='comment'># Name is a required parameter. Raise an error if not specified
+</span>  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Name is required for creating view</span><span class='tstring_end'>&quot;</span></span> \
+    <span class='kw'>unless</span> <span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Hash</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>listview</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_debug'>debug</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Creating a list view with params: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_status_filter'>status_filter</span> <span class='op'>=</span> <span class='kw'>case</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:status_filter</span><span class='rbracket'>]</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>all_selected_jobs</span><span class='tstring_end'>&quot;</span></span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>enabled_jobs_only</span><span class='tstring_end'>&quot;</span></span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>1</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>disabled_jobs_only</span><span class='tstring_end'>&quot;</span></span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>2</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>else</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_post_params'>post_params</span> <span class='op'>=</span> <span class='lbrace'>{</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>name</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mode</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>hudson.model.ListView</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>description</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:description</span><span class='rbracket'>]</span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>statusFilter</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_status_filter'>status_filter</span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>json</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>name</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>description</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:description</span><span class='rbracket'>]</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mode</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>hudson.model.ListView</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>statusFilter</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>columns</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span>
+        <span class='lbrace'>{</span>
+          <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>stapler-class</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>hudson.views.StatusColumn</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+          <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>kind</span><span class='tstring_end'>&quot;</span></span><span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>hudson.views.StatusColumn</span><span class='tstring_end'>&quot;</span></span>
+        <span class='rbrace'>}</span><span class='comma'>,</span>
+        <span class='lbrace'>{</span>
+          <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>stapler-class</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>hudson.views.WeatherColumn</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+          <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>kind</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>hudson.views.WeatherColumn</span><span class='tstring_end'>&quot;</span></span>
+        <span class='rbrace'>}</span><span class='comma'>,</span>
+        <span class='lbrace'>{</span>
+          <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>stapler-class</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>hudson.views.JobColumn</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+          <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>kind</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>hudson.views.JobColumn</span><span class='tstring_end'>&quot;</span></span>
+        <span class='rbrace'>}</span><span class='comma'>,</span>
+        <span class='lbrace'>{</span>
+          <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>stapler-class</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>hudson.views.LastSuccessColumn</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+          <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>kind</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>hudson.views.LastSuccessColumn</span><span class='tstring_end'>&quot;</span></span>
+        <span class='rbrace'>}</span><span class='comma'>,</span>
+        <span class='lbrace'>{</span>
+          <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>stapler-class</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>hudson.views.LastFailureColumn</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+          <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>kind</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>hudson.views.LastFailureColumn</span><span class='tstring_end'>&quot;</span></span>
+        <span class='rbrace'>}</span><span class='comma'>,</span>
+        <span class='lbrace'>{</span>
+          <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>stapler-class</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>hudson.views.LastDurationColumn</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+          <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>kind</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>hudson.views.LastDurationColumn</span><span class='tstring_end'>&quot;</span></span>
+        <span class='rbrace'>}</span><span class='comma'>,</span>
+        <span class='lbrace'>{</span>
+          <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>stapler-class</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>hudson.views.BuildButtonColumn</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+          <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>kind</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>hudson.views.BuildButtonColumn</span><span class='tstring_end'>&quot;</span></span>
+        <span class='rbrace'>}</span>
+      <span class='rbracket'>]</span>
+    <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span>
+  <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_post_params'>post_params</span><span class='period'>.</span><span class='id identifier rubyid_merge!'>merge!</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>filterQueue</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>on</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:filter_queue</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_post_params'>post_params</span><span class='period'>.</span><span class='id identifier rubyid_merge!'>merge!</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>filterExecutors</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>on</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:filter_executors</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_post_params'>post_params</span><span class='period'>.</span><span class='id identifier rubyid_merge!'>merge!</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>useincluderegex</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>on</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+                     <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>includeRegex</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:regex</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:regex</span><span class='rbracket'>]</span>
+  <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_post_request'>api_post_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/view/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_path_encode'>path_encode</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='rbrace'>}</span><span class='tstring_content'>/configSubmit</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+                           <span class='id identifier rubyid_post_params'>post_params</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1038,19 +1049,18 @@ enabled_jobs_only, disabled_jobs_only. Default: all_selected_jobs</p>
       <pre class="lines">
 
 
-161
-162
-163
-164</pre>
+164
+165
+166
+167</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 161</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 164</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_delete identifier id'>delete</span><span class='lparen token'>(</span><span class='rubyid_view_name identifier id'>view_name</span><span class='rparen token'>)</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Deleting view '#{view_name}'&quot;</span>
-  <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_post_request identifier id'>api_post_request</span><span class='lparen token'>(</span><span class='dstring node'>&quot;/view/#{view_name}/doDelete&quot;</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_view_name'>view_name</span><span class='rparen'>)</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Deleting view '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_view_name'>view_name</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
+  <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_post_request'>api_post_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/view/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_path_encode'>path_encode</span> <span class='id identifier rubyid_view_name'>view_name</span><span class='rbrace'>}</span><span class='tstring_content'>/doDelete</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1091,19 +1101,18 @@ Please use with caution.</p>
       <pre class="lines">
 
 
-171
-172
-173
-174</pre>
+174
+175
+176
+177</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 171</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 174</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_delete_all! fid id'>delete_all!</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='string val'>&quot;Deleting all views from jenkins&quot;</span>
-  <span class='rubyid_list identifier id'>list</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_view identifier id'>view</span><span class='bitor op'>|</span> <span class='rubyid_delete identifier id'>delete</span><span class='lparen token'>(</span><span class='rubyid_view identifier id'>view</span><span class='rparen token'>)</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_view identifier id'>view</span> <span class='eq op'>==</span> <span class='string val'>&quot;All&quot;</span><span class='rbrace token'>}</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_delete_all!'>delete_all!</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Deleting all views from jenkins</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_list'>list</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_view'>view</span><span class='op'>|</span> <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_view'>view</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_view'>view</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>All</span><span class='tstring_end'>&quot;</span></span><span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1163,17 +1172,16 @@ Please use with caution.</p>
       <pre class="lines">
 
 
-199
-200
-201</pre>
+202
+203
+204</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 199</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 202</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_exists? fid id'>exists?</span><span class='lparen token'>(</span><span class='rubyid_view_name identifier id'>view_name</span><span class='rparen token'>)</span>
-  <span class='rubyid_list identifier id'>list</span><span class='lparen token'>(</span><span class='rubyid_view_name identifier id'>view_name</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_include? fid id'>include?</span><span class='lparen token'>(</span><span class='rubyid_view_name identifier id'>view_name</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_exists?'>exists?</span><span class='lparen'>(</span><span class='id identifier rubyid_view_name'>view_name</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_list'>list</span><span class='lparen'>(</span><span class='id identifier rubyid_view_name'>view_name</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_view_name'>view_name</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1220,19 +1228,18 @@ Please use with caution.</p>
       <pre class="lines">
 
 
-247
-248
-249
-250</pre>
+250
+251
+252
+253</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 247</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 250</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_get_config identifier id'>get_config</span><span class='lparen token'>(</span><span class='rubyid_view_name identifier id'>view_name</span><span class='rparen token'>)</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the configuration of view '#{view_name}'&quot;</span>
-  <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_get_config identifier id'>get_config</span><span class='lparen token'>(</span><span class='dstring node'>&quot;/view/#{view_name}&quot;</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_get_config'>get_config</span><span class='lparen'>(</span><span class='id identifier rubyid_view_name'>view_name</span><span class='rparen'>)</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining the configuration of view '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_view_name'>view_name</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
+  <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_get_config'>get_config</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/view/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_path_encode'>path_encode</span> <span class='id identifier rubyid_view_name'>view_name</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1304,9 +1311,6 @@ Please use with caution.</p>
       <pre class="lines">
 
 
-181
-182
-183
 184
 185
 186
@@ -1316,25 +1320,27 @@ Please use with caution.</p>
 190
 191
 192
-193</pre>
+193
+194
+195
+196</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 181</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 184</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_list identifier id'>list</span><span class='lparen token'>(</span><span class='rubyid_filter identifier id'>filter</span> <span class='assign token'>=</span> <span class='string val'>&quot;&quot;</span><span class='comma token'>,</span> <span class='rubyid_ignorecase identifier id'>ignorecase</span> <span class='assign token'>=</span> <span class='rubyid_true true kw'>true</span><span class='rparen token'>)</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining views based on filter '#{filter}'&quot;</span>
-  <span class='rubyid_view_names identifier id'>view_names</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
-  <span class='rubyid_response_json identifier id'>response_json</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_get_request identifier id'>api_get_request</span><span class='lparen token'>(</span><span class='string val'>&quot;&quot;</span><span class='rparen token'>)</span>
-  <span class='rubyid_response_json identifier id'>response_json</span><span class='lbrack token'>[</span><span class='string val'>&quot;views&quot;</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_view identifier id'>view</span><span class='bitor op'>|</span>
-    <span class='rubyid_if if kw'>if</span> <span class='rubyid_ignorecase identifier id'>ignorecase</span>
-      <span class='rubyid_view_names identifier id'>view_names</span> <span class='lshft op'>&lt;&lt;</span> <span class='rubyid_view identifier id'>view</span><span class='lbrack token'>[</span><span class='string val'>&quot;name&quot;</span><span class='rbrack token'>]</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_view identifier id'>view</span><span class='lbrack token'>[</span><span class='string val'>&quot;name&quot;</span><span class='rbrack token'>]</span> <span class='match op'>=~</span> <span class='dregexp node'>/#{filter}/i</span>
-    <span class='rubyid_else else kw'>else</span>
-      <span class='rubyid_view_names identifier id'>view_names</span> <span class='lshft op'>&lt;&lt;</span> <span class='rubyid_view identifier id'>view</span><span class='lbrack token'>[</span><span class='string val'>&quot;name&quot;</span><span class='rbrack token'>]</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_view identifier id'>view</span><span class='lbrack token'>[</span><span class='string val'>&quot;name&quot;</span><span class='rbrack token'>]</span> <span class='match op'>=~</span> <span class='dregexp node'>/#{filter}/</span>
-    <span class='rubyid_end end kw'>end</span>
-  <span class='rbrace token'>}</span>
-  <span class='rubyid_view_names identifier id'>view_names</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_list'>list</span><span class='lparen'>(</span><span class='id identifier rubyid_filter'>filter</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_ignorecase'>ignorecase</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining views based on filter '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_filter'>filter</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_view_names'>view_names</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_response_json'>response_json</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_get_request'>api_get_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_response_json'>response_json</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>views</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_view'>view</span><span class='op'>|</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_ignorecase'>ignorecase</span>
+      <span class='id identifier rubyid_view_names'>view_names</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_view'>view</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>name</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_view'>view</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>name</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_filter'>filter</span><span class='rbrace'>}</span><span class='regexp_end'>/i</span></span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_view_names'>view_names</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_view'>view</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>name</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_view'>view</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>name</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_filter'>filter</span><span class='rbrace'>}</span><span class='regexp_end'>/</span></span>
+    <span class='kw'>end</span>
+  <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_view_names'>view_names</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1399,9 +1405,6 @@ Please use with caution.</p>
       <pre class="lines">
 
 
-209
-210
-211
 212
 213
 214
@@ -1409,23 +1412,25 @@ Please use with caution.</p>
 216
 217
 218
-219</pre>
+219
+220
+221
+222</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 209</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 212</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_list_jobs identifier id'>list_jobs</span><span class='lparen token'>(</span><span class='rubyid_view_name identifier id'>view_name</span><span class='rparen token'>)</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the jobs present in view '#{view_name}'&quot;</span>
-  <span class='rubyid_job_names identifier id'>job_names</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
-  <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;The view #{view_name} doesn't exists on the server&quot;</span>\
-    <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_exists? fid id'>exists?</span><span class='lparen token'>(</span><span class='rubyid_view_name identifier id'>view_name</span><span class='rparen token'>)</span>
-  <span class='rubyid_response_json identifier id'>response_json</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_get_request identifier id'>api_get_request</span><span class='lparen token'>(</span><span class='dstring node'>&quot;/view/#{view_name}&quot;</span><span class='rparen token'>)</span>
-  <span class='rubyid_response_json identifier id'>response_json</span><span class='lbrack token'>[</span><span class='string val'>&quot;jobs&quot;</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_job identifier id'>job</span><span class='bitor op'>|</span>
-    <span class='rubyid_job_names identifier id'>job_names</span> <span class='lshft op'>&lt;&lt;</span> <span class='rubyid_job identifier id'>job</span><span class='lbrack token'>[</span><span class='string val'>&quot;name&quot;</span><span class='rbrack token'>]</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_job_names identifier id'>job_names</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_list_jobs'>list_jobs</span><span class='lparen'>(</span><span class='id identifier rubyid_view_name'>view_name</span><span class='rparen'>)</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining the jobs present in view '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_view_name'>view_name</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_job_names'>job_names</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The view </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_view_name'>view_name</span><span class='rbrace'>}</span><span class='tstring_content'> doesn't exists on the server</span><span class='tstring_end'>&quot;</span></span>\
+    <span class='kw'>unless</span> <span class='id identifier rubyid_exists?'>exists?</span><span class='lparen'>(</span><span class='id identifier rubyid_view_name'>view_name</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_response_json'>response_json</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_get_request'>api_get_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/view/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_path_encode'>path_encode</span> <span class='id identifier rubyid_view_name'>view_name</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_response_json'>response_json</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>jobs</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_job'>job</span><span class='op'>|</span>
+    <span class='id identifier rubyid_job_names'>job_names</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_job'>job</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>name</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_job_names'>job_names</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1483,19 +1488,18 @@ Please use with caution.</p>
       <pre class="lines">
 
 
-257
-258
-259
-260</pre>
+260
+261
+262
+263</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 257</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 260</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_post_config identifier id'>post_config</span><span class='lparen token'>(</span><span class='rubyid_view_name identifier id'>view_name</span><span class='comma token'>,</span> <span class='rubyid_xml identifier id'>xml</span><span class='rparen token'>)</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Posting the configuration of view '#{view_name}'&quot;</span>
-  <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_post_config identifier id'>post_config</span><span class='lparen token'>(</span><span class='dstring node'>&quot;/view/#{view_name}/config.xml&quot;</span><span class='comma token'>,</span> <span class='rubyid_xml identifier id'>xml</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_post_config'>post_config</span><span class='lparen'>(</span><span class='id identifier rubyid_view_name'>view_name</span><span class='comma'>,</span> <span class='id identifier rubyid_xml'>xml</span><span class='rparen'>)</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Posting the configuration of view '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_view_name'>view_name</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
+  <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_post_config'>post_config</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/view/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_path_encode'>path_encode</span> <span class='id identifier rubyid_view_name'>view_name</span><span class='rbrace'>}</span><span class='tstring_content'>/config.xml</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_xml'>xml</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1553,21 +1557,20 @@ Please use with caution.</p>
       <pre class="lines">
 
 
-237
-238
-239
 240
-241</pre>
+241
+242
+243
+244</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 237</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 240</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_remove_job identifier id'>remove_job</span><span class='lparen token'>(</span><span class='rubyid_view_name identifier id'>view_name</span><span class='comma token'>,</span> <span class='rubyid_job_name identifier id'>job_name</span><span class='rparen token'>)</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Removing job '#{job_name}' from view '#{view_name}'&quot;</span>
-  <span class='rubyid_post_msg identifier id'>post_msg</span> <span class='assign token'>=</span> <span class='dstring node'>&quot;/view/#{view_name}/removeJobFromView?name=#{job_name}&quot;</span>
-  <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_post_request identifier id'>api_post_request</span><span class='lparen token'>(</span><span class='rubyid_post_msg identifier id'>post_msg</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_remove_job'>remove_job</span><span class='lparen'>(</span><span class='id identifier rubyid_view_name'>view_name</span><span class='comma'>,</span> <span class='id identifier rubyid_job_name'>job_name</span><span class='rparen'>)</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Removing job '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_job_name'>job_name</span><span class='rbrace'>}</span><span class='tstring_content'>' from view '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_view_name'>view_name</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_post_msg'>post_msg</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/view/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_path_encode'>path_encode</span> <span class='id identifier rubyid_view_name'>view_name</span><span class='rbrace'>}</span><span class='tstring_content'>/removeJobFromView?name=</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_form_encode'>form_encode</span> <span class='id identifier rubyid_job_name'>job_name</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_post_request'>api_post_request</span><span class='lparen'>(</span><span class='id identifier rubyid_post_msg'>post_msg</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1599,17 +1602,16 @@ Please use with caution.</p>
       <pre class="lines">
 
 
-44
-45
-46</pre>
+47
+48
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/view.rb', line 47</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_to_s identifier id'>to_s</span>
-  <span class='string val'>&quot;#&lt;JenkinsApi::Client::View&gt;&quot;</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>#&lt;JenkinsApi::Client::View&gt;</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1620,9 +1622,9 @@ Please use with caution.</p>
 </div>
 
     <div id="footer">
-  Generated on Mon Oct  7 01:41:38 2013 by
+  Generated on Fri Apr  4 21:56:24 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.2 (ruby-1.8.7).
+  0.8.7.3 (ruby-1.9.3).
 </div>
 
         <script type="text/javascript">

@@ -6,7 +6,7 @@
 <title>
   Class: JenkinsApi::Client::BuildQueue
   
-    &mdash; Documentation by YARD 0.8.7.2
+    &mdash; Documentation by YARD 0.8.7.3
   
 </title>
 
@@ -103,7 +103,7 @@
   <div class="discussion">
     
 <p>This classes communicates with the Build Queue API exposed by Jenkins at
-“/queue” that gives information about jobs/tasks in the queue and their
+"/queue" that gives information about jobs/tasks in the queue and their
 details.</p>
 
 
@@ -549,11 +549,10 @@ details.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 37</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_client identifier id'>client</span><span class='rparen token'>)</span>
-  <span class='rubyid_@client ivar id'>@client</span> <span class='assign token'>=</span> <span class='rubyid_client identifier id'>client</span>
-  <span class='rubyid_@logger ivar id'>@logger</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_logger identifier id'>logger</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_client'>client</span><span class='rparen'>)</span>
+  <span class='ivar'>@client</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span>
+  <span class='ivar'>@logger</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -644,17 +643,16 @@ details.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 74</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_get_age identifier id'>get_age</span><span class='lparen token'>(</span><span class='rubyid_task_name identifier id'>task_name</span><span class='rparen token'>)</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the age of task '#{task_name}' from the&quot;</span> <span class='plus op'>+</span>
-    <span class='string val'>&quot; build queue&quot;</span>
-  <span class='rubyid_age identifier id'>age</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span>
-  <span class='rubyid_details identifier id'>details</span> <span class='assign token'>=</span> <span class='rubyid_get_details identifier id'>get_details</span><span class='lparen token'>(</span><span class='rubyid_task_name identifier id'>task_name</span><span class='rparen token'>)</span>
-  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_details identifier id'>details</span><span class='dot token'>.</span><span class='rubyid_empty? fid id'>empty?</span>
-    <span class='rubyid_age identifier id'>age</span> <span class='assign token'>=</span> <span class='rubyid_Time constant id'>Time</span><span class='dot token'>.</span><span class='rubyid_now identifier id'>now</span> <span class='minus op'>-</span> <span class='rubyid_Time constant id'>Time</span><span class='dot token'>.</span><span class='rubyid_at identifier id'>at</span><span class='lparen token'>(</span><span class='rubyid_details identifier id'>details</span><span class='lbrack token'>[</span><span class='string val'>&quot;inQueueSince&quot;</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_to_i identifier id'>to_i</span><span class='div op'>/</span><span class='integer val'>1000</span><span class='rparen token'>)</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_age identifier id'>age</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_get_age'>get_age</span><span class='lparen'>(</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rparen'>)</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining the age of task '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rbrace'>}</span><span class='tstring_content'>' from the</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> build queue</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_age'>age</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='id identifier rubyid_details'>details</span> <span class='op'>=</span> <span class='id identifier rubyid_get_details'>get_details</span><span class='lparen'>(</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rparen'>)</span>
+  <span class='kw'>unless</span> <span class='id identifier rubyid_details'>details</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+    <span class='id identifier rubyid_age'>age</span> <span class='op'>=</span> <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span> <span class='op'>-</span> <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_at'>at</span><span class='lparen'>(</span><span class='id identifier rubyid_details'>details</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>inQueueSince</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='op'>/</span><span class='int'>1000</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_age'>age</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -736,20 +734,19 @@ details.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 119</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_get_causes identifier id'>get_causes</span><span class='lparen token'>(</span><span class='rubyid_task_name identifier id'>task_name</span><span class='rparen token'>)</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the causes of task '#{task_name}' from the&quot;</span> <span class='plus op'>+</span>
-    <span class='string val'>&quot; build queue&quot;</span>
-  <span class='rubyid_causes identifier id'>causes</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span>
-  <span class='rubyid_details identifier id'>details</span> <span class='assign token'>=</span> <span class='rubyid_get_details identifier id'>get_details</span><span class='lparen token'>(</span><span class='rubyid_task_name identifier id'>task_name</span><span class='rparen token'>)</span>
-  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_details identifier id'>details</span><span class='dot token'>.</span><span class='rubyid_empty? fid id'>empty?</span>
-    <span class='rubyid_causes identifier id'>causes</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
-    <span class='rubyid_details identifier id'>details</span><span class='lbrack token'>[</span><span class='string val'>&quot;actions&quot;</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_action identifier id'>action</span><span class='bitor op'>|</span>
-      <span class='rubyid_causes identifier id'>causes</span> <span class='lshft op'>&lt;&lt;</span> <span class='rubyid_action identifier id'>action</span><span class='lbrack token'>[</span><span class='string val'>&quot;causes&quot;</span><span class='rbrack token'>]</span>
-    <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_causes identifier id'>causes</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_get_causes'>get_causes</span><span class='lparen'>(</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rparen'>)</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining the causes of task '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rbrace'>}</span><span class='tstring_content'>' from the</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> build queue</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_causes'>causes</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='id identifier rubyid_details'>details</span> <span class='op'>=</span> <span class='id identifier rubyid_get_details'>get_details</span><span class='lparen'>(</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rparen'>)</span>
+  <span class='kw'>unless</span> <span class='id identifier rubyid_details'>details</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+    <span class='id identifier rubyid_causes'>causes</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_details'>details</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>actions</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_action'>action</span><span class='op'>|</span>
+      <span class='id identifier rubyid_causes'>causes</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_action'>action</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>causes</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_causes'>causes</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -833,17 +830,16 @@ details.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 91</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_get_details identifier id'>get_details</span><span class='lparen token'>(</span><span class='rubyid_task_name identifier id'>task_name</span><span class='rparen token'>)</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the details of task '#{task_name}' from the&quot;</span> <span class='plus op'>+</span>
-    <span class='string val'>&quot; build queue&quot;</span>
-  <span class='rubyid_response_json identifier id'>response_json</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_get_request identifier id'>api_get_request</span><span class='lparen token'>(</span><span class='string val'>&quot;/queue&quot;</span><span class='rparen token'>)</span>
-  <span class='rubyid_details identifier id'>details</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
-  <span class='rubyid_response_json identifier id'>response_json</span><span class='lbrack token'>[</span><span class='string val'>&quot;items&quot;</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_item identifier id'>item</span><span class='bitor op'>|</span>
-    <span class='rubyid_details identifier id'>details</span> <span class='assign token'>=</span> <span class='rubyid_item identifier id'>item</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_item identifier id'>item</span><span class='lbrack token'>[</span><span class='string val'>&quot;task&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;name&quot;</span><span class='rbrack token'>]</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_details identifier id'>details</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_get_details'>get_details</span><span class='lparen'>(</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rparen'>)</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining the details of task '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rbrace'>}</span><span class='tstring_content'>' from the</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> build queue</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_response_json'>response_json</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_get_request'>api_get_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/queue</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_details'>details</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='id identifier rubyid_response_json'>response_json</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>items</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_item'>item</span><span class='op'>|</span>
+    <span class='id identifier rubyid_details'>details</span> <span class='op'>=</span> <span class='id identifier rubyid_item'>item</span> <span class='kw'>if</span> <span class='id identifier rubyid_item'>item</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>task</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>name</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_details'>details</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -934,24 +930,23 @@ details.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 157</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_get_eta identifier id'>get_eta</span><span class='lparen token'>(</span><span class='rubyid_task_name identifier id'>task_name</span><span class='rparen token'>)</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the ETA for the task '#{task_name}' from the&quot;</span> <span class='plus op'>+</span>
-    <span class='string val'>&quot; build queue&quot;</span>
-  <span class='rubyid_eta identifier id'>eta</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span>
-  <span class='rubyid_details identifier id'>details</span> <span class='assign token'>=</span> <span class='rubyid_get_details identifier id'>get_details</span><span class='lparen token'>(</span><span class='rubyid_task_name identifier id'>task_name</span><span class='rparen token'>)</span>
-  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_details identifier id'>details</span><span class='dot token'>.</span><span class='rubyid_empty? fid id'>empty?</span>
-    <span class='rubyid_matched identifier id'>matched</span> <span class='assign token'>=</span> <span class='rubyid_details identifier id'>details</span><span class='lbrack token'>[</span><span class='string val'>&quot;why&quot;</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_match identifier id'>match</span><span class='lparen token'>(</span><span class='regexp val'>/.*\(ETA:(.*)\)/</span><span class='rparen token'>)</span>
-    <span class='rubyid_if if kw'>if</span> <span class='rubyid_matched identifier id'>matched</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
-      <span class='comment val'># Task is found, but ETA information is not available</span>
-      <span class='rubyid_eta identifier id'>eta</span> <span class='assign token'>=</span> <span class='string val'>&quot;N/A&quot;</span>
-    <span class='rubyid_else else kw'>else</span>
-      <span class='comment val'># ETA information is available</span>
-      <span class='rubyid_eta identifier id'>eta</span> <span class='assign token'>=</span> <span class='rubyid_matched identifier id'>matched</span><span class='lbrack token'>[</span><span class='integer val'>1</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_strip identifier id'>strip</span>
-    <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_eta identifier id'>eta</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_get_eta'>get_eta</span><span class='lparen'>(</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rparen'>)</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining the ETA for the task '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rbrace'>}</span><span class='tstring_content'>' from the</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> build queue</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_eta'>eta</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='id identifier rubyid_details'>details</span> <span class='op'>=</span> <span class='id identifier rubyid_get_details'>get_details</span><span class='lparen'>(</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rparen'>)</span>
+  <span class='kw'>unless</span> <span class='id identifier rubyid_details'>details</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+    <span class='id identifier rubyid_matched'>matched</span> <span class='op'>=</span> <span class='id identifier rubyid_details'>details</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>why</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_match'>match</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>.*\(ETA:(.*)\)</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_matched'>matched</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+      <span class='comment'># Task is found, but ETA information is not available
+</span>      <span class='id identifier rubyid_eta'>eta</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>N/A</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>else</span>
+      <span class='comment'># ETA information is available
+</span>      <span class='id identifier rubyid_eta'>eta</span> <span class='op'>=</span> <span class='id identifier rubyid_matched'>matched</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_eta'>eta</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1035,17 +1030,16 @@ details.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 181</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_get_id identifier id'>get_id</span><span class='lparen token'>(</span><span class='rubyid_task_name identifier id'>task_name</span><span class='rparen token'>)</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the ID of task '#{task_name}' from the&quot;</span> <span class='plus op'>+</span>
-    <span class='string val'>&quot; build queue&quot;</span>
-  <span class='rubyid_id identifier id'>id</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span>
-  <span class='rubyid_details identifier id'>details</span> <span class='assign token'>=</span> <span class='rubyid_get_details identifier id'>get_details</span><span class='lparen token'>(</span><span class='rubyid_task_name identifier id'>task_name</span><span class='rparen token'>)</span>
-  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_details identifier id'>details</span><span class='dot token'>.</span><span class='rubyid_empty? fid id'>empty?</span>
-    <span class='rubyid_id identifier id'>id</span> <span class='assign token'>=</span> <span class='rubyid_details identifier id'>details</span><span class='lbrack token'>[</span><span class='string val'>&quot;id&quot;</span><span class='rbrack token'>]</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_id identifier id'>id</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_get_id'>get_id</span><span class='lparen'>(</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rparen'>)</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining the ID of task '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rbrace'>}</span><span class='tstring_content'>' from the</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> build queue</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_id'>id</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='id identifier rubyid_details'>details</span> <span class='op'>=</span> <span class='id identifier rubyid_get_details'>get_details</span><span class='lparen'>(</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rparen'>)</span>
+  <span class='kw'>unless</span> <span class='id identifier rubyid_details'>details</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+    <span class='id identifier rubyid_id'>id</span> <span class='op'>=</span> <span class='id identifier rubyid_details'>details</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_id'>id</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1123,11 +1117,10 @@ details.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 108</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_get_item_by_id identifier id'>get_item_by_id</span><span class='lparen token'>(</span><span class='rubyid_task_id identifier id'>task_id</span><span class='rparen token'>)</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the details of task with ID '#{task_id}'&quot;</span>
-  <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_get_request identifier id'>api_get_request</span><span class='lparen token'>(</span><span class='dstring node'>&quot;/queue/item/#{task_id}&quot;</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_get_item_by_id'>get_item_by_id</span><span class='lparen'>(</span><span class='id identifier rubyid_task_id'>task_id</span><span class='rparen'>)</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining the details of task with ID '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_id'>task_id</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
+  <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_get_request'>api_get_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/queue/item/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_id'>task_id</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1211,17 +1204,16 @@ details.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 198</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_get_params identifier id'>get_params</span><span class='lparen token'>(</span><span class='rubyid_task_name identifier id'>task_name</span><span class='rparen token'>)</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the build parameters of task '#{task_name}'&quot;</span> <span class='plus op'>+</span>
-    <span class='string val'>&quot; from the build queue&quot;</span>
-  <span class='rubyid_params identifier id'>params</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span>
-  <span class='rubyid_details identifier id'>details</span> <span class='assign token'>=</span> <span class='rubyid_get_details identifier id'>get_details</span><span class='lparen token'>(</span><span class='rubyid_task_name identifier id'>task_name</span><span class='rparen token'>)</span>
-  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_details identifier id'>details</span><span class='dot token'>.</span><span class='rubyid_empty? fid id'>empty?</span>
-    <span class='rubyid_params identifier id'>params</span> <span class='assign token'>=</span> <span class='rubyid_details identifier id'>details</span><span class='lbrack token'>[</span><span class='string val'>&quot;params&quot;</span><span class='rbrack token'>]</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_params identifier id'>params</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_get_params'>get_params</span><span class='lparen'>(</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rparen'>)</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining the build parameters of task '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> from the build queue</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='id identifier rubyid_details'>details</span> <span class='op'>=</span> <span class='id identifier rubyid_get_details'>get_details</span><span class='lparen'>(</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rparen'>)</span>
+  <span class='kw'>unless</span> <span class='id identifier rubyid_details'>details</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+    <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='id identifier rubyid_details'>details</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>params</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_params'>params</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1305,17 +1297,16 @@ details.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 139</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_get_reason identifier id'>get_reason</span><span class='lparen token'>(</span><span class='rubyid_task_name identifier id'>task_name</span><span class='rparen token'>)</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the reason of task '#{task_name}' from the&quot;</span> <span class='plus op'>+</span>
-    <span class='string val'>&quot; build queue&quot;</span>
-  <span class='rubyid_reason identifier id'>reason</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span>
-  <span class='rubyid_details identifier id'>details</span> <span class='assign token'>=</span> <span class='rubyid_get_details identifier id'>get_details</span><span class='lparen token'>(</span><span class='rubyid_task_name identifier id'>task_name</span><span class='rparen token'>)</span>
-  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_details identifier id'>details</span><span class='dot token'>.</span><span class='rubyid_empty? fid id'>empty?</span>
-    <span class='rubyid_reason identifier id'>reason</span> <span class='assign token'>=</span> <span class='rubyid_details identifier id'>details</span><span class='lbrack token'>[</span><span class='string val'>&quot;why&quot;</span><span class='rbrack token'>]</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_reason identifier id'>reason</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_get_reason'>get_reason</span><span class='lparen'>(</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rparen'>)</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining the reason of task '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rbrace'>}</span><span class='tstring_content'>' from the</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> build queue</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_reason'>reason</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='id identifier rubyid_details'>details</span> <span class='op'>=</span> <span class='id identifier rubyid_get_details'>get_details</span><span class='lparen'>(</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rparen'>)</span>
+  <span class='kw'>unless</span> <span class='id identifier rubyid_details'>details</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+    <span class='id identifier rubyid_reason'>reason</span> <span class='op'>=</span> <span class='id identifier rubyid_details'>details</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>why</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_reason'>reason</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1399,17 +1390,16 @@ details.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 232</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_is_blocked? fid id'>is_blocked?</span><span class='lparen token'>(</span><span class='rubyid_task_name identifier id'>task_name</span><span class='rparen token'>)</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Checking if task '#{task_name}' from the build queue&quot;</span> <span class='plus op'>+</span>
-    <span class='string val'>&quot; is blocked&quot;</span>
-  <span class='rubyid_blocked identifier id'>blocked</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span>
-  <span class='rubyid_details identifier id'>details</span> <span class='assign token'>=</span> <span class='rubyid_get_details identifier id'>get_details</span><span class='lparen token'>(</span><span class='rubyid_task_name identifier id'>task_name</span><span class='rparen token'>)</span>
-  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_details identifier id'>details</span><span class='dot token'>.</span><span class='rubyid_empty? fid id'>empty?</span>
-    <span class='rubyid_blocked identifier id'>blocked</span> <span class='assign token'>=</span> <span class='rubyid_details identifier id'>details</span><span class='lbrack token'>[</span><span class='string val'>&quot;blocked&quot;</span><span class='rbrack token'>]</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_blocked identifier id'>blocked</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_is_blocked?'>is_blocked?</span><span class='lparen'>(</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rparen'>)</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Checking if task '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rbrace'>}</span><span class='tstring_content'>' from the build queue</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> is blocked</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_blocked'>blocked</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='id identifier rubyid_details'>details</span> <span class='op'>=</span> <span class='id identifier rubyid_get_details'>get_details</span><span class='lparen'>(</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rparen'>)</span>
+  <span class='kw'>unless</span> <span class='id identifier rubyid_details'>details</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+    <span class='id identifier rubyid_blocked'>blocked</span> <span class='op'>=</span> <span class='id identifier rubyid_details'>details</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>blocked</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_blocked'>blocked</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1493,17 +1483,16 @@ details.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 215</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_is_buildable? fid id'>is_buildable?</span><span class='lparen token'>(</span><span class='rubyid_task_name identifier id'>task_name</span><span class='rparen token'>)</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Checking if task '#{task_name}' from the build queue&quot;</span> <span class='plus op'>+</span>
-    <span class='string val'>&quot; is buildable&quot;</span>
-  <span class='rubyid_buildable identifier id'>buildable</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span>
-  <span class='rubyid_details identifier id'>details</span> <span class='assign token'>=</span> <span class='rubyid_get_details identifier id'>get_details</span><span class='lparen token'>(</span><span class='rubyid_task_name identifier id'>task_name</span><span class='rparen token'>)</span>
-  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_details identifier id'>details</span><span class='dot token'>.</span><span class='rubyid_empty? fid id'>empty?</span>
-    <span class='rubyid_buildable identifier id'>buildable</span> <span class='assign token'>=</span> <span class='rubyid_details identifier id'>details</span><span class='lbrack token'>[</span><span class='string val'>&quot;buildable&quot;</span><span class='rbrack token'>]</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_buildable identifier id'>buildable</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_is_buildable?'>is_buildable?</span><span class='lparen'>(</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rparen'>)</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Checking if task '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rbrace'>}</span><span class='tstring_content'>' from the build queue</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> is buildable</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_buildable'>buildable</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='id identifier rubyid_details'>details</span> <span class='op'>=</span> <span class='id identifier rubyid_get_details'>get_details</span><span class='lparen'>(</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rparen'>)</span>
+  <span class='kw'>unless</span> <span class='id identifier rubyid_details'>details</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+    <span class='id identifier rubyid_buildable'>buildable</span> <span class='op'>=</span> <span class='id identifier rubyid_details'>details</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>buildable</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_buildable'>buildable</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1587,17 +1576,16 @@ details.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 249</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_is_stuck? fid id'>is_stuck?</span><span class='lparen token'>(</span><span class='rubyid_task_name identifier id'>task_name</span><span class='rparen token'>)</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Checking if task '#{task_name}' from the build queue&quot;</span> <span class='plus op'>+</span>
-    <span class='string val'>&quot; is stuck&quot;</span>
-  <span class='rubyid_stuck identifier id'>stuck</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span>
-  <span class='rubyid_details identifier id'>details</span> <span class='assign token'>=</span> <span class='rubyid_get_details identifier id'>get_details</span><span class='lparen token'>(</span><span class='rubyid_task_name identifier id'>task_name</span><span class='rparen token'>)</span>
-  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_details identifier id'>details</span><span class='dot token'>.</span><span class='rubyid_empty? fid id'>empty?</span>
-    <span class='rubyid_stuck identifier id'>stuck</span> <span class='assign token'>=</span> <span class='rubyid_details identifier id'>details</span><span class='lbrack token'>[</span><span class='string val'>&quot;stuck&quot;</span><span class='rbrack token'>]</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_stuck identifier id'>stuck</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_is_stuck?'>is_stuck?</span><span class='lparen'>(</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rparen'>)</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Checking if task '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rbrace'>}</span><span class='tstring_content'>' from the build queue</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> is stuck</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_stuck'>stuck</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='id identifier rubyid_details'>details</span> <span class='op'>=</span> <span class='id identifier rubyid_get_details'>get_details</span><span class='lparen'>(</span><span class='id identifier rubyid_task_name'>task_name</span><span class='rparen'>)</span>
+  <span class='kw'>unless</span> <span class='id identifier rubyid_details'>details</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+    <span class='id identifier rubyid_stuck'>stuck</span> <span class='op'>=</span> <span class='id identifier rubyid_details'>details</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>stuck</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_stuck'>stuck</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1642,16 +1630,15 @@ details.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 58</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_list identifier id'>list</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='string val'>&quot;Obtaining the tasks currently in the build queue&quot;</span>
-  <span class='rubyid_response_json identifier id'>response_json</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_get_request identifier id'>api_get_request</span><span class='lparen token'>(</span><span class='string val'>&quot;/queue&quot;</span><span class='rparen token'>)</span>
-  <span class='rubyid_tasks identifier id'>tasks</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
-  <span class='rubyid_response_json identifier id'>response_json</span><span class='lbrack token'>[</span><span class='string val'>&quot;items&quot;</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_item identifier id'>item</span><span class='bitor op'>|</span>
-    <span class='rubyid_tasks identifier id'>tasks</span> <span class='lshft op'>&lt;&lt;</span> <span class='rubyid_item identifier id'>item</span><span class='lbrack token'>[</span><span class='string val'>&quot;task&quot;</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>&quot;name&quot;</span><span class='rbrack token'>]</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_tasks identifier id'>tasks</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_list'>list</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining the tasks currently in the build queue</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_response_json'>response_json</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_get_request'>api_get_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/queue</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_tasks'>tasks</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_response_json'>response_json</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>items</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_item'>item</span><span class='op'>|</span>
+    <span class='id identifier rubyid_tasks'>tasks</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_item'>item</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>task</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>name</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_tasks'>tasks</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1692,12 +1679,11 @@ details.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 50</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_size identifier id'>size</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='string val'>&quot;Obtaining the number of tasks in build queue&quot;</span>
-  <span class='rubyid_response_json identifier id'>response_json</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_get_request identifier id'>api_get_request</span><span class='lparen token'>(</span><span class='string val'>&quot;/queue&quot;</span><span class='rparen token'>)</span>
-  <span class='rubyid_response_json identifier id'>response_json</span><span class='lbrack token'>[</span><span class='string val'>&quot;items&quot;</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_size identifier id'>size</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_size'>size</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining the number of tasks in build queue</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_response_json'>response_json</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_get_request'>api_get_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/queue</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_response_json'>response_json</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>items</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1736,10 +1722,9 @@ details.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/build_queue.rb', line 44</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_to_s identifier id'>to_s</span>
-  <span class='string val'>&quot;#&lt;JenkinsApi::Client::BuildQueue&gt;&quot;</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>#&lt;JenkinsApi::Client::BuildQueue&gt;</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1750,9 +1735,9 @@ details.</p>
 </div>
 
     <div id="footer">
-  Generated on Mon Oct  7 01:41:43 2013 by
+  Generated on Fri Apr  4 21:56:25 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.2 (ruby-1.8.7).
+  0.8.7.3 (ruby-1.9.3).
 </div>
 
         <script type="text/javascript">

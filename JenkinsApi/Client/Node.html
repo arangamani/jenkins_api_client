@@ -6,7 +6,7 @@
 <title>
   Class: JenkinsApi::Client::Node
   
-    &mdash; Documentation by YARD 0.8.7.2
+    &mdash; Documentation by YARD 0.8.7.3
   
 </title>
 
@@ -90,11 +90,15 @@
     
   
     
+      <dt class="r2">Includes:</dt>
+      <dd class="r2"><span class='object_link'><a href="../UriHelper.html" title="JenkinsApi::UriHelper (module)">UriHelper</a></span></dd>
+      
+    
   
   
   
-    <dt class="r2 last">Defined in:</dt>
-    <dd class="r2 last">lib/jenkins_api_client/node.rb</dd>
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/jenkins_api_client/node.rb</dd>
   
 </dl>
 <div class="clear"></div>
@@ -102,7 +106,7 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>This class communicates with Jenkins “/computer” API to obtain details
+<p>This class communicates with Jenkins "/computer" API to obtain details
 about nodes or slaves connected to the Jenkins.</p>
 
 
@@ -124,10 +128,9 @@ about nodes or slaves connected to the Jenkins.</p>
 called on this node object. These methods are defined using define_method
 and are prefixed with get_.</p>
 
-<pre class="code ruby"><code class="ruby"><span class='rubyid_def def kw'>def</span> <span class='rubyid_get_busyExecutors identifier id'>get_busyExecutors</span>
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_get_displayName identifier id'>get_displayName</span>
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_get_totalExecutors identifier id'>get_totalExecutors</span>
-</code></pre>
+<pre class="code ruby"><code class="ruby">def get_busyExecutors
+def get_displayName
+def get_totalExecutors</code></pre>
 
 
   </div>
@@ -137,12 +140,11 @@ and are prefixed with get_.</p>
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='lbrack token'>[</span>
-  <span class='string val'>&quot;busyExecutors&quot;</span><span class='comma token'>,</span>
-  <span class='string val'>&quot;displayName&quot;</span><span class='comma token'>,</span>
-  <span class='string val'>&quot;totalExecutors&quot;</span>
-<span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_freeze identifier id'>freeze</span>
-</pre></dd>
+        <dd><pre class="code"><span class='lbracket'>[</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>busyExecutors</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>displayName</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>totalExecutors</span><span class='tstring_end'>&quot;</span></span>
+<span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
       
         <dt id="NODE_PROPERTIES-constant" class="">NODE_PROPERTIES =
           <div class="docstring">
@@ -152,13 +154,12 @@ and are prefixed with get_.</p>
 node object and are prefixed with is_ and end with ? as they return true or
 false.</p>
 
-<pre class="code ruby"><code class="ruby"><span class='rubyid_def def kw'>def</span> <span class='rubyid_is_idle? fid id'>is_idle?</span><span class='lparen token'>(</span><span class='rubyid_node_name identifier id'>node_name</span><span class='rparen token'>)</span>
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_is_jnlpAgent? fid id'>is_jnlpAgent?</span><span class='lparen token'>(</span><span class='rubyid_node_name identifier id'>node_name</span><span class='rparen token'>)</span>
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_is_launchSupported? fid id'>is_launchSupported?</span><span class='lparen token'>(</span><span class='rubyid_node_name identifier id'>node_name</span><span class='rparen token'>)</span>
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_is_manualLaunchAllowed? fid id'>is_manualLaunchAllowed?</span><span class='lparen token'>(</span><span class='rubyid_node_name identifier id'>node_name</span><span class='rparen token'>)</span>
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_is_offline? fid id'>is_offline?</span><span class='lparen token'>(</span><span class='rubyid_node_name identifier id'>node_name</span><span class='rparen token'>)</span>
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_is_temporarilyOffline? fid id'>is_temporarilyOffline?</span><span class='lparen token'>(</span><span class='rubyid_node_name identifier id'>node_name</span><span class='rparen token'>)</span>
-</code></pre>
+<pre class="code ruby"><code class="ruby">def is_idle?(node_name)
+def is_jnlpAgent?(node_name)
+def is_launchSupported?(node_name)
+def is_manualLaunchAllowed?(node_name)
+def is_offline?(node_name)
+def is_temporarilyOffline?(node_name)</code></pre>
 
 
   </div>
@@ -168,15 +169,14 @@ false.</p>
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='lbrack token'>[</span>
-  <span class='string val'>&quot;idle&quot;</span><span class='comma token'>,</span>
-  <span class='string val'>&quot;jnlpAgent&quot;</span><span class='comma token'>,</span>
-  <span class='string val'>&quot;launchSupported&quot;</span><span class='comma token'>,</span>
-  <span class='string val'>&quot;manualLaunchAllowed&quot;</span><span class='comma token'>,</span>
-  <span class='string val'>&quot;offline&quot;</span><span class='comma token'>,</span>
-  <span class='string val'>&quot;temporarilyOffline&quot;</span>
-<span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_freeze identifier id'>freeze</span>
-</pre></dd>
+        <dd><pre class="code"><span class='lbracket'>[</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>idle</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>jnlpAgent</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>launchSupported</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>manualLaunchAllowed</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>offline</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>temporarilyOffline</span><span class='tstring_end'>&quot;</span></span>
+<span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
       
         <dt id="NODE_ATTRIBUTES-constant" class="">NODE_ATTRIBUTES =
           <div class="docstring">
@@ -185,14 +185,13 @@ false.</p>
 <p>Node specific attributes. The following methods are defined using
 define_method. These methods are prefixed with get_node_.</p>
 
-<pre class="code ruby"><code class="ruby"><span class='rubyid_def def kw'>def</span> <span class='rubyid_get_node_numExecutors identifier id'>get_node_numExecutors</span><span class='lparen token'>(</span><span class='rubyid_node_name identifier id'>node_name</span><span class='rparen token'>)</span>
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_get_node_icon identifier id'>get_node_icon</span><span class='lparen token'>(</span><span class='rubyid_node_name identifier id'>node_name</span><span class='rparen token'>)</span>
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_get_node_displayName identifier id'>get_node_displayName</span><span class='lparen token'>(</span><span class='rubyid_node_name identifier id'>node_name</span><span class='rparen token'>)</span>
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_get_node_loadStatistics identifier id'>get_node_loadStatistics</span><span class='lparen token'>(</span><span class='rubyid_node_name identifier id'>node_name</span><span class='rparen token'>)</span>
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_get_node_monitorData identifier id'>get_node_monitorData</span><span class='lparen token'>(</span><span class='rubyid_node_name identifier id'>node_name</span><span class='rparen token'>)</span>
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_get_node_offlineCause identifier id'>get_node_offlineCause</span><span class='lparen token'>(</span><span class='rubyid_node_name identifier id'>node_name</span><span class='rparen token'>)</span>
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_get_node_oneOffExecutors identifier id'>get_node_oneOffExecutors</span><span class='lparen token'>(</span><span class='rubyid_node_name identifier id'>node_name</span><span class='rparen token'>)</span>
-</code></pre>
+<pre class="code ruby"><code class="ruby">def get_node_numExecutors(node_name)
+def get_node_icon(node_name)
+def get_node_displayName(node_name)
+def get_node_loadStatistics(node_name)
+def get_node_monitorData(node_name)
+def get_node_offlineCause(node_name)
+def get_node_oneOffExecutors(node_name)</code></pre>
 
 
   </div>
@@ -202,16 +201,15 @@ define_method. These methods are prefixed with get_node_.</p>
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='lbrack token'>[</span>
-  <span class='string val'>&quot;numExecutors&quot;</span><span class='comma token'>,</span>
-  <span class='string val'>&quot;icon&quot;</span><span class='comma token'>,</span>
-  <span class='string val'>&quot;displayName&quot;</span><span class='comma token'>,</span>
-  <span class='string val'>&quot;loadStatistics&quot;</span><span class='comma token'>,</span>
-  <span class='string val'>&quot;monitorData&quot;</span><span class='comma token'>,</span>
-  <span class='string val'>&quot;offlineCause&quot;</span><span class='comma token'>,</span>
-  <span class='string val'>&quot;oneOffExecutors&quot;</span>
-<span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_freeze identifier id'>freeze</span>
-</pre></dd>
+        <dd><pre class="code"><span class='lbracket'>[</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>numExecutors</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>icon</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>displayName</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>loadStatistics</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>monitorData</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>offlineCause</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>oneOffExecutors</span><span class='tstring_end'>&quot;</span></span>
+<span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
       
     </dl>
   
@@ -475,6 +473,17 @@ define_method. These methods are prefixed with get_node_.</p>
     </ul>
   
 
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../UriHelper.html" title="JenkinsApi::UriHelper (module)">UriHelper</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../UriHelper.html#form_encode-instance_method" title="JenkinsApi::UriHelper#form_encode (method)">#form_encode</a></span>, <span class='object_link'><a href="../UriHelper.html#path_encode-instance_method" title="JenkinsApi::UriHelper#path_encode (method)">#path_encode</a></span></p>
 <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
@@ -524,19 +533,18 @@ define_method. These methods are prefixed with get_node_.</p>
       <pre class="lines">
 
 
-93
-94
-95
-96</pre>
+96
+97
+98
+99</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 93</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 96</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_client identifier id'>client</span><span class='rparen token'>)</span>
-  <span class='rubyid_@client ivar id'>@client</span> <span class='assign token'>=</span> <span class='rubyid_client identifier id'>client</span>
-  <span class='rubyid_@logger ivar id'>@logger</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_logger identifier id'>logger</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_client'>client</span><span class='rparen'>)</span>
+  <span class='ivar'>@client</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span>
+  <span class='ivar'>@logger</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -611,31 +619,30 @@ define_method. These methods are prefixed with get_node_.</p>
       <pre class="lines">
 
 
-265
-266
-267
-268
-269
-270
-271
 272
 273
-274</pre>
+274
+275
+276
+277
+278
+279
+280
+281</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 265</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 272</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_change_mode identifier id'>change_mode</span><span class='lparen token'>(</span><span class='rubyid_node_name identifier id'>node_name</span><span class='comma token'>,</span> <span class='rubyid_mode identifier id'>mode</span><span class='rparen token'>)</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Changing the mode of '#{node_name}' to '#{mode}'&quot;</span>
-  <span class='rubyid_mode identifier id'>mode</span> <span class='assign token'>=</span> <span class='rubyid_mode identifier id'>mode</span><span class='dot token'>.</span><span class='rubyid_upcase identifier id'>upcase</span>
-  <span class='rubyid_xml identifier id'>xml</span> <span class='assign token'>=</span> <span class='rubyid_get_config identifier id'>get_config</span><span class='lparen token'>(</span><span class='rubyid_node_name identifier id'>node_name</span><span class='rparen token'>)</span>
-  <span class='rubyid_n_xml identifier id'>n_xml</span> <span class='assign token'>=</span> <span class='rubyid_Nokogiri constant id'>Nokogiri</span><span class='colon2 op'>::</span><span class='rubyid_XML constant id'>XML</span><span class='lparen token'>(</span><span class='rubyid_xml identifier id'>xml</span><span class='rparen token'>)</span>
-  <span class='rubyid_desc identifier id'>desc</span> <span class='assign token'>=</span> <span class='rubyid_n_xml identifier id'>n_xml</span><span class='dot token'>.</span><span class='rubyid_xpath identifier id'>xpath</span><span class='lparen token'>(</span><span class='string val'>&quot;//mode&quot;</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_first identifier id'>first</span>
-  <span class='rubyid_desc identifier id'>desc</span><span class='dot token'>.</span><span class='rubyid_content identifier id'>content</span> <span class='assign token'>=</span> <span class='dstring node'>&quot;#{mode.upcase}&quot;</span>
-  <span class='rubyid_xml_modified identifier id'>xml_modified</span> <span class='assign token'>=</span> <span class='rubyid_n_xml identifier id'>n_xml</span><span class='dot token'>.</span><span class='rubyid_to_xml identifier id'>to_xml</span>
-  <span class='rubyid_post_config identifier id'>post_config</span><span class='lparen token'>(</span><span class='rubyid_node_name identifier id'>node_name</span><span class='comma token'>,</span> <span class='rubyid_xml_modified identifier id'>xml_modified</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_change_mode'>change_mode</span><span class='lparen'>(</span><span class='id identifier rubyid_node_name'>node_name</span><span class='comma'>,</span> <span class='id identifier rubyid_mode'>mode</span><span class='rparen'>)</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Changing the mode of '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_node_name'>node_name</span><span class='rbrace'>}</span><span class='tstring_content'>' to '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_mode'>mode</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_mode'>mode</span> <span class='op'>=</span> <span class='id identifier rubyid_mode'>mode</span><span class='period'>.</span><span class='id identifier rubyid_upcase'>upcase</span>
+  <span class='id identifier rubyid_xml'>xml</span> <span class='op'>=</span> <span class='id identifier rubyid_get_config'>get_config</span><span class='lparen'>(</span><span class='id identifier rubyid_node_name'>node_name</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_n_xml'>n_xml</span> <span class='op'>=</span> <span class='const'>Nokogiri</span><span class='op'>::</span><span class='const'>XML</span><span class='lparen'>(</span><span class='id identifier rubyid_xml'>xml</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_desc'>desc</span> <span class='op'>=</span> <span class='id identifier rubyid_n_xml'>n_xml</span><span class='period'>.</span><span class='id identifier rubyid_xpath'>xpath</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>//mode</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span>
+  <span class='id identifier rubyid_desc'>desc</span><span class='period'>.</span><span class='id identifier rubyid_content'>content</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_mode'>mode</span><span class='period'>.</span><span class='id identifier rubyid_upcase'>upcase</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_xml_modified'>xml_modified</span> <span class='op'>=</span> <span class='id identifier rubyid_n_xml'>n_xml</span><span class='period'>.</span><span class='id identifier rubyid_to_xml'>to_xml</span>
+  <span class='id identifier rubyid_post_config'>post_config</span><span class='lparen'>(</span><span class='id identifier rubyid_node_name'>node_name</span><span class='comma'>,</span> <span class='id identifier rubyid_xml_modified'>xml_modified</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -668,14 +675,13 @@ define_method. These methods are prefixed with get_node_.</p>
 <p>Create a Dump Slave</p>
 </div></p>
       
-      <pre class="example code"><code><span class='rubyid_create_dump_slave identifier id'>create_dump_slave</span><span class='lparen token'>(</span>
-  <span class='symbol val'>:name</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;slave1&quot;</span><span class='comma token'>,</span>
-  <span class='symbol val'>:slave_host</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;10.10.10.10&quot;</span><span class='comma token'>,</span>
-  <span class='symbol val'>:private_key_file</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;/root/.ssh/id_rsa&quot;</span><span class='comma token'>,</span>
-  <span class='symbol val'>:executors</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='integer val'>10</span><span class='comma token'>,</span>
-  <span class='symbol val'>:labels</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;slave, ruby&quot;</span>
-<span class='rparen token'>)</span>
-</code></pre>
+      <pre class="example code"><code><span class='id identifier rubyid_create_dump_slave'>create_dump_slave</span><span class='lparen'>(</span>
+  <span class='symbol'>:name</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>slave1</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='symbol'>:slave_host</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>10.10.10.10</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='symbol'>:private_key_file</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/root/.ssh/id_rsa</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='symbol'>:executors</span> <span class='op'>=&gt;</span> <span class='int'>10</span><span class='comma'>,</span>
+  <span class='symbol'>:labels</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>slave, ruby</span><span class='tstring_end'>&quot;</span></span>
+<span class='rparen'>)</span></code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -694,23 +700,25 @@ define_method. These methods are prefixed with get_node_.</p>
         <div class='inline'>
 <p>parameters for creating a dump slave</p>
 <ul><li>
-<p><code>:name</code> name of the slave</p>
+<p><tt>:name</tt> name of the slave</p>
 </li><li>
-<p><code>:description</code> description of the new slave</p>
+<p><tt>:description</tt> description of the new slave</p>
 </li><li>
-<p><code>:executors</code> number of executors</p>
+<p><tt>:executors</tt> number of executors</p>
 </li><li>
-<p><code>:remote_fs</code> Remote FS root</p>
+<p><tt>:remote_fs</tt> Remote FS root</p>
 </li><li>
-<p><code>:labels</code> comma separated list of labels</p>
+<p><tt>:labels</tt> comma separated list of labels</p>
 </li><li>
-<p><code>:mode</code> mode of the slave: normal, exclusive</p>
+<p><tt>:mode</tt> mode of the slave: normal, exclusive</p>
 </li><li>
-<p><code>:slave_host</code> Hostname/IP of the slave</p>
+<p><tt>:slave_host</tt> Hostname/IP of the slave</p>
 </li><li>
-<p><code>:slave_port</code> Slave port</p>
+<p><tt>:slave_port</tt> Slave port</p>
 </li><li>
-<p><code>:private_key_file</code> Private key file of master</p>
+<p><tt>:private_key_file</tt> Private key file of master</p>
+</li><li>
+<p><tt>:credentials_id</tt> Id for credential in Jenkins</p>
 </li></ul>
 </div>
       
@@ -725,10 +733,6 @@ define_method. These methods are prefixed with get_node_.</p>
       <pre class="lines">
 
 
-126
-127
-128
-129
 130
 131
 132
@@ -775,63 +779,72 @@ define_method. These methods are prefixed with get_node_.</p>
 173
 174
 175
-176</pre>
+176
+177
+178
+179
+180
+181
+182
+183</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 126</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 130</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_create_dump_slave identifier id'>create_dump_slave</span><span class='lparen token'>(</span><span class='rubyid_params identifier id'>params</span><span class='rparen token'>)</span>
-  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:name</span><span class='rbrack token'>]</span> <span class='andop op'>&amp;&amp;</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:slave_host</span><span class='rbrack token'>]</span> <span class='andop op'>&amp;&amp;</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:private_key_file</span><span class='rbrack token'>]</span>
-    <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_ArgumentError constant id'>ArgumentError</span><span class='comma token'>,</span> <span class='string val'>&quot;Name, slave host, and private key file are&quot;</span> <span class='plus op'>+</span>
-      <span class='string val'>&quot; required for creating a slave.&quot;</span>
-  <span class='rubyid_end end kw'>end</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_create_dump_slave'>create_dump_slave</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
+  <span class='kw'>unless</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:slave_host</span><span class='rbracket'>]</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:private_key_file</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Name, slave host, and private key file are</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> required for creating a slave.</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
 
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Creating a dump slave '#{params[:name]}'&quot;</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_debug identifier id'>debug</span> <span class='dstring node'>&quot;Creating a dump slave with params: #{params.inspect}&quot;</span>
-  <span class='rubyid_default_params identifier id'>default_params</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span>
-    <span class='symbol val'>:description</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;Automatically created through jenkins_api_client&quot;</span><span class='comma token'>,</span>
-    <span class='symbol val'>:executors</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='integer val'>2</span><span class='comma token'>,</span>
-    <span class='symbol val'>:remote_fs</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;/var/jenkins&quot;</span><span class='comma token'>,</span>
-    <span class='symbol val'>:labels</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:name</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
-    <span class='symbol val'>:slave_port</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='integer val'>22</span><span class='comma token'>,</span>
-    <span class='symbol val'>:mode</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;normal&quot;</span>
-  <span class='rbrace token'>}</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Creating a dump slave '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_debug'>debug</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Creating a dump slave with params: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_default_params'>default_params</span> <span class='op'>=</span> <span class='lbrace'>{</span>
+    <span class='symbol'>:description</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Automatically created through jenkins_api_client</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='symbol'>:executors</span> <span class='op'>=&gt;</span> <span class='int'>2</span><span class='comma'>,</span>
+    <span class='symbol'>:remote_fs</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/var/jenkins</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='symbol'>:labels</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='comma'>,</span>
+    <span class='symbol'>:slave_port</span> <span class='op'>=&gt;</span> <span class='int'>22</span><span class='comma'>,</span>
+    <span class='symbol'>:mode</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>normal</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='symbol'>:private_key_file</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='symbol'>:credentials_id</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
+  <span class='rbrace'>}</span>
 
-  <span class='rubyid_params identifier id'>params</span> <span class='assign token'>=</span> <span class='rubyid_default_params identifier id'>default_params</span><span class='dot token'>.</span><span class='rubyid_merge identifier id'>merge</span><span class='lparen token'>(</span><span class='rubyid_params identifier id'>params</span><span class='rparen token'>)</span>
-  <span class='rubyid_labels identifier id'>labels</span> <span class='assign token'>=</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:labels</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_split identifier id'>split</span><span class='lparen token'>(</span><span class='regexp val'>/\s*,\s*/</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='string val'>&quot; &quot;</span><span class='rparen token'>)</span>
-  <span class='rubyid_mode identifier id'>mode</span> <span class='assign token'>=</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:mode</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_upcase identifier id'>upcase</span>
+  <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='id identifier rubyid_default_params'>default_params</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_labels'>labels</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:labels</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\s*,\s*</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_mode'>mode</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:mode</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_upcase'>upcase</span>
 
-  <span class='rubyid_post_params identifier id'>post_params</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span>
-    <span class='string val'>&quot;name&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:name</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
-    <span class='string val'>&quot;type&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;hudson.slaves.DumbSlave$DescriptorImpl&quot;</span><span class='comma token'>,</span>
-    <span class='string val'>&quot;json&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span>
-      <span class='string val'>&quot;name&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:name</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
-      <span class='string val'>&quot;nodeDescription&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:description</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
-      <span class='string val'>&quot;numExecutors&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:executors</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
-      <span class='string val'>&quot;remoteFS&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:remote_fs</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
-      <span class='string val'>&quot;labelString&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_labels identifier id'>labels</span><span class='comma token'>,</span>
-      <span class='string val'>&quot;mode&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_mode identifier id'>mode</span><span class='comma token'>,</span>
-      <span class='string val'>&quot;type&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;hudson.slaves.DumbSlave$DescriptorImpl&quot;</span><span class='comma token'>,</span>
-      <span class='string val'>&quot;retentionStrategy&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span>
-        <span class='string val'>&quot;stapler-class&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;hudson.slaves.RetentionStrategy$Always&quot;</span>
-      <span class='rbrace token'>}</span><span class='comma token'>,</span>
-      <span class='string val'>&quot;nodeProperties&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span>
-        <span class='string val'>&quot;stapler-class-bag&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;true&quot;</span>
-      <span class='rbrace token'>}</span><span class='comma token'>,</span>
-      <span class='string val'>&quot;launcher&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span>
-        <span class='string val'>&quot;stapler-class&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;hudson.plugins.sshslaves.SSHLauncher&quot;</span><span class='comma token'>,</span>
-        <span class='string val'>&quot;host&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:slave_host</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
-        <span class='string val'>&quot;port&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:slave_port</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
-        <span class='string val'>&quot;username&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:slave_user</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
-        <span class='string val'>&quot;privatekey&quot;</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_params identifier id'>params</span><span class='lbrack token'>[</span><span class='symbol val'>:private_key_file</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
-      <span class='rbrace token'>}</span>
-    <span class='rbrace token'>}</span><span class='dot token'>.</span><span class='rubyid_to_json identifier id'>to_json</span>
-  <span class='rbrace token'>}</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_debug identifier id'>debug</span> <span class='string val'>&quot;Modified params posted to create slave:&quot;</span> <span class='plus op'>+</span>
-    <span class='dstring node'>&quot; #{post_params.inspect}&quot;</span>
-  <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_post_request identifier id'>api_post_request</span><span class='lparen token'>(</span><span class='string val'>&quot;/computer/doCreateItem&quot;</span><span class='comma token'>,</span> <span class='rubyid_post_params identifier id'>post_params</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+  <span class='id identifier rubyid_post_params'>post_params</span> <span class='op'>=</span> <span class='lbrace'>{</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>name</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>type</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>hudson.slaves.DumbSlave$DescriptorImpl</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>json</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>name</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>nodeDescription</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:description</span><span class='rbracket'>]</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>numExecutors</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:executors</span><span class='rbracket'>]</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>remoteFS</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:remote_fs</span><span class='rbracket'>]</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>labelString</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_labels'>labels</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>mode</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_mode'>mode</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>type</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>hudson.slaves.DumbSlave$DescriptorImpl</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>retentionStrategy</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>stapler-class</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>hudson.slaves.RetentionStrategy$Always</span><span class='tstring_end'>&quot;</span></span>
+      <span class='rbrace'>}</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>nodeProperties</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>stapler-class-bag</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>true</span><span class='tstring_end'>&quot;</span></span>
+      <span class='rbrace'>}</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>launcher</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>stapler-class</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>hudson.plugins.sshslaves.SSHLauncher</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>host</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:slave_host</span><span class='rbracket'>]</span><span class='comma'>,</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>port</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:slave_port</span><span class='rbracket'>]</span><span class='comma'>,</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>username</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:slave_user</span><span class='rbracket'>]</span><span class='comma'>,</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>privatekey</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:private_key_file</span><span class='rbracket'>]</span><span class='comma'>,</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>credentialsId</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:credentials_id</span><span class='rbracket'>]</span>
+      <span class='rbrace'>}</span>
+    <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span>
+  <span class='rbrace'>}</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_debug'>debug</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Modified params posted to create slave:</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_post_params'>post_params</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_post_request'>api_post_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/computer/doCreateItem</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_post_params'>post_params</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -883,27 +896,26 @@ define_method. These methods are prefixed with get_node_.</p>
       <pre class="lines">
 
 
-182
-183
-184
-185
-186
-187
-188
-189</pre>
+189
+190
+191
+192
+193
+194
+195
+196</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 182</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 189</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_delete identifier id'>delete</span><span class='lparen token'>(</span><span class='rubyid_node_name identifier id'>node_name</span><span class='rparen token'>)</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Deleting node '#{node_name}'&quot;</span>
-  <span class='rubyid_if if kw'>if</span> <span class='rubyid_list identifier id'>list</span><span class='dot token'>.</span><span class='rubyid_include? fid id'>include?</span><span class='lparen token'>(</span><span class='rubyid_node_name identifier id'>node_name</span><span class='rparen token'>)</span>
-    <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_post_request identifier id'>api_post_request</span><span class='lparen token'>(</span><span class='dstring node'>&quot;/computer/#{node_name}/doDelete&quot;</span><span class='rparen token'>)</span>
-  <span class='rubyid_else else kw'>else</span>
-    <span class='rubyid_raise identifier id'>raise</span> <span class='dstring node'>&quot;The specified node '#{node_name}' doesn't exist in Jenkins.&quot;</span>
-  <span class='rubyid_end end kw'>end</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_node_name'>node_name</span><span class='rparen'>)</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Deleting node '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_node_name'>node_name</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_list'>list</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_node_name'>node_name</span><span class='rparen'>)</span>
+    <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_post_request'>api_post_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/computer/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_path_encode'>path_encode</span> <span class='id identifier rubyid_node_name'>node_name</span><span class='rbrace'>}</span><span class='tstring_content'>/doDelete</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The specified node '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_node_name'>node_name</span><span class='rbrace'>}</span><span class='tstring_content'>' doesn't exist in Jenkins.</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -944,19 +956,18 @@ after the exection of this call.</p>
       <pre class="lines">
 
 
-197
-198
-199
-200</pre>
+204
+205
+206
+207</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 197</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 204</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_delete_all! fid id'>delete_all!</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='string val'>&quot;Deleting all nodes (except master) from jenkins&quot;</span>
-  <span class='rubyid_list identifier id'>list</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_node identifier id'>node</span><span class='bitor op'>|</span> <span class='rubyid_delete identifier id'>delete</span><span class='lparen token'>(</span><span class='rubyid_node identifier id'>node</span><span class='rparen token'>)</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_node identifier id'>node</span> <span class='eq op'>==</span> <span class='string val'>&quot;master&quot;</span> <span class='rbrace token'>}</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_delete_all!'>delete_all!</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Deleting all nodes (except master) from jenkins</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_list'>list</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_node'>node</span><span class='op'>|</span> <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_node'>node</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>master</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1008,21 +1019,20 @@ after the exection of this call.</p>
       <pre class="lines">
 
 
-280
-281
-282
-283
-284</pre>
+287
+288
+289
+290
+291</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 280</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 287</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_get_config identifier id'>get_config</span><span class='lparen token'>(</span><span class='rubyid_node_name identifier id'>node_name</span><span class='rparen token'>)</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining the config.xml of node '#{node_name}'&quot;</span>
-  <span class='rubyid_node_name identifier id'>node_name</span> <span class='assign token'>=</span> <span class='string val'>&quot;(master)&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_node_name identifier id'>node_name</span> <span class='eq op'>==</span> <span class='string val'>&quot;master&quot;</span>
-  <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_get_config identifier id'>get_config</span><span class='lparen token'>(</span><span class='dstring node'>&quot;/computer/#{node_name}&quot;</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_get_config'>get_config</span><span class='lparen'>(</span><span class='id identifier rubyid_node_name'>node_name</span><span class='rparen'>)</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining the config.xml of node '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_node_name'>node_name</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_node_name'>node_name</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>(master)</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_node_name'>node_name</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>master</span><span class='tstring_end'>&quot;</span></span>
+  <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_get_config'>get_config</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/computer/</span><span class='embexpr_beg'>#{</span> <span class='id identifier rubyid_path_encode'>path_encode</span> <span class='id identifier rubyid_node_name'>node_name</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1074,23 +1084,22 @@ after the exection of this call.</p>
       <pre class="lines">
 
 
-223
-224
-225
-226
-227
-228</pre>
+230
+231
+232
+233
+234
+235</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 223</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 230</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_index identifier id'>index</span><span class='lparen token'>(</span><span class='rubyid_node_name identifier id'>node_name</span><span class='rparen token'>)</span>
-  <span class='rubyid_response_json identifier id'>response_json</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_get_request identifier id'>api_get_request</span><span class='lparen token'>(</span><span class='string val'>&quot;/computer&quot;</span><span class='rparen token'>)</span>
-  <span class='rubyid_response_json identifier id'>response_json</span><span class='lbrack token'>[</span><span class='string val'>&quot;computer&quot;</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_each_with_index identifier id'>each_with_index</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_computer identifier id'>computer</span><span class='comma token'>,</span> <span class='rubyid_index identifier id'>index</span><span class='bitor op'>|</span>
-    <span class='rubyid_return return kw'>return</span> <span class='rubyid_index identifier id'>index</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_computer identifier id'>computer</span><span class='lbrack token'>[</span><span class='string val'>&quot;displayName&quot;</span><span class='rbrack token'>]</span> <span class='eq op'>==</span> <span class='rubyid_node_name identifier id'>node_name</span>
-  <span class='rubyid_end end kw'>end</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_index'>index</span><span class='lparen'>(</span><span class='id identifier rubyid_node_name'>node_name</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_response_json'>response_json</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_get_request'>api_get_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/computer</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_response_json'>response_json</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>computer</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each_with_index'>each_with_index</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_computer'>computer</span><span class='comma'>,</span> <span class='id identifier rubyid_index'>index</span><span class='op'>|</span>
+    <span class='kw'>return</span> <span class='id identifier rubyid_index'>index</span> <span class='kw'>if</span> <span class='id identifier rubyid_computer'>computer</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>displayName</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='id identifier rubyid_node_name'>node_name</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1162,33 +1171,32 @@ after the exection of this call.</p>
       <pre class="lines">
 
 
-207
-208
-209
-210
-211
-212
-213
 214
 215
 216
-217</pre>
+217
+218
+219
+220
+221
+222
+223
+224</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 207</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 214</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_list identifier id'>list</span><span class='lparen token'>(</span><span class='rubyid_filter identifier id'>filter</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span><span class='comma token'>,</span> <span class='rubyid_ignorecase identifier id'>ignorecase</span> <span class='assign token'>=</span> <span class='rubyid_true true kw'>true</span><span class='rparen token'>)</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Obtaining nodes from jenkins matching filter '#{filter}'&quot;</span>
-  <span class='rubyid_node_names identifier id'>node_names</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
-  <span class='rubyid_response_json identifier id'>response_json</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_get_request identifier id'>api_get_request</span><span class='lparen token'>(</span><span class='string val'>&quot;/computer&quot;</span><span class='rparen token'>)</span>
-  <span class='rubyid_response_json identifier id'>response_json</span><span class='lbrack token'>[</span><span class='string val'>&quot;computer&quot;</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_computer identifier id'>computer</span><span class='bitor op'>|</span>
-      <span class='rubyid_if if kw'>if</span> <span class='rubyid_computer identifier id'>computer</span><span class='lbrack token'>[</span><span class='string val'>&quot;displayName&quot;</span><span class='rbrack token'>]</span> <span class='match op'>=~</span> <span class='dregexp node'>/#{filter}/i</span>
-        <span class='rubyid_node_names identifier id'>node_names</span> <span class='lshft op'>&lt;&lt;</span> <span class='rubyid_computer identifier id'>computer</span><span class='lbrack token'>[</span><span class='string val'>&quot;displayName&quot;</span><span class='rbrack token'>]</span>
-      <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_node_names identifier id'>node_names</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_list'>list</span><span class='lparen'>(</span><span class='id identifier rubyid_filter'>filter</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_ignorecase'>ignorecase</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining nodes from jenkins matching filter '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_filter'>filter</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_node_names'>node_names</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_response_json'>response_json</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_get_request'>api_get_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/computer</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_response_json'>response_json</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>computer</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_computer'>computer</span><span class='op'>|</span>
+      <span class='kw'>if</span> <span class='id identifier rubyid_computer'>computer</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>displayName</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_filter'>filter</span><span class='rbrace'>}</span><span class='regexp_end'>/i</span></span>
+        <span class='id identifier rubyid_node_names'>node_names</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_computer'>computer</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>displayName</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+      <span class='kw'>end</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_node_names'>node_names</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1256,21 +1264,20 @@ after the exection of this call.</p>
       <pre class="lines">
 
 
-291
-292
-293
-294
-295</pre>
+298
+299
+300
+301
+302</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 291</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 298</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_post_config identifier id'>post_config</span><span class='lparen token'>(</span><span class='rubyid_node_name identifier id'>node_name</span><span class='comma token'>,</span> <span class='rubyid_xml identifier id'>xml</span><span class='rparen token'>)</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='dstring node'>&quot;Posting the config.xml of node '#{node_name}'&quot;</span>
-  <span class='rubyid_node_name identifier id'>node_name</span> <span class='assign token'>=</span> <span class='string val'>&quot;(master)&quot;</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_node_name identifier id'>node_name</span> <span class='eq op'>==</span> <span class='string val'>&quot;master&quot;</span>
-  <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_post_config identifier id'>post_config</span><span class='lparen token'>(</span><span class='dstring node'>&quot;/computer/#{node_name}/config.xml&quot;</span><span class='comma token'>,</span> <span class='rubyid_xml identifier id'>xml</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_post_config'>post_config</span><span class='lparen'>(</span><span class='id identifier rubyid_node_name'>node_name</span><span class='comma'>,</span> <span class='id identifier rubyid_xml'>xml</span><span class='rparen'>)</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Posting the config.xml of node '</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_node_name'>node_name</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_node_name'>node_name</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>(master)</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_node_name'>node_name</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>master</span><span class='tstring_end'>&quot;</span></span>
+  <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_post_config'>post_config</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/computer/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_path_encode'>path_encode</span> <span class='id identifier rubyid_node_name'>node_name</span><span class='rbrace'>}</span><span class='tstring_content'>/config.xml</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_xml'>xml</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1302,17 +1309,16 @@ after the exection of this call.</p>
       <pre class="lines">
 
 
-100
-101
-102</pre>
+103
+104
+105</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 100</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/node.rb', line 103</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_to_s identifier id'>to_s</span>
-  <span class='string val'>&quot;#&lt;JenkinsApi::Client::Node&gt;&quot;</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>#&lt;JenkinsApi::Client::Node&gt;</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1323,9 +1329,9 @@ after the exection of this call.</p>
 </div>
 
     <div id="footer">
-  Generated on Mon Oct  7 01:41:37 2013 by
+  Generated on Fri Apr  4 21:56:24 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.2 (ruby-1.8.7).
+  0.8.7.3 (ruby-1.9.3).
 </div>
 
         <script type="text/javascript">

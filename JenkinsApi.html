@@ -6,7 +6,7 @@
 <title>
   Module: JenkinsApi
   
-    &mdash; Documentation by YARD 0.8.7.2
+    &mdash; Documentation by YARD 0.8.7.3
   
 </title>
 
@@ -79,8 +79,8 @@
   
   
     <dt class="r1 last">Defined in:</dt>
-    <dd class="r1 last">lib/jenkins_api_client/job.rb<span class="defines">,<br />
-  lib/jenkins_api_client/node.rb,<br /> lib/jenkins_api_client/view.rb,<br /> lib/jenkins_api_client/user.rb,<br /> lib/jenkins_api_client/system.rb,<br /> lib/jenkins_api_client/client.rb,<br /> lib/jenkins_api_client/version.rb,<br /> lib/jenkins_api_client/cli/job.rb,<br /> lib/jenkins_api_client/cli/base.rb,<br /> lib/jenkins_api_client/cli/node.rb,<br /> lib/jenkins_api_client/exceptions.rb,<br /> lib/jenkins_api_client/cli/system.rb,<br /> lib/jenkins_api_client/cli/helper.rb,<br /> lib/jenkins_api_client/build_queue.rb,<br /> lib/jenkins_api_client/plugin_manager.rb</span>
+    <dd class="r1 last">lib/jenkins_api_client/client.rb<span class="defines">,<br />
+  lib/jenkins_api_client/job.rb,<br /> lib/jenkins_api_client/node.rb,<br /> lib/jenkins_api_client/user.rb,<br /> lib/jenkins_api_client/view.rb,<br /> lib/jenkins_api_client/system.rb,<br /> lib/jenkins_api_client/version.rb,<br /> lib/jenkins_api_client/cli/job.rb,<br /> lib/jenkins_api_client/cli/base.rb,<br /> lib/jenkins_api_client/cli/node.rb,<br /> lib/jenkins_api_client/urihelper.rb,<br /> lib/jenkins_api_client/cli/helper.rb,<br /> lib/jenkins_api_client/cli/system.rb,<br /> lib/jenkins_api_client/exceptions.rb,<br /> lib/jenkins_api_client/build_queue.rb,<br /> lib/jenkins_api_client/plugin_manager.rb</span>
 </dd>
   
 </dl>
@@ -89,21 +89,20 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>Copyright © 2012-2013 Kannan Manickam &lt;arangamani.kannan@gmail.com&gt;</p>
+<p>Copyright (c) 2012-2013 Kannan Manickam &lt;arangamani.kannan@gmail.com&gt;</p>
 
 <p>Permission is hereby granted, free of charge, to any person obtaining a
-copy of this software and associated documentation files (the
-“Software”), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to permit
-persons to whom the Software is furnished to do so, subject to the
-following conditions:</p>
+copy of this software and associated documentation files (the "Software"),
+to deal in the Software without restriction, including without limitation
+the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following conditions:</p>
 
 <p>The above copyright notice and this permission notice shall be included in
 all copies or substantial portions of the Software.</p>
 
-<p>THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS
-OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
@@ -120,7 +119,7 @@ DEALINGS IN THE SOFTWARE.</p>
 <p class="children">
   
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="JenkinsApi/CLI.html" title="JenkinsApi::CLI (module)">CLI</a></span>, <span class='object_link'><a href="JenkinsApi/Exceptions.html" title="JenkinsApi::Exceptions (module)">Exceptions</a></span>
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="JenkinsApi/CLI.html" title="JenkinsApi::CLI (module)">CLI</a></span>, <span class='object_link'><a href="JenkinsApi/Exceptions.html" title="JenkinsApi::Exceptions (module)">Exceptions</a></span>, <span class='object_link'><a href="JenkinsApi/UriHelper.html" title="JenkinsApi::UriHelper (module)">UriHelper</a></span>
     
   
     
@@ -140,9 +139,9 @@ DEALINGS IN THE SOFTWARE.</p>
 </div>
 
     <div id="footer">
-  Generated on Mon Oct  7 01:41:31 2013 by
+  Generated on Fri Apr  4 21:56:22 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.2 (ruby-1.8.7).
+  0.8.7.3 (ruby-1.9.3).
 </div>
 
         <script type="text/javascript">

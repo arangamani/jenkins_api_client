@@ -6,7 +6,7 @@
 <title>
   Class: JenkinsApi::Client::User
   
-    &mdash; Documentation by YARD 0.8.7.2
+    &mdash; Documentation by YARD 0.8.7.3
   
 </title>
 
@@ -90,11 +90,15 @@
     
   
     
+      <dt class="r2">Includes:</dt>
+      <dd class="r2"><span class='object_link'><a href="../UriHelper.html" title="JenkinsApi::UriHelper (module)">UriHelper</a></span></dd>
+      
+    
   
   
   
-    <dt class="r2 last">Defined in:</dt>
-    <dd class="r2 last">lib/jenkins_api_client/user.rb</dd>
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/jenkins_api_client/user.rb</dd>
   
 </dl>
 <div class="clear"></div>
@@ -237,7 +241,7 @@ display name, and email-address.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Returns a string representation of System class.</p>
+<p>Returns a string representation of User class.</p>
 </div></span>
   
 </li>
@@ -246,6 +250,17 @@ display name, and email-address.</p>
     </ul>
   
 
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../UriHelper.html" title="JenkinsApi::UriHelper (module)">UriHelper</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../UriHelper.html#form_encode-instance_method" title="JenkinsApi::UriHelper#form_encode (method)">#form_encode</a></span>, <span class='object_link'><a href="../UriHelper.html#path_encode-instance_method" title="JenkinsApi::UriHelper#path_encode (method)">#path_encode</a></span></p>
 <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
@@ -311,21 +326,20 @@ display name, and email-address.</p>
       <pre class="lines">
 
 
-41
-42
 43
 44
-45</pre>
+45
+46
+47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/user.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/user.rb', line 43</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_client identifier id'>client</span><span class='rparen token'>)</span>
-  <span class='rubyid_@client ivar id'>@client</span> <span class='assign token'>=</span> <span class='rubyid_client identifier id'>client</span>
-  <span class='rubyid_@logger ivar id'>@logger</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_logger identifier id'>logger</span>
-  <span class='rubyid_@timeout ivar id'>@timeout</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_timeout identifier id'>timeout</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_client'>client</span><span class='rparen'>)</span>
+  <span class='ivar'>@client</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span>
+  <span class='ivar'>@logger</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span>
+  <span class='ivar'>@timeout</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_timeout'>timeout</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -365,29 +379,28 @@ display name, and email-address.</p>
 <p>Example JSON for user info</p>
 </div></p>
       
-      <pre class="example code"><code><span class='lbrace token'>{</span>
-  <span class='string val'>&quot;absoluteUrl&quot;</span> <span class='colon op'>:</span> <span class='string val'>&quot;https://myjenkins.example.com/jenkins/user/fred&quot;</span><span class='comma token'>,</span>
-  <span class='string val'>&quot;description&quot;</span> <span class='colon op'>:</span> <span class='string val'>&quot;&quot;</span><span class='comma token'>,</span>
-  <span class='string val'>&quot;fullName&quot;</span> <span class='colon op'>:</span> <span class='string val'>&quot;Fred Flintstone&quot;</span><span class='comma token'>,</span>
-  <span class='string val'>&quot;id&quot;</span> <span class='colon op'>:</span> <span class='string val'>&quot;fred&quot;</span><span class='comma token'>,</span>
-  <span class='string val'>&quot;property&quot;</span> <span class='colon op'>:</span> <span class='lbrack token'>[</span>
-    <span class='lbrace token'>{</span>
-    <span class='rbrace token'>}</span><span class='comma token'>,</span>
-    <span class='lbrace token'>{</span>
-    <span class='rbrace token'>}</span><span class='comma token'>,</span>
-    <span class='lbrace token'>{</span>
-      <span class='string val'>&quot;address&quot;</span> <span class='colon op'>:</span> <span class='string val'>&quot;fred@slaterockandgravel.com&quot;</span>
-    <span class='rbrace token'>}</span><span class='comma token'>,</span>
-    <span class='lbrace token'>{</span>
-    <span class='rbrace token'>}</span><span class='comma token'>,</span>
-    <span class='lbrace token'>{</span>
-    <span class='rbrace token'>}</span><span class='comma token'>,</span>
-    <span class='lbrace token'>{</span>
-      <span class='string val'>&quot;insensitiveSearch&quot;</span> <span class='colon op'>:</span> <span class='rubyid_false false kw'>false</span>
-    <span class='rbrace token'>}</span>
-  <span class='rbrack token'>]</span>
-<span class='rbrace token'>}</span>
-</code></pre>
+      <pre class="example code"><code>{
+  &quot;absoluteUrl&quot; : &quot;https://myjenkins.example.com/jenkins/user/fred&quot;,
+  &quot;description&quot; : &quot;&quot;,
+  &quot;fullName&quot; : &quot;Fred Flintstone&quot;,
+  &quot;id&quot; : &quot;fred&quot;,
+  &quot;property&quot; : [
+    {
+    },
+    {
+    },
+    {
+      &quot;address&quot; : &quot;fred@slaterockandgravel.com&quot;
+    },
+    {
+    },
+    {
+    },
+    {
+      &quot;insensitiveSearch&quot; : false
+    }
+  ]
+}</code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -423,9 +436,9 @@ display name, and email-address.</p>
       
         &mdash;
         <div class='inline'><ul><li>
-<p><code>id</code> Jenkins user id</p>
+<p><tt>id</tt> Jenkins user id</p>
 </li><li>
-<p><code>fullName</code> Full name of user (or user id if not set)</p>
+<p><tt>fullName</tt> Full name of user (or user id if not set)</p>
 </li><li>
 <p>other fields populated by Jenkins - this may vary based on version/plugins</p>
 </li></ul>
@@ -457,17 +470,16 @@ display name, and email-address.</p>
       <pre class="lines">
 
 
-113
-114
-115</pre>
+115
+116
+117</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/user.rb', line 113</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/user.rb', line 115</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_get identifier id'>get</span><span class='lparen token'>(</span><span class='rubyid_user_id identifier id'>user_id</span><span class='rparen token'>)</span>
-  <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_get_request identifier id'>api_get_request</span><span class='lparen token'>(</span><span class='dstring node'>&quot;/user/#{user_id}&quot;</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_user_id'>user_id</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_get_request'>api_get_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/user/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_path_encode'>path_encode</span> <span class='id identifier rubyid_user_id'>user_id</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -508,9 +520,9 @@ display name, and email-address</p>
         <div class='inline'>
 <p>of [Hash], keyed by Jenkins user id</p>
 <ul><li>
-<p><code>fullName</code> The jenkins user idoutput+ Console output of the job</p>
+<p><tt>fullName</tt> The jenkins user idoutput+ Console output of the job</p>
 </li><li>
-<p><code>properties</code> Size of the text. This ca</p>
+<p><tt>properties</tt> Size of the text. This ca</p>
 </li></ul>
 </div>
       
@@ -540,8 +552,6 @@ display name, and email-address</p>
       <pre class="lines">
 
 
-62
-63
 64
 65
 66
@@ -556,29 +566,30 @@ display name, and email-address</p>
 75
 76
 77
-78</pre>
+78
+79
+80</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/user.rb', line 62</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/user.rb', line 64</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_list identifier id'>list</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='string val'>&quot;Obtaining the list of users from jenkins&quot;</span>
-  <span class='comment val'># First we need to get the list of users.</span>
-  <span class='comment val'># This is the same as &quot;System.list_users&quot;, but since I didn't want to</span>
-  <span class='comment val'># depend on that class I reproduced the request here.</span>
-  <span class='rubyid_userlist identifier id'>userlist</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_get_request identifier id'>api_get_request</span><span class='lparen token'>(</span><span class='string val'>&quot;/asynchPeople&quot;</span><span class='rparen token'>)</span>
-  <span class='rubyid_users identifier id'>users</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_list'>list</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining the list of users from jenkins</span><span class='tstring_end'>&quot;</span></span>
+  <span class='comment'># First we need to get the list of users.
+</span>  <span class='comment'># This is the same as &quot;System.list_users&quot;, but since I didn't want to
+</span>  <span class='comment'># depend on that class I reproduced the request here.
+</span>  <span class='id identifier rubyid_userlist'>userlist</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_get_request'>api_get_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/asynchPeople</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_users'>users</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
 
-  <span class='rubyid_userlist identifier id'>userlist</span><span class='lbrack token'>[</span><span class='string val'>'users'</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_user identifier id'>user</span><span class='bitor op'>|</span>
-    <span class='comment val'># Jenkins seems ok to fetch by full-name, as long as perfect match</span>
-    <span class='comment val'># since the name *came* from Jenkins this seems reasonably safe</span>
-    <span class='rubyid_user identifier id'>user</span> <span class='assign token'>=</span> <span class='rubyid_get identifier id'>get</span><span class='lparen token'>(</span><span class='rubyid_user identifier id'>user</span><span class='lbrack token'>[</span><span class='string val'>'user'</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>'fullName'</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
-    <span class='rubyid_users identifier id'>users</span><span class='lbrack token'>[</span><span class='rubyid_user identifier id'>user</span><span class='lbrack token'>[</span><span class='string val'>'id'</span><span class='rbrack token'>]</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_user identifier id'>user</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_user identifier id'>user</span>
-  <span class='rbrace token'>}</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_userlist identifier id'>userlist</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
+  <span class='id identifier rubyid_userlist'>userlist</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>users</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_user'>user</span><span class='op'>|</span>
+    <span class='comment'># Jenkins seems ok to fetch by full-name, as long as perfect match
+</span>    <span class='comment'># since the name *came* from Jenkins this seems reasonably safe
+</span>    <span class='id identifier rubyid_user'>user</span> <span class='op'>=</span> <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>user</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>fullName</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_users'>users</span><span class='lbracket'>[</span><span class='id identifier rubyid_user'>user</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>id</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_user'>user</span> <span class='kw'>if</span> <span class='id identifier rubyid_user'>user</span>
+  <span class='rbrace'>}</span> <span class='kw'>unless</span> <span class='id identifier rubyid_userlist'>userlist</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
 
-  <span class='rubyid_return return kw'>return</span> <span class='rubyid_users identifier id'>users</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+  <span class='kw'>return</span> <span class='id identifier rubyid_users'>users</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -596,7 +607,7 @@ display name, and email-address</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns a string representation of System class.</p>
+<p>Returns a string representation of User class.</p>
 
 
   </div>
@@ -626,17 +637,16 @@ display name, and email-address</p>
       <pre class="lines">
 
 
-49
-50
-51</pre>
+51
+52
+53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/user.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/user.rb', line 51</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_to_s identifier id'>to_s</span>
-  <span class='string val'>&quot;#&lt;JenkinsApi::Client::User&gt;&quot;</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>#&lt;JenkinsApi::Client::User&gt;</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -647,9 +657,9 @@ display name, and email-address</p>
 </div>
 
     <div id="footer">
-  Generated on Mon Oct  7 01:41:39 2013 by
+  Generated on Fri Apr  4 21:56:24 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.2 (ruby-1.8.7).
+  0.8.7.3 (ruby-1.9.3).
 </div>
 
         <script type="text/javascript">

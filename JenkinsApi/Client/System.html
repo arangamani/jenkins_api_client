@@ -6,7 +6,7 @@
 <title>
   Class: JenkinsApi::Client::System
   
-    &mdash; Documentation by YARD 0.8.7.2
+    &mdash; Documentation by YARD 0.8.7.3
   
 </title>
 
@@ -405,12 +405,11 @@ level operations such as restarting and reloading Jenkins.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/system.rb', line 38</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span><span class='lparen token'>(</span><span class='rubyid_client identifier id'>client</span><span class='rparen token'>)</span>
-  <span class='rubyid_@client ivar id'>@client</span> <span class='assign token'>=</span> <span class='rubyid_client identifier id'>client</span>
-  <span class='rubyid_@logger ivar id'>@logger</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_logger identifier id'>logger</span>
-  <span class='rubyid_@timeout ivar id'>@timeout</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_timeout identifier id'>timeout</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_client'>client</span><span class='rparen'>)</span>
+  <span class='ivar'>@client</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span>
+  <span class='ivar'>@logger</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span>
+  <span class='ivar'>@timeout</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_timeout'>timeout</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -457,11 +456,10 @@ level operations such as restarting and reloading Jenkins.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/system.rb', line 59</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_cancel_quiet_down identifier id'>cancel_quiet_down</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='string val'>&quot;Cancelling jenkins form quiet down...&quot;</span>
-  <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_post_request identifier id'>api_post_request</span><span class='lparen token'>(</span><span class='string val'>&quot;/cancelQuietDown&quot;</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_cancel_quiet_down'>cancel_quiet_down</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Cancelling jenkins form quiet down...</span><span class='tstring_end'>&quot;</span></span>
+  <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_post_request'>api_post_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/cancelQuietDown</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -507,17 +505,16 @@ level operations such as restarting and reloading Jenkins.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/system.rb', line 94</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_list_users identifier id'>list_users</span>
-  <span class='rubyid_warn identifier id'>warn</span> <span class='string val'>&quot;DEPRECATION: System#list_users is deprecated. Please use User#list instead&quot;</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='string val'>&quot;Obtaining the list of users from jenkins&quot;</span>
-  <span class='rubyid_users identifier id'>users</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_get_request identifier id'>api_get_request</span><span class='lparen token'>(</span><span class='string val'>&quot;/asynchPeople&quot;</span><span class='rparen token'>)</span>
-  <span class='rubyid_names identifier id'>names</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='rbrack token'>]</span>
-  <span class='rubyid_users identifier id'>users</span><span class='lbrack token'>[</span><span class='string val'>'users'</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='rubyid_user identifier id'>user</span><span class='bitor op'>|</span>
-    <span class='rubyid_names identifier id'>names</span> <span class='lshft op'>&lt;&lt;</span> <span class='rubyid_user identifier id'>user</span><span class='lbrack token'>[</span><span class='string val'>'user'</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='string val'>'fullName'</span><span class='rbrack token'>]</span>
-  <span class='rbrace token'>}</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_users identifier id'>users</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
-  <span class='rubyid_return return kw'>return</span> <span class='rubyid_names identifier id'>names</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_list_users'>list_users</span>
+  <span class='id identifier rubyid_warn'>warn</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DEPRECATION: System#list_users is deprecated. Please use User#list instead</span><span class='tstring_end'>&quot;</span></span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Obtaining the list of users from jenkins</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_users'>users</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_get_request'>api_get_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/asynchPeople</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_names'>names</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_users'>users</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>users</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_user'>user</span><span class='op'>|</span>
+    <span class='id identifier rubyid_names'>names</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_user'>user</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>user</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>fullName</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span>
+  <span class='rbrace'>}</span> <span class='kw'>unless</span> <span class='id identifier rubyid_users'>users</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_names'>names</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -557,11 +554,10 @@ level operations such as restarting and reloading Jenkins.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/system.rb', line 52</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_quiet_down identifier id'>quiet_down</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='string val'>&quot;Performing a quiet down of jenkins...&quot;</span>
-  <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_post_request identifier id'>api_post_request</span><span class='lparen token'>(</span><span class='string val'>&quot;/quietDown&quot;</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_quiet_down'>quiet_down</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Performing a quiet down of jenkins...</span><span class='tstring_end'>&quot;</span></span>
+  <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_post_request'>api_post_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/quietDown</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -601,11 +597,10 @@ level operations such as restarting and reloading Jenkins.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/system.rb', line 87</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_reload identifier id'>reload</span>
-  <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='string val'>&quot;Reloading jenkins...&quot;</span>
-  <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_post_request identifier id'>api_post_request</span><span class='lparen token'>(</span><span class='string val'>&quot;/reload&quot;</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_reload'>reload</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Reloading jenkins...</span><span class='tstring_end'>&quot;</span></span>
+  <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_post_request'>api_post_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/reload</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -672,16 +667,15 @@ level operations such as restarting and reloading Jenkins.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/system.rb', line 69</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_restart identifier id'>restart</span><span class='lparen token'>(</span><span class='rubyid_force identifier id'>force</span> <span class='assign token'>=</span> <span class='rubyid_false false kw'>false</span><span class='rparen token'>)</span>
-  <span class='rubyid_if if kw'>if</span> <span class='rubyid_force identifier id'>force</span>
-    <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='string val'>&quot;Performing a force restart of jenkins...&quot;</span>
-    <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_post_request identifier id'>api_post_request</span><span class='lparen token'>(</span><span class='string val'>&quot;/restart&quot;</span><span class='rparen token'>)</span>
-  <span class='rubyid_else else kw'>else</span>
-    <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='string val'>&quot;Performing a safe restart of jenkins...&quot;</span>
-    <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_api_post_request identifier id'>api_post_request</span><span class='lparen token'>(</span><span class='string val'>&quot;/safeRestart&quot;</span><span class='rparen token'>)</span>
-  <span class='rubyid_end end kw'>end</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_restart'>restart</span><span class='lparen'>(</span><span class='id identifier rubyid_force'>force</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_force'>force</span>
+    <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Performing a force restart of jenkins...</span><span class='tstring_end'>&quot;</span></span>
+    <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_post_request'>api_post_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/restart</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Performing a safe restart of jenkins...</span><span class='tstring_end'>&quot;</span></span>
+    <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_api_post_request'>api_post_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/safeRestart</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -720,10 +714,9 @@ level operations such as restarting and reloading Jenkins.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/system.rb', line 81</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_restart! fid id'>restart!</span>
-  <span class='rubyid_restart identifier id'>restart</span><span class='lparen token'>(</span><span class='rubyid_true true kw'>true</span><span class='rparen token'>)</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_restart!'>restart!</span>
+  <span class='id identifier rubyid_restart'>restart</span><span class='lparen'>(</span><span class='kw'>true</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -762,10 +755,9 @@ level operations such as restarting and reloading Jenkins.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/system.rb', line 46</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_to_s identifier id'>to_s</span>
-  <span class='string val'>&quot;#&lt;JenkinsApi::Client::System&gt;&quot;</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>#&lt;JenkinsApi::Client::System&gt;</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -812,32 +804,27 @@ level operations such as restarting and reloading Jenkins.</p>
 120
 121
 122
-123
-124
-125</pre>
+123</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/jenkins_api_client/system.rb', line 108</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_wait_for_ready identifier id'>wait_for_ready</span>
-    <span class='rubyid_Timeout constant id'>Timeout</span><span class='colon2 op'>::</span><span class='rubyid_timeout identifier id'>timeout</span><span class='lparen token'>(</span><span class='rubyid_@timeout ivar id'>@timeout</span><span class='rparen token'>)</span> <span class='rubyid_do do kw'>do</span>
-      <span class='rubyid_while while kw'>while</span> <span class='rubyid_true true kw'>true</span> <span class='rubyid_do do kw'>do</span>
-        <span class='rubyid_response identifier id'>response</span> <span class='assign token'>=</span> <span class='rubyid_@client ivar id'>@client</span><span class='dot token'>.</span><span class='rubyid_get_root identifier id'>get_root</span>
-        <span class='rubyid_@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='rubyid_info identifier id'>info</span> <span class='string val'>&quot;Waiting for jenkins to restart...&quot;</span>
-        <span class='rubyid_if if kw'>if</span> <span class='lparen token'>(</span><span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_body identifier id'>body</span> <span class='match op'>=~</span> <span class='regexp val'>/Please wait while Jenkins is restarting/</span> <span class='orop op'>||</span>
-          <span class='rubyid_response identifier id'>response</span><span class='dot token'>.</span><span class='rubyid_body identifier id'>body</span> <span class='match op'>=~</span> <span class='regexp val'>/Please wait while Jenkins is getting ready to work/</span><span class='rparen token'>)</span>
-          <span class='rubyid_sleep identifier id'>sleep</span> <span class='integer val'>30</span>
-          <span class='rubyid_redo redo kw'>redo</span>
-        <span class='rubyid_else else kw'>else</span>
-          <span class='rubyid_return return kw'>return</span> <span class='rubyid_true true kw'>true</span>
-        <span class='rubyid_end end kw'>end</span>
-      <span class='rubyid_end end kw'>end</span>
-    <span class='rubyid_end end kw'>end</span>
-    <span class='rubyid_false false kw'>false</span>
-  <span class='rubyid_end end kw'>end</span>
-
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_wait_for_ready'>wait_for_ready</span>
+  <span class='const'>Timeout</span><span class='op'>::</span><span class='id identifier rubyid_timeout'>timeout</span><span class='lparen'>(</span><span class='ivar'>@timeout</span><span class='rparen'>)</span> <span class='kw'>do</span>
+    <span class='kw'>while</span> <span class='kw'>true</span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_get_root'>get_root</span>
+      <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Waiting for jenkins to restart...</span><span class='tstring_end'>&quot;</span></span>
+      <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>Please wait while Jenkins is restarting</span><span class='regexp_end'>/</span></span> <span class='op'>||</span>
+        <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>Please wait while Jenkins is getting ready to work</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_sleep'>sleep</span> <span class='int'>30</span>
+        <span class='kw'>redo</span>
+      <span class='kw'>else</span>
+        <span class='kw'>return</span> <span class='kw'>true</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+  <span class='kw'>false</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -848,9 +835,9 @@ level operations such as restarting and reloading Jenkins.</p>
 </div>
 
     <div id="footer">
-  Generated on Mon Oct  7 01:41:39 2013 by
+  Generated on Fri Apr  4 21:56:24 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.2 (ruby-1.8.7).
+  0.8.7.3 (ruby-1.9.3).
 </div>
 
         <script type="text/javascript">
