@@ -1,9 +1,15 @@
 Jenkins API Client
 ==================
-[![Gem Version](https://badge.fury.io/rb/jenkins_api_client.png)](http://rubygems.org/gems/jenkins_api_client)
-[![Build Status](https://travis-ci.org/arangamani/jenkins_api_client.png?branch=master)](https://travis-ci.org/arangamani/jenkins_api_client)
-[![Dependency Status](https://gemnasium.com/arangamani/jenkins_api_client.png)](https://gemnasium.com/arangamani/jenkins_api_client)
-[![Code Climate](https://codeclimate.com/github/arangamani/jenkins_api_client.png)](https://codeclimate.com/github/arangamani/jenkins_api_client)
+
+[![Gem Version](http://img.shields.io/gem/v/jenkins_api_client.svg)][gem]
+[![Build Status](http://img.shields.io/travis/arangamani/jenkins_api_client.svg)][travis]
+[![Dependency Status](http://img.shields.io/gemnasium/arangamani/jenkins_api_client.svg)][gemnasium]
+[![Code Climate](http://img.shields.io/codeclimate/github/arangamani/jenkins_api_client.svg)][codeclimate]
+
+[gem]: https://rubygems.org/gems/jenkins_api_client
+[travis]: http://travis-ci.org/arangamani/jenkins_api_client
+[gemnasium]: https://gemnasium.com/arangamani/jenkins_api_client
+[codeclimate]: https://codeclimate.com/github/arangamani/jenkins_api_client
 
 Copyright &copy; 2012-2013, Kannan Manickam [![endorse](http://api.coderwall.com/arangamani/endorsecount.png)](http://coderwall.com/arangamani)
 
