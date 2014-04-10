@@ -35,7 +35,7 @@ require 'logger'
 #
 module JenkinsApi
   # This is the client class that acts as the bridge between the subclasses and
-  # Jnekins. This class contains methods that performs GET and POST requests
+  # Jenkins. This class contains methods that performs GET and POST requests
   # for various operations.
   #
   class Client
@@ -101,7 +101,7 @@ module JenkinsApi
         end
       end if args.is_a? Hash
 
-      # Server IP or Server URL must be specifiec
+      # Server IP or Server URL must be specific
       unless @server_ip || @server_url
         raise ArgumentError, "Server IP or Server URL is required to connect" +
           " to Jenkins"
@@ -263,6 +263,7 @@ module JenkinsApi
         http.use_ssl = true
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
       end
+      http.read_timeout = @timeout
 
       response = http.request(request)
       case response
