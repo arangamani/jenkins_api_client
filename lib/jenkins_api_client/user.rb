@@ -43,6 +43,7 @@ module JenkinsApi
       def initialize(client)
         @client = client
         @logger = @client.logger
+        @timeout = @client.timeout
       end
 
       # Returns a string representation of User class.
