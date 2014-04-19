@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "jenkins_api_client"
-  s.version = "1.0.0.beta.4"
+  s.version = "1.0.0.beta.6"
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kannan Manickam"]
-  s.date = "2014-02-18"
+  s.date = "2014-04-19"
   s.description = "\nThis is a simple and easy-to-use Jenkins Api client with features focused on\nautomating Job configuration programaticaly and so forth"
   s.email = ["arangamani.kannan@gmail.com"]
   s.executables = ["jenkinscli"]
@@ -47,6 +47,7 @@ Gem::Specification.new do |s|
     "lib/jenkins_api_client/version.rb",
     "lib/jenkins_api_client/view.rb",
     "scripts/login_with_irb.rb",
+    "scripts/login_with_pry.rb",
     "spec/func_tests/client_spec.rb",
     "spec/func_tests/job_spec.rb",
     "spec/func_tests/node_spec.rb.pending",
@@ -99,6 +100,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<simplecov>, [">= 0"])
       s.add_development_dependency(%q<yard-thor>, [">= 0"])
       s.add_development_dependency(%q<yard>, [">= 0"])
+      s.add_development_dependency(%q<pry>, [">= 0"])
     else
       s.add_dependency(%q<nokogiri>, ["~> 1.6.0"])
       s.add_dependency(%q<thor>, [">= 0.16.0"])
@@ -111,6 +113,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<simplecov>, [">= 0"])
       s.add_dependency(%q<yard-thor>, [">= 0"])
       s.add_dependency(%q<yard>, [">= 0"])
+      s.add_dependency(%q<pry>, [">= 0"])
     end
   else
     s.add_dependency(%q<nokogiri>, ["~> 1.6.0"])
@@ -124,6 +127,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<simplecov>, [">= 0"])
     s.add_dependency(%q<yard-thor>, [">= 0"])
     s.add_dependency(%q<yard>, [">= 0"])
+    s.add_dependency(%q<pry>, [">= 0"])
   end
 end
 
