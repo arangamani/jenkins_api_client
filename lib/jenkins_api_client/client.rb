@@ -35,7 +35,7 @@ require 'logger'
 #
 module JenkinsApi
   # This is the client class that acts as the bridge between the subclasses and
-  # Jnekins. This class contains methods that performs GET and POST requests
+  # Jenkins. This class contains methods that performs GET and POST requests
   # for various operations.
   #
   class Client
@@ -44,6 +44,8 @@ module JenkinsApi
     DEFAULT_SERVER_PORT = 8080
     # Default timeout in seconds to be used while performing operations
     DEFAULT_TIMEOUT = 120
+    DEFAULT_HTTP_OPEN_TIMEOUT = 10
+    DEFAULT_HTTP_READ_TIMEOUT = 120
     # Parameters that are permitted as options while initializing the client
     VALID_PARAMS = [
       "server_url",
@@ -58,6 +60,8 @@ module JenkinsApi
       "log_location",
       "log_level",
       "timeout",
+      "http_open_timeout",
+      "http_read_timeout",
       "ssl",
       "follow_redirects",
       "identity_file",
@@ -101,7 +105,7 @@ module JenkinsApi
         end
       end if args.is_a? Hash
 
-      # Server IP or Server URL must be specifiec
+      # Server IP or Server URL must be specific
       unless @server_ip || @server_url
         raise ArgumentError, "Server IP or Server URL is required to connect" +
           " to Jenkins"
@@ -135,6 +139,8 @@ module JenkinsApi
       @jenkins_path.gsub!(/\/$/,"") # remove trailing slash if there is one
       @server_port = DEFAULT_SERVER_PORT unless @server_port
       @timeout = DEFAULT_TIMEOUT unless @timeout
+      @http_open_timeout = DEFAULT_HTTP_OPEN_TIMEOUT unless @http_open_timeout
+      @http_read_timeout = DEFAULT_HTTP_READ_TIMEOUT unless @http_read_timeout
       @ssl ||= false
 
       # Setting log options
@@ -238,7 +244,9 @@ module JenkinsApi
         " @crumbs_enabled=#{@crumbs_enabled.inspect}," +
         " @follow_redirects=#{@follow_redirects.inspect}," +
         " @jenkins_path=#{@jenkins_path.inspect}," +
-        " @timeout=#{@timeout.inspect}>"
+        " @timeout=#{@timeout.inspect}>," +
+        " @http_open_timeout=#{@http_open_timeout.inspect}>," +
+        " @http_read_timeout=#{@http_read_timeout.inspect}>"
     end
 
     # Connects to the Jenkins server, sends the specified request and returns
@@ -263,6 +271,9 @@ module JenkinsApi
         http.use_ssl = true
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
       end
+
+      http.open_timeout = @http_open_timeout
+      http.read_timeout = @http_read_timeout
 
       response = http.request(request)
       case response
