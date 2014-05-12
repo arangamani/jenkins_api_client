@@ -123,7 +123,7 @@ module JenkinsApi
           if filters.keys.all? { |key| plugin[key.to_s] == filters[key] }
             [plugin["shortName"], plugin["version"]]
           end
-        end]
+        end.compact]
         installed
       end
 
