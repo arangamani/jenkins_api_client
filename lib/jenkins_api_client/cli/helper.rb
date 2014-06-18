@@ -21,6 +21,7 @@
 #
 
 require 'fileutils'
+require 'yaml'
 
 module JenkinsApi
   module CLI
