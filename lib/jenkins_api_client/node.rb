@@ -106,7 +106,7 @@ module JenkinsApi
 
       # Creates a new node with the specified parameters
       #
-      # @param [Hash] params parameters for creating a dump slave
+      # @param [Hash] params parameters for creating a dumb slave
       #  * +:name+ name of the slave
       #  * +:description+ description of the new slave
       #  * +:executors+ number of executors
@@ -118,8 +118,8 @@ module JenkinsApi
       #  * +:private_key_file+ Private key file of master
       #  * +:credentials_id+ Id for credential in Jenkins
       #
-      # @example Create a Dump Slave
-      #   create_dump_slave(
+      # @example Create a Dumb Slave
+      #   create_dumb_slave(
       #     :name => "slave1",
       #     :slave_host => "10.10.10.10",
       #     :private_key_file => "/root/.ssh/id_rsa",
@@ -127,14 +127,14 @@ module JenkinsApi
       #     :labels => "slave, ruby"
       #   )
       #
-      def create_dump_slave(params)
+      def create_dumb_slave(params)
         unless params[:name] && params[:slave_host] && params[:private_key_file]
           raise ArgumentError, "Name, slave host, and private key file are" +
             " required for creating a slave."
         end
 
-        @logger.info "Creating a dump slave '#{params[:name]}'"
-        @logger.debug "Creating a dump slave with params: #{params.inspect}"
+        @logger.info "Creating a dumb slave '#{params[:name]}'"
+        @logger.debug "Creating a dumb slave with params: #{params.inspect}"
         default_params = {
           :description => "Automatically created through jenkins_api_client",
           :executors => 2,
@@ -180,6 +180,11 @@ module JenkinsApi
         @logger.debug "Modified params posted to create slave:" +
           " #{post_params.inspect}"
         @client.api_post_request("/computer/doCreateItem", post_params)
+      end
+
+      def create_dump_slave(params)
+        @logger.warn '[DEPRECATED] Please use create_dumb_slave instead.'
+        create_dumb_slave(params)
       end
 
       # Deletes the specified node

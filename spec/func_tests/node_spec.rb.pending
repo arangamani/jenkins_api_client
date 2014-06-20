@@ -21,7 +21,7 @@ describe JenkinsApi::Client::Node do
         puts e.message
       end
 
-      @client.node.create_dump_slave(
+      @client.node.create_dumb_slave(
         :name => "slave",
         :slave_host => "10.0.0.1",
         :private_key_file => "/root/.ssh/id_rsa"
@@ -43,12 +43,12 @@ describe JenkinsApi::Client::Node do
         end
       end
 
-      describe "#create_dump_slave" do
+      describe "#create_dumb_slave" do
 
         def test_and_validate(params)
           name = params[:name]
           @valid_post_responses.should include(
-            @client.node.create_dump_slave(params).to_i
+            @client.node.create_dumb_slave(params).to_i
           )
           @client.node.list(name).include?(name).should be_true
           @valid_post_responses.should include(
@@ -79,7 +79,7 @@ describe JenkinsApi::Client::Node do
             :private_key_file => "/root/.ssh/id_rsa"
           }
           expect(
-            lambda{ @client.node.create_dump_slave(params) }
+            lambda{ @client.node.create_dumb_slave(params) }
           ).to raise_error(ArgumentError)
         end
         it "fails if slave_host is missing" do
@@ -88,7 +88,7 @@ describe JenkinsApi::Client::Node do
             :private_key_file => "/root/.ssh/id_rsa"
           }
           expect(
-            lambda{ @client.node.create_dump_slave(params) }
+            lambda{ @client.node.create_dumb_slave(params) }
           ).to raise_error(ArgumentError)
         end
         it "fails if private_key_file is missing" do
@@ -97,7 +97,7 @@ describe JenkinsApi::Client::Node do
             :slave_host => "10.10.10.10"
           }
           expect(
-            lambda{ @client.node.create_dump_slave(params) }
+            lambda{ @client.node.create_dumb_slave(params) }
           ).to raise_error(ArgumentError)
         end
         it "fails if the slave already exists in Jenkins" do
@@ -107,10 +107,10 @@ describe JenkinsApi::Client::Node do
             :private_key_file => "/root/.ssh/id_rsa"
           }
           @valid_post_responses.should include(
-            @client.node.create_dump_slave(params).to_i
+            @client.node.create_dumb_slave(params).to_i
           )
           expect(
-            lambda{ @client.node.create_dump_slave(params) }
+            lambda{ @client.node.create_dumb_slave(params) }
           ).to raise_error(JenkinsApi::Exceptions::NodeAlreadyExists)
           @valid_post_responses.should include(
             @client.node.delete(params[:name]).to_i
@@ -126,7 +126,7 @@ describe JenkinsApi::Client::Node do
             :private_key_file => "/root/.ssh/id_rsa"
           }
           @valid_post_responses.should include(
-            @client.node.create_dump_slave(params).to_i
+            @client.node.create_dumb_slave(params).to_i
           )
           @valid_post_responses.should include(
             @client.node.delete(params[:name]).to_i

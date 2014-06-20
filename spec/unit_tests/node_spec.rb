@@ -30,10 +30,10 @@ describe JenkinsApi::Client::Node do
         end
       end
 
-      describe "#create_dump_slave" do
-        it "creates a dump slave by accepting required params" do
+      describe "#create_dumb_slave" do
+        it "creates a dumb slave by accepting required params" do
           @client.should_receive(:api_post_request).and_return("302")
-          @node.create_dump_slave(
+          @node.create_dumb_slave(
             :name => "test_slave",
             :slave_host => "10.10.10.10",
             :private_key_file => "/root/.ssh/id_rsa"
@@ -42,7 +42,7 @@ describe JenkinsApi::Client::Node do
         it "fails if name is not given" do
           expect(
             lambda{
-              @node.create_dump_slave(
+              @node.create_dumb_slave(
                 :slave_host => "10.10.10.10",
                 :private_key_file => "/root/.ssh/id_rsa"
               )
@@ -52,7 +52,7 @@ describe JenkinsApi::Client::Node do
         it "fails if slave_host is not given" do
           expect(
             lambda{
-              @node.create_dump_slave(
+              @node.create_dumb_slave(
                 :name => "test_slave",
                 :private_key_file => "/root/.ssh/id_rsa"
               )
@@ -62,7 +62,7 @@ describe JenkinsApi::Client::Node do
         it "fails if private_key_file is not given" do
           expect(
             lambda{
-              @node.create_dump_slave(
+              @node.create_dumb_slave(
                 :name => "test_slave",
                 :slave_host => "10.10.10.10"
               )
@@ -71,6 +71,18 @@ describe JenkinsApi::Client::Node do
         end
       end
 
+      describe "#create_dump_slave" do
+
+        it "just delegates to #create_dumb_slave" do
+          @node.should_receive(:create_dumb_slave)
+          @node.create_dump_slave(
+            :name => "test_slave",
+            :slave_host => "10.10.10.10",
+            :private_key_file => "/root/.ssh/id_rsa"
+          )
+        end
+
+      end
       describe "#delete" do
         it "gets the node name and deletes if exists" do
           slave_name = "slave"
