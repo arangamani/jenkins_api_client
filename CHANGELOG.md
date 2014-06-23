@@ -4,6 +4,32 @@ CHANGELOG
 upcoming
 --------
 
+v1.0.0   [23-JUN-2014]
+----------------------
+* Ruby 1.8 is not supported anymore.
+* Added support for `PluginManager` which supports listing installed plugins,
+  available plugins, installing and uninstalling plugins, enabling and disabling
+  plugins, and more.
+* Enhance URL escape.
+* [#106][] Added support for obtaining build numbers after the build is posted for Jenkins
+  version pre 1.519, added callbacks while waiting and more. Credit: [@dougforpres][]
+* [#112][] Added supported for obtaining information about promoted builds. Credit: [@dkerwin][]
+* [#118][] Added support for specifying username/password in the URL. Credit: [@spikegrobstein][]
+* [#119][] Added ability to execute groovy script on the Jenkins server. Credit: [@lheinlen-os][]
+* [#122][] Updated the `create_dumb_slave` method to accept the new credentials id that is
+  introduced in the newer version of jenkins. Credit: [@Loa][]
+* [#126][] Enabled the use of cookies for authentication. Credit: [@chilicheech][]
+* [#127][] Do not set content type in api_post_request. Credit: [@chilicheech][]
+* [#128][] Updated `exec_script` to use `api_post_reqeust` to support features provided by
+  `api_post_request` such as using crumbs. Credit: [@chilicheech][]
+* [#132][] Allow copying and enabling jobs with spaces in them. Credit: [@mattrose][]
+* [#134][] Added support for specifying HTTP open timeout. Credit: [@n-rodriguez][]
+* [#136][] Prevent warnings due to Hash#[] call with nil items on Ruby 2.x. Credit: [@sunaot][]
+* [#140][] Add require yaml in cli helper. Credit: [@riywo][]
+* [#141][] Rename `create_dump_slave` -> `create_dumb_slave`. Thanks for finding the
+  typo/incorrect name [@cynipe][]
+
+
 v0.14.1  [18-AUG-2013]
 ----------------------
 * Fixed a bug in Job#create_or_update method. Credit: [@bobbrez][]
@@ -226,18 +252,40 @@ v0.0.1  [15-OCT-2012]
 [#27]: https://github.com/arangamani/jenkins_api_client/issues/27
 [#42]: https://github.com/arangamani/jenkins_api_client/issues/42
 [#85]: https://github.com/arangamani/jenkins_api_client/issues/85
+[#106]: https://github.com/arangamani/jenkins_api_client/issues/106
+[#112]: https://github.com/arangamani/jenkins_api_client/issues/112
+[#118]: https://github.com/arangamani/jenkins_api_client/issues/118
+[#119]: https://github.com/arangamani/jenkins_api_client/issues/119
+[#122]: https://github.com/arangamani/jenkins_api_client/issues/122
+[#126]: https://github.com/arangamani/jenkins_api_client/issues/126
+[#127]: https://github.com/arangamani/jenkins_api_client/issues/127
+[#128]: https://github.com/arangamani/jenkins_api_client/issues/128
+[#132]: https://github.com/arangamani/jenkins_api_client/issues/132
+[#134]: https://github.com/arangamani/jenkins_api_client/issues/134
+[#136]: https://github.com/arangamani/jenkins_api_client/issues/136
+[#140]: https://github.com/arangamani/jenkins_api_client/issues/140
+[#141]: https://github.com/arangamani/jenkins_api_client/issues/141
+[@Loa]: https://github.com/Loa
 [@Niarfe]: https://github.com/Niarfe
 [@bobbrez]: https://github.com/bobbrez
 [@brettporter]: https://github.com/brettporter
+[@chilicheech]: https://github.com/chilicheech
 [@client]: https://github.com/client
 [@cylol]: https://github.com/cylol
+[@cynipe]: https://github.com/cynipe
 [@dieterdemeyer]: https://github.com/dieterdemeyer
+[@dkerwin]: https://github.com/dkerwin
 [@dougforpres]: https://github.com/dougforpres
 [@drnic]: https://github.com/drnic
 [@kevinhcross]: https://github.com/kevinhcross
+[@lheinlen-os]: https://github.com/lheinlen-os
 [@madisp]: https://github.com/madisp
+[@mattrose]: https://github.com/mattrose
 [@missedone]: https://github.com/missedone
+[@n-rodriguez]: https://github.com/n-rodriguez
 [@riywo]: https://github.com/riywo
 [@rubytester]: https://github.com/rubytester
+[@spikegrobstein]: https://github.com/spikegrobstein
+[@sunaot]: https://github.com/sunaot
 [@tjhanley]: https://github.com/tjhanley
 [@woodbusy]: https://github.com/woodbusy
