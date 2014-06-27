@@ -84,7 +84,7 @@ describe JenkinsApi::Client::Multijob do
       <exposedSCM>false</exposedSCM>
       <disableJob>false</disableJob>
       <configs class="empty-list"/>
-      <killPhaseOnJobResultCondition>FAILURE</killPhaseOnJobResultCondition>
+      <killPhaseOnJobResultCondition>NEVER</killPhaseOnJobResultCondition>
     </com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
   </phaseJobs>
   <continuationCondition>SUCCESSFUL</continuationCondition>

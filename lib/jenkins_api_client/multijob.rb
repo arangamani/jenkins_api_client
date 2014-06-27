@@ -62,7 +62,7 @@ module JenkinsApi
                 xml.exposedSCM false
                 xml.disableJob false
                 xml.configs(:class => 'empty-list')
-                xml.killPhaseOnJobResultCondition 'FAILURE'
+                xml.killPhaseOnJobResultCondition 'NEVER'
               end
             end
           end
