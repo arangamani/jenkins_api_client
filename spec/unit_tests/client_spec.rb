@@ -195,6 +195,31 @@ describe JenkinsApi::Client do
           @client.respond_to?(:post_config).should be_true
           @client.method(:post_config).parameters.size.should == 2
         end
+
+        it "sets the content type with charset as UTF-8 for the multi-byte content" do
+          url_prefix   = '/prefix'
+          xml          = '<dummy>dummy</dummy>'
+          content_type = 'application/xml;charset=UTF-8'
+
+          expect(@client).to receive(:post_data).with(url_prefix, xml, content_type)
+          @client.post_config(url_prefix, xml)
+        end
+      end
+
+      describe "#post_json" do
+        it "is defined and should accept url_prefix and json" do
+          @client.respond_to?(:post_json).should be_true
+          @client.method(:post_json).parameters.size.should == 2
+        end
+
+        it "sets the content type with charset as UTF-8 for the multi-byte content" do
+          url_prefix   = '/prefix'
+          json         = '{ "dummy": "dummy" }'
+          content_type = 'application/json;charset=UTF-8'
+
+          expect(@client).to receive(:post_data).with(url_prefix, json, content_type)
+          @client.post_json(url_prefix, json)
+        end
       end
 
       describe "#get_jenkins_version" do
