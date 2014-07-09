@@ -17,7 +17,7 @@ module JenkinsApi
             xml.keepDependencies false
             xml.properties
             scm_git(params, xml)
-            xml.assignedNode 'selfservice'
+            xml.assignedNode params[:restricted_node]
             xml.canRoam false
             xml.disabled false
             xml.blockBuildWhenDownstreamBuilding false
