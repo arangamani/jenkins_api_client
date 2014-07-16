@@ -403,11 +403,11 @@ module JenkinsApi
     # @return [String] Response code returned from Jenkins
     #
     def post_config(url_prefix, xml)
-      post_data(url_prefix, xml, 'application/xml')
+      post_data(url_prefix, xml, 'application/xml;charset=UTF-8')
     end
 
     def post_json(url_prefix, json)
-      post_data(url_prefix, json, 'application/json')
+      post_data(url_prefix, json, 'application/json;charset=UTF-8')
     end
 
     def post_data(url_prefix, data, content_type)
