@@ -4,6 +4,10 @@ CHANGELOG
 upcoming
 --------
 
+v1.0.1   [16-JUL-2014]
+----------------------
+* Add `charset=UTF-8` along with content_type when posting data to Jenkins.
+
 v1.0.0   [23-JUN-2014]
 ----------------------
 * Ruby 1.8 is not supported anymore.
