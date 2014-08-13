@@ -107,7 +107,7 @@ The following example passes the YAML file contents. An example yaml file is
 located in <tt>config/login.yml.example</tt>.
 
 ```ruby
-@client = JenkinsApi::Client.new(YAML.Load_file(File.expand_path(
+@client = JenkinsApi::Client.new(YAML.load_file(File.expand_path(
   "~/.jenkins_api_client/login.yml", __FILE__)))
 # The following call lists all jobs
 puts @client.job.list_all
