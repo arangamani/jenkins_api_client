@@ -94,7 +94,7 @@ module JenkinsApi
         response_json = @client.api_get_request("/queue")
         details = {}
         response_json["items"].each do |item|
-          details = item if item["task"]["name"]
+          details = item if item["task"]["name"] == task_name
         end
         details
       end
