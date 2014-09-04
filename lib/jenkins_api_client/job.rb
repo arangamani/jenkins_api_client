@@ -757,7 +757,7 @@ module JenkinsApi
       #    this method (build) exits.  Default: nil
       #
       # @return [Integer] build number, or nil if not started (IF TIMEOUT SPECIFIED)
-      # @return [Integer] HTTP response code (per prev. behavior) (NO TIMEOUT SPECIFIED)
+      # @return [String] HTTP response code (per prev. behavior) (NO TIMEOUT SPECIFIED)
       #
       def build(job_name, params={}, opts = {})
         if opts.nil? || opts.class.is_a?(FalseClass)
