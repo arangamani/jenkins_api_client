@@ -138,10 +138,11 @@ jobs = @client.job.list(jobs_to_filter)
 initial_jobs = @client.job.chain(jobs, 'success', ["all"])
 
 # Now that we have the initial job(s) we can build them
-# The build function returns a code from the API which should be 302 if
-# the build was successful
+# The build function returns a code from the API which should be 201 if
+# the build was successful, for Jenkins >= v1.519
+# For versions older the v1.519, the success code is 302.
 code = @client.job.build(initial_jobs[0])
-raise "Could not build the job specified" unless code == 302
+raise "Could not build the job specified" unless code == '201'
 ```
 
 In the above example, you might have noticed that the chain method returns an
@@ -179,7 +180,7 @@ initial_jobs = @client.job.chain(jobs, 'failure', ["failure", "unstable"], 3)
 # We will receive three jobs as a result and we can build them all
 initial_jobs.each do |job|
   code = @client.job.build(job)
-  raise "Unable to build job: #{job}" unless code == 302
+  raise "Unable to build job: #{job}" unless code == '201'
 end
 ```
 
@@ -208,6 +209,7 @@ caveats:
 ##### New (v >= 1.519)
 * All options work, and build number is accurately determined from queue
   info.
+* The build trigger success code is now 201 (Created). Previously it was 302.
 
 #### Initiating a build and returning the build_number
 
