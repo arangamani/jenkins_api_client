@@ -140,7 +140,7 @@ initial_jobs = @client.job.chain(jobs, 'success', ["all"])
 # Now that we have the initial job(s) we can build them
 # The build function returns a code from the API which should be 201 if
 # the build was successful, for Jenkins >= v1.519
-# For versions older the v1.519, the success code is 302.
+# For versions older than v1.519, the success code is 302.
 code = @client.job.build(initial_jobs[0])
 raise "Could not build the job specified" unless code == '201'
 ```
