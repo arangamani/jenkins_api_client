@@ -3,7 +3,7 @@ class FakeResponse
 
   def initialize(code=200, body='eww, a body', header={})
     @body = body
-    @code = code
+    @code = code.to_s
     @header = header
   end
 end
