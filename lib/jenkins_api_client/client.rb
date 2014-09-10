@@ -249,7 +249,7 @@ module JenkinsApi
         " @http_read_timeout=#{@http_read_timeout.inspect}>"
     end
 
-    #Connects to the server and downloads artifacts to a specified location
+    # Connects to the server and downloads artifacts to a specified location
     #
     # @param [String] job_name
     # @param [String] filename location to save artifact
@@ -263,7 +263,7 @@ module JenkinsApi
       request = Net::HTTP::Get.new(uri.request_uri)
       request.basic_auth(@username, @password)
       response = http.request(request)
-      File.write(filename, response.body)
+      File.write(File.expand_path(filename), response.body) if response.code == 200
     end
 
     # Connects to the Jenkins server, sends the specified request and returns

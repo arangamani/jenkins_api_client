@@ -22,7 +22,6 @@
 
 require 'jenkins_api_client/urihelper'
 require 'net/https'
-require 'pry'
 
 module JenkinsApi
   class Client
