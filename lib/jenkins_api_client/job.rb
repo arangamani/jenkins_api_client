@@ -22,6 +22,7 @@
 
 require 'jenkins_api_client/urihelper'
 require 'net/https'
+require 'pry'
 
 module JenkinsApi
   class Client
@@ -1426,19 +1427,19 @@ module JenkinsApi
         result
       end
 
-      #A Method to find and download artifacts from the Current Build
+      #A Method to find artifacts path from the Current Build
       #
       # @param [String] job_name
       # @param [String] save_path location to save artifact
 
-      def curl_current_build(job_name,save_path, user, password)
+      def find_artifact(job_name)
         current_build_number  = get_current_build_number(job_name)
         job_path              = "job/#{path_encode job_name}/"
         response_json         = @client.api_get_request("/#{job_path}#{current_build_number}")
         relative_build_path   = response_json['artifacts'][0]['relativePath']
         jenkins_path          = response_json['url']
-        curl_path             = URI.escape("#{jenkins_path}artifact/#{relative_build_path}")
-        exec %{`curl -o #{save_path} -k "#{curl_path}" --ssl --user #{user}:#{password}`}
+        artifact_path         = URI.escape("#{jenkins_path}artifact/#{relative_build_path}")
+        return artifact_path
       end
 
       private

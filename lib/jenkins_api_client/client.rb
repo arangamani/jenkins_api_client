@@ -249,6 +249,18 @@ module JenkinsApi
         " @http_read_timeout=#{@http_read_timeout.inspect}>"
     end
 
+    def get_artifact(job_name,filename)
+      @artifact = job.find_artifact(job_name)
+      uri = URI.parse(@artifact)
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      http.use_ssl = true
+      request = Net::HTTP::Get.new(uri.request_uri)
+      request.basic_auth(@username, @password)
+      response = http.request(request)
+      File.write(filename, response.body)
+    end
+
     # Connects to the Jenkins server, sends the specified request and returns
     # the response.
     #
