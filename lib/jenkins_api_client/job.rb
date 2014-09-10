@@ -22,7 +22,6 @@
 
 require 'jenkins_api_client/urihelper'
 require 'net/https'
-require 'pry'
 
 module JenkinsApi
   class Client
@@ -1439,7 +1438,6 @@ module JenkinsApi
         relative_build_path   = response_json['artifacts'][0]['relativePath']
         jenkins_path          = response_json['url']
         curl_path             = URI.escape("#{jenkins_path}artifact/#{relative_build_path}")
-        binding.pry
         exec %{`curl -o #{save_path} -k "#{curl_path}" --ssl --user #{user}:#{password}`}
       end
 
