@@ -1430,8 +1430,7 @@ module JenkinsApi
       #A Method to find artifacts path from the Current Build
       #
       # @param [String] job_name
-      # @param [String] save_path location to save artifact
-
+      #
       def find_artifact(job_name)
         current_build_number  = get_current_build_number(job_name)
         job_path              = "job/#{path_encode job_name}/"

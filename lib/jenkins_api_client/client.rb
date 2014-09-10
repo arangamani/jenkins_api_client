@@ -249,6 +249,11 @@ module JenkinsApi
         " @http_read_timeout=#{@http_read_timeout.inspect}>"
     end
 
+    #Connects to the server and downloads artifacts to a specified location
+    #
+    # @param [String] job_name
+    # @param [String] filename location to save artifact
+    #
     def get_artifact(job_name,filename)
       @artifact = job.find_artifact(job_name)
       uri = URI.parse(@artifact)
