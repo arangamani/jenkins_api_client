@@ -85,7 +85,8 @@ describe JenkinsApi::Client::Job do
             :name => "test_job_using_params_git",
             :scm_provider => "git",
             :scm_url => "git://github.com/arangamani/jenkins_api_client/git",
-            :scm_branch => "master"
+            :scm_branch => "master",
+            :scm_credentials_id => 'foobar'
           }
           @client.should_receive(:post_config)
           @job.create_freestyle(params)
@@ -616,6 +617,25 @@ describe JenkinsApi::Client::Job do
             mock_job_promotions_response)
           @client.should_receive(:api_get_request).and_return({'target' => {'number' => 42}})
           @job.get_promotions("test_job").should == {'dev' => 42, 'stage' => nil}
+        end
+      end
+
+      describe '#scm_git' do
+        before do
+          @job.send(:scm_git, {scm_url: 'http://foo.bar', scm_credentials_id: 'foobar', scm_branch: 'master'}, xml_builder=Nokogiri::XML::Builder.new(:encoding => 'UTF-8'))
+          @xml_config = Nokogiri::XML(xml_builder.to_xml)
+        end
+
+        it 'adds scm_url to hudson.plugins.git.UserRemoteConfig userRemoteConfig url tag' do
+          expect(@xml_config.at_css('scm userRemoteConfigs url').content).to eql('http://foo.bar')
+        end
+
+        it 'adds scm_credentials_id to hudson.plugins.git.UserRemoteConfig userRemoteConfig credentialsId tag' do
+          expect(@xml_config.at_css('scm userRemoteConfigs credentialsId').content).to eql('foobar')
+        end
+
+        it 'adds branch to scm branches' do
+          expect(@xml_config.at_css('scm branches name').content).to eql('master')
         end
       end
     end
