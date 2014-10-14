@@ -85,7 +85,8 @@ describe JenkinsApi::Client::Job do
             :name => "test_job_using_params_git",
             :scm_provider => "git",
             :scm_url => "git://github.com/arangamani/jenkins_api_client/git",
-            :scm_branch => "master"
+            :scm_branch => "master",
+            :scm_credentials_id => 'foobar'
           }
           @client.should_receive(:post_config)
           @job.create_freestyle(params)
@@ -627,6 +628,10 @@ describe JenkinsApi::Client::Job do
 
         it 'adds scm_url to hudson.plugins.git.UserRemoteConfig userRemoteConfig url tag' do
           expect(@xml_config.at_css('scm userRemoteConfigs url').content).to eql('http://foo.bar')
+        end
+
+        it 'adds scm_credentials_id to hudson.plugins.git.UserRemoteConfig userRemoteConfig credentialsId tag' do
+          expect(@xml_config.at_css('scm userRemoteConfigs credentialsId').content).to eql('foobar')
         end
 
         it 'adds branch to scm branches' do

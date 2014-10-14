@@ -118,6 +118,8 @@ module JenkinsApi
       #   the type of source control. Supported providers: git, svn, and cvs
       # @option params [String] :scm_url
       #   the remote url for the selected scm provider
+      # @option params [String] :scm_credentials_id
+      #   the id of the credentials to use for authenticating with scm. Only for "git"
       # @option params [String] :scm_module
       #   the module to download. Only for use with "cvs" scm provider
       # @option params [String] :scm_branch (master)
@@ -1517,6 +1519,7 @@ module JenkinsApi
             xml.send("hudson.plugins.git.UserRemoteConfig") {
               xml.name
               xml.refspec
+              xml.credentialsId "#{params[:scm_credentials_id]}"
               xml.url "#{params[:scm_url]}"
             }
           }
