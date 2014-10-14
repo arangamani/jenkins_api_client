@@ -618,6 +618,21 @@ describe JenkinsApi::Client::Job do
           @job.get_promotions("test_job").should == {'dev' => 42, 'stage' => nil}
         end
       end
+
+      describe '#scm_git' do
+        before do
+          @job.send(:scm_git, {scm_url: 'http://foo.bar', scm_credentials_id: 'foobar', scm_branch: 'master'}, xml_builder=Nokogiri::XML::Builder.new(:encoding => 'UTF-8'))
+          @xml_config = Nokogiri::XML(xml_builder.to_xml)
+        end
+
+        it 'adds scm_url to hudson.plugins.git.UserRemoteConfig userRemoteConfig url tag' do
+          expect(@xml_config.at_css('scm userRemoteConfigs url').content).to eql('http://foo.bar')
+        end
+
+        it 'adds branch to scm branches' do
+          expect(@xml_config.at_css('scm branches name').content).to eql('master')
+        end
+      end
     end
   end
 end
