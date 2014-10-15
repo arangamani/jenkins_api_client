@@ -640,6 +640,13 @@ describe JenkinsApi::Client::Job do
       end
     end
 
+    describe '#build_freestyle_config' do
+      it 'calls configure on its plugin collection' do
+        expect(@job.plugin_collection).to receive(:configure).and_return(Nokogiri::XML::Document.new(''))
+        @job.build_freestyle_config(name: 'foobar')
+      end
+    end
+
     context 'plugin settings' do
       let(:plugin) { JenkinsApi::Client::PluginSettings::Base.new }
       describe '#add_plugin' do

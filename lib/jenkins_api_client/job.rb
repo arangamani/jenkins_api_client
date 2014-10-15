@@ -352,7 +352,9 @@ module JenkinsApi
             xml.buildWrappers
           end
         end
-        builder.to_xml
+        
+        xml_doc = Nokogiri::XML::Document.new(builder.to_xml)
+        plugin_collection.configure(xml_doc).to_xml
       end
 
 
