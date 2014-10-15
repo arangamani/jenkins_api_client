@@ -42,6 +42,7 @@ module JenkinsApi
     module PluginSettings
       autoload :Base, 'jenkins_api_client/plugin_settings/base'
       autoload :Hipchat, 'jenkins_api_client/plugin_settings/hipchat'
+      autoload :Collection, 'jenkins_api_client/plugin_settings/collection'
     end
   end
 end
