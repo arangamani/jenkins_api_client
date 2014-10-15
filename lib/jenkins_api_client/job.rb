@@ -47,6 +47,22 @@ module JenkinsApi
         @plugin_collection = JenkinsApi::Client::PluginSettings::Collection.new(*plugin_settings)
       end
 
+      # Add a plugin to be included in job's xml configureation
+      #
+      # @param plugin [Jenkins::Api::Client::PluginSettings::Base]
+      #
+      # @return [JenkinsApi::Client::PluginSettings::Collection] the job object
+      def add_plugin(plugin)
+        plugin_collection.add(plugin)
+      end
+
+      # Remove a plugin to be included in job's xml configureation
+      #
+      # @param plugin [Jenkins::Api::Client::PluginSettings::Base]
+      #
+      # @return [JenkinsApi::Client::PluginSettings::Collection] the job object
+      def remove_plugin(plugin)
+        plugin_collection.remove(plugin)
       end
 
       # Return a string representation of the object
