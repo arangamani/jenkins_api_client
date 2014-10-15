@@ -40,6 +40,7 @@ require 'jenkins_api_client/cli/system'
 module JenkinsApi
   class Client
     module PluginSettings
+      autoload :Base, 'jenkins_api_client/plugin_settings/base'
       autoload :Hipchat, 'jenkins_api_client/plugin_settings/hipchat'
     end
   end

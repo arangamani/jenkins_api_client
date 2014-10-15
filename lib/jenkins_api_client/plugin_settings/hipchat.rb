@@ -1,7 +1,7 @@
 module JenkinsApi
   class Client
     module PluginSettings
-      class Hipchat
+      class Hipchat < Base
 
         # @option params [String] :room
         #   id of the room
