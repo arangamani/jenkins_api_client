@@ -4,6 +4,12 @@ describe JenkinsApi::Client::PluginSettings::Collection do
   let(:plugin_settings_collection) { JenkinsApi::Client::PluginSettings::Collection.new }
   let(:plugin_setting)             { JenkinsApi::Client::PluginSettings::Base.new }
 
+  describe '#initialize' do
+    it 'raises a InvalidType exception if given anything that is not a plugin setting' do
+      expect { JenkinsApi::Client::PluginSettings::Collection.new(Object.new) }.to raise_error(JenkinsApi::Client::PluginSettings::InvalidType)
+    end
+  end
+
   describe '#add' do
     context 'collection does not have member of given plugin setting' do
       it 'adds the plugin to the collection' do

@@ -9,6 +9,7 @@ module JenkinsApi
         def_delegator :@plugin_settings, :size
 
         def initialize(*plugin_settings)
+          raise JenkinsApi::Client::PluginSettings::InvalidType unless plugin_settings.all? { |p| p.is_a?(JenkinsApi::Client::PluginSettings::Base) }
           @plugin_settings = plugin_settings
         end
 
