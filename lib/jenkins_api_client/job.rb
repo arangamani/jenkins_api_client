@@ -33,15 +33,20 @@ module JenkinsApi
       # Version that jenkins started to include queued build info in build response
       JENKINS_QUEUE_ID_SUPPORT_VERSION = '1.519'
 
+      attr_reader :plugin_collection
+
       # Initialize the Job object and store the reference to Client object
       #
       # @param client [Client] the client object
       #
       # @return [Job] the job object
       #
-      def initialize(client)
+      def initialize(client, *plugin_settings)
         @client = client
         @logger = @client.logger
+        @plugin_collection = JenkinsApi::Client::PluginSettings::Collection.new(*plugin_settings)
+      end
+
       end
 
       # Return a string representation of the object
