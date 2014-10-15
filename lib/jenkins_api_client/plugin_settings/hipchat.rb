@@ -33,15 +33,17 @@ module JenkinsApi
         # @return [Nokogiri::XML::Document]
         def configure(xml_doc)
           xml_doc.tap do |doc|
-            Nokogiri::XML::Builder.with(doc.at('properties')) do |x|
-              x.room @params.fetch(:room) { '' }
-              x.startNotification @params.fetch(:start_notification) { false }
-              x.notifySuccess @params.fetch(:notify_success) { false }
-              x.notifyAborted @params.fetch(:notify_aborted) { false }
-              x.notifyNotBuilt @params.fetch(:notify_not_built) { false }
-              x.notifyUnstable @params.fetch(:notify_unstable) { false }
-              x.notifyFailure @params.fetch(:notify_failure) { false }
-              x.notifyBackToNormal @params.fetch(:notify_back_to_normal) { false }
+            Nokogiri::XML::Builder.with(doc.at('properties')) do |properties|
+              properties.send('jenkins.plugins.hipchat.HipChatNotifier_-HipChatJobProperty') do |x|
+                x.room @params.fetch(:room) { '' }
+                x.startNotification @params.fetch(:start_notification) { false }
+                x.notifySuccess @params.fetch(:notify_success) { false }
+                x.notifyAborted @params.fetch(:notify_aborted) { false }
+                x.notifyNotBuilt @params.fetch(:notify_not_built) { false }
+                x.notifyUnstable @params.fetch(:notify_unstable) { false }
+                x.notifyFailure @params.fetch(:notify_failure) { false }
+                x.notifyBackToNormal @params.fetch(:notify_back_to_normal) { false }
+              end
             end
           end
         end
