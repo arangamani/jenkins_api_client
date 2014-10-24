@@ -34,6 +34,7 @@ Gem::Specification.new do |s|
     "lib/jenkins_api_client.rb",
     "lib/jenkins_api_client/build_queue.rb",
     "lib/jenkins_api_client/cli/base.rb",
+    "lib/jenkins_api_client/cli/config.rb",
     "lib/jenkins_api_client/cli/helper.rb",
     "lib/jenkins_api_client/cli/job.rb",
     "lib/jenkins_api_client/cli/node.rb",

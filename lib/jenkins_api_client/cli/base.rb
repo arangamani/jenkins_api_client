@@ -22,8 +22,9 @@
 
 require 'thor'
 require 'thor/group'
-require "#{File.dirname(__FILE__)}/node.rb"
+require "#{File.dirname(__FILE__)}/config.rb"
 require "#{File.dirname(__FILE__)}/job.rb"
+require "#{File.dirname(__FILE__)}/node.rb"
 require "#{File.dirname(__FILE__)}/system.rb"
 
 module JenkinsApi
@@ -77,6 +78,14 @@ module JenkinsApi
         'system',
         'system [subcommand]',
         'Provides functions to access system functions of the Jenkins CI server'
+      )
+
+      # Register the CLI::Config class as "config" subcommand to CLI
+      register(
+        CLI::Config,
+        'config',
+        'config [subcommand]',
+        'Provides functions to read and write credentials to the login.yml'
       )
 
     end
