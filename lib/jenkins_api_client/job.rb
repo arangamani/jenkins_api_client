@@ -322,14 +322,19 @@ module JenkinsApi
               "#{params[:block_build_when_downstream_building]}")
             xml.blockBuildWhenUpstreamBuilding(
               "#{params[:block_build_when_upstream_building]}")
-            if params[:timer]
-              xml.triggers.vector do
+            xml.triggers.vector do 
+              if params[:timer]
                 xml.send("hudson.triggers.TimerTrigger") do
                   xml.spec params[:timer]
                 end
               end
-            else
-              xml.triggers.vector
+
+              if params[:scm_trigger]
+                xml.send("hudson.triggers.SCMTrigger") do
+                  xml.spec params[:scm_trigger]
+                  xml.ignorePostCommitHooks params.fetch(:ignore_post_commit_hooks) { false }
+                end
+              end
             end
             xml.concurrentBuild "#{params[:concurrent_build]}"
             # Shell command stuff
