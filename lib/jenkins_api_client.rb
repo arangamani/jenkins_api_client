@@ -44,6 +44,7 @@ module JenkinsApi
 
       autoload :Base, 'jenkins_api_client/plugin_settings/base'
       autoload :Hipchat, 'jenkins_api_client/plugin_settings/hipchat'
+      autoload :WorkspaceCleanup, 'jenkins_api_client/plugin_settings/workspace_cleanup'
       autoload :Collection, 'jenkins_api_client/plugin_settings/collection'
     end
   end
