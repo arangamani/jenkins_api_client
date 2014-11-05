@@ -1,4 +1,7 @@
 
+# rbenv
+.ruby-version
+
 # bundler
 .bundle
 
