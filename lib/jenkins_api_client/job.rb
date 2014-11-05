@@ -1450,6 +1450,20 @@ module JenkinsApi
         result
       end
 
+      #A Method to find artifacts path from the Current Build
+      #
+      # @param [String] job_name
+      #
+      def find_artifact(job_name)
+        current_build_number  = get_current_build_number(job_name)
+        job_path              = "job/#{path_encode job_name}/"
+        response_json         = @client.api_get_request("/#{job_path}#{current_build_number}")
+        relative_build_path   = response_json['artifacts'][0]['relativePath']
+        jenkins_path          = response_json['url']
+        artifact_path         = URI.escape("#{jenkins_path}artifact/#{relative_build_path}")
+        return artifact_path
+      end
+
       private
 
       # Obtains the threshold params used by jenkins in the XML file
