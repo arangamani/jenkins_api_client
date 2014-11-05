@@ -384,15 +384,11 @@ describe JenkinsApi::Client::Job do
       describe "#build" do
         # First tests confirm the build method works the same as it used to
         it "accepts the job name and builds the job" do
-          @client.should_receive(:api_get_request).with(
-            "/job/test_job").and_return({})
           @client.should_receive(:api_post_request).with(
             "/job/test_job/build", {}, true).and_return(FakeResponse.new(302))
           @job.build("test_job").should == '302'
         end
         it "accepts the job name with params and builds the job" do
-          @client.should_receive(:api_get_request).with(
-            "/job/test_job").and_return({})
           @client.should_receive(:api_post_request).with(
             "/job/test_job/buildWithParameters",
             {:branch => 'feature/new-stuff'},

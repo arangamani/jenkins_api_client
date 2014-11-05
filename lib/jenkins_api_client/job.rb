@@ -797,11 +797,13 @@ module JenkinsApi
         msg << " with parameters: #{params.inspect}" unless params.empty?
         @logger.info msg
 
-        # Best-guess build-id
-        # This is only used if we go the old-way below... but we can use this number to detect if multiple
-        # builds were queued
-        current_build_id = get_current_build_number(job_name)
-        expected_build_id = current_build_id > 0 ? current_build_id + 1 : 1
+        if (opts['build_start_timeout'] || 0) > 0
+          # Best-guess build-id
+          # This is only used if we go the old-way below... but we can use this number to detect if multiple
+          # builds were queued
+          current_build_id = get_current_build_number(job_name)
+          expected_build_id = current_build_id > 0 ? current_build_id + 1 : 1
+        end
 
         if (params.nil? or params.empty?)
           response = @client.api_post_request("/job/#{path_encode job_name}/build",
