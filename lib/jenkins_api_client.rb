@@ -36,3 +36,15 @@ require 'jenkins_api_client/cli/base'
 require 'jenkins_api_client/cli/job'
 require 'jenkins_api_client/cli/node'
 require 'jenkins_api_client/cli/system'
+
+module JenkinsApi
+  class Client
+    module PluginSettings
+      class InvalidType < Exception; end
+
+      autoload :Base, 'jenkins_api_client/plugin_settings/base'
+      autoload :Hipchat, 'jenkins_api_client/plugin_settings/hipchat'
+      autoload :Collection, 'jenkins_api_client/plugin_settings/collection'
+    end
+  end
+end

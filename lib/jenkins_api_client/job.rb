@@ -33,15 +33,36 @@ module JenkinsApi
       # Version that jenkins started to include queued build info in build response
       JENKINS_QUEUE_ID_SUPPORT_VERSION = '1.519'
 
+      attr_reader :plugin_collection
+
       # Initialize the Job object and store the reference to Client object
       #
       # @param client [Client] the client object
       #
       # @return [Job] the job object
       #
-      def initialize(client)
+      def initialize(client, *plugin_settings)
         @client = client
         @logger = @client.logger
+        @plugin_collection = JenkinsApi::Client::PluginSettings::Collection.new(*plugin_settings)
+      end
+
+      # Add a plugin to be included in job's xml configureation
+      #
+      # @param plugin [Jenkins::Api::Client::PluginSettings::Base]
+      #
+      # @return [JenkinsApi::Client::PluginSettings::Collection] the job object
+      def add_plugin(plugin)
+        plugin_collection.add(plugin)
+      end
+
+      # Remove a plugin to be included in job's xml configureation
+      #
+      # @param plugin [Jenkins::Api::Client::PluginSettings::Base]
+      #
+      # @return [JenkinsApi::Client::PluginSettings::Collection] the job object
+      def remove_plugin(plugin)
+        plugin_collection.remove(plugin)
       end
 
       # Return a string representation of the object
@@ -331,7 +352,9 @@ module JenkinsApi
             xml.buildWrappers
           end
         end
-        builder.to_xml
+        
+        xml_doc = Nokogiri::XML(builder.to_xml)
+        plugin_collection.configure(xml_doc).to_xml
       end
 
 

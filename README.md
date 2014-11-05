@@ -184,6 +184,86 @@ initial_jobs.each do |job|
 end
 ```
 
+### Configuring plugins
+
+Given the abundance of plugins for Jenkins, we now provide a extensible way to 
+setup jobs and configure their plugins. Right now, the gem ships with the hipchat
+plugin, with more plugins to follow in the future. 
+
+```ruby
+hipchat_settings = JenkinsApi::Client::PluginSettings::Hipchat.new({
+  :room => '10000',
+  :start_notification => true,
+  :notify_success => true,
+  :notify_aborted => true,
+  :notify_not_built => true,
+  :notify_unstable => true,
+  :notify_failure => true,
+  :notify_back_to_normal => true,
+})
+
+client = JenkinsApi::Client.new(
+  server_url: jenkins_server,
+  username: username,
+  password: password
+)
+
+# NOTE: plugins can be splatted so if you had another plugin it could be passed
+# to the new call below as another arg after hipchat
+job = JenkinsApi::Client::Job.new(client, hipchat)
+
+```
+
+Writing your own plugins is also straightforward. Inherit from the 
+JenkinsApi::Client::PluginSettings::Base class and override the configure method.
+Jenkins jobs are configured using xml so you just nee to figure out where in the
+configuration to hook in your plugin settings.
+
+Here is an example of a plugin written to configure a job for workspace cleanup.  
+
+```ruby
+module JenkinsApi
+  class Client
+    module PluginSettings
+      class WorkspaceCleanup < Base
+
+        # @option params [Boolean] :delete_dirs (false)
+        #   whether to also apply pattern on directories
+        # @option params [String] :cleanup_parameters
+        # @option params [String] :external_delete
+        def initialize(params={})
+          @params = params
+        end
+
+        # Create or Update a job with params given as a hash instead of the xml
+        # This gives some flexibility for creating/updating simple jobs so the
+        # user doesn't have to learn about handling xml.
+        #
+        # @param xml_doc [Nokogiri::XML::Document] xml document to be updated with 
+        # the plugin configuration
+        #
+        # @return [Nokogiri::XML::Document]
+        def configure(xml_doc)
+          xml_doc.tap do |doc|
+            Nokogiri::XML::Builder.with(doc.at('buildWrappers')) do |build_wrappers|
+              build_wrappers.send('hudson.plugins.ws__cleanup.PreBuildCleanup') do |x|
+                x.deleteDirs @params.fetch(:delete_dirs) { false }
+                x.cleanupParameter @params.fetch(:cleanup_parameter) { '' }
+                x.externalDelete @params.fetch(:external_delete) { '' }
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+end
+```
+
+Currently, the skype plugin is still configured directly on the jenkins job. This will 
+likely be extracted into its own plugin in the near future, but we will maintain 
+backwards compatibility until after an official deprecation period.
+
 ### Waiting for a build to start/Getting the build number
 Newer versions of Jenkins (starting with the 1.519 build) make it easier for
 an application to determine the build number for a 'build' request. (previously
