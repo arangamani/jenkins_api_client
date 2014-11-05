@@ -4,6 +4,16 @@ CHANGELOG
 upcoming
 --------
 
+v1.1.0   [05-NOV-2014]
+----------------------
+* [#145][] Fix `BuildQueue#get_details` to compare against task_name. Credit: [@notruthless][]
+* [#149][] Lower log level of GET/POST messages emitted by Client to DEBUG. Credit: [@scotje][]
+* [#151][] Add ability to configure credentialId for git. Credit: [@hubert][]
+* [#153][] Feature/extract plugins. Credit: [@hubert][]
+* [#147][] Added ability to get current build artifact. Credit: [@joelneubert][]
+* [#148][] Make `Client::Job#build` only request current build number if `build_start_timeout` option is passed.
+  Credit: [@scotje][]
+
 v1.0.1   [16-JUL-2014]
 ----------------------
 * Add `charset=UTF-8` along with content_type when posting data to Jenkins.
@@ -269,6 +279,12 @@ v0.0.1  [15-OCT-2012]
 [#136]: https://github.com/arangamani/jenkins_api_client/issues/136
 [#140]: https://github.com/arangamani/jenkins_api_client/issues/140
 [#141]: https://github.com/arangamani/jenkins_api_client/issues/141
+[#145]: https://github.com/arangamani/jenkins_api_client/issues/145
+[#147]: https://github.com/arangamani/jenkins_api_client/issues/147
+[#148]: https://github.com/arangamani/jenkins_api_client/issues/148
+[#149]: https://github.com/arangamani/jenkins_api_client/issues/149
+[#151]: https://github.com/arangamani/jenkins_api_client/issues/151
+[#153]: https://github.com/arangamani/jenkins_api_client/issues/153
 [@Loa]: https://github.com/Loa
 [@Niarfe]: https://github.com/Niarfe
 [@bobbrez]: https://github.com/bobbrez
@@ -281,14 +297,18 @@ v0.0.1  [15-OCT-2012]
 [@dkerwin]: https://github.com/dkerwin
 [@dougforpres]: https://github.com/dougforpres
 [@drnic]: https://github.com/drnic
+[@hubert]: https://github.com/hubert
+[@joelneubert]: https://github.com/joelneubert
 [@kevinhcross]: https://github.com/kevinhcross
 [@lheinlen-os]: https://github.com/lheinlen-os
 [@madisp]: https://github.com/madisp
 [@mattrose]: https://github.com/mattrose
 [@missedone]: https://github.com/missedone
 [@n-rodriguez]: https://github.com/n-rodriguez
+[@notruthless]: https://github.com/notruthless
 [@riywo]: https://github.com/riywo
 [@rubytester]: https://github.com/rubytester
+[@scotje]: https://github.com/scotje
 [@spikegrobstein]: https://github.com/spikegrobstein
 [@sunaot]: https://github.com/sunaot
 [@tjhanley]: https://github.com/tjhanley
