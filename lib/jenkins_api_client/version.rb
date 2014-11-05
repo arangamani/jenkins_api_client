@@ -25,9 +25,9 @@ module JenkinsApi
     # Major version of the gem
     MAJOR   = 1
     # Minor version of the gem
-    MINOR   = 0
+    MINOR   = 1
     # Tiny version of the gem used for patches
-    TINY    = 1
+    TINY    = 0
     # Used for pre-releases
     PRE     = nil
     # Version String of Jenkins API Client.
