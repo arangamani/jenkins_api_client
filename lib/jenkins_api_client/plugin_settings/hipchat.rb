@@ -28,7 +28,7 @@ module JenkinsApi
         # This gives some flexibility for creating/updating simple jobs so the
         # user doesn't have to learn about handling xml.
         #
-        # @param params [Hash] parameters to create a freestyle project
+        # @param xml_doc [Nokogiri::XML::Document] xml document to be updated with the plugin configuration
         #
         # @return [Nokogiri::XML::Document]
         def configure(xml_doc)
