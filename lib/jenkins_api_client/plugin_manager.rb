@@ -26,7 +26,7 @@ module JenkinsApi
     # installed plugins, installing new plgins through hacks, and performing a
     # lot of operations on installed plugins. It also gives the ability to
     # obtain the details about available plugins in Jenkins update center by
-    # commmunicating with /updateCenter API.
+    # communicating with /updateCenter API.
     #
     class PluginManager
 
