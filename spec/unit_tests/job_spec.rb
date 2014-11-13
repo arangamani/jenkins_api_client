@@ -641,6 +641,29 @@ describe JenkinsApi::Client::Job do
         expect(@job.plugin_collection).to receive(:configure).and_return(Nokogiri::XML::Document.new(''))
         @job.build_freestyle_config(name: 'foobar')
       end
+
+      context 'scm_trigger and ignore_post_commit_hooks params' do
+        it 'configures triggers with a hudson.triggers.SCMTrigger' do
+          xml = @job.build_freestyle_config(
+            name: 'foobar',
+            scm_trigger: 'H 0 29 2 0',
+            ignore_post_commit_hooks: true
+          )
+
+          xml_config = Nokogiri::XML(xml)
+          expect(xml_config.at_css('triggers spec').content).to eql('H 0 29 2 0')
+          expect(xml_config.at_css('triggers ignorePostCommitHooks').content).to eql('true')
+        end
+
+        it 'does not add a tag to triggers if not passed scm_trigger param' do
+          xml = @job.build_freestyle_config(
+            name: 'foobar'
+          )
+
+          xml_config = Nokogiri::XML(xml)
+          expect(xml_config.at_css('triggers').children).to be_empty
+        end
+      end
     end
 
     context 'plugin settings' do
