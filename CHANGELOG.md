@@ -4,6 +4,12 @@ CHANGELOG
 upcoming
 --------
 
+v1.2.0   [12-NOV-2014]
+----------------------
+* [#156][] Added workspace cleanup plugin. Credit [@hubert][]
+* [#157][] Added ability to configure SCM trigger via job creation. Credit: [@hubert][]
+* [#158][] Add ability to configure post build artifact archiver step. Credit: [@hubert][]
+
 v1.1.0   [05-NOV-2014]
 ----------------------
 * [#145][] Fix `BuildQueue#get_details` to compare against task_name. Credit: [@notruthless][]
@@ -285,6 +291,9 @@ v0.0.1  [15-OCT-2012]
 [#149]: https://github.com/arangamani/jenkins_api_client/issues/149
 [#151]: https://github.com/arangamani/jenkins_api_client/issues/151
 [#153]: https://github.com/arangamani/jenkins_api_client/issues/153
+[#156]: https://github.com/arangamani/jenkins_api_client/issues/156
+[#157]: https://github.com/arangamani/jenkins_api_client/issues/157
+[#158]: https://github.com/arangamani/jenkins_api_client/issues/158
 [@Loa]: https://github.com/Loa
 [@Niarfe]: https://github.com/Niarfe
 [@bobbrez]: https://github.com/bobbrez
