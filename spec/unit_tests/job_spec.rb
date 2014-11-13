@@ -618,7 +618,12 @@ describe JenkinsApi::Client::Job do
 
       describe '#scm_git' do
         before do
-          @job.send(:scm_git, {scm_url: 'http://foo.bar', scm_credentials_id: 'foobar', scm_branch: 'master'}, xml_builder=Nokogiri::XML::Builder.new(:encoding => 'UTF-8'))
+          @job.send(:scm_git, {
+            scm_url: 'http://foo.bar',
+            scm_credentials_id: 'foobar',
+            scm_branch: 'master',
+            scm_git_tool: 'Git_NoPath',
+          }, xml_builder=Nokogiri::XML::Builder.new(:encoding => 'UTF-8'))
           @xml_config = Nokogiri::XML(xml_builder.to_xml)
         end
 
@@ -632,6 +637,10 @@ describe JenkinsApi::Client::Job do
 
         it 'adds branch to scm branches' do
           expect(@xml_config.at_css('scm branches name').content).to eql('master')
+        end
+
+        it 'adds gitTool to scm tag' do
+          expect(@xml_config.at_css('scm gitTool').content).to eql('Git_NoPath')
         end
       end
     end
