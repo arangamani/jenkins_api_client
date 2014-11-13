@@ -427,19 +427,19 @@ module JenkinsApi
 
       # Configure post-build step to archive artifacts
       #
-      # @param params [Hash] parameters controlling how artifacts are archived
+      # @param artifact_params [Hash] parameters controlling how artifacts are archived
       #
-      # @option params [String] :artifact_files
+      # @option artifact_params [String] :artifact_files
       #   pattern or names of files to archive
-      # @option params [String] :excludes
+      # @option artifact_params [String] :excludes
       #   pattern or names of files to exclude
-      # @option params [Boolean] :fingerprint (false)
+      # @option artifact_params [Boolean] :fingerprint (false)
       #   fingerprint the archives
-      # @option params [Boolean] :allow_empty_archive (false)
+      # @option artifact_params [Boolean] :allow_empty_archive (false)
       #   whether to allow empty archives
-      # @option params [Boolean] :only_if_successful (false)
+      # @option artifact_params [Boolean] :only_if_successful (false)
       #   only archive if successful
-      # @option params [Boolean] :default_excludes (false)
+      # @option artifact_params [Boolean] :default_excludes (false)
       #   exclude defaults automatically
       #
       # @return [Nokogiri::XML::Builder] 
