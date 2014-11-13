@@ -353,6 +353,7 @@ module JenkinsApi
               notification_email(params, xml) if params[:notification_email]
               # Build portion of XML that adds skype notification
               skype_notification(params, xml) if params[:skype_targets]
+              artifact_archiver(params[:artifact_archiver], xml)
             end
             xml.buildWrappers
           end
@@ -427,6 +428,40 @@ module JenkinsApi
           n_xml.xpath("//publishers").first.add_child(skype_xml)
           post_config(params[:name], n_xml.to_xml)
         end
+      end
+
+      # Configure post-build step to archive artifacts
+      #
+      # @param artifact_params [Hash] parameters controlling how artifacts are archived
+      #
+      # @option artifact_params [String] :artifact_files
+      #   pattern or names of files to archive
+      # @option artifact_params [String] :excludes
+      #   pattern or names of files to exclude
+      # @option artifact_params [Boolean] :fingerprint (false)
+      #   fingerprint the archives
+      # @option artifact_params [Boolean] :allow_empty_archive (false)
+      #   whether to allow empty archives
+      # @option artifact_params [Boolean] :only_if_successful (false)
+      #   only archive if successful
+      # @option artifact_params [Boolean] :default_excludes (false)
+      #   exclude defaults automatically
+      #
+      # @return [Nokogiri::XML::Builder] 
+      #
+      def artifact_archiver(artifact_params, xml)
+        return xml if artifact_params.nil?
+
+        xml.send('hudson.tasks.ArtifactArchiver') do |x|
+          x.artifacts artifact_params.fetch(:artifact_files) { '' }
+          x.excludes artifact_params.fetch(:excludes) { '' }
+          x.fingerprint artifact_params.fetch(:fingerprint) { false }
+          x.allowEmptyArchive artifact_params.fetch(:allow_empty_archive) { false }
+          x.onlyIfSuccessful artifact_params.fetch(:only_if_successful) { false }
+          x.defaultExcludes artifact_params.fetch(:default_excludes) { false }
+        end
+
+        xml
       end
 
       # Rename a job given the old name and new name
