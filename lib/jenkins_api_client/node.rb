@@ -128,7 +128,7 @@ module JenkinsApi
       #   )
       #
       def create_dumb_slave(params)
-        unless params[:name] && params[:slave_host] && params[:private_key_file]
+        unless params[:name] && params[:slave_host] && (params[:private_key_file] || params[:credentials_id])
           raise ArgumentError, "Name, slave host, and private key file are" +
             " required for creating a slave."
         end
@@ -137,7 +137,7 @@ module JenkinsApi
         @logger.debug "Creating a dumb slave with params: #{params.inspect}"
         default_params = {
           :description => "Automatically created through jenkins_api_client",
-          :executors => 2,
+          :executors => 6,
           :remote_fs => "/var/jenkins",
           :labels => params[:name],
           :slave_port => 22,

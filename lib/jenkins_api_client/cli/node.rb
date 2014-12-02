@@ -21,6 +21,7 @@
 #
 
 require 'thor'
+require 'json'
 require 'thor/group'
 require 'terminal-table'
 
@@ -57,6 +58,54 @@ module JenkinsApi
         table = Table.new :headings => ['Attribute', 'Value'], :rows => rows
         puts table
       end
+
+      desc "create_new_node", "create new node"
+      # CLI command that creates new node
+      option :json
+      option :name
+      option :slave_host
+      option :credentials_id
+      option :private_key_file
+      option :executors
+      option :labels
+      def create_new_node
+        @client = Helper.setup(parent_options)
+        if options[:json]
+          json_file = "#{options[:json]}" 
+          file = File.read(json_file)
+          node_details = JSON.parse(file)
+          node_label = node_details['node_label']
+          executors = node_details['executors']
+          template_detail_hash = node_details['template_detail']
+          host_list_array = node_details['host_list']
+          host_list_array.each_with_index {|val, index|
+          host_name = "#{val}"
+          if template_detail_hash['guest_user_credentials_id'] != ""
+            credentials_id = template_detail_hash['guest_user_credentials_id']
+          else
+            puts "failed to find a credentials_id for "+template_detail_hash['guest_username']+"\nPlease add this user in jenkins and #{options[:json]}"
+        end
+        @client.node.create_dumb_slave(
+        :name => host_name,
+        :slave_host => host_name,
+        :credentials_id => credentials_id,
+        :private_key_file => "",
+        :executors => executors ? (executors) : (12),
+        :labels => node_label)
+    }
+      elsif options[:name] && options[:credentials_id] && options[:labels]
+        @client.node.create_dumb_slave(
+        :name => options[:name],
+        :slave_host => options[:name],
+        :credentials_id => options[:credentials_id],
+        :private_key_file => "",
+        :executors => options[:executors] ? (options[:executors]) : (12),
+        :labels => options[:labels])
+      else
+        puts "incorrect usage.please see usage of create_new_node in the help menu"
+
+    end
+  end
 
       desc "print_node_attributes NODE", "Prints attributes specific to a node"
       # CLI command to print the attributes specific to a node

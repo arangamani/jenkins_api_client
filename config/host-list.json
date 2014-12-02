@@ -1,0 +1,12 @@
+{
+"node_label": "label",
+"executors": "",
+"template_detail": {
+"guest_username": "root",
+"guest_password": "passwd",
+"guest_user_credentials_id": "xxxxxxxx"
+},
+"host_list":[
+"xxxx"
+]
+}
