@@ -59,7 +59,7 @@ module JenkinsApi
         puts table
       end
 
-      desc "create_new_node", "create new node"
+      desc "create_new", "creates new node(s)"
       # CLI command that creates new node
       option :json
       option :name
@@ -68,7 +68,7 @@ module JenkinsApi
       option :private_key_file
       option :executors
       option :labels
-      def create_new_node
+      def create_new
         @client = Helper.setup(parent_options)
         if options[:json]
           json_file = "#{options[:json]}" 
@@ -102,7 +102,7 @@ module JenkinsApi
         :executors => options[:executors] ? (options[:executors]) : (12),
         :labels => options[:labels])
       else
-        puts "incorrect usage.please see usage of create_new_node in the help menu"
+        puts "incorrect usage"
 
     end
   end
