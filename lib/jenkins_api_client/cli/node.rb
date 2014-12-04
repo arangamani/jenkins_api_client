@@ -107,6 +107,31 @@ module JenkinsApi
     end
   end
 
+  desc "delete","deletes a given node or a list of nodes in json file"
+  # CLI command that deletes node
+      option :json
+      option :node_name
+
+      def delete
+        @client = Helper.setup(parent_options)
+        if options[:json]
+          json_file = "#{options[:json]}" 
+          file = File.read(json_file)
+          node_details = JSON.parse(file)
+          template_detail_hash = node_details['template_detail']
+          host_list_array = node_details['host_list']
+          host_list_array.each_with_index {|val, index|
+          host_name = "#{val}"
+          @client.node.delete(host_name)
+        }
+      elsif options[:node_name]
+        @client.node.delete(options[:node_name])
+      else
+        puts "incorrect usage"
+      end
+    end
+
+
       desc "print_node_attributes NODE", "Prints attributes specific to a node"
       # CLI command to print the attributes specific to a node
       #
