@@ -827,9 +827,9 @@ module JenkinsApi
       # @return [String] HTTP response code (per prev. behavior) (NO TIMEOUT SPECIFIED)
       #
       def build(job_name, params={}, opts = {})
-        if opts.nil? || opts.class.is_a?(FalseClass)
+        if opts.nil? || opts.is_a?(FalseClass)
           opts = {}
-        elsif opts.class.is_a?(TrueClass)
+        elsif opts.is_a?(TrueClass)
           opts = { 'build_start_timeout' => @client_timeout }
         end
 
