@@ -4,6 +4,11 @@ CHANGELOG
 upcoming
 --------
 
+v1.3.0   [03-JAN-2015]
+----------------------
+* [#159][] Add ability to configure git tool for a job. Credit: [@hubert][]
+* [#163][] Improve performance by using the `tree` parameter. Credit: [@stjohnjohnson][]
+
 v1.2.0   [12-NOV-2014]
 ----------------------
 * [#156][] Added workspace cleanup plugin. Credit [@hubert][]
@@ -294,6 +299,8 @@ v0.0.1  [15-OCT-2012]
 [#156]: https://github.com/arangamani/jenkins_api_client/issues/156
 [#157]: https://github.com/arangamani/jenkins_api_client/issues/157
 [#158]: https://github.com/arangamani/jenkins_api_client/issues/158
+[#159]: https://github.com/arangamani/jenkins_api_client/issues/159
+[#163]: https://github.com/arangamani/jenkins_api_client/issues/163
 [@Loa]: https://github.com/Loa
 [@Niarfe]: https://github.com/Niarfe
 [@bobbrez]: https://github.com/bobbrez
@@ -319,6 +326,7 @@ v0.0.1  [15-OCT-2012]
 [@rubytester]: https://github.com/rubytester
 [@scotje]: https://github.com/scotje
 [@spikegrobstein]: https://github.com/spikegrobstein
+[@stjohnjohnson]: https://github.com/stjohnjohnson
 [@sunaot]: https://github.com/sunaot
 [@tjhanley]: https://github.com/tjhanley
 [@woodbusy]: https://github.com/woodbusy
