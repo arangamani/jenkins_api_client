@@ -489,7 +489,7 @@ module JenkinsApi
     # @return [Boolean] whether Jenkins uses crumbs or not
     #
     def use_crumbs?
-      response = api_get_request("")
+      response = api_get_request("", "tree=useCrumbs")
       response["useCrumbs"]
     end
 
@@ -498,7 +498,7 @@ module JenkinsApi
     # @return [Boolean] whether Jenkins uses security or not
     #
     def use_security?
-      response = api_get_request("")
+      response = api_get_request("", "tree=useSecurity")
       response["useSecurity"]
     end
 
