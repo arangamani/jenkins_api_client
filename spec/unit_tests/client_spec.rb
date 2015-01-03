@@ -319,6 +319,46 @@ describe JenkinsApi::Client do
           @client.compare_versions("1.0.10", "1.0.2").should eql(1)
         end
       end
+
+      describe "#use_crumbs?" do
+        it "returns true if the server has useCrumbs on" do
+          expect(@client).to receive(:api_get_request).with("", "tree=useCrumbs") {
+            {
+              "useCrumbs" => true
+            }
+          }
+          @client.use_crumbs?.should == true
+        end
+
+        it "returns false if the server has useCrumbs off" do
+          expect(@client).to receive(:api_get_request).with("", "tree=useCrumbs") {
+            {
+              "useCrumbs" => false
+            }
+          }
+          @client.use_crumbs?.should == false
+        end
+      end
+
+      describe "#use_security?" do
+        it "returns true if the server has useSecurity on" do
+          expect(@client).to receive(:api_get_request).with("", "tree=useSecurity") {
+            {
+              "useSecurity" => true
+            }
+          }
+          @client.use_security?.should == true
+        end
+
+        it "returns false if the server has useSecurity off" do
+          expect(@client).to receive(:api_get_request).with("", "tree=useSecurity") {
+            {
+              "useSecurity" => false
+            }
+          }
+          @client.use_security?.should == false
+        end
+      end
     end
   end
 

@@ -23,7 +23,7 @@ describe JenkinsApi::Client::View do
 
     describe "InstanceMethods" do
       describe "#initialize" do
-        it "initializes by receiving an instane of client object" do
+        it "initializes by receiving an instance of client object" do
           mock_logger = Logger.new "/dev/null"
           @client.should_receive(:logger).and_return(mock_logger)
           expect(
@@ -48,21 +48,21 @@ describe JenkinsApi::Client::View do
 
       describe "#list" do
         it "lists all views" do
-          @client.should_receive(:api_get_request).with("").and_return(@sample_views_json)
+          @client.should_receive(:api_get_request).with("", "tree=views[name]").and_return(@sample_views_json)
           response = @view.list
           response.class.should == Array
           response.size.should == 2
         end
 
         it "lists views matching specific filter" do
-          @client.should_receive(:api_get_request).with("").and_return(@sample_views_json)
+          @client.should_receive(:api_get_request).with("", "tree=views[name]").and_return(@sample_views_json)
           response = @view.list("test_view2")
           response.class.should == Array
           response.size.should == 1
         end
 
         it "lists views matching specific filter and matches case" do
-          @client.should_receive(:api_get_request).with("").and_return(@sample_views_json)
+          @client.should_receive(:api_get_request).with("", "tree=views[name]").and_return(@sample_views_json)
           response = @view.list("TEST_VIEW", false)
           response.class.should == Array
           response.size.should == 0
@@ -71,19 +71,19 @@ describe JenkinsApi::Client::View do
 
       describe "#exists?" do
         it "returns true a view that exists" do
-          @client.should_receive(:api_get_request).with("").and_return(@sample_views_json)
+          @client.should_receive(:api_get_request).with("", "tree=views[name]").and_return(@sample_views_json)
           @view.exists?("test_view2").should == true
         end
 
         it "returns false for non-existent view" do
-          @client.should_receive(:api_get_request).with("").and_return(@sample_views_json)
+          @client.should_receive(:api_get_request).with("", "tree=views[name]").and_return(@sample_views_json)
           @view.exists?("i_am_not_there").should == false
         end
       end
 
       describe "#list_jobs" do
         it "lists all jobs in the given view" do
-          @client.should_receive(:api_get_request).with("").and_return(@sample_views_json)
+          @client.should_receive(:api_get_request).with("", "tree=views[name]").and_return(@sample_views_json)
           @client.should_receive(:api_get_request).with("/view/test_view").and_return(@sample_view_json)
           response = @view.list_jobs("test_view")
           response.class.should == Array
@@ -91,7 +91,7 @@ describe JenkinsApi::Client::View do
         end
 
         it "raises an error if called on a non-existent view" do
-          @client.should_receive(:api_get_request).with("").and_return(@sample_views_json)
+          @client.should_receive(:api_get_request).with("", "tree=views[name]").and_return(@sample_views_json)
           expect(
             lambda { @view.list_jobs("i_am_not_there") }
           ).to raise_error

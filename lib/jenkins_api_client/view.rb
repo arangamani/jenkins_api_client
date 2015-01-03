@@ -184,7 +184,7 @@ module JenkinsApi
       def list(filter = "", ignorecase = true)
         @logger.info "Obtaining views based on filter '#{filter}'"
         view_names = []
-        response_json = @client.api_get_request("")
+        response_json = @client.api_get_request("", "tree=views[name]")
         response_json["views"].each { |view|
           if ignorecase
             view_names << view["name"] if view["name"] =~ /#{filter}/i
