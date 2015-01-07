@@ -255,8 +255,7 @@ module JenkinsApi
         define_method("is_#{meth_suffix}?") do |node_name|
           @logger.info "Obtaining '#{meth_suffix}' property of '#{node_name}'"
           response_json = @client.api_get_request("/computer")
-          resp = response_json["computer"][index(node_name)]["#{meth_suffix}"]
-          resp =~ /False/i ? false : true
+          response_json["computer"][index(node_name)]["#{meth_suffix}"]
         end
       end
 
