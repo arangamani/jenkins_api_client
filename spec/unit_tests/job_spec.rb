@@ -400,15 +400,31 @@ describe JenkinsApi::Client::Job do
         ### OLD NON-QUEUE RESPONSE JENKINS ###
         # Next tests confirm it deals with different jenkins versions and waits
         # for build to start (or not)
-        it "accepts the job name and builds the job (w/timeout)" do
-          @client.should_receive(:api_get_request).with(
-            "/job/test_job").and_return({})
+        context "accepts the job name and builds the job (w/timeout)" do
+          before do
+            @client.should_receive(:api_get_request).with(
+              "/job/test_job").and_return({})
+            @client.should_receive(:api_post_request).with(
+              "/job/test_job/build", {}, true).and_return(FakeResponse.new(302))
+            @client.should_receive(:api_get_request).with(
+              "/job/test_job/1/").and_return({})
+            @client.should_receive(:get_jenkins_version).and_return("1.1")
+          end
+
+          it "passes a number of seconds for timeout in opts={} parameter" do
+            @job.build("test_job", {}, {'build_start_timeout' => 10}).should == 1
+          end
+
+          it "passes a true value for timeout in opts={} parameter" do
+            @job.instance_variable_set :@client_timeout, 10
+            @job.build("test_job", {}, true).should == 1
+          end
+        end
+
+        it "accepts the job name and builds the job (with a false timeout value)" do
           @client.should_receive(:api_post_request).with(
             "/job/test_job/build", {}, true).and_return(FakeResponse.new(302))
-          @client.should_receive(:api_get_request).with(
-            "/job/test_job/1/").and_return({})
-          @client.should_receive(:get_jenkins_version).and_return("1.1")
-          @job.build("test_job", {}, {'build_start_timeout' => 10}).should == 1
+          @job.build("test_job", {}, false).should == "302"
         end
 
         # wait for build to start (or not) (initial response will fail)
