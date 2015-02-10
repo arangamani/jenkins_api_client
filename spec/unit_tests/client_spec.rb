@@ -420,4 +420,52 @@ describe JenkinsApi::Client do
       end
     end
   end
+
+  context "With logging configuration" do
+
+    it "Should fail if logger is not a Logger object" do
+      expect(
+        lambda do
+          JenkinsApi::Client.new({
+            :server_ip => '127.0.0.1',
+            :logger    => 'testing',
+          })
+        end
+      ).to raise_error
+    end
+
+    it "Should set logger instance variable to Logger" do
+      client = JenkinsApi::Client.new(
+        :server_ip => '127.0.0.1',
+        :logger    => Logger.new(STDOUT),
+      )
+
+      client.instance_variable_get('@logger').class.should == Logger
+    end
+
+    it "Should fail if logger and log_level are both set" do
+      expect(
+        lambda do
+          JenkinsApi::Client.new({
+            :server_ip => '127.0.0.1',
+            :logger    => Logger.new(STDOUT),
+            :log_level => Logger::INFO,
+          })
+        end
+      ).to raise_error
+    end
+
+    it "Should fail if logger and log_location are both set" do
+      expect(
+        lambda do
+          JenkinsApi::Client.new({
+            :server_ip    => '127.0.0.1',
+            :logger       => Logger.new(STDOUT),
+            :log_location => 'test.log',
+          })
+        end
+      ).to raise_error
+    end
+
+  end
 end
