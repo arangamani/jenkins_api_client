@@ -716,12 +716,7 @@ module JenkinsApi
         @logger.info "Obtaining the build details of '#{job_name}'"
         url = "/job/#{path_encode job_name}"
 
-        tree_string = nil
-        if tree
-          tree_string = "tree=#{tree}"
-        end
-
-        response_json = @client.api_get_request url, tree_string
+        response_json = @client.api_get_request url, tree_string(tree)
         response_json["builds"]
       end
 
@@ -1747,6 +1742,11 @@ module JenkinsApi
             xml.color "#{color}"
           }
         }
+      end
+
+      def tree_string tree_value
+        return nil unless tree_value
+        "tree=#{tree_value}"
       end
     end
   end
