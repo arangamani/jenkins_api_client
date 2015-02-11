@@ -61,9 +61,11 @@ module JenkinsApi
       #
       # @param [String] job Name of the job
       #
+      option :params, :type => :hash, :default => {}
+      option :opts, :type => :hash, :default => {}
       def build(job)
         @client = Helper.setup(parent_options)
-        @client.job.build(job)
+        @client.job.build(job, options[:params], options[:opts])
       end
 
       desc "status JOB", "Get the current build status of a job"
