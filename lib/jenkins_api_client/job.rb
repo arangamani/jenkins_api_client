@@ -1494,6 +1494,27 @@ module JenkinsApi
         result
       end
 
+      # Get a job's promotion config
+      #
+      # @param  [String] job_name
+      # @param  [String] process The process name
+      # @return [String] Promote config
+      def get_promote_config(job_name, process)
+        @logger.info "Getting promote config for job '#{job_name}' process '#{process}'"
+        @client.get_config("/job/#{job_name}/promotion/process/#{process}/config.xml")
+      end
+
+      # Set a job's promotion config
+      #
+      # @param  [String] job_name
+      # @param  [String] process The process name
+      # @param  [String] Job config
+      # @return nil
+      def set_promote_config(job_name, process, config)
+        @logger.info "Setting promote config for job '#{job_name}' process '#{process}' to #{config}"
+        @client.post_config("/job/#{job_name}/promotion/process/#{process}/config.xml", config)
+      end
+
       #A Method to find artifacts path from the Current Build
       #
       # @param [String] job_name
