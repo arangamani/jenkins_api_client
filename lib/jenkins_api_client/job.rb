@@ -712,9 +712,12 @@ module JenkinsApi
       #
       # @param [String] job_name
       #
-      def get_builds(job_name)
+      def get_builds(job_name, options = {})
         @logger.info "Obtaining the build details of '#{job_name}'"
-        response_json = @client.api_get_request("/job/#{path_encode job_name}")
+        url = "/job/#{path_encode job_name}"
+
+        tree = options[:tree] || nil
+        response_json = @client.api_get_request url, tree_string(tree)
         response_json["builds"]
       end
 
@@ -1761,6 +1764,11 @@ module JenkinsApi
             xml.color "#{color}"
           }
         }
+      end
+
+      def tree_string tree_value
+        return nil unless tree_value
+        "tree=#{tree_value}"
       end
     end
   end
