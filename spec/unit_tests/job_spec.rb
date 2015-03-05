@@ -632,6 +632,20 @@ describe JenkinsApi::Client::Job do
         end
       end
 
+      describe "#get_promote_config" do
+        it "accepts name and process and returns promotion config" do
+          @client.should_receive(:get_config).with('/job/testjob/promotion/process/promo/config.xml')
+          @job.get_promote_config('testjob', 'promo')
+        end
+      end
+
+      describe "#set_promote_config" do
+        it "accepts name, process and config." do
+          @client.should_receive(:post_config).with('/job/testjob/promotion/process/promo/config.xml', 'xml')
+          @job.set_promote_config('testjob', 'promo', 'xml')
+        end
+      end
+
       describe '#scm_git' do
         before do
           @job.send(:scm_git, {
