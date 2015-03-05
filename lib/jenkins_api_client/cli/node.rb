@@ -122,10 +122,20 @@ module JenkinsApi
           host_list_array = node_details['host_list']
           host_list_array.each_with_index {|val, index|
           host_name = "#{val}"
-          @client.node.delete(host_name)
+          node_result = @client.node.index(host_name)
+          if ! node_result.is_a? Enumerable
+            @client.node.delete(host_name)
+          else
+            puts "node not found\n"
+          end
         }
       elsif options[:node_name]
-        @client.node.delete(options[:node_name])
+        node_result = @client.node.index(options[:node_name])
+        if ! node_result.is_a? Enumerable
+          @client.node.delete(options[:node_name])
+        else
+          puts "node not found\n"
+        end
       else
         puts "incorrect usage"
       end
