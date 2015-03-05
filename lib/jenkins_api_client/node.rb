@@ -137,7 +137,7 @@ module JenkinsApi
         @logger.debug "Creating a dumb slave with params: #{params.inspect}"
         default_params = {
           :description => "Automatically created through jenkins_api_client",
-          :executors => 6,
+          :executors => 2,
           :remote_fs => "/var/jenkins",
           :labels => params[:name],
           :slave_port => 22,

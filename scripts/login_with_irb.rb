@@ -16,7 +16,7 @@ def prompt_for_password
 end
 
 def prompt_for_jenkins_api_token
-  get_from_stdin("Jenkins api token for "+#{client_opts[:username]}+": ", false)
+  get_from_stdin("Jenkins api token for #{client_opts[:username]}: ", false)
 end
 
 def get_from_stdin(prompt, mask = false)

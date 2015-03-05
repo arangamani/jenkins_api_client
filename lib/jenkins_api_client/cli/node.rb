@@ -79,33 +79,33 @@ module JenkinsApi
           template_detail_hash = node_details['template_detail']
           host_list_array = node_details['host_list']
           host_list_array.each_with_index {|val, index|
-          host_name = "#{val}"
-          if template_detail_hash['guest_user_credentials_id'] != ""
-            credentials_id = template_detail_hash['guest_user_credentials_id']
-          else
-            puts "failed to find a credentials_id for "+template_detail_hash['guest_username']+"\nPlease add this user in jenkins and #{options[:json]}"
-        end
-        @client.node.create_dumb_slave(
-        :name => host_name,
-        :slave_host => host_name,
-        :credentials_id => credentials_id,
-        :private_key_file => "",
-        :executors => executors ? (executors) : (12),
-        :labels => node_label)
-    }
-      elsif options[:name] && options[:credentials_id] && options[:labels]
-        @client.node.create_dumb_slave(
-        :name => options[:name],
-        :slave_host => options[:name],
-        :credentials_id => options[:credentials_id],
-        :private_key_file => "",
-        :executors => options[:executors] ? (options[:executors]) : (12),
-        :labels => options[:labels])
-      else
-        puts "incorrect usage"
+            host_name = "#{val}"
+            if ! template_detail_hash['node_user_credentials_id'].empty?
+              credentials_id = template_detail_hash['node_user_credentials_id']
+            else
+              raise "failed to find a credentials_id for "+template_detail_hash['node_username']+"\nPlease add this user in jenkins and #{options[:json]}"
+            end
+            @client.node.create_dumb_slave(
+              :name => host_name,
+              :slave_host => host_name,
+              :credentials_id => credentials_id,
+              :private_key_file => "",
+              :executors => executors.empty? ? (2) : (executors),
+              :labels => node_label)
+          }
+        elsif options[:name] && options[:credentials_id] && options[:labels]
+          @client.node.create_dumb_slave(
+            :name => options[:name],
+            :slave_host => options[:name],
+            :credentials_id => options[:credentials_id],
+            :private_key_file => "",
+            :executors => options[:executors].empty? ? (2) : (options[:executors]),
+            :labels => options[:labels])
+        else
+          @client.logger.info "incorrect usage.\n"
 
-    end
-  end
+        end
+      end
 
   desc "delete","deletes a given node or a list of nodes in json file"
   # CLI command that deletes node
@@ -126,7 +126,7 @@ module JenkinsApi
           if ! node_result.is_a? Enumerable
             @client.node.delete(host_name)
           else
-            puts "node not found\n"
+            @client.logger.info "node not found : #{host_name}\n"
           end
         }
       elsif options[:node_name]
@@ -134,10 +134,10 @@ module JenkinsApi
         if ! node_result.is_a? Enumerable
           @client.node.delete(options[:node_name])
         else
-          puts "node not found\n"
+          @client.logger.info "node not found : #{options[:node_name]}\n"
         end
       else
-        puts "incorrect usage"
+        @client.logger.info "incorrect usage\n"
       end
     end
 
