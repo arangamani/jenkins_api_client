@@ -38,8 +38,9 @@ else
 end
 
 begin
-  client_opts = YAML.load_file(File.expand_path(config_file))
-  unless client_opts.has_key?(:username)
+  client_opts = Hash[YAML.load_file(File.expand_path(config_file)).map { | (k,v) | [k.to_sym, v]} ]
+
+  unless client_opts.has_key?(:username) 
     client_opts[:username] = prompt_for_username()
   end
   unless client_opts.has_key?(:password) or client_opts.has_key?(:password_base64)

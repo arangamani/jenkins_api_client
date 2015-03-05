@@ -100,6 +100,7 @@ module JenkinsApi
     # @raise [ArgumentError] when required options are not provided.
     #
     def initialize(args)
+      args = symbolize_keys(args)
       args.each do |key, value|
         if value && VALID_PARAMS.include?(key.to_s)
           instance_variable_set("@#{key}", value)
@@ -681,6 +682,25 @@ module JenkinsApi
           end
         end
       end
+    end
+
+    # Private method.  Converts keys passed in as strings into symbols.
+    #
+    # @param hash [Hash] Hash containing arguments to login to jenkins.
+    #
+    def symbolize_keys(hash)
+      hash.inject({}){|result, (key, value)|
+        new_key = case key
+          when String then key.to_sym
+          else key
+          end
+        new_value = case value
+          when Hash then symbolize_keys(value)
+          else value
+          end
+        result[new_key] = new_value
+        result
+      }
     end
 
     # Private method that handles the exception and raises with proper error
