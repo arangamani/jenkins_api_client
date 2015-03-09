@@ -251,27 +251,6 @@ module JenkinsApi
         " @http_read_timeout=#{@http_read_timeout.inspect}>"
     end
 
-    # Connects to the server and downloads artifacts to a specified location
-    #
-    # @param [String] job_name
-    # @param [String] filename location to save artifact
-    #
-    def get_artifact(job_name,filename)
-      @artifact = job.find_artifact(job_name)
-      uri = URI.parse(@artifact)
-      http = Net::HTTP.new(uri.host, uri.port)
-      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-      http.use_ssl = true
-      request = Net::HTTP::Get.new(uri.request_uri)
-      request.basic_auth(@username, @password)
-      response = http.request(request)
-      if response.code == "200"
-        File.write(File.expand_path(filename), response.body)
-      else
-        raise "Couldn't get the artifact"
-      end
-    end
-
     # Connects to the Jenkins server, sends the specified request and returns
     # the response.
     #
@@ -319,6 +298,30 @@ module JenkinsApi
       return response
     end
     protected :make_http_request
+
+    # Downloads a url to a filenam
+    #
+    # @param [String] url The url to download
+    # @param [String] filename The filename of the file to store the download to
+    #
+    def download_url(url, filename)
+      uri = URI.parse(url)
+      @logger.info "Starting download for: #{uri.to_s}"
+      http_object = Net::HTTP.new(uri.host, uri.port)
+      http_object.use_ssl = true if uri.scheme == 'https'
+      http_object.start do |http|
+        request = Net::HTTP::Get.new uri.request_uri
+        http.read_timeout = 600
+        http.request request do |response|
+          open filename, 'w' do |io|
+            response.read_body do |chunk|
+              io.write chunk
+            end
+          end
+        end
+      end
+      @logger.info "Stored download as " + filename + "."
+    end
 
     # Obtains the root of Jenkins server. This function is used to see if
     # Jenkins is running

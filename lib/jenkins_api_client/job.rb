@@ -1532,7 +1532,65 @@ module JenkinsApi
         return artifact_path
       end
 
+      # List all artifacts for a job
+      #
+      # @param [String] job_name
+      # @param [Integer] build_number The build number for the job, leave empty to use latest
+      #
+      # @return [Array] An array of hashes with the artifact information
+      #
+      def list_artifacts(job_name, build_number = 0)
+        build_number = get_current_build_number(job_name) if build_number == 0
+        response_json = @client.api_get_request("/job/#{path_encode job_name}/#{build_number}")
+        download_url = response_json['url']
+        response_json['artifacts'].map { |artifact| 
+          { :path => artifact['relativePath'], :name => artifact['fileName'], :url => URI.escape("#{download_url}artifact/#{artifact['relativePath']}") } 
+        }
+      end
+
+      # Download all artifacts for a job to a directory
+      #
+      # @param [String] job_name
+      # @param [String] path local file path to a directory to save the artifacts into
+      # @param [Integer] build_number The build number for the job, leave empty to use latest
+      #
+      def download_all_artifacts(job_name, path, build_number = 0)
+        artifacts = list_artifacts(job_name, build_number)
+        create_artifact_directory(path)
+        artifacts.each { |artifact| @client.download_url(artifact[:url], File.join(path, artifact[:name])) }
+      end
+
+
+      # Download a specific artifact for a job to a directory
+      #
+      # @param [String] job_name
+      # @param [String] name The name of the artifact to download
+      # @param [String] path local file path to a directory to save the artifacts into
+      # @param [Integer] build_number The build number for the job, leave empty to use latest
+      #
+      def download_artifact(job_name, name, path, build_number = 0)
+        artifacts = list_artifacts(job_name, build_number)
+        artifact = artifacts.find {|artifact| artifact[:name] == name }
+        if artifact
+          create_artifact_directory(path)
+          @client.download_url(artifact[:url], File.join(path, artifact[:name]))
+        elsif artifacts.count != 0
+          available_artifacts = artifacts.map{|x| x[:name]}.join(',')
+          @logger.warn("Artifact '#{name}' does not exist for '#{job_name}'. Existing artifacts are #{available_artifacts}")
+        else
+          @logger.warn("No artifacts found for '#{job_name}'.")
+        end
+      end
       private
+
+      # Creates artifact directory
+      #
+      # @param [String] path Path to the directory to create
+      #
+      def create_artifact_directory(path)
+        raise "A file at '#{path}' already exists, unable to create artifact directory at." if File.exists?(path) and !File.directory?(path)
+        FileUtils.mkdir_p path unless File.directory?(path)
+      end
 
       # Obtains the threshold params used by jenkins in the XML file
       # given the threshold
