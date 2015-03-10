@@ -21,7 +21,11 @@ describe JenkinsApi::Client::Job do
         "upstreamProjects" => ["test_job2"],
         "builds" => [],
         "color" => "running",
-        "nextBuildNumber" => 2
+        "nextBuildNumber" => 2,
+        "artifacts" => [
+          { "displayPath" => "null", "fileName" => "test.exe", "relativePath" => "bin/test.txe" }
+        ],
+        "url" => "http://jenkins/test_job/2/"
       }
       @sample_job_xml = File.read(
         File.expand_path('../fixtures/files/job_sample.xml', __FILE__))
@@ -318,6 +322,33 @@ describe JenkinsApi::Client::Job do
             @sample_json_response)
           response = @job.list_details("test_job")
           response.class.should == Hash
+        end
+      end
+
+      describe "#list_artifacts" do
+        it "accepts the job name and build number and returns the latest build artifacts" do
+          @client.should_receive(:api_get_request).and_return(
+            @sample_json_job_response)
+          response = @job.list_artifacts("test_job", 1)
+          response.class.should == Array
+        end
+      end
+
+      describe "#download_all_artifacts" do
+        it "accepts the job name, path and build number" do
+          @client.should_receive(:api_get_request).and_return(
+            @sample_json_job_response)
+          @client.should_receive(:download_url)
+          @job.download_all_artifacts("test_job", "artifacts_path", 1)
+        end
+      end
+
+      describe "#download_artifact" do
+        it "accepts the job name, artifact name and the build numbers" do
+          @client.should_receive(:api_get_request).and_return(
+            @sample_json_job_response)
+          @client.should_receive(:download_url)
+          @job.download_artifact("test_job", "test.exe", "artifacts_path", 1)
         end
       end
 
@@ -772,5 +803,47 @@ describe JenkinsApi::Client::Job do
         end
       end
     end
+
+    context 'artifacts'
+      describe "#list_artifacts" do
+        it "returns the latest build artifacts" do
+          @client.should_receive(:api_get_request).and_return(
+            @sample_json_job_response)
+          response = @job.list_artifacts("test_job", 10)
+          response.class.should == Array
+          response.count.should == 1
+          response[0][:path].should == "bin/test.txe"
+          response[0][:name].should == "test.exe"
+          response[0][:url].should == "http://jenkins/test_job/2/artifact/bin/test.txe"
+        end
+      end
+
+      describe "#download_all_artifacts" do
+        it "downloads all artifacts to a specific folder" do
+          @client.stub(:create_artifact_directory)
+          @client.should_receive(:api_get_request).and_return(
+            @sample_json_job_response)
+          @client.should_receive(:download_url).with("http://jenkins/test_job/2/artifact/bin/test.txe", "artifacts_path/test.exe")
+          @job.download_all_artifacts("test_job", "artifacts_path", 10)
+        end
+      end
+
+      describe "#download_artifact" do
+        it "downloads an existing artifact to a specific folder" do
+          @client.stub(:create_artifact_directory)
+          @client.should_receive(:api_get_request).and_return(
+            @sample_json_job_response)
+          @client.should_receive(:download_url).with("http://jenkins/test_job/2/artifact/bin/test.txe", "artifacts_path/test.exe")
+          @job.download_artifact("test_job", "test.exe", "artifacts_path", 10)
+        end
+
+        it "does not download a artifact that doesn't exist" do
+          @client.stub(:create_artifact_directory)
+          @client.should_receive(:api_get_request).and_return(
+            @sample_json_job_response)
+          @client.should_not_receive(:download_url)
+          @job.download_artifact("test_job", "doesnt_exist", "artifacts_path", 10)
+        end
+      end
   end
 end
