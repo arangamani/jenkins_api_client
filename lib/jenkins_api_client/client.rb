@@ -57,6 +57,7 @@ module JenkinsApi
       "username",
       "password",
       "password_base64",
+      "logger",
       "log_location",
       "log_level",
       "timeout",
@@ -90,6 +91,7 @@ module JenkinsApi
     # @option args [Boolean] :follow_redirects this argument causes the client to follow a redirect (jenkins can
     #   return a 30x when starting a build)
     # @option args [Fixnum] :timeout (120) This argument sets the timeout for operations that take longer (in seconds)
+    # @option args [Logger] :logger a Logger object, used to override the default logger (optional)
     # @option args [String] :log_location (STDOUT) the location for the log file
     # @option args [Fixnum] :log_level (Logger::INFO) The level for messages to be logged. Should be one of:
     #   Logger::DEBUG (0), Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
@@ -146,11 +148,16 @@ module JenkinsApi
       @ssl ||= false
 
       # Setting log options
-      @log_location = STDOUT unless @log_location
-      @log_level = Logger::INFO unless @log_level
-      @logger = Logger.new(@log_location)
-      @logger.level = @log_level
-
+      if @logger
+        raise ArgumentError, "logger parameter must be a Logger object" unless @logger.is_a?(Logger)
+        raise ArgumentError, "log_level should not be set if using custom logger" if @log_level
+        raise ArgumentError, "log_location should not be set if using custom logger" if @log_location
+      else
+        @log_location = STDOUT unless @log_location
+        @log_level = Logger::INFO unless @log_level
+        @logger = Logger.new(@log_location)
+        @logger.level = @log_level
+      end
 
       # Base64 decode inserts a newline character at the end. As a workaround
       # added chomp to remove newline characters. I hope nobody uses newline
