@@ -24,6 +24,18 @@ describe JenkinsApi::Client::Node do
           "offline"     => false,
         ]
       }
+      @offline_slave_in_string        = {
+        "computer" => [
+          "displayName" => "slave",
+          "offline"     => "true",
+        ]
+      }
+      @online_slave_in_string        = {
+        "computer" => [
+          "displayName" => "slave",
+          "offline"     => "false",
+        ]
+      }
       computer_sample_xml_filename = '../fixtures/files/computer_sample.xml'
       @sample_computer_xml = File.read(
         File.expand_path(computer_sample_xml_filename , __FILE__)
@@ -187,6 +199,24 @@ describe JenkinsApi::Client::Node do
             :api_get_request
           ).twice.and_return(
             @online_slave
+          )
+          @node.method("is_offline?").call("slave").should be_false
+        end
+
+        it "returns false if the node is online and have a string value on its attr" do
+          @client.should_receive(
+            :api_get_request
+          ).twice.and_return(
+            @offline_slave_in_string
+          )
+          @node.method("is_offline?").call("slave").should be_true
+        end
+
+        it "returns false if the node is online and have a string value on its attr" do
+          @client.should_receive(
+            :api_get_request
+          ).twice.and_return(
+            @online_slave_in_string
           )
           @node.method("is_offline?").call("slave").should be_false
         end
