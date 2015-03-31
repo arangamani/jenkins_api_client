@@ -749,6 +749,15 @@ module JenkinsApi
         end
       end
 
+      def queued?(job_name)
+        queue_result = @client.api_get_request("/job/#{path_encode job_name}")['inQueue']
+        if queue_result
+                return @client.api_get_request("/job/#{path_encode job_name}")['nextBuildNumber']
+        else
+                return queue_result
+        end
+      end
+
       # Obtain the current build status of the job
       # By defaule Jenkins returns the color of the job status icon
       # This function translates the color into a meaningful status
@@ -887,6 +896,7 @@ module JenkinsApi
         if response["location"]
           task_id_match = response["location"].match(/\/item\/(\d*)\//)
           task_id = task_id_match.nil? ? nil : task_id_match[1]
+	  p task_id
           unless task_id.nil?
             @logger.info "Job queued for #{job_name}, will wait up to #{build_start_timeout} seconds for build to start..."
 
