@@ -896,7 +896,6 @@ module JenkinsApi
         if response["location"]
           task_id_match = response["location"].match(/\/item\/(\d*)\//)
           task_id = task_id_match.nil? ? nil : task_id_match[1]
-	  p task_id
           unless task_id.nil?
             @logger.info "Job queued for #{job_name}, will wait up to #{build_start_timeout} seconds for build to start..."
 
