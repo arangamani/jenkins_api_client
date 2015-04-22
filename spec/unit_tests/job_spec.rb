@@ -646,6 +646,13 @@ describe JenkinsApi::Client::Job do
         end
       end
 
+      describe "#delete_promote_config" do
+        it "accepts name and process and deletes promotion config" do
+          @client.should_receive(:post_config).with('/job/testjob/promotion/process/promo/doDelete')
+          @job.delete_promote_config('testjob', 'promo')
+        end
+      end
+
       describe '#scm_git' do
         before do
           @job.send(:scm_git, {
