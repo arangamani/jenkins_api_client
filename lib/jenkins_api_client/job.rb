@@ -1494,6 +1494,21 @@ module JenkinsApi
         result
       end
 
+
+      # Create a new promotion process
+      #
+      # This must be called before set/get promote config can be used on a process
+      #
+      # Must be called after updating the job's config
+      # @param  [String] job_name
+      # @param  [String] process The process name
+      # @return [String] Process config
+      def init_promote_process(job_name, process, config)
+        @logger.info "Creating new process #{process} for job #{job_name}"
+        @client.post_config("/job/#{job_name}/promotion/createProcess?name=#{process}", config)
+      end
+
+
       # Get a job's promotion config
       #
       # @param  [String] job_name
