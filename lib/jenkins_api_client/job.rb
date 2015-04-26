@@ -324,7 +324,7 @@ module JenkinsApi
               "#{params[:block_build_when_downstream_building]}")
             xml.blockBuildWhenUpstreamBuilding(
               "#{params[:block_build_when_upstream_building]}")
-            xml.triggers.vector do 
+            xml.triggers.vector do
               if params[:timer]
                 xml.send("hudson.triggers.TimerTrigger") do
                   xml.spec params[:timer]
@@ -360,7 +360,7 @@ module JenkinsApi
             xml.buildWrappers
           end
         end
-        
+
         xml_doc = Nokogiri::XML(builder.to_xml)
         plugin_collection.configure(xml_doc).to_xml
       end
@@ -449,7 +449,7 @@ module JenkinsApi
       # @option artifact_params [Boolean] :default_excludes (false)
       #   exclude defaults automatically
       #
-      # @return [Nokogiri::XML::Builder] 
+      # @return [Nokogiri::XML::Builder]
       #
       def artifact_archiver(artifact_params, xml)
         return xml if artifact_params.nil?
@@ -712,9 +712,12 @@ module JenkinsApi
       #
       # @param [String] job_name
       #
-      def get_builds(job_name)
+      def get_builds(job_name, options = {})
         @logger.info "Obtaining the build details of '#{job_name}'"
-        response_json = @client.api_get_request("/job/#{path_encode job_name}")
+        url = "/job/#{path_encode job_name}"
+
+        tree = options[:tree] || nil
+        response_json = @client.api_get_request url, tree_string(tree)
         response_json["builds"]
       end
 
@@ -1530,6 +1533,16 @@ module JenkinsApi
         @client.post_config("/job/#{job_name}/promotion/process/#{process}/config.xml", config)
       end
 
+      # Delete a job's promotion config
+      #
+      # @param [String] job_name
+      # @param [String] process The process name
+      # @return nil
+      def delete_promote_config(job_name, process)
+        @logger.info "Deleting promote config for job '#{job_name}' process '#{process}'"
+        @client.post_config("/job/#{job_name}/promotion/process/#{process}/doDelete")
+      end
+
       #A Method to find artifacts path from the Current Build
       #
       # @param [String] job_name
@@ -1776,6 +1789,11 @@ module JenkinsApi
             xml.color "#{color}"
           }
         }
+      end
+
+      def tree_string tree_value
+        return nil unless tree_value
+        "tree=#{tree_value}"
       end
     end
   end
