@@ -306,6 +306,22 @@ module JenkinsApi
         @client.post_config("/computer/#{path_encode node_name}/config.xml", xml)
       end
 
+      # Toggles the temporarily offline state of the Jenkins node
+      #
+      # @param [String] node_name name of the node
+      # @param [String] reason Offline reason why the node is offline
+      #
+      def toggle_temporarilyOffline(node_name, reason="")
+        @logger.info "Toggling the temporarily offline status of of node '#{node_name}' with reason '#{reason}'"
+        node_name = "(master)" if node_name == "master"
+        previous_state = is_temporarilyOffline?(node_name)
+        @client.api_post_request("/computer/#{path_encode node_name}/toggleOffline?offlineMessage=#{path_encode reason}")
+        new_state = is_temporarilyOffline?(node_name)
+        if new_state == previous_state
+          raise "The specified node '#{node_name}' was unable to change offline state."
+        end
+        new_state
+      end
     end
   end
 end

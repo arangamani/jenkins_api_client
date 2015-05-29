@@ -14,17 +14,19 @@ describe JenkinsApi::Client::Node do
       }
       @offline_slave                 = {
         "computer" => [
-          "displayName" => "slave",
-          "offline"     => true,
+          "displayName"        => "slave",
+          "offline"            => true,
+          "temporarilyOffline" => true,
         ]
       }
       @online_slave                  = {
         "computer" => [
-          "displayName" => "slave",
-          "offline"     => false,
+          "displayName"        => "slave",
+          "offline"            => false,
+          "temporarilyOffline" => false,
         ]
       }
-      @offline_slave_in_string        = {
+      @offline_slave_in_string       = {
         "computer" => [
           "displayName" => "slave",
           "offline"     => "true",
@@ -256,6 +258,46 @@ describe JenkinsApi::Client::Node do
         end
       end
 
+      describe "#toggle_temporarilyOffline" do
+        it "successfully toggles an offline status of a node" do
+          @client.should_receive(:api_post_request).with(
+            "/computer/slave/toggleOffline?offlineMessage=foo%20bar"
+          ).and_return("302")
+          @client.should_receive(
+            :api_get_request
+          ).with(
+            "/computer"
+          ).and_return(
+            @offline_slave,
+            @offline_slave,
+            # Note: each of these is_? requires two API calls
+            @online_slave,
+            @online_slave
+          )
+          @node.method("toggle_temporarilyOffline").call("slave", "foo bar").should be_false
+        end
+
+        it "fails to toggle an offline status of a node" do
+          @client.should_receive(:api_post_request).with(
+            "/computer/slave/toggleOffline?offlineMessage=foo%20bar"
+          ).and_return("302")
+          @client.should_receive(
+            :api_get_request
+          ).with(
+            "/computer"
+          ).and_return(
+            @online_slave,
+            @online_slave,
+            @online_slave,
+            @online_slave
+          )
+          expect(
+            lambda{
+              @node.toggle_temporarilyOffline("slave", "foo bar")
+            }
+          ).to raise_error
+        end
+      end
     end
   end
 end
