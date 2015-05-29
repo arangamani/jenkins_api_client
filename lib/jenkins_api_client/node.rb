@@ -244,7 +244,7 @@ module JenkinsApi
       GENERAL_ATTRIBUTES.each do |meth_suffix|
         define_method("get_#{meth_suffix}") do
           @logger.info "Obtaining '#{meth_suffix}' attribute from jenkins"
-          response_json = @client.api_get_request("/computer")
+          response_json = @client.api_get_request("/computer", "tree=#{path_encode meth_suffix}")
           response_json["#{meth_suffix}"]
         end
       end
@@ -254,8 +254,9 @@ module JenkinsApi
       NODE_PROPERTIES.each do |meth_suffix|
         define_method("is_#{meth_suffix}?") do |node_name|
           @logger.info "Obtaining '#{meth_suffix}' property of '#{node_name}'"
-          response_json = @client.api_get_request("/computer")
-          resp = response_json["computer"][index(node_name)]["#{meth_suffix}"].to_s
+          node_name = "(master)" if node_name == "master"
+          response_json = @client.api_get_request("/computer/#{path_encode node_name}", "tree=#{path_encode meth_suffix}")
+          resp = response_json["#{meth_suffix}"].to_s
           resp =~ /False/i ? false : true
         end
       end
@@ -264,8 +265,9 @@ module JenkinsApi
       NODE_ATTRIBUTES.each do |meth_suffix|
         define_method("get_node_#{meth_suffix}") do |node_name|
           @logger.info "Obtaining '#{meth_suffix}' attribute of '#{node_name}'"
-          response_json = @client.api_get_request("/computer")
-          response_json["computer"][index(node_name)]["#{meth_suffix}"]
+          node_name = "(master)" if node_name == "master"
+          response_json = @client.api_get_request("/computer/#{path_encode node_name}", "tree=#{path_encode meth_suffix}")
+          response_json["#{meth_suffix}"]
         end
       end
 
@@ -292,7 +294,7 @@ module JenkinsApi
       def get_config(node_name)
         @logger.info "Obtaining the config.xml of node '#{node_name}'"
         node_name = "(master)" if node_name == "master"
-        @client.get_config("/computer/#{ path_encode node_name}")
+        @client.get_config("/computer/#{path_encode node_name}")
       end
 
       # Posts the given config.xml to the Jenkins node

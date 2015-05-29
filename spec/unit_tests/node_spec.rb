@@ -7,36 +7,31 @@ describe JenkinsApi::Client::Node do
       mock_logger = Logger.new "/dev/null"
       @client.should_receive(:logger).and_return(mock_logger)
       @node = JenkinsApi::Client::Node.new(@client)
-      @sample_json_computer_response = {
+      @sample_json_list_response = {
         "computer" => [
           "displayName" => "slave"
         ]
       }
+      @sample_json_computer_response = {
+        "displayName" => "slave"
+      }
       @offline_slave                 = {
-        "computer" => [
-          "displayName"        => "slave",
-          "offline"            => true,
-          "temporarilyOffline" => true,
-        ]
+        "displayName"        => "slave",
+        "offline"            => true,
+        "temporarilyOffline" => true,
       }
       @online_slave                  = {
-        "computer" => [
-          "displayName"        => "slave",
-          "offline"            => false,
-          "temporarilyOffline" => false,
-        ]
+        "displayName"        => "slave",
+        "offline"            => false,
+        "temporarilyOffline" => false,
       }
       @offline_slave_in_string       = {
-        "computer" => [
-          "displayName" => "slave",
-          "offline"     => "true",
-        ]
+        "displayName" => "slave",
+        "offline"     => "true",
       }
       @online_slave_in_string        = {
-        "computer" => [
-          "displayName" => "slave",
-          "offline"     => "false",
-        ]
+        "displayName" => "slave",
+        "offline"     => "false",
       }
       computer_sample_xml_filename = '../fixtures/files/computer_sample.xml'
       @sample_computer_xml = File.read(
@@ -117,7 +112,7 @@ describe JenkinsApi::Client::Node do
           ).with(
             "/computer"
           ).and_return(
-            @sample_json_computer_response
+            @sample_json_list_response
           )
           @client.should_receive(
             :api_post_request
@@ -135,7 +130,7 @@ describe JenkinsApi::Client::Node do
           ).with(
             "/computer"
           ).and_return(
-            @sample_json_computer_response
+            @sample_json_list_response
           )
           expect(
             lambda{ @node.delete(slave_name) }
@@ -147,8 +142,10 @@ describe JenkinsApi::Client::Node do
         it "accepts filter and lists all nodes matching the filter" do
           @client.should_receive(
             :api_get_request
+          ).with(
+            "/computer"
           ).and_return(
-            @sample_json_computer_response
+            @sample_json_list_response
           )
           @node.list("slave").class.should == Array
         end
@@ -161,8 +158,11 @@ describe JenkinsApi::Client::Node do
             it "should get the #{attribute} attribute" do
               @client.should_receive(
                 :api_get_request
+              ).with(
+                "/computer",
+                "tree=#{attribute}"
               ).and_return(
-                @sample_json_computer_response
+                @sample_json_list_response
               )
               @node.method("get_#{attribute}").call
             end
@@ -177,10 +177,25 @@ describe JenkinsApi::Client::Node do
             it "should get the #{property} property" do
               @client.should_receive(
                 :api_get_request
-              ).twice.and_return(
+              ).with(
+                "/computer/slave",
+                "tree=#{property}"
+              ).and_return(
                 @sample_json_computer_response
               )
               @node.method("is_#{property}?").call("slave")
+            end
+
+            it "should get the #{property} property for master" do
+              @client.should_receive(
+                :api_get_request
+              ).with(
+                "/computer/(master)",
+                "tree=#{property}"
+              ).and_return(
+                @sample_json_computer_response
+              )
+              @node.method("is_#{property}?").call("master")
             end
           end
         end
@@ -190,7 +205,10 @@ describe JenkinsApi::Client::Node do
         it "returns true if the node is offline" do
           @client.should_receive(
             :api_get_request
-          ).twice.and_return(
+          ).with(
+            "/computer/slave",
+            "tree=offline"
+          ).and_return(
             @offline_slave
           )
           @node.method("is_offline?").call("slave").should be_true
@@ -199,7 +217,10 @@ describe JenkinsApi::Client::Node do
         it "returns false if the node is online" do
           @client.should_receive(
             :api_get_request
-          ).twice.and_return(
+          ).with(
+            "/computer/slave",
+            "tree=offline"
+          ).and_return(
             @online_slave
           )
           @node.method("is_offline?").call("slave").should be_false
@@ -208,7 +229,10 @@ describe JenkinsApi::Client::Node do
         it "returns false if the node is online and have a string value on its attr" do
           @client.should_receive(
             :api_get_request
-          ).twice.and_return(
+          ).with(
+            "/computer/slave",
+            "tree=offline"
+          ).and_return(
             @offline_slave_in_string
           )
           @node.method("is_offline?").call("slave").should be_true
@@ -217,7 +241,10 @@ describe JenkinsApi::Client::Node do
         it "returns false if the node is online and have a string value on its attr" do
           @client.should_receive(
             :api_get_request
-          ).twice.and_return(
+          ).with(
+            "/computer/slave",
+            "tree=offline"
+          ).and_return(
             @online_slave_in_string
           )
           @node.method("is_offline?").call("slave").should be_false
@@ -231,10 +258,25 @@ describe JenkinsApi::Client::Node do
             it "should get the #{attribute} node attribute" do
               @client.should_receive(
                 :api_get_request
-              ).twice.and_return(
+              ).with(
+                "/computer/slave",
+                "tree=#{attribute}"
+              ).and_return(
                 @sample_json_computer_response
               )
               @node.method("get_node_#{attribute}").call("slave")
+            end
+
+            it "should get the #{attribute} node attribute for master" do
+              @client.should_receive(
+                :api_get_request
+              ).with(
+                "/computer/(master)",
+                "tree=#{attribute}"
+              ).and_return(
+                @sample_json_computer_response
+              )
+              @node.method("get_node_#{attribute}").call("master")
             end
           end
         end
@@ -266,12 +308,10 @@ describe JenkinsApi::Client::Node do
           @client.should_receive(
             :api_get_request
           ).with(
-            "/computer"
+            "/computer/slave",
+            "tree=temporarilyOffline"
           ).and_return(
             @offline_slave,
-            @offline_slave,
-            # Note: each of these is_? requires two API calls
-            @online_slave,
             @online_slave
           )
           @node.method("toggle_temporarilyOffline").call("slave", "foo bar").should be_false
@@ -284,10 +324,9 @@ describe JenkinsApi::Client::Node do
           @client.should_receive(
             :api_get_request
           ).with(
-            "/computer"
+            "/computer/slave",
+            "tree=temporarilyOffline"
           ).and_return(
-            @online_slave,
-            @online_slave,
             @online_slave,
             @online_slave
           )
