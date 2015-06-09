@@ -4,6 +4,20 @@ CHANGELOG
 upcoming
 --------
 
+v1.4.0   [08-JUN-2015]
+----------------------
+* [#161][] Fix job#build method when true/false values are passed as timeout parameter. Credit: [@jlucasps][]
+* [#172][] Promotion plugin config support. Credit: [@AndrewHanes][]
+* [#168][] Added ability to pass "tree" parameter to the Job#get_builds call. Credit: [@bkon][]
+* [#169][] Add optional parameters to cli job build. Credit: [@cyrez][]
+* [#167][] Add ability to override the default logger. Credit: [@gpetras][]
+* [#174][] Use the specified client ssl when downloading artifacts. Credit: [@paulgeringer][]
+* [#165][] Fix for is_offline? bug reporting all nodes as being offline. Credit: [@bsnape][]
+* [#176][] Add ability to delete a promotion configuration. Credit: [@l8nite][]
+* [#59][] Add capability to take the node offline and online. Credit: [@stjohnjohnson][]
+* [#177][] Add ability to create promotion processes. Credit: [@AndrewHanes][]
+* [#179][] Clean up Node calls to make only one call for the computer item. Credit: [@stjohnjohnson][]
+
 v1.3.0   [03-JAN-2015]
 ----------------------
 * [#159][] Add ability to configure git tool for a job. Credit: [@hubert][]
@@ -276,6 +290,7 @@ v0.0.1  [15-OCT-2012]
 [#23]: https://github.com/arangamani/jenkins_api_client/issues/23
 [#27]: https://github.com/arangamani/jenkins_api_client/issues/27
 [#42]: https://github.com/arangamani/jenkins_api_client/issues/42
+[#59]: https://github.com/arangamani/jenkins_api_client/issues/59
 [#85]: https://github.com/arangamani/jenkins_api_client/issues/85
 [#106]: https://github.com/arangamani/jenkins_api_client/issues/106
 [#112]: https://github.com/arangamani/jenkins_api_client/issues/112
@@ -300,28 +315,46 @@ v0.0.1  [15-OCT-2012]
 [#157]: https://github.com/arangamani/jenkins_api_client/issues/157
 [#158]: https://github.com/arangamani/jenkins_api_client/issues/158
 [#159]: https://github.com/arangamani/jenkins_api_client/issues/159
+[#161]: https://github.com/arangamani/jenkins_api_client/issues/161
 [#163]: https://github.com/arangamani/jenkins_api_client/issues/163
+[#165]: https://github.com/arangamani/jenkins_api_client/issues/165
+[#167]: https://github.com/arangamani/jenkins_api_client/issues/167
+[#168]: https://github.com/arangamani/jenkins_api_client/issues/168
+[#169]: https://github.com/arangamani/jenkins_api_client/issues/169
+[#172]: https://github.com/arangamani/jenkins_api_client/issues/172
+[#174]: https://github.com/arangamani/jenkins_api_client/issues/174
+[#176]: https://github.com/arangamani/jenkins_api_client/issues/176
+[#177]: https://github.com/arangamani/jenkins_api_client/issues/177
+[#179]: https://github.com/arangamani/jenkins_api_client/issues/179
+[@AndrewHanes]: https://github.com/AndrewHanes
 [@Loa]: https://github.com/Loa
 [@Niarfe]: https://github.com/Niarfe
+[@bkon]: https://github.com/bkon
 [@bobbrez]: https://github.com/bobbrez
 [@brettporter]: https://github.com/brettporter
+[@bsnape]: https://github.com/bsnape
 [@chilicheech]: https://github.com/chilicheech
 [@client]: https://github.com/client
 [@cylol]: https://github.com/cylol
 [@cynipe]: https://github.com/cynipe
+[@cyrez]: https://github.com/cyrez
 [@dieterdemeyer]: https://github.com/dieterdemeyer
 [@dkerwin]: https://github.com/dkerwin
 [@dougforpres]: https://github.com/dougforpres
 [@drnic]: https://github.com/drnic
+[@gpetras]: https://github.com/gpetras
 [@hubert]: https://github.com/hubert
+[@jlucasps]: https://github.com/jlucasps
 [@joelneubert]: https://github.com/joelneubert
 [@kevinhcross]: https://github.com/kevinhcross
+[@l8nite]: https://github.com/l8nite
 [@lheinlen-os]: https://github.com/lheinlen-os
 [@madisp]: https://github.com/madisp
 [@mattrose]: https://github.com/mattrose
 [@missedone]: https://github.com/missedone
 [@n-rodriguez]: https://github.com/n-rodriguez
 [@notruthless]: https://github.com/notruthless
+[@paulgeringer]: https://github.com/paulgeringer
 [@riywo]: https://github.com/riywo
 [@rubytester]: https://github.com/rubytester
 [@scotje]: https://github.com/scotje
