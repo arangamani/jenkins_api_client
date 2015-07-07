@@ -324,7 +324,7 @@ module JenkinsApi
               "#{params[:block_build_when_downstream_building]}")
             xml.blockBuildWhenUpstreamBuilding(
               "#{params[:block_build_when_upstream_building]}")
-            xml.triggers.vector do 
+            xml.triggers.vector do
               if params[:timer]
                 xml.send("hudson.triggers.TimerTrigger") do
                   xml.spec params[:timer]
@@ -360,7 +360,7 @@ module JenkinsApi
             xml.buildWrappers
           end
         end
-        
+
         xml_doc = Nokogiri::XML(builder.to_xml)
         plugin_collection.configure(xml_doc).to_xml
       end
@@ -449,7 +449,7 @@ module JenkinsApi
       # @option artifact_params [Boolean] :default_excludes (false)
       #   exclude defaults automatically
       #
-      # @return [Nokogiri::XML::Builder] 
+      # @return [Nokogiri::XML::Builder]
       #
       def artifact_archiver(artifact_params, xml)
         return xml if artifact_params.nil?
@@ -1506,6 +1506,21 @@ module JenkinsApi
         result
       end
 
+
+      # Create a new promotion process
+      #
+      # This must be called before set/get promote config can be used on a process
+      #
+      # Must be called after updating the job's config
+      # @param  [String] job_name
+      # @param  [String] process The process name
+      # @return [String] Process config
+      def init_promote_process(job_name, process, config)
+        @logger.info "Creating new process #{process} for job #{job_name}"
+        @client.post_config("/job/#{job_name}/promotion/createProcess?name=#{process}", config)
+      end
+
+
       # Get a job's promotion config
       #
       # @param  [String] job_name
@@ -1525,6 +1540,16 @@ module JenkinsApi
       def set_promote_config(job_name, process, config)
         @logger.info "Setting promote config for job '#{job_name}' process '#{process}' to #{config}"
         @client.post_config("/job/#{job_name}/promotion/process/#{process}/config.xml", config)
+      end
+
+      # Delete a job's promotion config
+      #
+      # @param [String] job_name
+      # @param [String] process The process name
+      # @return nil
+      def delete_promote_config(job_name, process)
+        @logger.info "Deleting promote config for job '#{job_name}' process '#{process}'"
+        @client.post_config("/job/#{job_name}/promotion/process/#{process}/doDelete")
       end
 
       #A Method to find artifacts path from the Current Build

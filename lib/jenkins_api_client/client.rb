@@ -371,6 +371,8 @@ module JenkinsApi
     #
     # @param [String] url_prefix The prefix to be used in the URL
     # @param [Hash] form_data Form data to send with POST request
+    # @param [Boolean] raw_response Return complete Response object instead of
+    #   JSON body of response
     #
     # @return [String] Response code form Jenkins Response
     #
