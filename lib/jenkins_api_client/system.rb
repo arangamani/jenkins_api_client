@@ -54,11 +54,18 @@ module JenkinsApi
         @client.api_post_request("/quietDown")
       end
 
-      # Cancels the quiet doen request sent to the server.
+      # Cancels the quiet down request sent to the server.
       #
       def cancel_quiet_down
         @logger.info "Cancelling jenkins form quiet down..."
         @client.api_post_request("/cancelQuietDown")
+      end
+
+      # Checks if server is in quiet down mode.
+      #
+      def check_quiet_down
+        @logger.info "Checking if jenkins is in quiet down mode..."
+        @client.quieting_down?
       end
 
       # Restarts the Jenkins server

@@ -233,6 +233,14 @@ module JenkinsApi
       JenkinsApi::Client::User.new(self)
     end
 
+    # Creates an instance of the Root class by passing a reference to self
+    #
+    # @return [JenkinsApi::Client::Root] An object of Root subclass
+    #
+    def root
+      JenkinsApi::Client::Root.new(self)
+    end
+
     # Returns a string representing the class name
     #
     # @return [String] string representation of class name

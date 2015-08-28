@@ -211,7 +211,7 @@ describe JenkinsApi::Client::Node do
           ).and_return(
             @offline_slave
           )
-          @node.method("is_offline?").call("slave").should be_true
+          @node.method("is_offline?").call("slave").should be true
         end
 
         it "returns false if the node is online" do
@@ -223,7 +223,7 @@ describe JenkinsApi::Client::Node do
           ).and_return(
             @online_slave
           )
-          @node.method("is_offline?").call("slave").should be_false
+          @node.method("is_offline?").call("slave").should be false
         end
 
         it "returns false if the node is online and have a string value on its attr" do
@@ -235,7 +235,7 @@ describe JenkinsApi::Client::Node do
           ).and_return(
             @offline_slave_in_string
           )
-          @node.method("is_offline?").call("slave").should be_true
+          @node.method("is_offline?").call("slave").should be true
         end
 
         it "returns false if the node is online and have a string value on its attr" do
@@ -247,7 +247,7 @@ describe JenkinsApi::Client::Node do
           ).and_return(
             @online_slave_in_string
           )
-          @node.method("is_offline?").call("slave").should be_false
+          @node.method("is_offline?").call("slave").should be false
         end
       end
 
@@ -314,7 +314,7 @@ describe JenkinsApi::Client::Node do
             @offline_slave,
             @online_slave
           )
-          @node.method("toggle_temporarilyOffline").call("slave", "foo bar").should be_false
+          @node.method("toggle_temporarilyOffline").call("slave", "foo bar").should be false
         end
 
         it "fails to toggle an offline status of a node" do
