@@ -221,6 +221,20 @@ module JenkinsApi
         job_names
       end
 
+      # List jobs in view along with their details
+      #
+      # @param [String] view_name
+      #
+      # @return [Array<Hash>] the details of jobs in the specified view
+      #
+      def list_jobs_with_details(view_name)
+        @logger.info "Obtaining the jobs present in view '#{view_name}'"
+        raise "The view #{view_name} doesn't exists on the server"\
+          unless exists?(view_name)
+        response_json = @client.api_get_request("/view/#{path_encode view_name}")
+        response_json["jobs"]
+      end
+
       # Add a job to view
       #
       # @param [String] view_name

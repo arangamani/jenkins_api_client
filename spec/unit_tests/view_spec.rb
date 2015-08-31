@@ -98,6 +98,24 @@ describe JenkinsApi::Client::View do
         end
       end
 
+      describe "#list_jobs_with_details" do
+        it "lists all jobs with details in the given view" do
+          @client.should_receive(:api_get_request).with("", "tree=views[name]").and_return(@sample_views_json)
+          @client.should_receive(:api_get_request).with("/view/test_view").and_return(
+              @sample_view_json)
+          response = @view.list_jobs_with_details("test_view")
+          response.class.should == Array
+          response.size.should == @sample_view_json["jobs"].size
+        end
+
+        it "raises an error if called on a non-existent view" do
+          @client.should_receive(:api_get_request).with("", "tree=views[name]").and_return(@sample_views_json)
+          expect(
+              lambda { @view.list_jobs_with_details("i_am_not_there") }
+          ).to raise_error
+        end
+      end
+
       describe "#add_job" do
         it "adds the specified job to the specified view" do
           @client.should_receive(:api_post_request)
