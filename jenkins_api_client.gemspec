@@ -50,6 +50,7 @@ Gem::Specification.new do |s|
     "lib/jenkins_api_client/system.rb",
     "lib/jenkins_api_client/urihelper.rb",
     "lib/jenkins_api_client/user.rb",
+    "lib/jenkins_api_client/root.rb",
     "lib/jenkins_api_client/version.rb",
     "lib/jenkins_api_client/view.rb",
     "scripts/login_with_irb.rb",

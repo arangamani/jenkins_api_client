@@ -51,7 +51,7 @@ module JenkinsApi
       #
       def quieting_down?
         response_json = @client.api_get_request ("")
-        !response_json.nil? && response_json['quietingDown'] == 'true'
+        response_json['quietingDown']
       end
 
       # Get message displayed to users on the homepage
@@ -60,9 +60,7 @@ module JenkinsApi
       #
       def description
         response_json = @client.api_get_request ("")
-        if !response_json.nil?
-          response_json['description']
-        end
+        response_json['description']
       end
     end
   end

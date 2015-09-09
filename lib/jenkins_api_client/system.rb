@@ -63,9 +63,9 @@ module JenkinsApi
 
       # Checks if server is in quiet down mode.
       #
-      def check_quiet_down
+      def check_quiet_down?
         @logger.info "Checking if jenkins is in quiet down mode..."
-        @client.quieting_down?
+        @client.root.quieting_down?
       end
 
       # Restarts the Jenkins server
