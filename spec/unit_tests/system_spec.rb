@@ -41,8 +41,11 @@ describe JenkinsApi::Client::System do
 
       describe "#check_quiet_down" do
         it "checks if the server is presently in quiet down mode" do
-          @client.should_receive(:quieting_down?)
-          @system.check_quiet_down
+          @client.should_receive(:logger).and_return(Logger.new "/dev/null")
+          @root = JenkinsApi::Client::Root.new(@client)
+          @root.should_receive(:quieting_down?)
+          @client.should_receive(:root).and_return(@root)
+          @system.check_quiet_down?
         end
       end
 

@@ -13,12 +13,12 @@ describe JenkinsApi::Client::Root do
             "name" => "default_view",
             "url" => "http://buildsystem:9999/jenkins"
         ],
-        "quietingDown" => "false",
+        "quietingDown" => false,
         "useCrumbs" => "true",
         "useSecurity" => "true"
       }
       @sample_root_json2 = {
-        "quietingDown" => "true"
+        "quietingDown" => true
       }
     end
 
@@ -36,12 +36,12 @@ describe JenkinsApi::Client::Root do
       describe "#quieting_down?" do
         it "returns false if jenkins is jenkins is not quieting down" do
           allow(@client).to receive(:api_get_request).with("").and_return(@sample_root_json1)
-          expect @root.quieting_down?.should == false
+          expect @root.quieting_down?.should be false
         end
 
         it "returns true if jenkins quieting down" do
           allow(@client).to receive(:api_get_request).with("").and_return(@sample_root_json2)
-          expect @root.quieting_down?.should == true
+          expect @root.quieting_down?.should be true
         end
       end
 
