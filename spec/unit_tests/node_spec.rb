@@ -151,6 +151,19 @@ describe JenkinsApi::Client::Node do
         end
       end
 
+      describe "#online_offline_lists" do
+        it "accepts filter and returns one offline list and one online list of nodes matching the filter" do
+          @client.should_receive(
+              :api_get_request
+          ).with(
+              "/computer"
+          ).and_return(
+              @sample_json_list_response
+          )
+          @node.online_offline_lists("slave").class.should == Array
+        end
+      end
+
       describe "GeneralAttributes" do
         general_attributes = JenkinsApi::Client::Node::GENERAL_ATTRIBUTES
         general_attributes.each do |attribute|
@@ -211,7 +224,7 @@ describe JenkinsApi::Client::Node do
           ).and_return(
             @offline_slave
           )
-          @node.method("is_offline?").call("slave").should be_true
+          @node.method("is_offline?").call("slave").should be true
         end
 
         it "returns false if the node is online" do
@@ -223,7 +236,7 @@ describe JenkinsApi::Client::Node do
           ).and_return(
             @online_slave
           )
-          @node.method("is_offline?").call("slave").should be_false
+          @node.method("is_offline?").call("slave").should be false
         end
 
         it "returns false if the node is online and have a string value on its attr" do
@@ -235,7 +248,7 @@ describe JenkinsApi::Client::Node do
           ).and_return(
             @offline_slave_in_string
           )
-          @node.method("is_offline?").call("slave").should be_true
+          @node.method("is_offline?").call("slave").should be true
         end
 
         it "returns false if the node is online and have a string value on its attr" do
@@ -247,7 +260,7 @@ describe JenkinsApi::Client::Node do
           ).and_return(
             @online_slave_in_string
           )
-          @node.method("is_offline?").call("slave").should be_false
+          @node.method("is_offline?").call("slave").should be false
         end
       end
 
@@ -314,7 +327,7 @@ describe JenkinsApi::Client::Node do
             @offline_slave,
             @online_slave
           )
-          @node.method("toggle_temporarilyOffline").call("slave", "foo bar").should be_false
+          @node.method("toggle_temporarilyOffline").call("slave", "foo bar").should be false
         end
 
         it "fails to toggle an offline status of a node" do
