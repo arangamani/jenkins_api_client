@@ -35,19 +35,19 @@ describe JenkinsApi::Client::Root do
 
       describe "#quieting_down?" do
         it "returns false if jenkins is jenkins is not quieting down" do
-          allow(@client).to receive(:api_get_request).with("").and_return(@sample_root_json1)
+          allow(@client).to receive(:api_get_request).with('', 'tree=quietingDown').and_return(@sample_root_json1)
           expect @root.quieting_down?.should be false
         end
 
         it "returns true if jenkins quieting down" do
-          allow(@client).to receive(:api_get_request).with("").and_return(@sample_root_json2)
+          allow(@client).to receive(:api_get_request).with('', 'tree=quietingDown').and_return(@sample_root_json2)
           expect @root.quieting_down?.should be true
         end
       end
 
       describe "#description" do
         it "gets the message displayed to users on the home page" do
-          allow(@client).to receive(:api_get_request).with("").and_return(@sample_root_json1)
+          allow(@client).to receive(:api_get_request).with('', 'tree=description').and_return(@sample_root_json1)
           expect @root.description.should == "Hello Users"
         end
       end

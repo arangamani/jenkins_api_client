@@ -50,7 +50,7 @@ module JenkinsApi
       # @return [Boolean] true if server in shutdown mode
       #
       def quieting_down?
-        response_json = @client.api_get_request ("")
+        response_json = @client.api_get_request('', 'tree=quietingDown')
         response_json['quietingDown']
       end
 
@@ -59,7 +59,7 @@ module JenkinsApi
       # @return [String] description - message displayed to users
       #
       def description
-        response_json = @client.api_get_request ("")
+        response_json = @client.api_get_request('', 'tree=description')
         response_json['description']
       end
     end
