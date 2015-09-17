@@ -244,7 +244,7 @@ module JenkinsApi
       GENERAL_ATTRIBUTES.each do |meth_suffix|
         define_method("get_#{meth_suffix}") do
           @logger.info "Obtaining '#{meth_suffix}' attribute from jenkins"
-          response_json = @client.api_get_request("/computer", "tree=#{path_encode meth_suffix}")
+          response_json = @client.api_get_request("/computer", "tree=#{path_encode meth_suffix}[*[*[*]]]")
           response_json["#{meth_suffix}"]
         end
       end
@@ -266,7 +266,7 @@ module JenkinsApi
         define_method("get_node_#{meth_suffix}") do |node_name|
           @logger.info "Obtaining '#{meth_suffix}' attribute of '#{node_name}'"
           node_name = "(master)" if node_name == "master"
-          response_json = @client.api_get_request("/computer/#{path_encode node_name}", "tree=#{path_encode meth_suffix}")
+          response_json = @client.api_get_request("/computer/#{path_encode node_name}", "tree=#{path_encode meth_suffix}[*[*[*]]]")
           response_json["#{meth_suffix}"]
         end
       end
