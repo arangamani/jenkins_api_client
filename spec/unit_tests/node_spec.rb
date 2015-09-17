@@ -160,7 +160,7 @@ describe JenkinsApi::Client::Node do
                 :api_get_request
               ).with(
                 "/computer",
-                "tree=#{attribute}"
+                "tree=#{attribute}[*[*[*]]]"
               ).and_return(
                 @sample_json_list_response
               )
@@ -260,7 +260,7 @@ describe JenkinsApi::Client::Node do
                 :api_get_request
               ).with(
                 "/computer/slave",
-                "tree=#{attribute}"
+                "tree=#{attribute}[*[*[*]]]"
               ).and_return(
                 @sample_json_computer_response
               )
@@ -272,7 +272,7 @@ describe JenkinsApi::Client::Node do
                 :api_get_request
               ).with(
                 "/computer/(master)",
-                "tree=#{attribute}"
+                "tree=#{attribute}[*[*[*]]]"
               ).and_return(
                 @sample_json_computer_response
               )
