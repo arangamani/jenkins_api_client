@@ -4,6 +4,10 @@ CHANGELOG
 upcoming
 --------
 
+v1.4.1   [21-SEP-2015]
+----------------------
+* [#191][] Add dynamic depth support for node attributes. Credit: [@stjohnjohnson][]
+
 v1.4.0   [08-JUN-2015]
 ----------------------
 * [#161][] Fix job#build method when true/false values are passed as timeout parameter. Credit: [@jlucasps][]
@@ -326,6 +330,7 @@ v0.0.1  [15-OCT-2012]
 [#176]: https://github.com/arangamani/jenkins_api_client/issues/176
 [#177]: https://github.com/arangamani/jenkins_api_client/issues/177
 [#179]: https://github.com/arangamani/jenkins_api_client/issues/179
+[#191]: https://github.com/arangamani/jenkins_api_client/issues/191
 [@AndrewHanes]: https://github.com/AndrewHanes
 [@Loa]: https://github.com/Loa
 [@Niarfe]: https://github.com/Niarfe
