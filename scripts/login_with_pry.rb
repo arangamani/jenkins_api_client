@@ -33,7 +33,7 @@ def get_from_stdin(prompt, mask = false)
 end
 
 if ARGV.empty?
-  config_file = '~/.jenkins_api_client/spec.yml'
+  config_file = '~/.jenkins_api_client/login.yml'
 else
   config_file = ARGV.shift
 end
