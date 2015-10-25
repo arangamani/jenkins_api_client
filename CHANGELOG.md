@@ -4,6 +4,10 @@ CHANGELOG
 upcoming
 --------
 
+v1.4.2   [25-OCT-2015]
+----------------------
+* [#188][] Added ability view jobs in a view with details. Credir: [@Tyrael][]
+
 v1.4.1   [21-SEP-2015]
 ----------------------
 * [#191][] Add dynamic depth support for node attributes. Credit: [@stjohnjohnson][]
@@ -330,10 +334,12 @@ v0.0.1  [15-OCT-2012]
 [#176]: https://github.com/arangamani/jenkins_api_client/issues/176
 [#177]: https://github.com/arangamani/jenkins_api_client/issues/177
 [#179]: https://github.com/arangamani/jenkins_api_client/issues/179
+[#188]: https://github.com/arangamani/jenkins_api_client/issues/188
 [#191]: https://github.com/arangamani/jenkins_api_client/issues/191
 [@AndrewHanes]: https://github.com/AndrewHanes
 [@Loa]: https://github.com/Loa
 [@Niarfe]: https://github.com/Niarfe
+[@Tyrael]: https://github.com/Tyrael
 [@bkon]: https://github.com/bkon
 [@bobbrez]: https://github.com/bobbrez
 [@brettporter]: https://github.com/brettporter
