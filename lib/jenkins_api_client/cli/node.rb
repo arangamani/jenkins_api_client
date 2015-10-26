@@ -21,6 +21,7 @@
 #
 
 require 'thor'
+require 'json'
 require 'thor/group'
 require 'terminal-table'
 
@@ -57,6 +58,89 @@ module JenkinsApi
         table = Table.new :headings => ['Attribute', 'Value'], :rows => rows
         puts table
       end
+
+      desc "create", "creates new node(s)"
+      # CLI command that creates new node
+      option :json
+      option :name
+      option :slave_host
+      option :credentials_id
+      option :private_key_file
+      option :executors
+      option :labels
+      def create
+        @client = Helper.setup(parent_options)
+        if options[:json]
+          json_file = "#{options[:json]}" 
+          file = File.read(json_file)
+          node_details = JSON.parse(file)
+          node_label = node_details['node_label']
+          executors = node_details['executors']
+          template_detail_hash = node_details['template_detail']
+          host_list_array = node_details['host_list']
+          host_list_array.each_with_index {|val, index|
+            host_name = "#{val}"
+            if ! template_detail_hash['node_user_credentials_id'].empty?
+              credentials_id = template_detail_hash['node_user_credentials_id']
+            else
+              raise "failed to find a credentials_id for "+template_detail_hash['node_username']+"\nPlease add this user in jenkins and #{options[:json]}"
+            end
+            @client.node.create_dumb_slave(
+              :name => host_name,
+              :slave_host => host_name,
+              :credentials_id => credentials_id,
+              :private_key_file => "",
+              :executors => executors.empty? ? (2) : (executors),
+              :labels => node_label)
+          }
+        elsif options[:name] && options[:credentials_id] && options[:labels]
+          @client.node.create_dumb_slave(
+            :name => options[:name],
+            :slave_host => options[:name],
+            :credentials_id => options[:credentials_id],
+            :private_key_file => "",
+            :executors => options[:executors].empty? ? (2) : (options[:executors]),
+            :labels => options[:labels])
+        else
+          @client.logger.info "incorrect usage.\n"
+
+        end
+      end
+
+  desc "delete","deletes a given node or a list of nodes in json file"
+  # CLI command that deletes node
+      option :json
+      option :node_name
+
+      def delete
+        @client = Helper.setup(parent_options)
+        if options[:json]
+          json_file = "#{options[:json]}" 
+          file = File.read(json_file)
+          node_details = JSON.parse(file)
+          template_detail_hash = node_details['template_detail']
+          host_list_array = node_details['host_list']
+          host_list_array.each_with_index {|val, index|
+          host_name = "#{val}"
+          node_result = @client.node.index(host_name)
+          if ! node_result.is_a? Enumerable
+            @client.node.delete(host_name)
+          else
+            @client.logger.info "node not found : #{host_name}\n"
+          end
+        }
+      elsif options[:node_name]
+        node_result = @client.node.index(options[:node_name])
+        if ! node_result.is_a? Enumerable
+          @client.node.delete(options[:node_name])
+        else
+          @client.logger.info "node not found : #{options[:node_name]}\n"
+        end
+      else
+        @client.logger.info "incorrect usage\n"
+      end
+    end
+
 
       desc "print_node_attributes NODE", "Prints attributes specific to a node"
       # CLI command to print the attributes specific to a node
