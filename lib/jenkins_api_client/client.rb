@@ -357,7 +357,7 @@ module JenkinsApi
       else
         to_get = "#{url_prefix}#{url_suffix}"
       end
-      request = Net::HTTP::Get.new(to_get)
+      request = Net::HTTP::Get.new(URI.escape(to_get))
       @logger.debug "GET #{to_get}"
       response = make_http_request(request)
       if raw_response
