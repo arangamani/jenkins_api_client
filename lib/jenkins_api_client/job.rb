@@ -1086,6 +1086,23 @@ module JenkinsApi
         nil
       end
 
+      # Obtain the plugin results for a specific build of a job
+      #
+      # @param [String] job_name
+      # @param [Number] build_num
+      # @param [String] plugin_name
+      #
+      def get_plugin_results(job_name, build_num, plugin_name)
+        build_num = get_current_build_number(job_name) if build_num == 0
+        @logger.info "Obtaining the '#{plugin_name}' plugin results of '#{job_name}'" +
+          " Build ##{build_num}"
+        @client.api_get_request("/job/#{path_encode job_name}/#{build_num}/#{plugin_name}Result")
+      rescue Exceptions::NotFound
+        # Not found is acceptable, as not all builds will have plugin results
+        # and this is what jenkins throws at us in that case
+        nil
+      end
+
       # Obtain detailed build info for a job
       #
       # @param [String] job_name
