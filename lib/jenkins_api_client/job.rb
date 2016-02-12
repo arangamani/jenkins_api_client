@@ -299,6 +299,16 @@ module JenkinsApi
             xml.description
             xml.keepDependencies "#{params[:keep_dependencies]}"
             xml.properties
+            #buildlogs related stuff
+            if params[:discard_old_builds]
+              xml.logRotator(:class => 'hudson.tasks.LogRotator') do
+                xml.daysToKeep params[:discard_old_builds][:daysToKeep] || -1
+                xml.numToKeep params[:discard_old_builds][:numToKeep] || -1
+                xml.artifactDaysToKeep params[:discard_old_builds][:artifactDaysToKeep] || -1
+                xml.artifactNumToKeep params[:discard_old_builds][:artifactNumToKeep] || -1
+              end
+            end
+
             # SCM related stuff
             if params[:scm_provider] == 'subversion'
               # Build subversion related XML portion
