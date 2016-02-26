@@ -89,6 +89,13 @@ Request Forgery exploits' to be disabled.  The API will check in with the
 Jenkins server to determine whether crumbs are enabled or not, and use them
 if appropriate.
 
+### SSL certificate verification
+
+When connecting over HTTPS if the server's certificate is not trusted the
+connection will be aborted. To trust a certificate specify the `ca_file`
+parameter when creating the client. The value should be a path to a PEM encoded
+file containing the certificates.
+
 ### Basic Usage
 
 As discussed earlier, you can either specify all the credentials and server

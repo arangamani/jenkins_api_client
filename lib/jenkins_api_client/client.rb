@@ -64,6 +64,7 @@ module JenkinsApi
       "http_open_timeout",
       "http_read_timeout",
       "ssl",
+      "ca_file",
       "follow_redirects",
       "identity_file",
       "cookies"
@@ -88,6 +89,7 @@ module JenkinsApi
     # @option args [String] :proxy_port the proxy port
     # @option args [String] :jenkins_path ("/") the optional context path for Jenkins
     # @option args [Boolean] :ssl (false) indicates if Jenkins is accessible over HTTPS
+    # @option args [String] :ca_file the path to a PEM encoded file containing trusted certificates used to verify peer certificate
     # @option args [Boolean] :follow_redirects this argument causes the client to follow a redirect (jenkins can
     #   return a 30x when starting a build)
     # @option args [Fixnum] :timeout (120) This argument sets the timeout for operations that take longer (in seconds)
@@ -248,6 +250,7 @@ module JenkinsApi
     def inspect
       "#<JenkinsApi::Client:0x#{(self.__id__ * 2).to_s(16)}" +
         " @ssl=#{@ssl.inspect}," +
+        " @ca_file=#{@ca_file.inspect}," +
         " @log_location=#{@log_location.inspect}," +
         " @log_level=#{@log_level.inspect}," +
         " @crumbs_enabled=#{@crumbs_enabled.inspect}," +
@@ -265,13 +268,7 @@ module JenkinsApi
     #
     def get_artifact(job_name,filename)
       @artifact = job.find_artifact(job_name)
-      uri = URI.parse(@artifact)
-      http = Net::HTTP.new(uri.host, uri.port)
-      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-      http.use_ssl = @ssl
-      request = Net::HTTP::Get.new(uri.request_uri)
-      request.basic_auth(@username, @password)
-      response = http.request(request)
+      response = make_http_request(Net::HTTP::Get.new(@artifact))
       if response.code == "200"
         File.write(File.expand_path(filename), response.body)
       else
@@ -299,7 +296,9 @@ module JenkinsApi
 
       if @ssl
         http.use_ssl = true
-        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+        http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+        http.ca_file = @ca_file if @ca_file
       end
 
       http.open_timeout = @http_open_timeout
