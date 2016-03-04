@@ -65,6 +65,16 @@ module JenkinsApi
         tasks
       end
 
+      # Lists all tasks currently in the build queue as [QueueItem] objects
+      #
+      def list_tasks
+        @logger.info "Obtaining the tasks currently in the build queue"
+        response_json = @client.api_get_request("/queue")
+        tasks = response_json["items"].map do |item|
+            QueueItem.new(@client, item)
+        end
+      end
+
       # Gets the time number of seconds the task is in the queue
       #
       # @param [String] task_name Name of the task/job
