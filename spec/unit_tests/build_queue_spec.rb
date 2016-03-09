@@ -66,6 +66,19 @@ describe JenkinsApi::Client::BuildQueue do
         end
       end
 
+      describe "#list_tasks" do
+        it "returns the list of tasks in the queue as QueueItems" do
+          @client.should_receive(:api_get_request).with("/queue").and_return(
+            @sample_queue_json
+          )
+          tasks = @queue.list_tasks
+          tasks.class.should == Array
+          tasks.each do |t|
+              t.class.should == JenkinsApi::Client::QueueItem
+          end
+        end
+      end
+
       describe "#get_age" do
         it "returns the age of a task" do
           @client.should_receive(:api_get_request).with("/queue").and_return(
