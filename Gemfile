@@ -14,4 +14,7 @@ group :development do
   gem "yard-thor"
   gem "yard"
   gem "pry"
+  # this is required to avoid `undefined method last_comment`
+  # until jeweler is upgraded
+  gem "rake", "< 11.0"
 end
