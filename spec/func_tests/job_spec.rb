@@ -464,6 +464,33 @@ describe JenkinsApi::Client::Job do
         end
       end
 
+      describe "#list_builds" do
+        it "Should get builds of a specified job, and query their parameters" do
+          job = 'dummy_with_params'
+          begin
+            tries ||= 1
+            xml = @helper.create_job_with_params_xml
+            @client.job.create(job, xml).to_i.should == 200
+          rescue JenkinsApi::Exceptions::JobAlreadyExists
+            @client.job.delete(job)
+            tries -= 1
+            retry if tries >= 0
+          end
+
+          2.times do |num|
+            @client.job.build(job, {"PARAM1" => num})
+            sleep 10
+            while @client.job.get_current_build_status(job) == "running" do
+              sleep 2
+            end
+          end
+          builds = @client.job.list_builds(job)
+          builds.class.should == Array
+          builds.map {|b| b.id }.sort.should == [1, 2]
+          builds.map {|b| b.params['PARAM1']}.sort.should == ['0', '1']
+        end
+      end
+
       describe "#get_current_build_status" do
         it "Should obtain the current build status for the specified job" do
           build_status = @client.job.get_current_build_status(@job_name)
