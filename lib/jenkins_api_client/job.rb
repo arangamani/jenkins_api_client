@@ -665,6 +665,17 @@ module JenkinsApi
         jobs
       end
 
+      # List all builds for a given job
+      #
+      # @return an array of [JobBuild] items
+      def list_builds(job_name)
+        @logger.info "Obtaining the builds of #{job_name}"
+        response_json = @client.api_get_request("/job/#{job_name}", "tree=builds[number]")
+        tasks = response_json["builds"].map do |item|
+            JobBuild.new(@client, :id => item['number'],:name => job_name)
+        end
+      end
+
       # List all jobs on the Jenkins CI server along with their details
       #
       # @return [Array<Hash>] the details of all jobs in jenkins

@@ -23,6 +23,7 @@
 require 'jenkins_api_client/version'
 require 'jenkins_api_client/exceptions'
 require 'jenkins_api_client/client'
+require 'jenkins_api_client/job_build'
 require 'jenkins_api_client/job'
 require 'jenkins_api_client/node'
 require 'jenkins_api_client/system'
