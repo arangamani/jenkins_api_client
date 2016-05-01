@@ -5,6 +5,7 @@ gem "thor", ">= 0.16.0"
 gem "json", ">= 0"
 gem "terminal-table", ">= 1.4.0"
 gem "mixlib-shellout", ">= 1.1.0"
+gem 'socksify', ">= 1.7.0"
 
 group :development do
   gem "bundler", ">= 1.0"
