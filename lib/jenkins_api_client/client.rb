@@ -29,6 +29,7 @@ require 'base64'
 require 'mixlib/shellout'
 require 'uri'
 require 'logger'
+require 'socksify/http'
 
 # The main module that contains the Client class and all subclasses that
 # communicate with the Jenkins's Remote Access API.
@@ -53,6 +54,7 @@ module JenkinsApi
       "server_port",
       "proxy_ip",
       "proxy_port",
+      "proxy_protocol",
       "jenkins_path",
       "username",
       "password",
@@ -86,6 +88,7 @@ module JenkinsApi
     #   <Server IP>:<Server Port>/user/<Username>/configure
     # @option args [String] :proxy_ip the proxy IP address
     # @option args [String] :proxy_port the proxy port
+    # @option args [String] :proxy_protocol the proxy protocol ('socks' or 'http' (defaults to HTTP)
     # @option args [String] :jenkins_path ("/") the optional context path for Jenkins
     # @option args [Boolean] :ssl (false) indicates if Jenkins is accessible over HTTPS
     # @option args [Boolean] :follow_redirects this argument causes the client to follow a redirect (jenkins can
@@ -146,6 +149,7 @@ module JenkinsApi
       @http_open_timeout = DEFAULT_HTTP_OPEN_TIMEOUT unless @http_open_timeout
       @http_read_timeout = DEFAULT_HTTP_READ_TIMEOUT unless @http_read_timeout
       @ssl ||= false
+      @proxy_protocol ||= 'http'
 
       # Setting log options
       if @logger
@@ -292,7 +296,14 @@ module JenkinsApi
       request['Cookie'] = @cookies if @cookies
 
       if @proxy_ip
-        http = Net::HTTP::Proxy(@proxy_ip, @proxy_port).new(@server_ip, @server_port)
+        case @proxy_protocol
+        when 'http'
+          http = Net::HTTP::Proxy(@proxy_ip, @proxy_port).new(@server_ip, @server_port)
+        when 'socks'
+          http = Net::HTTP::SOCKSProxy(@proxy_ip, @proxy_port).start(@server_ip, @server_port)
+        else
+          raise "unknwon proxy protocol: '#{@proxy_protocol}'"
+        end
       else
         http = Net::HTTP.new(@server_ip, @server_port)
       end
