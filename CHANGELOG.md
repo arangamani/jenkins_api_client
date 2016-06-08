@@ -4,9 +4,13 @@ CHANGELOG
 upcoming
 --------
 
+v1.4.3   [07-JUN-2016]
+----------------------
+* [#207][] Add support for SOCKS proxies. Credit: [@dylanmckay][]
+
 v1.4.2   [25-OCT-2015]
 ----------------------
-* [#188][] Added ability view jobs in a view with details. Credir: [@Tyrael][]
+* [#188][] Added ability view jobs in a view with details. Credit: [@Tyrael][]
 
 v1.4.1   [21-SEP-2015]
 ----------------------
@@ -336,6 +340,7 @@ v0.0.1  [15-OCT-2012]
 [#179]: https://github.com/arangamani/jenkins_api_client/issues/179
 [#188]: https://github.com/arangamani/jenkins_api_client/issues/188
 [#191]: https://github.com/arangamani/jenkins_api_client/issues/191
+[#207]: https://github.com/arangamani/jenkins_api_client/issues/207
 [@AndrewHanes]: https://github.com/AndrewHanes
 [@Loa]: https://github.com/Loa
 [@Niarfe]: https://github.com/Niarfe
@@ -353,6 +358,7 @@ v0.0.1  [15-OCT-2012]
 [@dkerwin]: https://github.com/dkerwin
 [@dougforpres]: https://github.com/dougforpres
 [@drnic]: https://github.com/drnic
+[@dylanmckay]: https://github.com/dylanmckay
 [@gpetras]: https://github.com/gpetras
 [@hubert]: https://github.com/hubert
 [@jlucasps]: https://github.com/jlucasps
