@@ -113,7 +113,17 @@ module JenkinsApi
       #   }
       #
       def get(user_id)
-        response = @client.api_get_request("/user/#{path_encode user_id}")
+        @client.api_get_request("/user/#{path_encode user_id}")
+      end
+
+      def get_api_token(user_id)
+        response = @client.api_get_request("/user/#{path_encode user_id}/configure", nil, '')
+        html = Nokogiri::HTML(response)
+        attr = html.xpath('//input[@id="apiToken"]/@value').first
+        if attr.nil?
+          raise Exceptions::ApiException.new(@logger, "Failed to get api token")
+        end
+        attr.value
       end
 
     end

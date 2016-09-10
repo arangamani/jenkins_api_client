@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby1.9.1
+#!/usr/bin/env ruby
 # This script provides an easier way to login to Jenkins server API.
 # It logs you in with the credentials and server details you proided and then
 # starts an IRB session so you can interactively play with the API.
@@ -18,7 +18,7 @@ end
 
 def get_from_stdin(prompt, mask = false)
   $stdout.write(prompt)
-  
+
   begin
     Kernel::system "stty -echo" if mask == true
     ret = gets.chomp!
@@ -46,7 +46,7 @@ begin
   unless client_opts.has_key?(:password) or client_opts.has_key?(:password_base64)
     client_opts[:password] = prompt_for_password()
   end
-  
+
   @client = JenkinsApi::Client.new(client_opts)
   puts "logged-in to the Jenkins API, use the '@client' variable to use the client"
 end
