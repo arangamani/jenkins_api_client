@@ -4,6 +4,10 @@ CHANGELOG
 upcoming
 --------
 
+v1.4.4   [09-SEP-2016]
+----------------------
+* [#213][] Add support for getting a user's API token.
+
 v1.4.3   [07-JUN-2016]
 ----------------------
 * [#207][] Add support for SOCKS proxies. Credit: [@dylanmckay][]
@@ -341,6 +345,7 @@ v0.0.1  [15-OCT-2012]
 [#188]: https://github.com/arangamani/jenkins_api_client/issues/188
 [#191]: https://github.com/arangamani/jenkins_api_client/issues/191
 [#207]: https://github.com/arangamani/jenkins_api_client/issues/207
+[#213]: https://github.com/arangamani/jenkins_api_client/issues/213
 [@AndrewHanes]: https://github.com/AndrewHanes
 [@Loa]: https://github.com/Loa
 [@Niarfe]: https://github.com/Niarfe
