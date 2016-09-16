@@ -273,6 +273,23 @@ describe JenkinsApi::Client::Job do
         end
       end
 
+      describe "#list_builds" do
+        it "returns the array of builds of a job" do
+          json = {
+              "builds" => (1..5).map do |x|
+                  {
+                      "number" => x
+                  }
+              end
+          }
+          @client.should_receive(:api_get_request).with("/job/test_job", anything()).and_return(
+            json)
+          response = @job.list_builds('test_job')
+          response.class.should == Array
+          response.map { |b| b.id }.should == Array(1..5)
+        end
+      end
+
       describe "#exists?" do
         it "accepts a job name and returns true if the job exists" do
           @client.should_receive(:api_get_request).and_return(
