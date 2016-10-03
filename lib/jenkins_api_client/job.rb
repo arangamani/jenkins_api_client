@@ -1508,7 +1508,7 @@ module JenkinsApi
       # @return [String] Process config
       def init_promote_process(job_name, process, config)
         @logger.info "Creating new process #{process} for job #{job_name}"
-        @client.post_config("/job/#{job_name}/promotion/createProcess?name=#{process}", config)
+        @client.post_config("/job/#{path_encode job_name}/promotion/createProcess?name=#{path_encode process}", config)
       end
 
 
@@ -1519,7 +1519,7 @@ module JenkinsApi
       # @return [String] Promote config
       def get_promote_config(job_name, process)
         @logger.info "Getting promote config for job '#{job_name}' process '#{process}'"
-        @client.get_config("/job/#{job_name}/promotion/process/#{process}/config.xml")
+        @client.get_config("/job/#{path_encode job_name}/promotion/process/#{path_encode process}/config.xml")
       end
 
       # Set a job's promotion config
@@ -1530,7 +1530,7 @@ module JenkinsApi
       # @return nil
       def set_promote_config(job_name, process, config)
         @logger.info "Setting promote config for job '#{job_name}' process '#{process}' to #{config}"
-        @client.post_config("/job/#{job_name}/promotion/process/#{process}/config.xml", config)
+        @client.post_config("/job/#{path_encode job_name}/promotion/process/#{path_encode process}/config.xml", config)
       end
 
       # Delete a job's promotion config
@@ -1540,7 +1540,7 @@ module JenkinsApi
       # @return nil
       def delete_promote_config(job_name, process)
         @logger.info "Deleting promote config for job '#{job_name}' process '#{process}'"
-        @client.post_config("/job/#{job_name}/promotion/process/#{process}/doDelete")
+        @client.post_config("/job/#{path_encode job_name}/promotion/process/#{path_encode process}/doDelete")
       end
 
       #A Method to find artifacts path from the Current Build
