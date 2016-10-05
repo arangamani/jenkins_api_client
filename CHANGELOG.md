@@ -4,6 +4,10 @@ CHANGELOG
 upcoming
 --------
 
+v1.4.5   [05-OCT-2016]
+----------------------
+* Remove unnecessary rack gem as a runtime dependency.
+
 v1.4.4   [09-SEP-2016]
 ----------------------
 * [#213][] Add support for getting a user's API token.
