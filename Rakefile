@@ -22,7 +22,7 @@ Jeweler::Tasks.new do |gemspec|
 This is a simple and easy-to-use Jenkins Api client with features focused on
 automating Job configuration programaticaly and so forth}
   gemspec.test_files = `git ls-files -- {spec}/*`.split("\n")
-  gemspec.required_ruby_version    = '>= 1.9.2'
+  gemspec.required_ruby_version    = '>= 2.1.5'
   gemspec.rubygems_version = '1.8.17'
 end
 
