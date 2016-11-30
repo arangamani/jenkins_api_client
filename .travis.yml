@@ -2,7 +2,6 @@ language: ruby
 
 rvm:
   - 2.1.5
-  - 1.9.3
 
 script:
   - bundle exec rake unit_tests
