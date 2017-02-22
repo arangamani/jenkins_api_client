@@ -102,7 +102,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<terminal-table>, [">= 1.4.0"])
       s.add_runtime_dependency(%q<mixlib-shellout>, [">= 1.1.0"])
       s.add_runtime_dependency(%q<socksify>, [">= 1.7.0"])
-      s.add_runtime_dependency(%q<json>, ["~> 1.0"])
+      s.add_runtime_dependency(%q<json>, [">= 1.0"])
       s.add_development_dependency(%q<bundler>, [">= 1.0"])
       s.add_development_dependency(%q<rspec>, ["~> 2.14.1"])
       s.add_development_dependency(%q<simplecov>, [">= 0"])
