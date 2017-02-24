@@ -10,11 +10,11 @@ gem 'json', '~> 1.0'
 group :development do
   gem "bundler", ">= 1.0"
   gem "rspec", "~> 2.14.1"
-  gem "simplecov"
+  gem "simplecov", "0.10.0"
   gem "yard-thor"
   gem "yard"
   gem "pry"
   gem "rake", "< 12.0"
-  gem "jeweler"
+  gem "jeweler", "< 2.3.3"
   gem "rack", "~> 1.0"
 end
