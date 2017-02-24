@@ -14,7 +14,7 @@ group :development do
   gem "yard-thor"
   gem "yard"
   gem "pry"
-  gem "rake"
+  gem "rake", "< 12.0"
   gem "jeweler"
   gem "rack", "~> 1.0"
 end
