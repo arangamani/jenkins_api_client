@@ -57,7 +57,7 @@ describe JenkinsApi::Client::Job do
           @valid_post_responses.should include(
             @client.job.create(name, xml).to_i
           )
-          @client.job.list(name).include?(name).should be_true
+          @client.job.list(name).include?(name).should be_truthy
         end
         it "Should raise proper exception when the job already exists" do
           xml = @helper.create_job_xml
@@ -65,7 +65,7 @@ describe JenkinsApi::Client::Job do
           @valid_post_responses.should include(
             @client.job.create(name, xml).to_i
           )
-          @client.job.list(name).include?(name).should be_true
+          @client.job.list(name).include?(name).should be_truthy
           expect(
             lambda { @client.job.create(name, xml) }
           ).to raise_error(JenkinsApi::Exceptions::JobAlreadyExists)
@@ -81,7 +81,7 @@ describe JenkinsApi::Client::Job do
           @valid_post_responses.should include(
             @client.job.create_freestyle(params).to_i
           )
-          @client.job.list(name).include?(name).should be_true
+          @client.job.list(name).include?(name).should be_truthy
           # Test for the existense of the given line in the config.xml of the
           # job created
           unless config_line.nil?
@@ -91,7 +91,7 @@ describe JenkinsApi::Client::Job do
           @valid_post_responses.should include(
             @client.job.delete(name).to_i
           )
-          @client.job.list(name).include?(name).should be_false
+          @client.job.list(name).include?(name).should be_falsey
         end
 
         it "Should create a freestyle job with just name" do
@@ -476,7 +476,7 @@ describe JenkinsApi::Client::Job do
             "unstable",
             "running"
           ]
-          valid_build_status.include?(build_status).should be_true
+          valid_build_status.include?(build_status).should be_truthy
         end
       end
 
