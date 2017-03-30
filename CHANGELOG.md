@@ -4,6 +4,10 @@ CHANGELOG
 upcoming
 --------
 
+v1.4.6   [29-MAR-2017]
+----------------------
+* Relax on nokogiri version requirement.
+
 v1.4.5   [05-OCT-2016]
 ----------------------
 * Remove unnecessary rack gem as a runtime dependency.
