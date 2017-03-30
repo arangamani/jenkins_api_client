@@ -4,6 +4,10 @@ CHANGELOG
 upcoming
 --------
 
+v1.5.3   [29-MAR-2017]
+----------------------
+* [#230][] Relax on nokogiri version requirement for right this time. Credit [@grosser][]
+
 v1.5.2   [29-MAR-2017]
 ----------------------
 * [#222][] Relax on nokogiri version requirement. Credit [@grosser][]
