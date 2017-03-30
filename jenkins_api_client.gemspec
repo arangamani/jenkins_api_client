@@ -25,6 +25,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'terminal-table', '>= 1.4.0'
   s.add_dependency 'mixlib-shellout', '>= 1.1.0'
   s.add_dependency 'socksify', '>= 1.7.0'
-  s.add_dependency 'json', '~> 1.0'
+  s.add_dependency 'json', '>= 1.0'
 end
 

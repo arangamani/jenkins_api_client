@@ -4,9 +4,11 @@ CHANGELOG
 upcoming
 --------
 
-v1.4.6   [29-MAR-2017]
+v1.5.0   [29-MAR-2017]
 ----------------------
-* Relax on nokogiri version requirement.
+* [#222][] Relax on nokogiri version requirement. Credit [@grosser][]
+* Relax on JSON version requirement.
+* Remove ruby 1.9 support.
 
 v1.4.5   [05-OCT-2016]
 ----------------------
@@ -354,6 +356,7 @@ v0.0.1  [15-OCT-2012]
 [#191]: https://github.com/arangamani/jenkins_api_client/issues/191
 [#207]: https://github.com/arangamani/jenkins_api_client/issues/207
 [#213]: https://github.com/arangamani/jenkins_api_client/issues/213
+[#222]: https://github.com/arangamani/jenkins_api_client/issues/222
 [@AndrewHanes]: https://github.com/AndrewHanes
 [@Loa]: https://github.com/Loa
 [@Niarfe]: https://github.com/Niarfe
@@ -373,6 +376,7 @@ v0.0.1  [15-OCT-2012]
 [@drnic]: https://github.com/drnic
 [@dylanmckay]: https://github.com/dylanmckay
 [@gpetras]: https://github.com/gpetras
+[@grosser]: https://github.com/grosser
 [@hubert]: https://github.com/hubert
 [@jlucasps]: https://github.com/jlucasps
 [@joelneubert]: https://github.com/joelneubert
