@@ -9,11 +9,10 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
   s.authors = ["Kannan Manickam"]
-  s.date = "2016-10-05"
   s.description = "\nThis is a simple and easy-to-use Jenkins Api client with features focused on\nautomating Job configuration programaticaly and so forth"
   s.email = ["arangamani.kannan@gmail.com"]
   s.executables = ['jenkinscli']
-  s.files         = `git ls-files -z`.split("\x0").select { |f| f.match(%r{lib/|gemspec}) }
+  s.files         = `git ls-files -z`.split("\x0").select { |f| f.match(%r{lib/|bin/|java_deps/|gemspec}) }
   s.require_paths = ['lib']
   s.homepage = 'https://github.com/arangamani/jenkins_api_client'
   s.required_ruby_version = ::Gem::Requirement.new('~> 2.1')
