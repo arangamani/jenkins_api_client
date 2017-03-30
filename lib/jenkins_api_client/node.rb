@@ -257,7 +257,7 @@ module JenkinsApi
           node_name = "(master)" if node_name == "master"
           response_json = @client.api_get_request("/computer/#{path_encode node_name}", "tree=#{path_encode meth_suffix}")
           resp = response_json["#{meth_suffix}"].to_s
-          resp =~ /False/i ? false : true
+          resp.is_a?(FalseClass) ? false : true
         end
       end
 
