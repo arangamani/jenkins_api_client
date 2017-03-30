@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.rubygems_version = "2.4.5.1"
   s.summary = "Jenkins JSON API Client"
 
-  s.add_dependency 'nokogiri', '~> 1.6.0'
+  s.add_dependency 'nokogiri', '~> 1.6'
   s.add_dependency 'thor', '>= 0.16.0'
   s.add_dependency 'terminal-table', '>= 1.4.0'
   s.add_dependency 'mixlib-shellout', '>= 1.1.0'
