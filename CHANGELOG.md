@@ -361,6 +361,7 @@ v0.0.1  [15-OCT-2012]
 [#207]: https://github.com/arangamani/jenkins_api_client/issues/207
 [#213]: https://github.com/arangamani/jenkins_api_client/issues/213
 [#222]: https://github.com/arangamani/jenkins_api_client/issues/222
+[#230]: https://github.com/arangamani/jenkins_api_client/issues/230
 [@AndrewHanes]: https://github.com/AndrewHanes
 [@Loa]: https://github.com/Loa
 [@Niarfe]: https://github.com/Niarfe
