@@ -4,6 +4,16 @@ CHANGELOG
 upcoming
 --------
 
+v1.5.3   [29-MAR-2017]
+----------------------
+* [#230][] Relax on nokogiri version requirement for right this time. Credit [@grosser][]
+
+v1.5.2   [29-MAR-2017]
+----------------------
+* [#222][] Relax on nokogiri version requirement. Credit [@grosser][]
+* Relax on JSON version requirement.
+* Remove ruby 1.9 support.
+
 v1.4.5   [05-OCT-2016]
 ----------------------
 * Remove unnecessary rack gem as a runtime dependency.
@@ -350,6 +360,8 @@ v0.0.1  [15-OCT-2012]
 [#191]: https://github.com/arangamani/jenkins_api_client/issues/191
 [#207]: https://github.com/arangamani/jenkins_api_client/issues/207
 [#213]: https://github.com/arangamani/jenkins_api_client/issues/213
+[#222]: https://github.com/arangamani/jenkins_api_client/issues/222
+[#230]: https://github.com/arangamani/jenkins_api_client/issues/230
 [@AndrewHanes]: https://github.com/AndrewHanes
 [@Loa]: https://github.com/Loa
 [@Niarfe]: https://github.com/Niarfe
@@ -369,6 +381,7 @@ v0.0.1  [15-OCT-2012]
 [@drnic]: https://github.com/drnic
 [@dylanmckay]: https://github.com/dylanmckay
 [@gpetras]: https://github.com/gpetras
+[@grosser]: https://github.com/grosser
 [@hubert]: https://github.com/hubert
 [@jlucasps]: https://github.com/jlucasps
 [@joelneubert]: https://github.com/joelneubert

@@ -50,7 +50,7 @@ describe JenkinsApi::Client::Node do
           @valid_post_responses.should include(
             @client.node.create_dumb_slave(params).to_i
           )
-          @client.node.list(name).include?(name).should be_true
+          @client.node.list(name).include?(name).should be_truthy
           @valid_post_responses.should include(
             @client.node.delete(params[:name]).to_i
           )

@@ -1,8 +1,9 @@
 language: ruby
 
 rvm:
-  - 2.1.5
-  - 1.9.3
+  - 2.2.7
+  - 2.3.3
+  - 2.4.1
 
 script:
   - bundle exec rake unit_tests
