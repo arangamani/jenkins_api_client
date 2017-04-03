@@ -700,10 +700,59 @@ module JenkinsApi
 
     job_list_json()
 EOS
-        response_json = JSON.parse(text)
+        groovy_script_output = @client.exec_script(<<'EOS')
+    def Map findJobs(Object obj, String namespace = null) {
+      def found = [:]
+
+      // groovy apparently can't #collect on a list and return a map?
+      obj.items.each { job ->
+        // a possibly better approach would be to walk the parent chain from //
+        // each job
+        def path = job.getName()
+        if (namespace) {
+          path = "${namespace}/" + path
+        }
+        found[path] = job
+        // intentionally not using `instanceof` here so we don't blow up if the
+        // cloudbees-folder plugin is not installed
+        if (job.getClass().getName() == 'com.cloudbees.hudson.plugins.folder.Folder') {
+          found << findJobs(job, path)
+        }
+      }
+
+      found
+    }
+
+    void job_list_json() {
+      def jobs = findJobs(Jenkins.getInstance())
+
+      def allInfo = jobs.collect { path, job ->
+        // at least these job classes do not respond to respond to #isDisabled:
+        // - org.jenkinsci.plugins.workflow.job.WorkflowJob
+        // - com.cloudbees.hudson.plugins.folder.Folder
+        def enabled = false
+        if (job.metaClass.respondsTo(job, 'isDisabled')) {
+          enabled = !job.isDisabled()
+        }
+
+        [
+          _class: job.getClass().toString(),
+          name: path,
+          url: Hudson.getInstance().getRootUrl().toString() + job.getUrl().toString(),
+        ]
+      }
+
+      def builder = new groovy.json.JsonBuilder(allInfo)
+      out.println(builder.toPrettyString())
+    }
+
+    job_list_json()
+EOS
+        response_json = JSON.parse(groovy_script_output)
+        response_json = { "jobs" => response_json }
 
         jobs = []
-        response_json.each do |job|
+        response_json["jobs"].each do |job|
           if job["_class"] != "class com.cloudbees.hudson.plugins.folder.Folder"
             if ignorecase
               jobs << job["name"] if job["name"] =~ /#{filter}/i
