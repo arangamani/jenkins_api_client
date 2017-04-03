@@ -1,4 +1,4 @@
-#
+
 # Copyright (c) 2012-2013 Kannan Manickam <arangamani.kannan@gmail.com>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -689,20 +689,20 @@ module JenkinsApi
         }
 
         [
-          _class: job.getClass().getCanonicalName(),
+          _class: job.getClass().getCanonicalName().toString(),
           name: path,
           url: Hudson.getInstance().getRootUrl().toString() + job.getUrl().toString(),
         ]
       }
 
       def builder = new groovy.json.JsonBuilder(allInfo)
-      out.println(builder.toPrettyString())
+      out.println(builder.toString())
     }
 
     job_list_json()
 EOS
-        response_json = JSON.parse(groovy_script_output)
-        response_json = { "jobs" => response_json }
+
+        response_json = { "jobs" => JSON.parse(groovy_script_output) }
 
         jobs = []
         response_json["jobs"].each do |job|
@@ -714,7 +714,7 @@ EOS
             end
           end
         end
-        jobs
+        JSON.parse(jobs)
       end
 
       # List all jobs on the Jenkins CI server along with their details
