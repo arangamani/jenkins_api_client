@@ -45,7 +45,7 @@ describe JenkinsApi::Client::Job do
 
             mock_job_list_response = { "jobs" => [] } # job response w/ 0 jobs
 
-            @client.should_receive(:api_get_request).with('').and_return(mock_job_list_response)
+            @client.should_receive(:api_get_request).with('', "tree=useCrumbs").and_return(mock_job_list_response)
             @job.should_receive(:create).with(job_name, xml).and_return(nil)
 
             @job.create_or_update(job_name, xml)
@@ -57,7 +57,7 @@ describe JenkinsApi::Client::Job do
 
             mock_job_list_response = { "jobs" => [ { "name" => job_name } ] } # job response w/ 1 job
 
-            @client.should_receive(:api_get_request).with('').and_return(mock_job_list_response)
+            @client.should_receive(:api_get_request).with('', "tree=useCrumbs").and_return(mock_job_list_response)
             @job.should_receive(:update).with(job_name, xml).and_return(nil)
 
             @job.create_or_update(job_name, xml)
@@ -275,7 +275,7 @@ describe JenkinsApi::Client::Job do
 
       describe "#exists?" do
         it "accepts a job name and returns true if the job exists" do
-          @client.should_receive(:api_get_request).and_return(
+          @client.should_receive(:api_post_request).and_return(
             @sample_json_response)
           @job.exists?("test_job").should == true
         end
@@ -296,7 +296,7 @@ describe JenkinsApi::Client::Job do
 
       describe "#list" do
         it "accepts a filter and returns all jobs matching the filter" do
-          @client.should_receive(:api_get_request).and_return(
+          @client.should_receive(:api_post_request).and_return(
             "jobs" => ["test_job"])
           @job.list("filter").class.should == Array
         end

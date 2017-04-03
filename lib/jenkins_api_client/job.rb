@@ -703,8 +703,9 @@ module JenkinsApi
 EOS
 
         response_json = { "jobs" => JSON.parse(groovy_script_output) }
+        response_json = response_json
 
-        jobs = []
+        jobs = Array.new
         response_json["jobs"].each do |job|
           if job["_class"] !~ /com.cloudbees.hudson.plugins.folder.Folder/
             if ignorecase
@@ -714,7 +715,7 @@ EOS
             end
           end
         end
-        JSON.parse(jobs)
+        jobs.to_a
       end
 
       # List all jobs on the Jenkins CI server along with their details
