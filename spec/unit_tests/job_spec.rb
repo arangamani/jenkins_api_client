@@ -328,6 +328,14 @@ EOS
 	  @client.should_receive(:api_post_request).with('/scriptText', {'script' => script_text}, true).and_return(FakeResponse.new(200,mock_job_list_response))
           @job.exists?(job_name).should == true
         end
+
+        it "does not match folder names" do
+          job_name = 'test_job'
+	  mock_job_list_response = { "jobs" => [ { "_class": "com.cloudbees.hudson.plugins.folder.Folder", "name": job_name,"url": "https://jenkins.example.com/job/#{job_name}/"} ] }
+	  @client.should_receive(:api_post_request).with('/scriptText', {'script' => script_text}, true).and_return(FakeResponse.new(200,mock_job_list_response))
+
+	  @job.exists?(job_name).should == false
+        end
       end
 
       describe "#list_by_status" do
