@@ -610,6 +610,16 @@ module JenkinsApi
         response_json.map { |job| job["name"] }.sort
       end
 
+      def multibranch_job_name_separator(job_name)
+        branch_regex = %r{/branch/}
+        if job_name =~ branch_regex
+          return job_name.split(branch_regex)
+        end
+
+        nil
+      end
+      private :multibranch_job_name_separator
+
       # Checks if the given job exists in Jenkins
       #
       # @param job_name [String] the name of the job to check
@@ -617,7 +627,13 @@ module JenkinsApi
       # @return [Boolean] whether the job exists in jenkins or not
       #
       def exists?(job_name)
-        list(job_name).include?(job_name)
+        final_job_name = job_name
+        jobs = multibranch_job_name_separator(job_name)
+        if jobs
+          final_job_name = jobs.last
+        end
+
+        list(job_name).include?(final_job_name)
       end
 
       # List all Jobs matching the given status
@@ -653,13 +669,23 @@ module JenkinsApi
       #
       def list(filter, ignorecase = true)
         @logger.info "Obtaining jobs matching filter '#{filter}'"
-        response_json = @client.api_get_request("")
+
+        url_prefix = ''
+        final_filter = filter
+
+        jobs = multibranch_job_name_separator(filter)
+        if jobs
+          url_prefix = "/job/#{path_encode jobs.first}"
+          final_filter = jobs.last
+        end
+
+        response_json = @client.api_get_request(url_prefix)
         jobs = []
         response_json["jobs"].each do |job|
           if ignorecase
-            jobs << job["name"] if job["name"] =~ /#{filter}/i
+            jobs << job["name"] if job["name"] =~ /#{final_filter}/i
           else
-            jobs << job["name"] if job["name"] =~ /#{filter}/
+            jobs << job["name"] if job["name"] =~ /#{final_filter}/
           end
         end
         jobs
