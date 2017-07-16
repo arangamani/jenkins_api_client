@@ -66,9 +66,11 @@ module JenkinsApi
       "http_open_timeout",
       "http_read_timeout",
       "ssl",
+      "pkcs_file_path",
+      "pass_phrase",
       "follow_redirects",
       "identity_file",
-      "cookies"
+      "cookies"      
     ].freeze
 
     # Initialize a Client object with Jenkins CI server credentials
@@ -91,6 +93,8 @@ module JenkinsApi
     # @option args [String] :proxy_protocol the proxy protocol ('socks' or 'http' (defaults to HTTP)
     # @option args [String] :jenkins_path ("/") the optional context path for Jenkins
     # @option args [Boolean] :ssl (false) indicates if Jenkins is accessible over HTTPS
+    # @option args [String] :pkcs_file_path ("/") the optional context path for pfx or p12 binary certificate file
+    # @option args [String] :pass_phrase password for pkcs_file_path certificate file 
     # @option args [Boolean] :follow_redirects this argument causes the client to follow a redirect (jenkins can
     #   return a 30x when starting a build)
     # @option args [Fixnum] :timeout (120) This argument sets the timeout for operations that take longer (in seconds)
@@ -99,7 +103,7 @@ module JenkinsApi
     # @option args [Fixnum] :log_level (Logger::INFO) The level for messages to be logged. Should be one of:
     #   Logger::DEBUG (0), Logger::INFO (1), Logger::WARN (2), Logger::ERROR (2), Logger::FATAL (3)
     # @option args [String] :cookies Cookies to be sent with all requests in the format: name=value; name2=value2
-    #
+    # 
     # @return [JenkinsApi::Client] a client object to Jenkins API
     #
     # @raise [ArgumentError] when required options are not provided.
@@ -307,12 +311,17 @@ module JenkinsApi
       else
         http = Net::HTTP.new(@server_ip, @server_port)
       end
-
-      if @ssl
+      
+      if @ssl && @pkcs_file_path
         http.use_ssl = true
-        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        pkcs12 =OpenSSL::PKCS12.new(File.binread(@pkcs_file_path), @pass_phrase!=nil ? @pass_phrase : "")
+        http.cert = pkcs12.certificate
+        http.key = pkcs12.key
+        http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+      elsif @ssl
+        http.use_ssl = true
+        http.verify_mode = OpenSSL::SSL::VERIFY_NONE  
       end
-
       http.open_timeout = @http_open_timeout
       http.read_timeout = @http_read_timeout
 
