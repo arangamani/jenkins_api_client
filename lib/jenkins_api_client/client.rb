@@ -68,7 +68,7 @@ module JenkinsApi
       "ssl",
       "follow_redirects",
       "identity_file",
-      "cookies" 
+      "cookies"
     ].freeze
 
     # Initialize a Client object with Jenkins CI server credentials
