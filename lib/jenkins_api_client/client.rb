@@ -317,7 +317,7 @@ module JenkinsApi
         pkcs12 =OpenSSL::PKCS12.new(File.binread(@pkcs_file_path), @pass_phrase!=nil ? @pass_phrase : "")
         http.cert = pkcs12.certificate
         http.key = pkcs12.key
-        http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
       elsif @ssl
         http.use_ssl = true
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE  
