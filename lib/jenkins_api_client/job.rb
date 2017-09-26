@@ -744,6 +744,8 @@ module JenkinsApi
           "not_run"
         when "aborted"
           "aborted"
+        when "disabled"
+          "disabled"
         else
           "invalid"
         end
