@@ -28,6 +28,54 @@ describe JenkinsApi::Client::Job do
     end
 
     describe "InstanceMethods" do
+      script_text = <<'EOS'
+      def Map findJobs(Object obj, String namespace = null) {
+      def found = [:]
+
+      // groovy apparently can't #collect on a list and return a map?
+      obj.items.each { job ->
+        // a possibly better approach would be to walk the parent chain from //
+        // each job
+        def path = job.getName()
+        if (namespace) {
+          path = "${namespace}/" + path
+        }
+        found[path] = job
+        // intentionally not using `instanceof` here so we don't blow up if the
+        // cloudbees-folder plugin is not installed
+        if (job.getClass().getName() == 'com.cloudbees.hudson.plugins.folder.Folder') {
+          found << findJobs(job, path)
+        }
+      }
+
+      found
+    }
+
+    void job_list_json() {
+      def jobs = findJobs(Jenkins.getInstance())
+
+      def allInfo = jobs.collect { path, job ->
+        // at least these job classes do not respond to respond to #isDisabled:
+        // - org.jenkinsci.plugins.workflow.job.WorkflowJob
+        // - com.cloudbees.hudson.plugins.folder.Folder
+        def enabled = false
+        if (job.metaClass.respondsTo(job, 'isDisabled')) {
+          enabled = !job.isDisabled()
+        }
+
+        [
+          _class: job.getClass().getCanonicalName().toString(),
+          name: path,
+          url: Hudson.getInstance().getRootUrl().toString() + job.getUrl().toString(),
+        ]
+      }
+
+      def builder = new groovy.json.JsonBuilder(allInfo)
+      out.println(builder.toString())
+    }
+
+    job_list_json()
+EOS
 
       describe "#create_job" do
         it "accepts job_name and xml and creates the job" do
@@ -45,7 +93,7 @@ describe JenkinsApi::Client::Job do
 
             mock_job_list_response = { "jobs" => [] } # job response w/ 0 jobs
 
-            @client.should_receive(:api_get_request).with('').and_return(mock_job_list_response)
+	    @client.should_receive(:api_post_request).with('/scriptText', {'script' => script_text}, true).and_return(FakeResponse.new(200,mock_job_list_response))
             @job.should_receive(:create).with(job_name, xml).and_return(nil)
 
             @job.create_or_update(job_name, xml)
@@ -55,9 +103,9 @@ describe JenkinsApi::Client::Job do
             job_name = 'test_job'
             xml = '<name>somename</name>'
 
-            mock_job_list_response = { "jobs" => [ { "name" => job_name } ] } # job response w/ 1 job
+	    mock_job_list_response = { "jobs" => [ { "_class": "hudson.model.FreeStyleProject", "name": job_name,"url": "https://jenkins.example.com/job/#{job_name}/"} ] }
 
-            @client.should_receive(:api_get_request).with('').and_return(mock_job_list_response)
+	    @client.should_receive(:api_post_request).with('/scriptText', {'script' => script_text}, true).and_return(FakeResponse.new(200,mock_job_list_response))
             @job.should_receive(:update).with(job_name, xml).and_return(nil)
 
             @job.create_or_update(job_name, xml)
@@ -275,9 +323,18 @@ describe JenkinsApi::Client::Job do
 
       describe "#exists?" do
         it "accepts a job name and returns true if the job exists" do
-          @client.should_receive(:api_get_request).and_return(
-            @sample_json_response)
-          @job.exists?("test_job").should == true
+          job_name = 'test_job'
+	  mock_job_list_response = { "jobs" => [ { "_class": "hudson.model.FreeStyleProject", "name": job_name,"url": "https://jenkins.example.com/job/#{job_name}/"} ] }
+	  @client.should_receive(:api_post_request).with('/scriptText', {'script' => script_text}, true).and_return(FakeResponse.new(200,mock_job_list_response))
+          @job.exists?(job_name).should == true
+        end
+
+        it "does not match folder names" do
+          job_name = 'test_job'
+	  mock_job_list_response = { "jobs" => [ { "_class": "com.cloudbees.hudson.plugins.folder.Folder", "name": job_name,"url": "https://jenkins.example.com/job/#{job_name}/"} ] }
+	  @client.should_receive(:api_post_request).with('/scriptText', {'script' => script_text}, true).and_return(FakeResponse.new(200,mock_job_list_response))
+
+	  @job.exists?(job_name).should == false
         end
       end
 
@@ -296,8 +353,10 @@ describe JenkinsApi::Client::Job do
 
       describe "#list" do
         it "accepts a filter and returns all jobs matching the filter" do
-          @client.should_receive(:api_get_request).and_return(
-            "jobs" => ["test_job"])
+          job_name = 'test_job'
+	  mock_job_list_response = { "jobs" => [ { "_class": "com.cloudbees.hudson.plugins.folder.Folder", "name": job_name,"url": "https://jenkins.example.com/job/#{job_name}/"} ] }
+	  @client.should_receive(:api_post_request).with('/scriptText', {'script' => script_text}, true).and_return(FakeResponse.new(200,mock_job_list_response))
+
           @job.list("filter").class.should == Array
         end
       end

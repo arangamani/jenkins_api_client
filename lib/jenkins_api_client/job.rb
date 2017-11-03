@@ -1,4 +1,4 @@
-#
+
 # Copyright (c) 2012-2013 Kannan Manickam <arangamani.kannan@gmail.com>
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -653,16 +653,70 @@ module JenkinsApi
       #
       def list(filter, ignorecase = true)
         @logger.info "Obtaining jobs matching filter '#{filter}'"
-        response_json = @client.api_get_request("")
-        jobs = []
+        groovy_script_output = @client.exec_script(<<'EOS')
+      def Map findJobs(Object obj, String namespace = null) {
+      def found = [:]
+
+      // groovy apparently can't #collect on a list and return a map?
+      obj.items.each { job ->
+        // a possibly better approach would be to walk the parent chain from //
+        // each job
+        def path = job.getName()
+        if (namespace) {
+          path = "${namespace}/" + path
+        }
+        found[path] = job
+        // intentionally not using `instanceof` here so we don't blow up if the
+        // cloudbees-folder plugin is not installed
+        if (job.getClass().getName() == 'com.cloudbees.hudson.plugins.folder.Folder') {
+          found << findJobs(job, path)
+        }
+      }
+
+      found
+    }
+
+    void job_list_json() {
+      def jobs = findJobs(Jenkins.getInstance())
+
+      def allInfo = jobs.collect { path, job ->
+        // at least these job classes do not respond to respond to #isDisabled:
+        // - org.jenkinsci.plugins.workflow.job.WorkflowJob
+        // - com.cloudbees.hudson.plugins.folder.Folder
+        def enabled = false
+        if (job.metaClass.respondsTo(job, 'isDisabled')) {
+          enabled = !job.isDisabled()
+        }
+
+        [
+          _class: job.getClass().getCanonicalName().toString(),
+          name: path,
+          url: Hudson.getInstance().getRootUrl().toString() + job.getUrl().toString(),
+        ]
+      }
+
+      def builder = new groovy.json.JsonBuilder(allInfo)
+      out.println(builder.toString())
+    }
+
+    job_list_json()
+EOS
+
+        response_json = groovy_script_output
+
+        jobs = Array.new
         response_json["jobs"].each do |job|
-          if ignorecase
-            jobs << job["name"] if job["name"] =~ /#{filter}/i
-          else
-            jobs << job["name"] if job["name"] =~ /#{filter}/
+	  if job.is_a?(Hash)
+            if job.key? :_class and job[:_class] !~ /com.cloudbees.hudson.plugins.folder.Folder/
+              if ignorecase
+                jobs << job[:name] if job[:name] =~ /#{filter}/i
+              else
+                jobs << job[:name] if job[:name] =~ /#{filter}/
+              end
+	    end
           end
         end
-        jobs
+        jobs.to_a
       end
 
       # List all jobs on the Jenkins CI server along with their details
