@@ -28,7 +28,7 @@ describe JenkinsApi::Client::Job do
           xml = @helper.create_job_xml
           job = "#{@job_name_prefix}_#{num}"
           @job_name = job if num == 0
-          @client.job.create(job, xml).to_i.should == 200
+          expect(@client.job.create(job, xml).to_i).to eq(200)
         end
       rescue Exception => e
         puts "WARNING: Can't create jobs for preparing to spec tests"
@@ -62,14 +62,20 @@ describe JenkinsApi::Client::Job do
         it "Should raise proper exception when the job already exists" do
           xml = @helper.create_job_xml
           name = "the_duplicate_job"
-          @valid_post_responses.should include(
+          expect(
+            @valid_post_responses
+          ).to include(
             @client.job.create(name, xml).to_i
           )
-          @client.job.list(name).include?(name).should be_truthy
+          expect(
+            @client.job.list(name).include?(name)
+          ).to be_truthy
           expect(
             lambda { @client.job.create(name, xml) }
           ).to raise_error(JenkinsApi::Exceptions::JobAlreadyExists)
-          @valid_post_responses.should include(
+          expect(
+            @valid_post_responses
+          ).to include(
             @client.job.delete(name).to_i
           )
         end
