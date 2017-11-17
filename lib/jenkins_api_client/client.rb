@@ -296,6 +296,41 @@ module JenkinsApi
       end
     end
 
+    # Connects to the server and download all artifacts of a build to a specified location
+    #
+    # @param [String] job_name
+    # @param [String] dldir location to save artifacts
+    # @param [Integer] build_number optional, defaults to current build
+    # @returns [String, Array] list of retrieved artifacts
+    #
+    def get_artifacts(job_name, dldir, build_number = nil)
+      @artifacts = job.find_artifacts(job_name,build_number)
+      results = []
+      @artifacts.each do |artifact|
+        uri = URI.parse(artifact)
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        http.use_ssl = @ssl
+        request = Net::HTTP::Get.new(uri.request_uri)
+        request.basic_auth(@username, @password)
+        response = http.request(request)
+        # we want every thing after the last 'build' in the path to become the filename
+        if artifact.include?('/build/')
+          filename = artifact.split("/build/").last.gsub('/','-')
+        else
+          filename = File.basename(artifact)
+        end
+        filename = File.join(dldir, filename)
+        results << filename
+        if response.code == "200"
+          File.write(File.expand_path(filename), response.body)
+        else
+          raise "Couldn't get the artifact #{artifact} for job #{job}"
+        end
+      end
+      results
+    end
+
     # Connects to the Jenkins server, sends the specified request and returns
     # the response.
     #

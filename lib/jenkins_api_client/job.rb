@@ -1656,6 +1656,30 @@ module JenkinsApi
         end
       end
 
+      # Find the artifacts for build_number of job_name, defaulting to current job
+      #
+      # @param [String] job_name
+      # @param [Integer] build_number Optional build number
+      # @return [String, Hash] JSON response from Jenkins
+      #
+      def find_artifacts(job_name, build_number = nil)
+        current_build_number  = build_number || get_current_build_number(job_name)
+        job_path              = "job/#{path_encode job_name}/"
+        response_json         = @client.api_get_request("/#{job_path}#{current_build_number}")
+        response_json['artifacts'].map do |art|
+          URI.escape("#{response_json['url']}artifact/#{art['relativePath']}")
+        end
+      end
+
+      # Find the artifacts for the current job
+      #
+      # @param [String] job_name
+      # @return [String, Hash] JSON response from Jenkins
+      #
+      def find_latest_artifacts(job_name)
+        find_artifacts(job_name)
+      end
+
       private
 
       # Obtains the threshold params used by jenkins in the XML file
