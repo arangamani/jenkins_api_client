@@ -6,9 +6,6 @@
 # bundler
 .bundle
 
-# login creds
-config/login.yml
-
 # jeweler generated
 pkg
 
