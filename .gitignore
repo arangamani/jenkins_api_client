@@ -7,7 +7,7 @@
 .bundle
 
 # login creds
-config/login.yml
+.jenkins_api_client/login.yml
 
 # jeweler generated
 pkg
