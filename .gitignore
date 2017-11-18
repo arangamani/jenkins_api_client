@@ -1,6 +1,7 @@
 
 # rbenv
 .ruby-version
+.ruby-gemset
 
 # bundler
 .bundle
