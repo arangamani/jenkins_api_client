@@ -6,9 +6,6 @@
 # bundler
 .bundle
 
-# login creds
-.jenkins_api_client/login.yml
-
 # jeweler generated
 pkg
 
