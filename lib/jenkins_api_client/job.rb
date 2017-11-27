@@ -1401,6 +1401,71 @@ module JenkinsApi
         post_config(job_name, xml_modified)
       end
 
+      # Add upstream projects to a specific job given the job name,
+      # projects to be added as upstream projects, and the threshold
+      #
+      # @param [String] job_name
+      # @param [String] upstream_projects - separated with comma
+      # @param [String] threshold - failure, success, or unstable
+      # @param [Boolean] overwrite - true or false
+      #
+      # @return [String] response_code return code from HTTP POST
+      #
+      def add_upstream_projects(job_name,
+                                upstream_projects,
+                                threshold, overwrite = false)
+        @logger.info "Adding #{upstream_projects.inspect} as upstream" +
+                         " projects for '#{job_name}' with the threshold of '#{threshold}'" +
+                         " and overwrite option of '#{overwrite}'"
+        name, ord, col = get_threshold_params(threshold)
+        xml = get_config(job_name)
+        n_xml = Nokogiri::XML(xml)
+        upstream_projects_node = n_xml.xpath("//upstreamProjects").first
+        if upstream_projects_node
+          if overwrite
+            upstream_projects_node.content = "#{upstream_projects}"
+          else
+            to_replace = upstream_projects_node.content +
+                ", #{upstream_projects}"
+            upstream_projects_node.content = to_replace
+          end
+        else
+          triggers_node = n_xml.xpath("//triggers").first
+          reverse_build_trigger_node = triggers_node.add_child(
+              "<jenkins.triggers.ReverseBuildTrigger/>"
+          )
+          reverse_build_trigger_node.first.add_child(
+              "<spec/>"
+          )
+          reverse_build_trigger_node.first.add_child(
+              "<upstreamProjects>#{upstream_projects}</upstreamProjects>"
+          )
+          threshold_node = reverse_build_trigger_node.first.add_child(
+              "<threshold/>"
+          )
+          threshold_node.first.add_child(
+              "<name>#{name}</name><ordinal>#{ord}</ordinal><color>#{col}</color>"
+          )
+        end
+        xml_modified = n_xml.to_xml
+        post_config(job_name, xml_modified)
+      end
+
+      # Remove all upstream projects of a specific job
+      #
+      # @param [String] job_name
+      #
+      # @return [String] response_code return code from HTTP POST
+      #
+      def remove_upstream_projects(job_name)
+        @logger.info "Removing the upstream projects of '#{job_name}'"
+        xml = get_config(job_name)
+        n_xml = Nokogiri::XML(xml)
+        n_xml.search("//jenkins.triggers.ReverseBuildTrigger").remove
+        xml_modified = n_xml.to_xml
+        post_config(job_name, xml_modified)
+      end
+
       # Resctrict the given job to a specific node
       #
       # @param [String] job_name
