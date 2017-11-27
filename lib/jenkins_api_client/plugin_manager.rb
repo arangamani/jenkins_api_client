@@ -148,7 +148,7 @@ module JenkinsApi
       #        "pinned"=>true,
       #        "shortName"=>"ldap",
       #        "supportsDynamicLoad"=>"MAYBE",
-      #        "url"=>"http://wiki.jenkins-ci.org/display/JENKINS/LDAP+Plugin",
+      #        "url"=>"https://wiki.jenkins.io/display/JENKINS/LDAP+Plugin",
       #        "version"=>"1.5"
       #      }
       #
@@ -256,7 +256,7 @@ module JenkinsApi
       #   => {
       #        "name"=>"status-view",
       #        "sourceId"=>"default",
-      #        "url"=>"http://updates.jenkins-ci.org/download/plugins/status-view/1.0/status-view.hpi",
+      #        "url"=>"https://updates.jenkins.io/download/plugins/status-view/1.0/status-view.hpi",
       #        "version"=>"1.0",
       #        "categories"=>["ui"],
       #        "compatibleSinceVersion"=>nil,
@@ -266,7 +266,7 @@ module JenkinsApi
       #        "installed"=>nil, "neededDependencies"=>[],
       #        "requiredCore"=>"1.342",
       #        "title"=>"Status View Plugin",
-      #        "wiki"=>"https://wiki.jenkins-ci.org/display/JENKINS/Status+View+Plugin"
+      #        "wiki"=>"https://wiki.jenkins.io/display/JENKINS/Status+View+Plugin"
       #      }
       #
       def get_available_info(plugin)
