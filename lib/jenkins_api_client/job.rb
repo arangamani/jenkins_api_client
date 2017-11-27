@@ -1632,12 +1632,7 @@ module JenkinsApi
       #   defaults to latest build
       #
       def find_artifact(job_name, build_number = 0)
-        response_json       = get_build_details(job_name, build_number)
-        relative_build_path = artifact_path(build_details: response_json)
-        jenkins_path        = response_json['url']
-        artifact_path       = URI.escape("#{jenkins_path}artifact/#{relative_build_path}")
-
-        return artifact_path
+        find_artifacts(job_name, build_number).first
       end
 
       #A Method to check artifact exists path from the Current Build
@@ -1663,11 +1658,9 @@ module JenkinsApi
       # @return [String, Hash] JSON response from Jenkins
       #
       def find_artifacts(job_name, build_number = nil)
-        current_build_number  = build_number || get_current_build_number(job_name)
-        job_path              = "job/#{path_encode job_name}/"
-        response_json         = @client.api_get_request("/#{job_path}#{current_build_number}")
-        response_json['artifacts'].map do |art|
-          URI.escape("#{response_json['url']}artifact/#{art['relativePath']}")
+        response_json       = get_build_details(job_name, build_number)
+        relative_build_path = artifact_path(build_details: response_json).map do |p|
+          URI.escape("#{response_json['url']}/artifact/#{relative_build_path}")
         end
       end
 
@@ -1931,8 +1924,8 @@ module JenkinsApi
         build_details = get_build_details(job_name, build_number) if build_details.nil?
         artifacts     = build_details['artifacts']
 
-        if ((nil != artifacts) && (false == artifacts.empty?) && (true == artifacts.first.include?('relativePath')))
-          return artifacts.first['relativePath']
+        if artifacts && artifacts.any?
+          return artifacts.find_all{ |a| a.key?('relativePath') }
         else
           raise "No artifacts found."
         end
