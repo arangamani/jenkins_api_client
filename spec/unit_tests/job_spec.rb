@@ -25,6 +25,16 @@ describe JenkinsApi::Client::Job do
       }
       @sample_job_xml = File.read(
         File.expand_path('../fixtures/files/job_sample.xml', __FILE__))
+      @sample_json_build_response = {
+        "url" => "https://example.com/DEFAULT-VIEW/view/VIEW-NAME/job/test_job/2/",
+        "artifacts" => [
+          {
+            "displayPath" => "output.json",
+            "fileName" => "output.json",
+            "relativePath" => "somepath/output.json"
+          }
+        ]
+      }
     end
 
     describe "InstanceMethods" do
@@ -678,6 +688,90 @@ describe JenkinsApi::Client::Job do
 
         it 'adds gitTool to scm tag' do
           expect(@xml_config.at_css('scm gitTool').content).to eql('Git_NoPath')
+        end
+      end
+
+      describe "#get_build_details" do
+        it "accepts job name and build number" do
+          @client.should_receive(:api_get_request).and_return(@sample_json_build_response)
+          job_name = 'test_job'
+          response = @job.get_build_details(job_name, 1)
+          response.class.should == Hash
+        end
+
+        it "accepts job name and gets latest build number if build number is 0" do
+          @client.should_receive(:api_get_request).and_return(@sample_json_job_response, @sample_json_build_response)
+          job_name = 'test_job'
+          response = @job.get_build_details(job_name, 0)
+          response.class.should == Hash
+        end
+      end
+
+      describe "#find_artifact" do
+        it "accepts job name and build number and return artifact path" do
+          expected_path = URI.escape("https://example.com/DEFAULT-VIEW/view/VIEW-NAME/job/test_job/2/artifact/somepath/output.json") 
+          @client.should_receive(:api_get_request).and_return(@sample_json_build_response)
+          expect(@job.find_artifact('test_job', 1)).to eql(expected_path)
+        end
+
+        it "accepts job name and uses latest build number if build number not provided and return artifact path" do
+          expected_path = URI.escape("https://example.com/DEFAULT-VIEW/view/VIEW-NAME/job/test_job/2/artifact/somepath/output.json") 
+          @client.should_receive(:api_get_request).and_return(@sample_json_job_response, @sample_json_build_response)
+          expect(@job.find_artifact('test_job')).to eql(expected_path)
+        end
+
+        it "raises if artifact is missing" do
+          modified_response = JSON.parse(@sample_json_build_response.to_json)
+          modified_response.delete('artifacts')
+          @client.should_receive(:api_get_request).and_return(modified_response)
+          expect(lambda { @job.find_artifact('test_job', 1) }).to raise_error("No artifacts found.")
+        end
+
+        it "raises if artifact array is missing" do
+          modified_response = JSON.parse(@sample_json_build_response.to_json)
+          modified_response['artifacts'].clear()
+          @client.should_receive(:api_get_request).and_return(modified_response)
+          expect(lambda { @job.find_artifact('test_job', 1) }).to raise_error("No artifacts found.")
+        end
+
+        it "raises if artifact array has no relative path" do
+          modified_response = JSON.parse(@sample_json_build_response.to_json)
+          modified_response['artifacts'].first.delete('relativePath')
+          @client.should_receive(:api_get_request).and_return(modified_response)
+          expect(lambda { @job.find_artifact('test_job', 1) }).to raise_error("No artifacts found.")
+        end
+      end
+
+      describe "#artifact_exists?" do
+        it "accepts job name and build number and returns true when artifact exists and has path" do
+          @client.should_receive(:api_get_request).and_return(@sample_json_build_response)
+          expect(@job.artifact_exists?('test_job', 1)).to eql(true)
+        end
+
+        it "accepts job name and uses latest build number if build number is 0 and returns true when artifact exists and has path" do
+          @client.should_receive(:api_get_request).and_return(@sample_json_job_response, @sample_json_build_response)
+          expect(@job.artifact_exists?('test_job', 0)).to eql(true)
+        end
+
+        it "returns false if missing artifacts from json" do
+          modified_response = JSON.parse(@sample_json_build_response.to_json)
+          modified_response.delete('artifacts')
+          @client.should_receive(:api_get_request).and_return(modified_response)
+          expect(@job.artifact_exists?('test_job', 1)).to eql(false)
+        end
+
+        it "returns false if artifacts is empty array" do
+          modified_response = JSON.parse(@sample_json_build_response.to_json)
+          modified_response['artifacts'].clear()
+          @client.should_receive(:api_get_request).and_return(modified_response)
+          expect(@job.artifact_exists?('test_job', 1)).to eql(false)
+        end
+
+        it "returns false if no relative path is included in first artifact" do
+          modified_response = JSON.parse(@sample_json_build_response.to_json)
+          modified_response['artifacts'].first.delete('relativePath')
+          @client.should_receive(:api_get_request).and_return(modified_response)
+          expect(@job.artifact_exists?('test_job', 1)).to eql(false)
         end
       end
     end

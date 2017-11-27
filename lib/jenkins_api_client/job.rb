@@ -1546,15 +1546,32 @@ module JenkinsApi
       #A Method to find artifacts path from the Current Build
       #
       # @param [String] job_name
+      # @param [Integer] build_number
+      #   defaults to latest build
       #
-      def find_artifact(job_name)
-        current_build_number  = get_current_build_number(job_name)
-        job_path              = "job/#{path_encode job_name}/"
-        response_json         = @client.api_get_request("/#{job_path}#{current_build_number}")
-        relative_build_path   = response_json['artifacts'][0]['relativePath']
-        jenkins_path          = response_json['url']
-        artifact_path         = URI.escape("#{jenkins_path}artifact/#{relative_build_path}")
+      def find_artifact(job_name, build_number = 0)
+        response_json       = get_build_details(job_name, build_number)
+        relative_build_path = artifact_path(build_details: response_json)
+        jenkins_path        = response_json['url']
+        artifact_path       = URI.escape("#{jenkins_path}artifact/#{relative_build_path}")
+
         return artifact_path
+      end
+
+      #A Method to check artifact exists path from the Current Build
+      #
+      # @param [String] job_name
+      # @param [Integer] build_number
+      #   defaults to latest build
+      #
+      def artifact_exists?(job_name, build_number = 0)
+        begin
+          artifact_path(job_name: job_name, build_number: build_number)
+
+          return true
+        rescue Exception => e
+          return false
+        end
       end
 
       private
@@ -1794,6 +1811,25 @@ module JenkinsApi
       def tree_string tree_value
         return nil unless tree_value
         "tree=#{tree_value}"
+      end
+
+      # This private method gets the artifact path or throws an exception
+      #
+      # @param [Hash] job_name, build_number or build_details object
+      #
+      def artifact_path(params)
+        job_name      = params[:job_name]
+        build_number  = params[:build_number] || 0
+        build_details = params[:build_details]
+
+        build_details = get_build_details(job_name, build_number) if build_details.nil?
+        artifacts     = build_details['artifacts']
+
+        if ((nil != artifacts) && (false == artifacts.empty?) && (true == artifacts.first.include?('relativePath')))
+          return artifacts.first['relativePath']
+        else
+          raise "No artifacts found."
+        end
       end
     end
   end
