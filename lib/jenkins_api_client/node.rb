@@ -216,13 +216,15 @@ module JenkinsApi
       # @param [String] filter a regex to filter node names
       # @param [Bool] ignorecase whether to be case sensitive or not
       #
-      def list(filter = nil, ignorecase = true)
+      def list(filter = nil, ignorecase = true, slaveonly = false)
         @logger.info "Obtaining nodes from jenkins matching filter '#{filter}'"
         node_names = []
         response_json = @client.api_get_request("/computer")
         response_json["computer"].each do |computer|
             if computer["displayName"] =~ /#{filter}/i
-              node_names << computer["displayName"]
+              unless slaveonly && computer["displayName"] == "master"
+                node_names << computer["displayName"]
+              end
             end
         end
         node_names
