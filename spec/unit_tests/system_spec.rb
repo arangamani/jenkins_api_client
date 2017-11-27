@@ -39,6 +39,16 @@ describe JenkinsApi::Client::System do
         end
       end
 
+      describe "#check_quiet_down" do
+        it "checks if the server is presently in quiet down mode" do
+          @client.should_receive(:logger).and_return(Logger.new "/dev/null")
+          @root = JenkinsApi::Client::Root.new(@client)
+          @root.should_receive(:quieting_down?)
+          @client.should_receive(:root).and_return(@root)
+          @system.check_quiet_down?
+        end
+      end
+
       describe "#restart" do
         it "sends a safe restart request to the server" do
           @client.should_receive(:api_post_request).with("/safeRestart")

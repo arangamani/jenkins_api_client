@@ -30,6 +30,7 @@ require 'jenkins_api_client/view'
 require 'jenkins_api_client/build_queue'
 require 'jenkins_api_client/plugin_manager'
 require 'jenkins_api_client/user'
+require 'jenkins_api_client/root'
 
 require 'jenkins_api_client/cli/helper'
 require 'jenkins_api_client/cli/base'
