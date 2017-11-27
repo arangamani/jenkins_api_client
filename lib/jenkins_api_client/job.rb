@@ -751,8 +751,23 @@ module JenkinsApi
         end
       end
 
+      # Determine if the build is queued
+      #
+      # @param [String] job_name
+      #
+      # @return [Integer] build number if queued, or [Boolean] false if not queued
+      #
+      def queued?(job_name)
+        queue_result = @client.api_get_request("/job/#{path_encode job_name}")['inQueue']
+        if queue_result
+          return @client.api_get_request("/job/#{path_encode job_name}")['nextBuildNumber']
+        else
+          return queue_result
+        end
+      end
+
       # Obtain the current build status of the job
-      # By defaule Jenkins returns the color of the job status icon
+      # By default Jenkins returns the color of the job status icon
       # This function translates the color into a meaningful status
       #
       # @param [String] job_name
