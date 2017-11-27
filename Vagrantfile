@@ -70,6 +70,9 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder ".", "/opt/jenkins_api_client"
 
   config.vm.provision :shell, :inline =>
+    " echo 'export JAVA_HOME=/usr/share/java' >> ~/.bashrc;" +
+    " echo 'export JAVA_HOME=/usr/share/java' >> /etc/profile;" +
+    " export PATH=$JAVA_HOME/bin:$PATH;"
     " sudo apt-get update;" +
     " sudo apt-get install -y git ruby1.9.1-full rubygems libxslt-dev libxml2-dev;" +
     " cd /opt/jenkins_api_client;" +

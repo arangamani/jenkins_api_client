@@ -186,9 +186,9 @@ end
 
 ### Configuring plugins
 
-Given the abundance of plugins for Jenkins, we now provide a extensible way to 
+Given the abundance of plugins for Jenkins, we now provide a extensible way to
 setup jobs and configure their plugins. Right now, the gem ships with the hipchat
-plugin, with more plugins to follow in the future. 
+plugin, with more plugins to follow in the future.
 
 ```ruby
 hipchat_settings = JenkinsApi::Client::PluginSettings::Hipchat.new({
@@ -214,7 +214,7 @@ job = JenkinsApi::Client::Job.new(client, hipchat)
 
 ```
 
-Writing your own plugins is also straightforward. Inherit from the 
+Writing your own plugins is also straightforward. Inherit from the
 JenkinsApi::Client::PluginSettings::Base class and override the configure method.
 Jenkins jobs are configured using xml so you just nee to figure out where in the
 configuration to hook in your plugin settings.
@@ -239,7 +239,7 @@ module JenkinsApi
         # This gives some flexibility for creating/updating simple jobs so the
         # user doesn't have to learn about handling xml.
         #
-        # @param xml_doc [Nokogiri::XML::Document] xml document to be updated with 
+        # @param xml_doc [Nokogiri::XML::Document] xml document to be updated with
         # the plugin configuration
         #
         # @return [Nokogiri::XML::Document]
@@ -260,8 +260,8 @@ module JenkinsApi
 end
 ```
 
-Currently, the skype plugin is still configured directly on the jenkins job. This will 
-likely be extracted into its own plugin in the near future, but we will maintain 
+Currently, the skype plugin is still configured directly on the jenkins job. This will
+likely be extracted into its own plugin in the near future, but we will maintain
 backwards compatibility until after an official deprecation period.
 
 ### Waiting for a build to start/Getting the build number
@@ -434,11 +434,15 @@ CONTRIBUTING:
 If you would like to contribute to this project, just do the following:
 
 1. Fork the repo on Github.
-2. Add your features and make commits to your forked repo.
-3. Make a pull request to this repo.
-4. Review will be done and changes will be requested.
-5. Once changes are done or no changes are required, pull request will be merged.
-6. The next release will have your changes in it.
+2. Clone to your local machine.
+3. `cd jenkins_api_client`
+4. `vagrant up`
+5. To run tests, `bundle exec rake unit_tests` and `bundle exec rake func_tests`
+6. Add your features and make commits to your forked repo.
+7. Make a pull request to this repo.
+8. Review will be done and changes will be requested.
+9. Once changes are done or no changes are required, pull request will be merged.
+10. The next release will have your changes in it.
 
 Please take a look at the issues page if you want to get started.
 
@@ -451,4 +455,3 @@ and consider working on it. Just open an issue in Github as a feature request.
 
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/arangamani/jenkins_api_client/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
