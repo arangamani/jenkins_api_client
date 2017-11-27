@@ -1632,12 +1632,7 @@ module JenkinsApi
       #   defaults to latest build
       #
       def find_artifact(job_name, build_number = 0)
-        response_json       = get_build_details(job_name, build_number)
-        relative_build_path = artifact_path(build_details: response_json)
-        jenkins_path        = response_json['url']
-        artifact_path       = URI.escape("#{jenkins_path}artifact/#{relative_build_path}")
-
-        return artifact_path
+        find_artifacts(job_name, build_number).first
       end
 
       #A Method to check artifact exists path from the Current Build
@@ -1654,6 +1649,28 @@ module JenkinsApi
         rescue Exception => e
           return false
         end
+      end
+
+      # Find the artifacts for build_number of job_name, defaulting to current job
+      #
+      # @param [String] job_name
+      # @param [Integer] build_number Optional build number
+      # @return [String, Hash] JSON response from Jenkins
+      #
+      def find_artifacts(job_name, build_number = nil)
+        response_json       = get_build_details(job_name, build_number)
+        artifact_path(build_details: response_json).map do |p|
+          URI.escape("#{response_json['url']}artifact/#{p['relativePath']}")
+        end
+      end
+
+      # Find the artifacts for the current job
+      #
+      # @param [String] job_name
+      # @return [String, Hash] JSON response from Jenkins
+      #
+      def find_latest_artifacts(job_name)
+        find_artifacts(job_name)
       end
 
       private
@@ -1906,12 +1923,16 @@ module JenkinsApi
 
         build_details = get_build_details(job_name, build_number) if build_details.nil?
         artifacts     = build_details['artifacts']
+        artifact_paths = []
 
-        if ((nil != artifacts) && (false == artifacts.empty?) && (true == artifacts.first.include?('relativePath')))
-          return artifacts.first['relativePath']
-        else
+        if artifacts && artifacts.any?
+          artifact_paths = artifacts.find_all{ |a| a.key?('relativePath') }
+        end
+
+        if artifact_paths.empty?
           raise "No artifacts found."
         end
+        artifact_paths
       end
     end
   end
