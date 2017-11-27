@@ -161,6 +161,18 @@ describe JenkinsApi::Client do
       end
     end
 
+    describe "#root" do
+      it "Should return a Client::Root object" do
+        client = JenkinsApi::Client.new(
+            :server_ip => '127.0.0.1',
+            :server_port => 8080,
+            :username => 'username',
+            :password => 'password'
+        )
+        client.root.class.should == JenkinsApi::Client::Root
+      end
+    end
+
     describe "InstanceMethods" do
       describe "#get_root" do
         it "is defined with no parameters" do
