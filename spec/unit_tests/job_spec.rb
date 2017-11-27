@@ -369,6 +369,7 @@ describe JenkinsApi::Client::Job do
           @job.color_to_status("grey").should         == "not_run"
           @job.color_to_status("grey_anime").should   == "running"
           @job.color_to_status("aborted").should      == "aborted"
+          @job.color_to_status("disabled").should     == "disabled"
         end
         it "returns invalid as the output if unknown color is detected" do
           @job.color_to_status("orange").should == "invalid"
