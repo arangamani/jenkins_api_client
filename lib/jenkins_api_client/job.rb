@@ -703,17 +703,16 @@ module JenkinsApi
 EOS
 
         response_json = groovy_script_output
-
         jobs = Array.new
-        response_json["jobs"].each do |job|
-	  if job.is_a?(Hash)
-            if job.key? :_class and job[:_class] !~ /com.cloudbees.hudson.plugins.folder.Folder/
+        JSON.parse(response_json).each do |job|
+          if job.is_a?(Hash)
+            if job.key? "_class" and job["_class"] !~ /com.cloudbees.hudson.plugins.folder.Folder/
               if ignorecase
-                jobs << job[:name] if job[:name] =~ /#{filter}/i
+                jobs << job["name"] if job["name"] =~ /#{filter}/i
               else
-                jobs << job[:name] if job[:name] =~ /#{filter}/
+                jobs << job["name"] if job["name"] =~ /#{filter}/
               end
-	    end
+            end
           end
         end
         jobs.to_a
