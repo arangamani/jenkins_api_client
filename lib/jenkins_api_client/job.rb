@@ -1659,8 +1659,8 @@ module JenkinsApi
       #
       def find_artifacts(job_name, build_number = nil)
         response_json       = get_build_details(job_name, build_number)
-        relative_build_path = artifact_path(build_details: response_json).map do |p|
-          URI.escape("#{response_json['url']}/artifact/#{relative_build_path}")
+        artifact_path(build_details: response_json).map do |p|
+          URI.escape("#{response_json['url']}artifact/#{relative_build_path}")
         end
       end
 
@@ -1923,12 +1923,16 @@ module JenkinsApi
 
         build_details = get_build_details(job_name, build_number) if build_details.nil?
         artifacts     = build_details['artifacts']
+        artifact_paths = []
 
         if artifacts && artifacts.any?
-          return artifacts.find_all{ |a| a.key?('relativePath') }
-        else
+          artifact_paths = artifacts.find_all{ |a| a.key?('relativePath') }
+        end
+
+        if artifact_paths.empty?
           raise "No artifacts found."
         end
+        artifact_paths
       end
     end
   end
