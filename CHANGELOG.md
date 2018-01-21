@@ -3,6 +3,19 @@ CHANGELOG
 
 upcoming
 --------
+Recommendation: Breaking change is `login_with_pry` config file - it's probable this will affect people's development or testing locally but shouldn't affect production usage; I'd be comfortable with this being 1.6.0, or bumping to 2.0.0 depending on @arangamani's thoughts.
+
+* Backwards-compatible [#252][] Gitignores the ruby-gemset file for development. Credit [@katelovescode][]
+* Backwards-compatible [#246][] Adds color for disabled job status. Credit [@kkolotyuk][]
+* Backwards-compatible [#239][] Adds p12 compaitibility for Jenkins. Credit [@jayantsingh304][]
+* Backwards-compatible [#243][] Adds `artifact_exists?` method to jobs, to throw more meaningful exceptions when no artifact exists. Credit [mmcrockett][]
+* Backwards-compatible [#247][] Updates all links to jenkins-ci.org to jenkins.io, new URL. Credit [@katelovescode][]
+* Backwards-compatible [#251][] Adds `get_artifacts` method to Job to download all artifacts of a build to a specified location, refactors `find_artifact` to use the new multiple-artifact method. Credit [@jharveysmith][]
+* Backwards-compatible [#223][] Adds default-false `slaveonly` param to `Node.list` to allow user to get only slaves. Credit [@chinolatte][]
+* Backwards-compatible [#175][] Adds `queued?` check to Jobs. Credit [@mattrose][]
+* Possible breaking change [#192][] Fixes `login_with_pry` to use `login.yml` as the config file. Credit [@obowersa][]
+* Backwards-compatible [#236][] Adds a method on Job to add upstream projects given the job name, projects to be added upstream, and the threshold. Credit [@farkaseeb][]
+* Backwards-compatible [#189][] Includes a new Root class to the Client to access Jenkins' root "homepage".  Adds a check to see if the server is in Quiet Down mode. Updates some tests to newer rspec syntax. Credit [@bitingsparrow][]
 
 v1.5.3   [29-MAR-2017]
 ----------------------
