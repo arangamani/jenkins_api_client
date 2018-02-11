@@ -17,7 +17,7 @@ describe JenkinsApi::Client::PluginSettings::Collection do
       end
     end
 
-    context 'collection alreayd has member of same tyep as given plugin setting' do
+    context 'collection already has member of same tyep as given plugin setting' do
       it 'no-ops' do
         plugin_settings_collection.add(plugin_setting)
         expect(plugin_settings_collection.add(plugin_setting).size).to eql(1)
