@@ -211,6 +211,28 @@ module JenkinsApi
         list.each { |node| delete(node) unless node == "master" }
       end
 
+      # This method returns two lists 1) nodes online 2) nodes offline
+      #
+      # @param [String] filter a regex to filter node names
+      # @param [Bool] ignorecase whether to be case sensitive or not
+      #
+      def online_offline_lists(filter = nil, ignorecase = true)
+        @logger.info "Obtaining nodes from jenkins matching filter '#{filter}'"
+        offline_node_names = []
+        online_node_names = []
+        response_json = @client.api_get_request("/computer")
+        response_json["computer"].each do |computer|
+            if computer["displayName"] =~ /#{filter}/i
+              if computer["offline"] == true
+                offline_node_names << computer["displayName"]
+              else
+                online_node_names << computer["displayName"]
+              end
+            end
+        end
+        return online_node_names, offline_node_names
+      end
+
       # This method lists all nodes
       #
       # @param [String] filter a regex to filter node names
