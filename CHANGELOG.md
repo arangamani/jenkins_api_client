@@ -5,7 +5,8 @@ v2.0.0 - in progress
 --------
 Recommendation: Breaking change is `login_with_pry` config file - it's probable this will affect people's development or testing locally but shouldn't affect production usage; I'd be comfortable with this being 1.6.0, or bumping to 2.0.0 depending on @arangamani's thoughts.
 
-* Backwards-compatible [#270][] Adds methods to get two arrays, one for offline nodes and one for online nodes. Credit [@bitingsparrow][]
+* Backwards-compatible [#199][] Adds method to get plugin results on specific builds. Credit [@ rtryoda][]
+* Backwards-compatible [#270][] Adds method to get two arrays, one for offline nodes and one for online nodes. Credit [@bitingsparrow][]
 * Backwards-compatible [#267][] Whitespace cleanup. Credit [@jeis2497052][]
 * Backwards-compatible [#252][] Gitignores the ruby-gemset file for development. Credit [@katelovescode][]
 * Backwards-compatible [#246][] Adds color for disabled job status. Credit [@kkolotyuk][]
