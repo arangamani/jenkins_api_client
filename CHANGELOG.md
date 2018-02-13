@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-upcoming
+v2.0.0 - in progress
 --------
 Recommendation: Breaking change is `login_with_pry` config file - it's probable this will affect people's development or testing locally but shouldn't affect production usage; I'd be comfortable with this being 1.6.0, or bumping to 2.0.0 depending on @arangamani's thoughts.
 
