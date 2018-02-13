@@ -1,0 +1,12 @@
+{
+	"node_label": "label",
+	"executors": "2",
+	"template_detail": {
+		"node_username": "root",
+		"node_user_credentials_id": "xxxxxxxxxxx"
+		},
+	"host_list":[
+		"xxxx.xxx.com",
+		"yyyy.yyy.com"
+		]
+}

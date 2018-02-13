@@ -22,6 +22,10 @@
 
 :password: my_password
 
+# jenkins api token
+
+:jenkins_api_token: ""
+
 # The private key file for Jenkins CLI authentication
 # remember to upload the public key to http://#{server_ip}:#{server_port}/user/#{my_username}/configure
 :identity_file: ~/.ssh/id_rsa

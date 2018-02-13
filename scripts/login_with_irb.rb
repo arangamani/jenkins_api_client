@@ -15,6 +15,10 @@ def prompt_for_password
   get_from_stdin("Password: ", true)
 end
 
+def prompt_for_jenkins_api_token
+  get_from_stdin("Jenkins api token for #{client_opts[:username]}: ", false)
+end
+
 def get_from_stdin(prompt, mask = false)
   $stdout.write(prompt)
   
@@ -46,7 +50,9 @@ begin
   unless client_opts.has_key?(:password) or client_opts.has_key?(:password_base64)
     client_opts[:password] = prompt_for_password()
   end
-  
+  unless client_opts.has_key?(:jenkins_api_token)
+    client_opts[:jenkins_api_token] = prompt_for_jenkins_api_token()
+  end
   @client = JenkinsApi::Client.new(client_opts)
   puts "logged-in to the Jenkins API, use the '@client' variable to use the client"
 end

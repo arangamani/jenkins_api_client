@@ -128,7 +128,7 @@ module JenkinsApi
       #   )
       #
       def create_dumb_slave(params)
-        unless params[:name] && params[:slave_host] && params[:private_key_file]
+        unless params[:name] && params[:slave_host] && (params[:private_key_file] || params[:credentials_id])
           raise ArgumentError, "Name, slave host, and private key file are" +
             " required for creating a slave."
         end
