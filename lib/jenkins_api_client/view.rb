@@ -257,6 +257,38 @@ module JenkinsApi
         @client.api_post_request(post_msg)
       end
 
+      # List (sub-)views in a view
+      #
+      # @param [String] view_name
+      #
+      # @return [Array] view_names list of (sub-)views in the specified view
+      #
+      def list_views(view_name)
+        @logger.info "Obtaining the views present in view '#{view_name}'"
+        view_names = []
+        raise "The view #{view_name} doesn't exists on the server"\
+          unless exists?(view_name)
+        response_json = @client.api_get_request("/view/#{path_encode view_name}")
+        response_json["views"].each do |view|
+          view_names << view["name"]
+        end
+        view_names
+      end
+
+      # List (sub-)views in view along with their details
+      #
+      # @param [String] view_name
+      #
+      # @return [Array<Hash>] the details of (sub-)views in the specified view
+      #
+      def list_views_with_details(view_name)
+        @logger.info "Obtaining the views present in view '#{view_name}'"
+        raise "The view #{view_name} doesn't exists on the server"\
+          unless exists?(view_name)
+        response_json = @client.api_get_request("/view/#{path_encode view_name}")
+        response_json["views"]
+      end
+
       # Obtain the configuration stored in config.xml of a specific view
       #
       # @param [String] view_name
