@@ -452,3 +452,5 @@ and consider working on it. Just open an issue in Github as a feature request.
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/arangamani/jenkins_api_client/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
+READ THIS IN OTHER LANGUAGES:
+Spanish version: (https://github.com/LuigiBaute/jenkins_api_client/blob/f49970561da1f612dc7e34eb517be3a607e11422/Doc_Es_add_link.md)
