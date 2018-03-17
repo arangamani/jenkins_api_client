@@ -5,7 +5,8 @@ v2.0.0 - in progress
 --------
 Recommendation: Breaking change is `login_with_pry` config file - it's probable this will affect people's development or testing locally but shouldn't affect production usage; I'd be comfortable with this being 1.6.0, or bumping to 2.0.0 depending on @arangamani's thoughts.
 
-Still to be reviewed: 196, 205, 206, 214, 216, 237, 166
+Still to be reviewed: 205, 206, 214, 216, 237, 166/269
+After these reviews 264 will be complete and we'll be ready for release.
 
 * [#265][] Adds MIT License to Gemspec. Credit [@bf4][]
 * [#204][] Enables SSL Cert verification. Credit [@hdabrows][]
