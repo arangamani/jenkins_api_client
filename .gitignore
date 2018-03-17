@@ -40,3 +40,6 @@ tmtags
 
 # Skip the log file
 jenkins_api_client.log
+
+# Vagrant
+.vagrant
