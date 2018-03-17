@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
   s.required_ruby_version = ::Gem::Requirement.new('~> 2.1')
   s.rubygems_version = "2.4.5.1"
   s.summary = "Jenkins JSON API Client"
+  s.licenses = ["MIT"]
 
   s.add_dependency 'nokogiri', '~> 1.6'
   s.add_dependency 'thor', '>= 0.16.0'
