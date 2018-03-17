@@ -106,4 +106,31 @@ describe JenkinsApi::Client do
     end
 
   end
+
+  context "Given a server with a self-signed SSL certificate" do
+    let(:creds_file) { '~/.jenkins_api_client/spec.yml' }
+    let(:creds) {
+      creds = YAML.load_file(File.expand_path(creds_file, __FILE__))
+      creds[:server_port] = 8443
+      creds[:ssl] = true
+      creds
+    }
+    let(:client) { JenkinsApi::Client.new(creds) }
+
+    it "Should abort the connection with an SSL error" do
+      expect {
+        client.job.list_all
+      }.to raise_error(OpenSSL::SSL::SSLError, /certificate verify failed/)
+    end
+
+    context "Given a client configured to trust the server's certificate" do
+      before do
+        creds[:ca_file] = File.expand_path('~/.jenkins_api_client/server.cert.pem', __FILE__)
+      end
+
+      it "Should connect without an error" do
+        expect { client.job.list_all }.not_to raise_error
+      end
+    end
+  end
 end
