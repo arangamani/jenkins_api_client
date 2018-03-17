@@ -182,6 +182,7 @@ module JenkinsApi
       # @param [Bool] ignorecase whether to be case sensitive or not
       #
       def list(filter = "", ignorecase = true)
+        filter = filter.gsub(/(\(|\))/,'\\\\\1')
         @logger.info "Obtaining views based on filter '#{filter}'"
         view_names = []
         response_json = @client.api_get_request("", "tree=views[name]")
