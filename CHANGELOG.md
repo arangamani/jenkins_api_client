@@ -5,20 +5,27 @@ v2.0.0 - in progress
 --------
 Recommendation: Breaking change is `login_with_pry` config file - it's probable this will affect people's development or testing locally but shouldn't affect production usage; I'd be comfortable with this being 1.6.0, or bumping to 2.0.0 depending on @arangamani's thoughts.
 
-* Backwards-compatible [#199][] Adds method to get plugin results on specific builds. Credit [@ rtryoda][]
-* Backwards-compatible [#270][] Adds method to get two arrays, one for offline nodes and one for online nodes. Credit [@bitingsparrow][]
-* Backwards-compatible [#267][] Whitespace cleanup. Credit [@jeis2497052][]
-* Backwards-compatible [#252][] Gitignores the ruby-gemset file for development. Credit [@katelovescode][]
-* Backwards-compatible [#246][] Adds color for disabled job status. Credit [@kkolotyuk][]
-* Backwards-compatible [#239][] Adds p12 compaitibility for Jenkins. Credit [@jayantsingh304][]
-* Backwards-compatible [#243][] Adds `artifact_exists?` method to jobs, to throw more meaningful exceptions when no artifact exists. Credit [mmcrockett][]
-* Backwards-compatible [#247][] Updates all links to jenkins-ci.org to jenkins.io, new URL. Credit [@katelovescode][]
-* Backwards-compatible [#251][] Adds `get_artifacts` method to Job to download all artifacts of a build to a specified location, refactors `find_artifact` to use the new multiple-artifact method. Credit [@jharveysmith][]
-* Backwards-compatible [#223][] Adds default-false `slaveonly` param to `Node.list` to allow user to get only slaves. Credit [@chinolatte][]
-* Backwards-compatible [#175][] Adds `queued?` check to Jobs. Credit [@mattrose][]
+Still to be reviewed: 196, 205, 206, 214, 216, 237, 166
+
+* [#265][] Adds MIT License to Gemspec. Credit [@bf4][]
+* [#204][] Enables SSL Cert verification. Credit [@hdabrows][]
+* [#203][] Allows a discard_old_builds param to be passed to build_freestyle_config. Credit [@sab3d][]
+* [#272][] Changes versions of Ruby in Travis YAML. Credit [@nicolasleger][]
+* [#199][] Get plugin results on specific builds. Credit [@rtryoda][]
+* [#190][] / [#270][] Get two arrays, one for offline nodes and one for online nodes. Credit [@bitingsparrow][]
+* [#196][] Implements sub-view lists. Credit [@kkaempf][]
+* [#267][] Whitespace cleanup. Credit [@jeis2497052][]
+* [#251][] Adds `get_artifacts` method to Job to download all artifacts of a build to a specified location, refactors `find_artifact` to use the new multiple-artifact method. Credit [@jharveysmith][]
+* [#189][] / [#258][] Includes a new Root class to the Client to access Jenkins' root "homepage".  Adds a check to see if the server is in Quiet Down mode. Updates some tests to newer rspec syntax. Credit [@bitingsparrow][]
 * Possible breaking change [#192][] Fixes `login_with_pry` to use `login.yml` as the config file. Credit [@obowersa][]
-* Backwards-compatible [#236][] Adds a method on Job to add upstream projects given the job name, projects to be added upstream, and the threshold. Credit [@farkaseeb][]
-* Backwards-compatible [#189][] Includes a new Root class to the Client to access Jenkins' root "homepage".  Adds a check to see if the server is in Quiet Down mode. Updates some tests to newer rspec syntax. Credit [@bitingsparrow][]
+* [#175][] / [#257][] Adds `queued?` check to Jobs. Credit [@mattrose][]
+* [#223][] / [#255][] Adds default-false `slaveonly` param to `Node.list` to allow user to get only slaves. Credit [@chinolatte][]
+* [#239][] Adds p12 compaitibility for Jenkins. Credit [@jayantsingh304][]
+* [#236][] Adds a method on Job to add upstream projects given the job name, projects to be added upstream, and the threshold. Credit [@farkaseeb][]
+* [#246][] Adds color for disabled job status. Credit [@kkolotyuk][]
+* [#243][] Adds `artifact_exists?` method to jobs, to throw more meaningful exceptions when no artifact exists. Credit [mmcrockett][]
+* [#247][] Updates all links to jenkins-ci.org to jenkins.io, new URL. Credit [@katelovescode][]
+* [#252][] / [#253][] / [#254][] Gitignore changes for local dev. Credit [@katelovescode][]
 
 v1.5.3   [29-MAR-2017]
 ----------------------
