@@ -1143,6 +1143,18 @@ module JenkinsApi
         @client.api_get_request("/job/#{path_encode job_name}/#{build_num}/")
       end
 
+      # Obtain builded stages info for a job
+      #
+      # @param [String] job_name
+      # @param [Number] build_num
+      #
+      def get_build_stages(job_name, build_num)
+        build_num = get_current_build_number(job_name) if build_num == 0
+        @logger.info "Obtain builded stages info of '#{job_name}'" +
+          " Build ##{build_num}"
+        @client.api_get_request("/job/#{path_encode job_name}/#{build_num}/wfapi/describe")
+      end
+
       # Change the description of a specific job
       #
       # @param [String] job_name
