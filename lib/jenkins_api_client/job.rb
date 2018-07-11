@@ -1168,6 +1168,15 @@ module JenkinsApi
         @client.api_get_request("/job/#{path_encode job_name}/#{build_num}/execution/node/#{node_num}/wfapi/log")
       end
 
+      # Get result by link
+      #
+      # @param [String] link
+      #
+      def get_result_by_link(link)
+        @logger.info "Get result by link: '#{link}'"
+        @client.api_get_request(link)
+      end
+
       # Change the description of a specific job
       #
       # @param [String] job_name
