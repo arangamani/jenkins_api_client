@@ -604,10 +604,13 @@ module JenkinsApi
     # v 1.2 is a lot older than v 1.102 - and simple < > on version
     # strings doesn't work so well. There could be an indefinite
     # number of decimals, but for this gem we only care about the first four.
+    # If there are alpha characters, return nil.
     def deconstruct_version_string(version)
-      # Return an array of all the version numbers or nil
+      
       vers_array = []
-      matches = version.scan(/\d+/) { |ver|
+      matches = version.match(/[a-zA-Z]/)
+      return nil if matches
+      version.scan(/\d+/) { |ver|
         vers_array.push(ver.to_i)
       }
       if vers_array[2].nil?

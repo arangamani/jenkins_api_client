@@ -280,10 +280,10 @@ describe JenkinsApi::Client do
           version = @client.deconstruct_version_string(TEST_2_PART_VERSION_STRING)
           version.should_not be_nil
           version.should_not be_empty
-          version.size.should eql 3
+          version.size.should eql 4
           version[0].should eql 1
           version[1].should eql 2
-          version[2].should eql nil
+          version[2].should eql 0
         end
 
         it "takes a version string in the form 'a.b.c' and returns an array [a,b]" do
@@ -291,7 +291,7 @@ describe JenkinsApi::Client do
           version = @client.deconstruct_version_string(TEST_3_PART_VERSION_STRING)
           version.should_not be_nil
           version.should_not be_empty
-          version.size.should eql 3
+          version.size.should eql 4
           version[0].should eql 1
           version[1].should eql 2
           version[2].should eql 3
@@ -303,12 +303,13 @@ describe JenkinsApi::Client do
           ).to raise_error(NoMethodError) # match for fixnum
         end
 
-        it "should return nil if parameter is not a string in the form '\d+.\d+(.\d+)'" do
+        it "should return nil if parameter is not made of integers" do
           @client.deconstruct_version_string("A.B").should be_nil
-          @client.deconstruct_version_string("1").should be_nil
-          @client.deconstruct_version_string("1.").should be_nil
+          @client.deconstruct_version_string("1").should_not be_nil
+          @client.deconstruct_version_string("1.").should_not be_nil
           @client.deconstruct_version_string("1.2.3.4").should_not be_nil
           @client.deconstruct_version_string("abcdefg").should be_nil
+          @client.deconstruct_version_string("1.a.c").should be_nil
         end
       end
 
