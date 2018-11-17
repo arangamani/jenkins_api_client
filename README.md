@@ -7,7 +7,7 @@ Jenkins API Client
 [![Code Climate](http://img.shields.io/codeclimate/github/arangamani/jenkins_api_client.svg)][codeclimate]
 
 [gem]: https://rubygems.org/gems/jenkins_api_client
-[travis]: https://travis-ci.org/f0zz/jenkins_api_client.svg?branch=master
+[travis]: http://travis-ci.org/arangamani/jenkins_api_client
 [gemnasium]: https://gemnasium.com/arangamani/jenkins_api_client
 [codeclimate]: https://codeclimate.com/github/arangamani/jenkins_api_client
 
