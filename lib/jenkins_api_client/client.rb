@@ -602,14 +602,22 @@ module JenkinsApi
     # Converts a version string to a list of integers
     # This makes it easier to compare versions since in 'version-speak',
     # v 1.2 is a lot older than v 1.102 - and simple < > on version
-    # strings doesn't work so well
+    # strings doesn't work so well. There could be an indefinite
+    # number of decimals, but for this gem we only care about the first four.
     def deconstruct_version_string(version)
-      match = version.match(/^(\d+)\.(\d+)(?:\.(\d+))?$/)
-
-      # Match should have 4 parts [0] = input string, [1] = major
-      # [2] = minor, [3] = patch (possibly blank)
-      if match && match.size == 4
-        return [match[1].to_i, match[2].to_i, match[3].to_i || 0]
+      # Return an array of all the version numbers or nil
+      vers_array = []
+      matches = version.scan(/\d+/) { |ver|
+        vers_array.push(ver.to_i)
+      }
+      if vers_array[2].nil?
+        vers_array[2] = 0
+      end
+      if vers_array[3].nil?
+        vers_array[3] = 0
+      end
+      if !vers_array.empty?
+        return vers_array
       else
         return nil
       end
@@ -619,6 +627,8 @@ module JenkinsApi
     # if A == B, returns 0
     # if A > B, returns 1
     # if A < B, returns -1
+    # for this gem, we can make the assumption that if Version A's first 2
+    # version places are less than Version B's, we can return -1
     def compare_versions(version_a, version_b)
       if version_a == version_b
         return 0
@@ -627,8 +637,9 @@ module JenkinsApi
         version_b_d = deconstruct_version_string(version_b)
 
         if version_a_d[0] > version_b_d[0] ||
-          (version_a_d[0] == version_b_d[0] && version_a_d[1] > version_b_d[1]) ||
-          (version_a_d[0] == version_b_d[0] && version_a_d[1] == version_b_d[1] && version_a_d[2] > version_b_d[2])
+        (version_a_d[0] == version_b_d[0] && version_a_d[1] > version_b_d[1]) ||
+        (version_a_d[0] == version_b_d[0] && version_a_d[1] == version_b_d[1] && version_a_d[2] > version_b_d[2]) ||
+        (version_a_d[0] == version_b_d[0] && version_a_d[1] == version_b_d[1] && version_a_d[2] == version_b_d[2] && version_a_d[3] > version_b_d[3])
           return 1
         else
           return -1

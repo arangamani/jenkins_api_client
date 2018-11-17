@@ -283,7 +283,7 @@ describe JenkinsApi::Client do
           version.size.should eql 3
           version[0].should eql 1
           version[1].should eql 2
-          version[2].should eql 0
+          version[2].should eql nil
         end
 
         it "takes a version string in the form 'a.b.c' and returns an array [a,b]" do
@@ -307,7 +307,8 @@ describe JenkinsApi::Client do
           @client.deconstruct_version_string("A.B").should be_nil
           @client.deconstruct_version_string("1").should be_nil
           @client.deconstruct_version_string("1.").should be_nil
-          @client.deconstruct_version_string("1.2.3.4").should be_nil
+          @client.deconstruct_version_string("1.2.3.4").should_not be_nil
+          @client.deconstruct_version_string("abcdefg").should be_nil
         end
       end
 
