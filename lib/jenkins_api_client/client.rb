@@ -606,21 +606,15 @@ module JenkinsApi
     # number of decimals, but for this gem we only care about the first four.
     # If there are alpha characters, return nil.
     def deconstruct_version_string(version)
-      
+
       vers_array = []
       matches = version.match(/[a-zA-Z]/)
       return nil if matches
       version.scan(/\d+/) { |ver|
         vers_array.push(ver.to_i)
       }
-      if vers_array[2].nil?
-        vers_array[2] = 0
-      end
-      if vers_array[3].nil?
-        vers_array[3] = 0
-      end
-      if !vers_array.empty?
-        return vers_array
+      if !vers_array.compact.empty?
+        return [vers_array[0], vers_array[1], vers_array[2], vers_array[3]].map(&:to_i)
       else
         return nil
       end
@@ -630,7 +624,7 @@ module JenkinsApi
     # if A == B, returns 0
     # if A > B, returns 1
     # if A < B, returns -1
-    # for this gem, we can make the assumption that if Version A's first 2
+    # for this gem, we can make the assumption that if Version A's first 4
     # version places are less than Version B's, we can return -1
     def compare_versions(version_a, version_b)
       if version_a == version_b
