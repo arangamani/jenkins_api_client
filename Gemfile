@@ -4,6 +4,7 @@ gemspec
 
 group :development do
   gem "bundler"
+  gem "mixlib-shellout", "2.0.0"
   gem "rspec"
   gem "simplecov"
   gem "yard-thor"
