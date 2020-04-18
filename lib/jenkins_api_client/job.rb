@@ -621,7 +621,7 @@ module JenkinsApi
       # @return [Array<String>] the names of all jobs in jenkins
       #
       def list_all(folder_path = '')
-        response_json = @client.api_get_request(path_encode folder_path, "tree=jobs[name]")["jobs"]
+        response_json = @client.api_get_request(path_encode(folder_path), "tree=jobs[name]")["jobs"]
         response_json.map { |job| job["name"] }.sort
       end
 
@@ -646,9 +646,9 @@ module JenkinsApi
       # @return [Array<String>] filtered jobs
       #
       def list_by_status(status, jobs = [], folder_path = '')
-        jobs = list_all if jobs.empty?
+        jobs = list_all(folder_path) if jobs.empty?
         @logger.info "Obtaining jobs matching status '#{status}'"
-        json_response = @client.api_get_request(path_encode folder_path, "tree=jobs[name,color]")
+        json_response = @client.api_get_request(path_encode(folder_path), "tree=jobs[name,color]")
         filtered_jobs = []
         json_response["jobs"].each do |job|
           if color_to_status(job["color"]) == status &&
@@ -666,7 +666,7 @@ module JenkinsApi
       #
       # @return [Array<String>] jobs matching the given pattern
       #
-      def list(filter, ignorecase = true, folder_path)
+      def list(filter, ignorecase = true, folder_path = '')
         @logger.info "Obtaining jobs matching filter '#{filter}'"
         response_json = @client.api_get_request(path_encode folder_path)
         jobs = []
