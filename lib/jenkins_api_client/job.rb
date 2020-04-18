@@ -642,6 +642,11 @@ module JenkinsApi
       # @param jobs [Array<String>] if specified this array will be used for
       #   filtering by the status otherwise the filtering will be done using
       #   all jobs available in jenkins
+      # @param [String] folder_path Path of the folder as displayed in Jenkins URL.
+      #   For ex.
+      #   Root level folder - "/job/folder1"
+      #   Nested folder - "/job/folder1/job/folder2/..."
+      #
       #
       # @return [Array<String>] filtered jobs
       #
@@ -663,6 +668,11 @@ module JenkinsApi
       #
       # @param filter [String] a regular expression or a string to filter jobs
       # @param ignorecase [Boolean] whether to ignore case or not
+      # @param [String] folder_path Path of the folder as displayed in Jenkins URL.
+      #   For ex.
+      #   Root level folder - "/job/folder1"
+      #   Nested folder - "/job/folder1/job/folder2/..."
+      #
       #
       # @return [Array<String>] jobs matching the given pattern
       #
@@ -682,6 +692,11 @@ module JenkinsApi
 
       # List all jobs on the Jenkins CI server along with their details
       #
+      # @param [String] folder_path Path of the folder as displayed in Jenkins URL.
+      #   For ex.
+      #   Root level folder - "/job/folder1"
+      #   Nested folder - "/job/folder1/job/folder2/..."
+      #
       # @return [Array<Hash>] the details of all jobs in jenkins
       #
       def list_all_with_details(folder_path = '')
@@ -693,6 +708,11 @@ module JenkinsApi
       # List details of a specific job
       #
       # @param job_name [String] the name of the job to obtain the details from
+      # @param [String] folder_path Path of the folder as displayed in Jenkins URL.
+      #   For ex.
+      #   Root level folder - "/job/folder1"
+      #   Nested folder - "/job/folder1/job/folder2/..."
+      #
       #
       # @return [Hash] the details of the specified job
       #
