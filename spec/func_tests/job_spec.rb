@@ -35,6 +35,25 @@ describe JenkinsApi::Client::Job do
       end
     end
 
+    ## This block is an expection how job creation under folders could work
+    ##   This can change as per the implementation
+    # before(:all) do
+    #   @folder_path = '/job/folder1'
+    #   @client.job.create(@folder_path, @helper.create_folder_xml)
+
+    #   # Creating 10 jobs to run the spec tests on
+    #   begin
+    #     10.times do |num|
+    #       xml = @helper.create_job_xml
+    #       job = "#{@job_name_prefix}_#{num}"
+    #       @job_name = job if num == 0
+    #       @client.job.create(job, xml, @folder_path).to_i.should == 200
+    #     end
+    #   rescue => e
+    #     puts "WARNING: Can't create jobs for preparing to spec tests"
+    #   end
+    # end
+
     describe "InstanceMethods" do
 
       describe "#initialize" do
@@ -409,6 +428,11 @@ describe JenkinsApi::Client::Job do
         it "Should list all jobs" do
           @client.job.list_all.class.should == Array
         end
+
+        # This testcase is pending as currently there is no way to create a job within the folder
+        it 'Should list all jobs within the folder' # do
+        #   @client.job.list_all(@folder_path).class.should == Array
+        # end
       end
 
       describe "#list" do
@@ -419,6 +443,15 @@ describe JenkinsApi::Client::Job do
             name.should match /#{@filter}/i
           }
         end
+
+        # This testcase is pending as currently there is no way to create a job within the folder
+        it 'Should return job names from a given folder based on the filter' # do
+        #   names = @client.job.list(@filter, true, @folder_path)
+        #   names.class.should == Array
+        #   names.each do |name|
+        #     name.should match /#{@filter}/i
+        #   end
+        # end
       end
 
       describe "#list_by_status" do
@@ -430,12 +463,28 @@ describe JenkinsApi::Client::Job do
             status.should == 'success'
           end
         end
+
+        # This testcase is pending as currently there is no way to create a job within the folder
+        it 'Should be able to jobs list from a folder by status' # do
+        #   names = @client.job.list_by_status('success', [], @folder_path)
+        #   names.class.should == Array
+        #   names.each do |name|
+        #     # The folder_path should also be implemented for Job#get_current_build_status method
+        #     status = @client.job.get_current_build_status(name, @folder_path)
+        #     status.should == 'success'
+        #   end
+        # end
       end
 
       describe "#list_all_with_details" do
         it "Should return all job names with details" do
           @client.job.list_all_with_details.class.should == Array
         end
+
+        # This testcase is pending as currently there is no way to create a job within the folder
+        it 'Should return all job names with details' # do
+        #   @client.job.list_all_with_details(@folder_path).class.should == Array
+        # end
       end
 
       describe "#list_details" do
@@ -444,6 +493,13 @@ describe JenkinsApi::Client::Job do
           job_name.class.should == String
           @client.job.list_details(job_name).class.should == Hash
         end
+
+        # This testcase is pending as currently there is no way to create a job within the folder
+        it 'Should list details of a particular job from a given folder' # do
+        #   job_name = @client.job.list(@filter, true, @folder_path)[0]
+        #   job_name.class.should == String
+        #   @client.job.list_details(job_name, @folder_path).class.should == Hash
+        # end
       end
 
       describe "#get_upstream_projects" do
