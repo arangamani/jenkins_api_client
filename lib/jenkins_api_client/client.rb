@@ -369,6 +369,7 @@ module JenkinsApi
       http.read_timeout = @http_read_timeout
 
       response = http.request(request)
+      @cookies = response["set-cookie"]
       case response
         when Net::HTTPRedirection then
           # If we got a redirect request, follow it (if flag set), but don't
