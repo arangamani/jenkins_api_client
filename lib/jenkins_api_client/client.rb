@@ -67,6 +67,9 @@ module JenkinsApi
       "http_open_timeout",
       "http_read_timeout",
       "ssl",
+      "crt",
+      "key",
+      "verify_mode",
       "pkcs_file_path",
       "pass_phrase",
       "ca_file",
@@ -95,6 +98,10 @@ module JenkinsApi
     # @option args [String] :proxy_protocol the proxy protocol ('socks' or 'http' (defaults to HTTP)
     # @option args [String] :jenkins_path ("/") the optional context path for Jenkins
     # @option args [Boolean] :ssl (false) indicates if Jenkins is accessible over HTTPS
+    # @option args [String] :crt path to the crt pem for authenticating with Jenkins. See :key options
+    # @option args [String] :key path to the key pem for authenticating with Jenkins. The Crt and Key files are usefull for authenticating with untrusted host
+    #   and would be set to http.key and http.crt
+    # @option args [String] :verify_mode one of OpenSSL::SSL::VERIFY_* or nil to leave for default values
     # @option args [String] :pkcs_file_path ("/") the optional context path for pfx or p12 binary certificate file
     # @option args [String] :pass_phrase password for pkcs_file_path certificate file
     # @option args [String] :ca_file the path to a PEM encoded file containing trusted certificates used to verify peer certificate
@@ -293,6 +300,26 @@ module JenkinsApi
       end
     end
 
+    # Connects to the server and downloads artifacts with a given path to a specified location
+    #
+    # @param [String] job_name
+    # @param [String] build_number
+    # @param [String] artifact_path
+    # @param [String] filename location to save artifact
+    #
+    def get_artifact_by_path(job_name,build_number,artifact_path,filename)
+      build_path = job.build_path(job_name, build_number)
+      uri= "#{@jenkins_path}/#{build_path}/#{artifact_path}"
+      response = make_http_request(Net::HTTP::Get.new(uri))
+      if response.code == "200"
+        File.open(File.expand_path(filename),"wb") do |file|
+          file.write(response.body)
+        end
+      else
+        raise "Couldn't get the artifact"
+      end
+    end
+
     # Connects to the server and download all artifacts of a build to a specified location
     #
     # @param [String] job_name
@@ -306,7 +333,7 @@ module JenkinsApi
       @artifacts.each do |artifact|
         uri = URI.parse(artifact)
         http = Net::HTTP.new(uri.host, uri.port)
-        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        http.verify_mode = @verify_mode || OpenSSL::SSL::VERIFY_NONE
         http.use_ssl = @ssl
         request = Net::HTTP::Get.new(uri.request_uri)
         request.basic_auth(@username, @password)
@@ -358,11 +385,15 @@ module JenkinsApi
         pkcs12 =OpenSSL::PKCS12.new(File.binread(@pkcs_file_path), @pass_phrase!=nil ? @pass_phrase : "")
         http.cert = pkcs12.certificate
         http.key = pkcs12.key
-        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        http.verify_mode = @verify_mode || OpenSSL::SSL::VERIFY_NONE
       elsif @ssl
         http.use_ssl = true
 
-        http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+        http.cert = OpenSSL::X509::Certificate.new(@crt) if @crt
+        http.key = OpenSSL::PKey::RSA.new(@key) if @key
+
+        # Why is this here a VERIFY_PEER and the rest are VERIFY_NONE?
+        http.verify_mode = @verify_mode || OpenSSL::SSL::VERIFY_PEER
         http.ca_file = @ca_file if @ca_file
       end
       http.open_timeout = @http_open_timeout
