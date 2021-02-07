@@ -815,8 +815,7 @@ module JenkinsApi
           return response
         end
       when 400
-        matched = response.body.match(/<p>(.*)<\/p>/)
-        api_message = matched[1] unless matched.nil?
+        api_message = getApiMsgFromError404 response 
         @logger.debug "API message: #{api_message}"
         case api_message
         when /A job already exists with the name/
@@ -849,6 +848,25 @@ module JenkinsApi
           "Error code #{response.code}"
         )
       end
+    end
+
+    def getApiMsgFromError404(response)
+
+      matched = response.body.match(/<p>(.*)<\/p>/)
+      # unless matched.nil?
+      if (matched != nil)
+        result = matched[1]
+      else
+        
+        matched = response.body.match(/<h2>(.*)<\/h2>/)
+        if (matched != nil)
+          result = matched[1]
+        else
+          result = nil
+        end
+      end
+
+      return result
     end
 
   end
