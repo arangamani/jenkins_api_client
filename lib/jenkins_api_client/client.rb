@@ -129,7 +129,7 @@ module JenkinsApi
       if @server_url
         server_uri = URI.parse(@server_url)
         @server_ip = server_uri.host
-        @server_port = server_uri.port
+        @server_port ||= server_uri.port
         @ssl = server_uri.scheme == "https"
         @jenkins_path = server_uri.path
 
