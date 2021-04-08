@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.files         = `git ls-files -z`.split("\x0").select { |f| f.match(%r{lib/|bin/|java_deps/|gemspec}) }
   s.require_paths = ['lib']
   s.homepage = 'https://github.com/arangamani/jenkins_api_client'
-  s.required_ruby_version = ::Gem::Requirement.new('~> 3.0.1')
+  s.required_ruby_version = ::Gem::Requirement.new('>= 2.0.0')
   s.rubygems_version = "3.2.15"
   s.summary = "Jenkins JSON API Client"
   s.licenses = ["MIT"]
