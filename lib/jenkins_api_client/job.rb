@@ -731,6 +731,23 @@ module JenkinsApi
         response_json["builds"]
       end
 
+      # Obtain build details of a single build
+      #
+      # @param [String] job_name
+      #
+      def get_build_details(job_name, build_number = nil, options = {})
+        if build_number.nil?
+            build_number = get_current_build_number(job_name)
+        end
+
+        @logger.info "Obtaining the build details of '#{job_name}' / build ##{build_number}"
+        url = "/job/#{path_encode job_name}/#{build_number}/api/json"
+
+        tree = options[:tree] || nil
+        response_json = @client.api_get_request url, tree_string(tree)
+        response_json["builds"]
+      end
+
       # This method maps the color to status of a job
       #
       # @param [String] color color given by the API for a job
