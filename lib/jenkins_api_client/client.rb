@@ -114,7 +114,7 @@ module JenkinsApi
     def initialize(args)
       args = symbolize_keys(args)
       args.each do |key, value|
-        if value && VALID_PARAMS.include?(key.to_s)
+        if VALID_PARAMS.include?(key.to_s)
           instance_variable_set("@#{key}", value)
         end
       end if args.is_a? Hash
@@ -130,7 +130,7 @@ module JenkinsApi
         server_uri = URI.parse(@server_url)
         @server_ip = server_uri.host
         @server_port = server_uri.port
-        @ssl = server_uri.scheme == "https"
+        @ssl = server_uri.scheme == "https" && @ssl
         @jenkins_path = server_uri.path
 
         # read username and password from the URL
@@ -369,9 +369,6 @@ module JenkinsApi
       end
       http.open_timeout = @http_open_timeout
       http.read_timeout = @http_read_timeout
-
-      @logger.info("[Jenkins API] http.use_ssl?: #{http.use_ssl?}")
-      @logger.info("[Jenkins API] http.verify_mode: #{http.verify_mode}")
 
       response = http.request(request)
       case response
