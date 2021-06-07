@@ -369,6 +369,7 @@ module JenkinsApi
       http.read_timeout = @http_read_timeout
 
       @logger.info "[Jenkins API] SSL = #{@ssl}"
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
       @logger.info "[Jenkins API] request = #{request}"
       response = http.request(request)
       case response
