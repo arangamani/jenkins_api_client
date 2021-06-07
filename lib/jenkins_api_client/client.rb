@@ -513,7 +513,7 @@ module JenkinsApi
     end
 
     def post_data(url_prefix, data, content_type)
-      retries = @crumb_max_retrie
+      retries = @crumb_max_retries
       begin
         refresh_crumbs
 
