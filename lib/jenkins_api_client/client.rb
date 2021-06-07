@@ -130,7 +130,7 @@ module JenkinsApi
         server_uri = URI.parse(@server_url)
         @server_ip = server_uri.host
         @server_port = server_uri.port
-        @ssl = server_uri.scheme == "https" && @ssl
+        @ssl = server_uri.scheme == "https"
         @jenkins_path = server_uri.path
 
         # read username and password from the URL
@@ -364,13 +364,12 @@ module JenkinsApi
 
         http.verify_mode = OpenSSL::SSL::VERIFY_PEER
         http.ca_file = @ca_file if @ca_file
+      else
+        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
       end
       http.open_timeout = @http_open_timeout
       http.read_timeout = @http_read_timeout
 
-      @logger.info "[Jenkins API] SSL = #{@ssl}"
-      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-      @logger.info "[Jenkins API] request = #{request}"
       response = http.request(request)
       case response
         when Net::HTTPRedirection then
@@ -509,7 +508,7 @@ module JenkinsApi
     end
 
     def post_data(url_prefix, data, content_type)
-      retries = @crumb_max_retries
+      retries = @crumb_max_retrie
       begin
         refresh_crumbs
 
