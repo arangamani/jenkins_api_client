@@ -375,6 +375,9 @@ module JenkinsApi
       http.open_timeout = @http_open_timeout
       http.read_timeout = @http_read_timeout
 
+      @logger.info("[Jenkins API] http.use_ssl? = #{http.use_ssl?}")
+      @logger.info("[Jenkins API] http.verify_mode = #{http.verify_mode}")
+
       response = http.request(request)
       case response
         when Net::HTTPRedirection then
