@@ -130,7 +130,7 @@ module JenkinsApi
         server_uri = URI.parse(@server_url)
         @server_ip = server_uri.host
         @server_port = server_uri.port
-        @ssl = server_uri.scheme == "https"
+        @ssl = server_uri.scheme == "https" && @ssl
         @jenkins_path = server_uri.path
 
         # read username and password from the URL
