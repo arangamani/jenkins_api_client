@@ -82,6 +82,23 @@ module JenkinsApi
         age
       end
 
+      # Obtains ALL queue items with detail Hash from the API response
+      #
+      # @param [String] task_name Name of the task/job
+      #
+      # @return [Hash] Queue details of the specified task/job
+      #
+      def get_all_with_details(task_name)
+        @logger.info "Obtaining all queue items with details of task '#{task_name}' from the" +
+          " build queue"
+        response_json = @client.api_get_request("/queue/api/json")
+        details = []
+        response_json["items"].each do |item|
+          details << item if item["task"]["name"] == task_name
+        end
+        details
+      end
+
       # Obtains the detail Hash from the API response
       #
       # @param [String] task_name Name of the task/job
