@@ -735,6 +735,10 @@ module JenkinsApi
       #
       # @param [String] job_name
       #
+      # @param [Number] build_number
+      #
+      # @return [Hash] Build details of the specified build
+      #
       def get_build_details(job_name, build_number = nil, options = {})
         if build_number.nil?
             build_number = get_current_build_number(job_name)
