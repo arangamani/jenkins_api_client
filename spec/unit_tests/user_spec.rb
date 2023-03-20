@@ -93,8 +93,8 @@ __USERLIST
       mock_logger = Logger.new "/dev/null"
       mock_timeout = 300
       @client = double
-      @client.should_receive(:logger).and_return(mock_logger)
-      @client.should_receive(:timeout).and_return(mock_timeout)
+      expect(@client).to receive(:logger).and_return(mock_logger)
+      expect(@client).to receive(:timeout).and_return(mock_timeout)
       @client.stub(:api_get_request).with('/asynchPeople').and_return(PEOPLE_JSON)
       @client.stub(:api_get_request).with('/user/Fred%20Flintstone').and_return(FRED_JSON)
       @client.stub(:api_get_request).with('/user/fred').and_return(FRED_JSON)
@@ -108,11 +108,9 @@ __USERLIST
         it "initializes by receiving an instance of client object" do
           mock_logger = Logger.new "/dev/null"
           mock_timeout = 300
-          @client.should_receive(:logger).and_return(mock_logger)
-          @client.should_receive(:timeout).and_return(mock_timeout)
-          expect(
-            lambda{ JenkinsApi::Client::User.new(@client) }
-          ).not_to raise_error
+          expect(@client).to receive(:logger).and_return(mock_logger)
+          expect(@client).to receive(:timeout).and_return(mock_timeout)
+          expect { JenkinsApi::Client::User.new(@client) } .not_to raise_error
         end
       end
 

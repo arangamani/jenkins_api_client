@@ -49,9 +49,7 @@ describe JenkinsApi::Client do
             :password => 'hacked',
             :log_location => '/dev/null'
           )
-          expect(
-            lambda { client2.job.list_all }
-          ).to raise_error(JenkinsApi::Exceptions::Unauthorized)
+          expect{ client2.job.list_all }.to raise_error(JenkinsApi::Exceptions::Unauthorized)
         end
       end
       describe "#get_jenkins_version" do

@@ -32,14 +32,10 @@ describe JenkinsApi::Client::Node do
 
       describe "#initialize" do
         it "Initializes without any exception" do
-          expect(
-            lambda{ node = JenkinsApi::Client::Node.new(@client) }
-          ).not_to raise_error
+          expect { node = JenkinsApi::Client::Node.new(@client) } .not_to raise_error
         end
         it "Raises an error if a reference of client is not passed" do
-          expect(
-            lambda{ node JenkinsApi::Client::Node.new() }
-          ).to raise_error
+          expect { node JenkinsApi::Client::Node.new() }.to raise_error
         end
       end
 
@@ -78,27 +74,21 @@ describe JenkinsApi::Client::Node do
             :slave_host => "10.10.10.10",
             :private_key_file => "/root/.ssh/id_rsa"
           }
-          expect(
-            lambda{ @client.node.create_dumb_slave(params) }
-          ).to raise_error(ArgumentError)
+          expect { @client.node.create_dumb_slave(params) }.to raise_error(ArgumentError)
         end
         it "fails if slave_host is missing" do
           params = {
             :name => "func_test_slave",
             :private_key_file => "/root/.ssh/id_rsa"
           }
-          expect(
-            lambda{ @client.node.create_dumb_slave(params) }
-          ).to raise_error(ArgumentError)
+          expect { @client.node.create_dumb_slave(params) }.to raise_error(ArgumentError)
         end
         it "fails if private_key_file is missing" do
           params = {
             :name => "func_test_slave",
             :slave_host => "10.10.10.10"
           }
-          expect(
-            lambda{ @client.node.create_dumb_slave(params) }
-          ).to raise_error(ArgumentError)
+          expect { @client.node.create_dumb_slave(params) }.to raise_error(ArgumentError)
         end
         it "fails if the slave already exists in Jenkins" do
           params = {
@@ -109,9 +99,7 @@ describe JenkinsApi::Client::Node do
           @valid_post_responses.should include(
             @client.node.create_dumb_slave(params).to_i
           )
-          expect(
-            lambda{ @client.node.create_dumb_slave(params) }
-          ).to raise_error(JenkinsApi::Exceptions::NodeAlreadyExists)
+          expect { @client.node.create_dumb_slave(params) }.to raise_error(JenkinsApi::Exceptions::NodeAlreadyExists)
           @valid_post_responses.should include(
             @client.node.delete(params[:name]).to_i
           )
@@ -133,9 +121,7 @@ describe JenkinsApi::Client::Node do
           )
         end
         it "raises an error if the slave doesn't exist in Jenkins" do
-          expect(
-            lambda{ @client.node.delete("not_there") }
-          ).to raise_error
+          expect { @client.node.delete("not_there") }.to raise_error
         end
       end
 
@@ -191,9 +177,7 @@ describe JenkinsApi::Client::Node do
 
       describe "#get_config" do
         it "obtaines the node config.xml from the server" do
-          expect(
-            lambda { @client.node.get_config("slave") }
-          ).not_to raise_error
+          expect { @client.node.get_config("slave") } .not_to raise_error
         end
       end
 
