@@ -77,9 +77,7 @@ describe JenkinsApi::Client::View do
           )
         end
         it "raises an error when unsupported view type is specified" do
-          expect(
-            lambda { @client.view.create(name, "awesomeview") }
-          ).to raise_error
+          expect { @client.view.create(name, "awesomeview") }.to raise_error
         end
         it "raises proper error if the view already exists" do
           name = "duplicate_view"
@@ -87,9 +85,7 @@ describe JenkinsApi::Client::View do
             @client.view.create(name, "listview").to_i
           )
           @client.view.list(name).include?(name).should be_true
-          expect(
-            lambda { @client.view.create(name, "listview") }
-          ).to raise_error(JenkinsApi::Exceptions::ViewAlreadyExists)
+          expect { @client.view.create(name, "listview") }.to raise_error(JenkinsApi::Exceptions::ViewAlreadyExists)
           @valid_post_responses.should include(
             @client.view.delete(name).to_i
           )
@@ -149,18 +145,14 @@ describe JenkinsApi::Client::View do
           test_and_validate(params)
         end
         it "raises an error when the input parameters is not a Hash" do
-          expect(
-            lambda {
+          expect {
               @client.view.create_list_view("a_string")
-            }
-          ).to raise_error(ArgumentError)
+            }.to raise_error(ArgumentError)
         end
         it "raises an error when the required name paremeter is missing" do
-          expect(
-            lambda {
+          expect {
               @client.view.create_list_view(:description => "awesomeview")
-            }
-          ).to raise_error(ArgumentError)
+            }.to raise_error(ArgumentError)
         end
       end
 
@@ -244,9 +236,7 @@ describe JenkinsApi::Client::View do
 
       describe "#get_config" do
         it "obtaines the view config.xml from the server" do
-          expect(
-            lambda { @client.view.get_config("general_purpose_view") }
-          ).not_to raise_error
+          expect { @client.view.get_config("general_purpose_view") } .not_to raise_error
         end
       end
 

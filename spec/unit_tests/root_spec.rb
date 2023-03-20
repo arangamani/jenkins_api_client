@@ -5,7 +5,7 @@ describe JenkinsApi::Client::Root do
     before do
       mock_logger = Logger.new "/dev/null"
       @client = double
-      @client.should_receive(:logger).and_return(mock_logger)
+      expect(@client).to receive(:logger).and_return(mock_logger)
       @root = JenkinsApi::Client::Root.new(@client)
       @sample_root_json1 = {
         "description" => "Hello Users",
@@ -26,10 +26,8 @@ describe JenkinsApi::Client::Root do
       describe "#initialize" do
         it "initializes by receiving an instance of client object" do
           mock_logger = Logger.new "/dev/null"
-          @client.should_receive(:logger).and_return(mock_logger)
-          expect(
-            lambda { JenkinsApi::Client::Root.new(@client) }
-          ).not_to raise_error
+          expect(@client).to receive(:logger).and_return(mock_logger)
+          expect { JenkinsApi::Client::Root.new(@client) } .not_to raise_error
         end
       end
 

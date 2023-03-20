@@ -14,39 +14,27 @@ describe JenkinsApi::Client do
 
     describe "#initialize" do
       it "initializes without exception" do
-        expect(
-          lambda do
-            JenkinsApi::Client.new(
-              :server_ip => '127.0.0.1',
-              :server_port => 8080,
-              :username => 'username',
-              :password => 'password'
-            )
-          end
-        ).not_to raise_error
+        JenkinsApi::Client.new(
+          :server_ip => '127.0.0.1',
+          :server_port => 8080,
+          :username => 'username',
+          :password => 'password'
+        )
       end
 
       it "initialize without exception if username/password not specified" do
-        expect(
-          lambda do
-            JenkinsApi::Client.new({
-              :server_ip => '127.0.0.1',
-              :server_port => 8080
-            })
-          end
-        ).not_to raise_error
+        JenkinsApi::Client.new({
+          :server_ip => '127.0.0.1',
+          :server_port => 8080
+        })
       end
 
       it "initializes with server_url without exception" do
-        expect(
-          lambda do
-            JenkinsApi::Client.new(
-              :server_url => 'http://localhost',
-              :username => 'username',
-              :password => 'password'
-            )
-          end
-        ).not_to raise_error
+        JenkinsApi::Client.new(
+          :server_url => 'http://localhost',
+          :username => 'username',
+          :password => 'password'
+        )
       end
 
       it "initializes the username and password from server_url" do
@@ -70,32 +58,26 @@ describe JenkinsApi::Client do
       end
 
       it "initializes with proxy args without exception" do
-        expect(
-          lambda do
-            JenkinsApi::Client.new(
-              :server_ip => '127.0.0.1',
-              :server_port => 8080,
-              :username => 'username',
-              :password => 'password',
-              :proxy_ip => '127.0.0.1',
-              :proxy_port => 8081
-            )
-          end
-        ).not_to raise_error
+        JenkinsApi::Client.new(
+          :server_ip => '127.0.0.1',
+          :server_port => 8080,
+          :username => 'username',
+          :password => 'password',
+          :proxy_ip => '127.0.0.1',
+          :proxy_port => 8081
+        )
       end
 
       it "errors on bad proxy args" do
-        expect(
-          lambda do
-            JenkinsApi::Client.new(
-              :server_ip => '127.0.0.1',
-              :server_port => 8080,
-              :username => 'username',
-              :password => 'password',
-              :proxy_ip => '127.0.0.1'
-            )
-          end
-        ).to raise_error
+        expect {
+          JenkinsApi::Client.new(
+            :server_ip => '127.0.0.1',
+            :server_port => 8080,
+            :username => 'username',
+            :password => 'password',
+            :proxy_ip => '127.0.0.1'
+          )
+        }.to raise_error
       end
     end
 
@@ -107,7 +89,7 @@ describe JenkinsApi::Client do
             :server_port => 8080,
             :username => 'username',
             :password => 'password'
-            )
+          )
           client.job.class.should == JenkinsApi::Client::Job
         end
       end
@@ -119,7 +101,7 @@ describe JenkinsApi::Client do
             :server_port => 8080,
             :username => 'username',
             :password => 'password'
-            )
+          )
           client.node.class.should == JenkinsApi::Client::Node
         end
       end
@@ -131,7 +113,7 @@ describe JenkinsApi::Client do
             :server_port => 8080,
             :username => 'username',
             :password => 'password'
-            )
+          )
           client.view.class.should == JenkinsApi::Client::View
         end
       end
@@ -164,10 +146,10 @@ describe JenkinsApi::Client do
     describe "#root" do
       it "Should return a Client::Root object" do
         client = JenkinsApi::Client.new(
-            :server_ip => '127.0.0.1',
-            :server_port => 8080,
-            :username => 'username',
-            :password => 'password'
+          :server_ip => '127.0.0.1',
+          :server_port => 8080,
+          :username => 'username',
+          :password => 'password'
         )
         client.root.class.should == JenkinsApi::Client::Root
       end
@@ -209,8 +191,8 @@ describe JenkinsApi::Client do
         end
 
         it "sets the content type with charset as UTF-8 for the multi-byte content" do
-          url_prefix   = '/prefix'
-          xml          = '<dummy>dummy</dummy>'
+          url_prefix = '/prefix'
+          xml = '<dummy>dummy</dummy>'
           content_type = 'application/xml;charset=UTF-8'
 
           expect(@client).to receive(:post_data).with(url_prefix, xml, content_type)
@@ -225,8 +207,8 @@ describe JenkinsApi::Client do
         end
 
         it "sets the content type with charset as UTF-8 for the multi-byte content" do
-          url_prefix   = '/prefix'
-          json         = '{ "dummy": "dummy" }'
+          url_prefix = '/prefix'
+          json = '{ "dummy": "dummy" }'
           content_type = 'application/json;charset=UTF-8'
 
           expect(@client).to receive(:post_data).with(url_prefix, json, content_type)
@@ -298,9 +280,7 @@ describe JenkinsApi::Client do
         end
 
         it "should fail if parameter is not a string" do
-          expect(
-            lambda { @client.deconstruct_version_string(1) }
-          ).to raise_error(NoMethodError) # match for fixnum
+          expect { @client.deconstruct_version_string(1) }.to raise_error(NoMethodError) # match for fixnum
         end
 
         it "should return nil if parameter is not a string in the form '\d+.\d+(.\d+)'" do
@@ -377,58 +357,50 @@ describe JenkinsApi::Client do
   context "With some required parameters missing" do
     context "#initialize" do
       it "Should fail if server_ip and server_url are missing" do
-        expect(
-          lambda do
-            JenkinsApi::Client.new({
-              :bogus => '127.0.0.1',
-              :bogus_url => 'http://localhost',
-              :server_port => 8080,
-              :username => 'username',
-              :password => 'password'
-            })
-          end
-        ).to raise_error
+        expect {
+          JenkinsApi::Client.new({
+            :bogus => '127.0.0.1',
+            :bogus_url => 'http://localhost',
+            :server_port => 8080,
+            :username => 'username',
+            :password => 'password'
+          })
+        }.to raise_error
       end
 
       it "Should fail if password is missing" do
-        expect(
-          lambda do
-            JenkinsApi::Client.new({
-              :server_ip => '127.0.0.1',
-              :server_port => 8080,
-              :username => 'username',
-              :bogus => 'password'
-            })
-          end
-        ).to raise_error
+        expect {
+          JenkinsApi::Client.new({
+            :server_ip => '127.0.0.1',
+            :server_port => 8080,
+            :username => 'username',
+            :bogus => 'password'
+          })
+        }.to raise_error
       end
 
       it "Should fail if proxy_ip is specified but proxy_port is not" do
-        expect(
-          lambda do
-            JenkinsApi::Client.new({
-              :bogus => '127.0.0.1',
-              :server_port => 8080,
-              :username => 'username',
-              :password => 'password',
-              :proxy_ip => '127.0.0.1',
-            })
-          end
-        ).to raise_error
+        expect {
+          JenkinsApi::Client.new({
+            :bogus => '127.0.0.1',
+            :server_port => 8080,
+            :username => 'username',
+            :password => 'password',
+            :proxy_ip => '127.0.0.1',
+          })
+        }.to raise_error
       end
 
       it "Should fail if proxy_port is specified but proxy_ip is not" do
-        expect(
-          lambda do
-            JenkinsApi::Client.new({
-              :bogus => '127.0.0.1',
-              :server_port => 8080,
-              :username => 'username',
-              :password => 'password',
-              :proxy_port => 8081,
-            })
-          end
-        ).to raise_error
+        expect {
+          JenkinsApi::Client.new({
+            :bogus => '127.0.0.1',
+            :server_port => 8080,
+            :username => 'username',
+            :password => 'password',
+            :proxy_port => 8081,
+          })
+        }.to raise_error
       end
     end
   end
@@ -436,48 +408,41 @@ describe JenkinsApi::Client do
   context "With logging configuration" do
 
     it "Should fail if logger is not a Logger object" do
-      expect(
-        lambda do
-          JenkinsApi::Client.new({
-            :server_ip => '127.0.0.1',
-            :logger    => 'testing',
-          })
-        end
-      ).to raise_error
+      expect {
+        JenkinsApi::Client.new({
+          :server_ip => '127.0.0.1',
+          :logger => 'testing',
+        })
+      }.to raise_error
     end
 
     it "Should set logger instance variable to Logger" do
       client = JenkinsApi::Client.new(
         :server_ip => '127.0.0.1',
-        :logger    => Logger.new(STDOUT),
+        :logger => Logger.new(STDOUT),
       )
 
       client.instance_variable_get('@logger').class.should == Logger
     end
 
     it "Should fail if logger and log_level are both set" do
-      expect(
-        lambda do
-          JenkinsApi::Client.new({
-            :server_ip => '127.0.0.1',
-            :logger    => Logger.new(STDOUT),
-            :log_level => Logger::INFO,
-          })
-        end
-      ).to raise_error
+      expect {
+        JenkinsApi::Client.new({
+          :server_ip => '127.0.0.1',
+          :logger => Logger.new(STDOUT),
+          :log_level => Logger::INFO,
+        })
+      }.to raise_error
     end
 
     it "Should fail if logger and log_location are both set" do
-      expect(
-        lambda do
-          JenkinsApi::Client.new({
-            :server_ip    => '127.0.0.1',
-            :logger       => Logger.new(STDOUT),
-            :log_location => 'test.log',
-          })
-        end
-      ).to raise_error
+      expect {
+        JenkinsApi::Client.new({
+          :server_ip => '127.0.0.1',
+          :logger => Logger.new(STDOUT),
+          :log_location => 'test.log',
+        })
+      }.to raise_error
     end
-
   end
 end

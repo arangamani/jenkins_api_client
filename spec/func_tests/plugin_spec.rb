@@ -40,9 +40,7 @@ describe JenkinsApi::Client::PluginManager do
           end
         end
         it "raises an error if unsupported filter is specified" do
-          expect(
-            lambda { @client.plugin.list_installed(:unsupported => true) }
-          ).to raise_error(ArgumentError)
+          expect { @client.plugin.list_installed(:unsupported => true) }.to raise_error(ArgumentError)
         end
       end
 

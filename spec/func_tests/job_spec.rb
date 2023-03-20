@@ -39,14 +39,10 @@ describe JenkinsApi::Client::Job do
 
       describe "#initialize" do
         it "Initializes without any exception" do
-          expect(
-            lambda { job = JenkinsApi::Client::Job.new(@client) }
-          ).not_to raise_error
+          expect{ job = JenkinsApi::Client::Job.new(@client) }.not_to raise_error
         end
         it "Raises an error if a reference of client is not passed" do
-          expect(
-            lambda { job = JenkinsApi::Client::Job.new() }
-          ).to raise_error
+          expect{ job = JenkinsApi::Client::Job.new() }.to raise_error
         end
       end
 
@@ -66,9 +62,7 @@ describe JenkinsApi::Client::Job do
             @client.job.create(name, xml).to_i
           )
           @client.job.list(name).include?(name).should be_truthy
-          expect(
-            lambda { @client.job.create(name, xml) }
-          ).to raise_error(JenkinsApi::Exceptions::JobAlreadyExists)
+          expect { @client.job.create(name, xml) }.to raise_error(JenkinsApi::Exceptions::JobAlreadyExists)
           @valid_post_responses.should include(
             @client.job.delete(name).to_i
           )
@@ -179,9 +173,7 @@ describe JenkinsApi::Client::Job do
             :scm_url => "http://non-existent.com/non-existent.non",
             :scm_branch => "master"
           }
-          expect(
-            lambda{ @client.job.create_freestyle(params) }
-          ).to raise_error
+          expect { @client.job.create_freestyle(params) }.to raise_error
         end
         it "Should create a freestyle job with restricted_node option" do
           name = "test_job_restricted_node"
@@ -277,18 +269,14 @@ describe JenkinsApi::Client::Job do
           test_and_validate(name, params)
         end
         it "Should raise an error if the input parameters is not a Hash" do
-          expect(
-            lambda {
-              @client.job.create_freestyle("a_string")
-            }
-          ).to raise_error(ArgumentError)
+          expect {
+            @client.job.create_freestyle("a_string")
+          }.to raise_error(ArgumentError)
         end
         it "Should raise an error if the required name paremeter is missing" do
-          expect(
-            lambda {
-              @client.job.create_freestyle(:shell_command => "sleep 60")
-            }
-          ).to raise_error(ArgumentError)
+          expect {
+            @client.job.create_freestyle(:shell_command => "sleep 60")
+          }.to raise_error(ArgumentError)
         end
       end
 
@@ -550,7 +538,7 @@ describe JenkinsApi::Client::Job do
               end
             end
           }
-          expect( lambda { @client.job.build(@job_name, {}, build_opts) } ).to raise_error(Timeout::Error)
+          expect { @client.job.build(@job_name, {}, build_opts) }.to raise_error(Timeout::Error)
           # Sleep for 10 seconds so we don't hit the Jenkins quiet period (5
           # seconds)
           sleep 10
@@ -579,7 +567,7 @@ describe JenkinsApi::Client::Job do
               end
             end
           }
-          expect( lambda { @client.job.build(@job_name, {}, build_opts) } ).to raise_error(Timeout::Error)
+          expect { @client.job.build(@job_name, {}, build_opts) }.to raise_error(Timeout::Error)
         end
       end
 
