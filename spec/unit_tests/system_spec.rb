@@ -68,6 +68,7 @@ describe JenkinsApi::Client::System do
       describe "#list_users" do
         it "sends a request to list the users" do
           expect(@client).to receive(:api_get_request).with("/asynchPeople")
+          expect(@system).to receive(:warn) # deprecated
           @system.list_users
         end
       end

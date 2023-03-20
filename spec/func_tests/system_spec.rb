@@ -74,7 +74,9 @@ describe JenkinsApi::Client::System do
 
       describe "#list_users" do
         it "Should be able to get a list of users" do
-          expect(@client.system.list_users).to be_an_instance_of(Array)
+          system = @client.system
+          expect(system).to receive(:warn) # deprecated
+          expect(system.list_users).to be_an_instance_of(Array)
         end
       end
 
