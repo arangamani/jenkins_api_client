@@ -28,7 +28,7 @@ describe JenkinsApi::Client::Job do
           xml = @helper.create_job_xml
           job = "#{@job_name_prefix}_#{num}"
           @job_name = job if num == 0
-          @client.job.create(job, xml).to_i.should == 200
+          expect(@client.job.create(job, xml).to_i).to eq 200
         end
       rescue Exception => e
         puts "WARNING: Can't create jobs for preparing to spec tests"
@@ -39,10 +39,10 @@ describe JenkinsApi::Client::Job do
 
       describe "#initialize" do
         it "Initializes without any exception" do
-          expect{ job = JenkinsApi::Client::Job.new(@client) }.not_to raise_error
+          expect{ job = JenkinsApi::Client::Job.new(@client) }.not_to raise_error(ArgumentError)
         end
         it "Raises an error if a reference of client is not passed" do
-          expect{ job = JenkinsApi::Client::Job.new() }.to raise_error
+          expect{ job = JenkinsApi::Client::Job.new() }.to raise_error(ArgumentError)
         end
       end
 
@@ -53,7 +53,7 @@ describe JenkinsApi::Client::Job do
           @valid_post_responses.should include(
             @client.job.create(name, xml).to_i
           )
-          @client.job.list(name).include?(name).should be_truthy
+          expect(@client.job.list(name).include?(name)).to be_truthy
         end
         it "Should raise proper exception when the job already exists" do
           xml = @helper.create_job_xml
@@ -61,7 +61,7 @@ describe JenkinsApi::Client::Job do
           @valid_post_responses.should include(
             @client.job.create(name, xml).to_i
           )
-          @client.job.list(name).include?(name).should be_truthy
+          expect(@client.job.list(name).include?(name)).to be_truthy
           expect { @client.job.create(name, xml) }.to raise_error(JenkinsApi::Exceptions::JobAlreadyExists)
           @valid_post_responses.should include(
             @client.job.delete(name).to_i
@@ -75,7 +75,7 @@ describe JenkinsApi::Client::Job do
           @valid_post_responses.should include(
             @client.job.create_freestyle(params).to_i
           )
-          @client.job.list(name).include?(name).should be_truthy
+          expect(@client.job.list(name).include?(name)).to be_truthy
           # Test for the existense of the given line in the config.xml of the
           # job created
           unless config_line.nil?
@@ -85,7 +85,7 @@ describe JenkinsApi::Client::Job do
           @valid_post_responses.should include(
             @client.job.delete(name).to_i
           )
-          @client.job.list(name).include?(name).should be_falsey
+          expect(@client.job.list(name).include?(name)).to be_falsey
         end
 
         it "Should create a freestyle job with just name" do
@@ -173,7 +173,7 @@ describe JenkinsApi::Client::Job do
             :scm_url => "http://non-existent.com/non-existent.non",
             :scm_branch => "master"
           }
-          expect { @client.job.create_freestyle(params) }.to raise_error
+          expect { @client.job.create_freestyle(params) }.to raise_error(ArgumentError)
         end
         it "Should create a freestyle job with restricted_node option" do
           name = "test_job_restricted_node"
@@ -285,7 +285,7 @@ describe JenkinsApi::Client::Job do
           xml = @helper.create_job_xml
           @client.job.create("from_job_copy_test", xml)
           @client.job.copy("from_job_copy_test", "to_job_copy_test")
-          @client.job.list(".*_job_copy_test").should == [
+          expect(@client.job.list(".*_job_copy_test")).to eq [
             "from_job_copy_test", "to_job_copy_test"
           ]
           @client.job.delete("from_job_copy_test")
@@ -296,7 +296,7 @@ describe JenkinsApi::Client::Job do
           xml = @helper.create_job_xml
           @client.job.create("from_job_copy_test", xml)
           @client.job.copy("from_job_copy_test")
-          @client.job.list(".*_job_copy_test").should == [
+          expect(@client.job.list(".*_job_copy_test")).to eq [
             "copy_of_from_job_copy_test", "from_job_copy_test"
           ]
           @client.job.delete("from_job_copy_test")
@@ -349,10 +349,10 @@ describe JenkinsApi::Client::Job do
           xml = @helper.create_job_xml
           @client.job.create("old_job_rename_test", xml)
           @client.job.rename("old_job_rename_test", "new_job_rename_test")
-          @client.job.list("old_job_rename_test").should == []
+          expect(@client.job.list("old_job_rename_test")).to eq []
           resp = @client.job.list("new_job_rename_test")
-          resp.size.should == 1
-          resp.first.should == "new_job_rename_test"
+          expect(resp.size).to eq 1
+          expect(resp.first).to eq "new_job_rename_test"
           @client.job.delete("new_job_rename_test")
         end
       end
@@ -395,14 +395,14 @@ describe JenkinsApi::Client::Job do
 
       describe "#list_all" do
         it "Should list all jobs" do
-          @client.job.list_all.class.should == Array
+          expect(@client.job.list_all.class).to eq Array
         end
       end
 
       describe "#list" do
         it "Should return job names based on the filter" do
           names = @client.job.list(@filter)
-          names.class.should == Array
+          expect(names.class).to eq Array
           names.each { |name|
             name.should match /#{@filter}/i
           }
@@ -412,50 +412,50 @@ describe JenkinsApi::Client::Job do
       describe "#list_by_status" do
         it "Should be able to list jobs by status" do
           names = @client.job.list_by_status('success')
-          names.class.should == Array
+          expect(names.class).to eq Array
           names.each do |name|
             status = @client.job.get_current_build_status(name)
-            status.should == 'success'
+            expect(status).to eq 'success'
           end
         end
       end
 
       describe "#list_all_with_details" do
         it "Should return all job names with details" do
-          @client.job.list_all_with_details.class.should == Array
+          expect(@client.job.list_all_with_details.class).to eq Array
         end
       end
 
       describe "#list_details" do
         it "Should list details of a particular job" do
           job_name = @client.job.list(@filter)[0]
-          job_name.class.should == String
-          @client.job.list_details(job_name).class.should == Hash
+          expect(job_name.class).to eq String
+          expect(@client.job.list_details(job_name).class).to eq Hash
         end
       end
 
       describe "#get_upstream_projects" do
         it "Should list upstream projects of the specified job" do
-          @client.job.get_upstream_projects(@job_name).class.should == Array
+          expect(@client.job.get_upstream_projects(@job_name).class).to eq Array
         end
       end
 
       describe "#get_downstream_projects" do
         it "Should list downstream projects of the specified job" do
-          @client.job.get_downstream_projects(@job_name).class.should == Array
+          expect(@client.job.get_downstream_projects(@job_name).class).to eq Array
         end
       end
 
       describe "#get_builds" do
         it "Should get builds of a specified job" do
-          @client.job.get_builds(@job_name).class.should == Array
+          expect(@client.job.get_builds(@job_name).class).to eq Array
         end
       end
 
       describe "#get_current_build_status" do
         it "Should obtain the current build status for the specified job" do
           build_status = @client.job.get_current_build_status(@job_name)
-          build_status.class.should == String
+          expect(build_status.class).to eq String
           valid_build_status = [
             "not_run",
             "aborted",
@@ -464,7 +464,7 @@ describe JenkinsApi::Client::Job do
             "unstable",
             "running"
           ]
-          valid_build_status.include?(build_status).should be_truthy
+          expect(valid_build_status.include?(build_status)).to be_truthy
         end
       end
 
@@ -488,7 +488,7 @@ describe JenkinsApi::Client::Job do
           # Sleep for 10 seconds so we don't hit the Jenkins quiet period (5
           # seconds)
           sleep 10
-          @client.job.get_current_build_status(@job_name).should == "running"
+          expect(@client.job.get_current_build_status(@job_name)).to eq "running"
           wait_for_job_to_finish(@job_name)
         end
 
@@ -512,9 +512,9 @@ describe JenkinsApi::Client::Job do
             end
           }
           build_id = @client.job.build(@job_name, {}, build_opts)
-          build_id.should_not be_nil
-          build_id.should eql(expected_build_id)
-          @client.job.get_current_build_status(@job_name).should == "running"
+          expect(build_id).to_no be_nil
+          expect(build_id).to eql(expected_build_id)
+          expect(@client.job.get_current_build_status(@job_name)).to eq "running"
           wait_for_job_to_finish(@job_name)
         end
 
@@ -542,7 +542,7 @@ describe JenkinsApi::Client::Job do
           # Sleep for 10 seconds so we don't hit the Jenkins quiet period (5
           # seconds)
           sleep 10
-          @client.job.get_current_build_status(@job_name).should == "running"
+          expect(@client.job.get_current_build_status(@job_name)).to eq "running"
           wait_for_job_to_finish(@job_name)
         end
 
@@ -580,15 +580,15 @@ describe JenkinsApi::Client::Job do
 
       describe "#disable" do
         it "Should disable the specified job and then enable it again" do
-          @client.job.list_details(@job_name)['buildable'].should == true
+          expect(@client.job.list_details(@job_name)['buildable']).to eq true
           response = @client.job.disable(@job_name)
-          response.to_i.should == 302
+          expect(response.to_i).to eq 302
           sleep 3
-          @client.job.list_details(@job_name)['buildable'].should == false
+          expect(@client.job.list_details(@job_name)['buildable']).to eq false
           response = @client.job.enable(@job_name)
-          response.to_i.should == 302
+          expect(response.to_i).to eq 302
           sleep 3
-          @client.job.list_details(@job_name)['buildable'].should == true
+          expect(@client.job.list_details(@job_name)['buildable']).to eq true
         end
       end
 
@@ -599,13 +599,13 @@ describe JenkinsApi::Client::Job do
           ).should_not == "running"
           @client.job.build(@job_name)
           sleep 10
-          @client.job.get_current_build_status(@job_name).should == "running"
+          expect(@client.job.get_current_build_status(@job_name)).to eq "running"
           sleep 5
           @valid_post_responses.should include(
             @client.job.stop_build(@job_name).to_i
           )
           sleep 5
-          @client.job.get_current_build_status(@job_name).should == "aborted"
+          expect(@client.job.get_current_build_status(@job_name)).to eq "aborted"
         end
       end
 
@@ -625,22 +625,22 @@ describe JenkinsApi::Client::Job do
         it "Should be able to chain all jobs" do
           # Filter jobs to be chained
           jobs = @client.job.list(@filter)
-          jobs.class.should == Array
+          expect(jobs.class).to eq Array
           start_jobs = @client.job.chain(jobs, 'success', ["all"])
-          start_jobs.class.should == Array
-          start_jobs.length.should == 1
+          expect(start_jobs.class).to eq Array
+          expect(start_jobs.length).to eq 1
         end
         it "Should be able to chain jobs based on the specified criteria" do
           jobs = @client.job.list(@filter)
-          jobs.class.should == Array
+          expect(jobs.class).to eq Array
           start_jobs = @client.job.chain(
             jobs,
             'failure',
             ["not_run", "aborted", 'failure'],
             3
           )
-          start_jobs.class.should == Array
-          start_jobs.length.should == 3
+          expect(start_jobs.class).to eq Array
+          expect(start_jobs.length).to eq 3
         end
       end
 

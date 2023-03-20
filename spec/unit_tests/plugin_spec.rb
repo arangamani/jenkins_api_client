@@ -18,7 +18,7 @@ describe JenkinsApi::Client::PluginManager do
         it "initializes by receiving an instane of client object" do
           mock_logger = Logger.new "/dev/null"
           expect(@client).to receive(:logger).and_return(mock_logger)
-          expect { JenkinsApi::Client::PluginManager.new(@client) } .not_to raise_error
+          JenkinsApi::Client::PluginManager.new(@client)
         end
       end
 
@@ -28,8 +28,8 @@ describe JenkinsApi::Client::PluginManager do
             with("/pluginManager", "tree=plugins[shortName,version]").
             and_return(@installed_plugins)
           plugins = @plugin.list_installed
-          plugins.class.should == Hash
-          plugins.size.should == @installed_plugins["plugins"].size
+          expect(plugins.class).to eq Hash
+          expect(plugins.size).to eq @installed_plugins["plugins"].size
         end
         supported_filters = [
           :active, :bundled, :deleted, :downgradable, :enabled,
@@ -41,16 +41,14 @@ describe JenkinsApi::Client::PluginManager do
               with("/pluginManager",
                 "tree=plugins[shortName,version,#{filter}]"
               ).and_return(@installed_plugins)
-            @plugin.list_installed(filter => true).class.should == Hash
+            expect(@plugin.list_installed(filter => true).class).to eq Hash
           end
         end
         it "lists all installed plugins matching multiple filters" do
           expect(@client).to receive(:api_get_request).
-            with("/pluginManager",
-                 "tree=plugins[shortName,version,bundled,deleted]").
+            with("/pluginManager", "tree=plugins[shortName,version,bundled,deleted]").
             and_return(@installed_plugins)
-          @plugin.list_installed(:bundled => true, :deleted => true).class.
-            should == Hash
+          expect(@plugin.list_installed(:bundled => true, :deleted => true).class).to eq Hash
         end
         it "raises an error if unsupported filter is specified" do
           expect { @plugin.list_installed(:unsupported => true) }.to raise_error(ArgumentError)
@@ -62,7 +60,7 @@ describe JenkinsApi::Client::PluginManager do
           expect(@client).to receive(:api_get_request).
             with("/updateCenter/coreSource", "tree=availables[name,version]").
             and_return(@available_plugins)
-          @plugin.list_available.class.should == Hash
+          expect(@plugin.list_available.class).to eq Hash
         end
       end
 
@@ -71,7 +69,7 @@ describe JenkinsApi::Client::PluginManager do
           expect(@client).to receive(:api_get_request).
             with("/updateCenter/coreSource", "tree=updates[name,version]").
             and_return(@updatable_plugins)
-          @plugin.list_updates.class.should == Hash
+          expect(@plugin.list_updates.class).to eq Hash
         end
       end
 
@@ -153,7 +151,7 @@ describe JenkinsApi::Client::PluginManager do
           expect(@client).to receive(:api_get_request).
             with("/updateCenter", "tree=restartRequiredForCompletion").
             and_return({"restartRequiredForCompletion" => true})
-          @plugin.restart_required?.should == true
+          expect(@plugin.restart_required?).to eq true
         end
       end
     end

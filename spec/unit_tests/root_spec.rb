@@ -27,26 +27,26 @@ describe JenkinsApi::Client::Root do
         it "initializes by receiving an instance of client object" do
           mock_logger = Logger.new "/dev/null"
           expect(@client).to receive(:logger).and_return(mock_logger)
-          expect { JenkinsApi::Client::Root.new(@client) } .not_to raise_error
+          JenkinsApi::Client::Root.new(@client)
         end
       end
 
       describe "#quieting_down?" do
         it "returns false if jenkins is jenkins is not quieting down" do
           allow(@client).to receive(:api_get_request).with('', 'tree=quietingDown').and_return(@sample_root_json1)
-          expect @root.quieting_down?.should be false
+          expect(@root.quieting_down?).to be false
         end
 
         it "returns true if jenkins quieting down" do
           allow(@client).to receive(:api_get_request).with('', 'tree=quietingDown').and_return(@sample_root_json2)
-          expect @root.quieting_down?.should be true
+          expect(@root.quieting_down?).to be true
         end
       end
 
       describe "#description" do
         it "gets the message displayed to users on the home page" do
           allow(@client).to receive(:api_get_request).with('', 'tree=description').and_return(@sample_root_json1)
-          expect @root.description.should == "Hello Users"
+          expect(@root.description).to eq "Hello Users"
         end
       end
     end

@@ -45,7 +45,7 @@ describe JenkinsApi::Client::Node do
         it "initializes by receiving an instance of client object" do
           mock_logger = Logger.new "/dev/null"
           expect(@client).to receive(:logger).and_return(mock_logger)
-          expect { JenkinsApi::Client::Node.new(@client) }.not_to raise_error
+          JenkinsApi::Client::Node.new(@client)
         end
       end
 
@@ -64,7 +64,7 @@ describe JenkinsApi::Client::Node do
               :slave_host => "10.10.10.10",
               :private_key_file => "/root/.ssh/id_rsa"
             )
-          }.to raise_error
+          }.to raise_error(ArgumentError)
         end
         it "fails if slave_host is not given" do
           expect {
@@ -72,7 +72,7 @@ describe JenkinsApi::Client::Node do
               :name => "test_slave",
               :private_key_file => "/root/.ssh/id_rsa"
             )
-          }.to raise_error
+          }.to raise_error(ArgumentError)
         end
         it "fails if private_key_file is not given" do
           expect {
@@ -80,7 +80,7 @@ describe JenkinsApi::Client::Node do
               :name => "test_slave",
               :slave_host => "10.10.10.10"
             )
-          }.to raise_error
+          }.to raise_error(ArgumentError)
         end
       end
 
@@ -113,7 +113,7 @@ describe JenkinsApi::Client::Node do
           ).and_return(
             "302"
           )
-          @node.delete(slave_name).to_i.should == 302
+          expect(@node.delete(slave_name).to_i).to eq 302
         end
         it "fails if the given node doesn't exist in Jenkins" do
           slave_name = "not_there"
@@ -124,7 +124,7 @@ describe JenkinsApi::Client::Node do
           ).and_return(
             @sample_json_list_response
           )
-          expect { @node.delete(slave_name) }.to raise_error
+          expect { @node.delete(slave_name) }.to raise_error(RuntimeError)
         end
       end
 
@@ -137,7 +137,7 @@ describe JenkinsApi::Client::Node do
           ).and_return(
             @sample_json_list_response
           )
-          @node.list("slave").class.should == Array
+          expect(@node.list("slave").class).to eq Array
         end
       end
 
@@ -150,7 +150,7 @@ describe JenkinsApi::Client::Node do
           ).and_return(
             @sample_json_list_response
           )
-          @node.online_offline_lists("slave").class.should == Array
+          expect(@node.online_offline_lists("slave").class).to eq Array
         end
       end
 
@@ -214,7 +214,7 @@ describe JenkinsApi::Client::Node do
           ).and_return(
             @offline_slave
           )
-          @node.method("is_offline?").call("slave").should be true
+          expect(@node.method("is_offline?").call("slave")).to eq true
         end
 
         it "returns false if the node is online" do
@@ -226,7 +226,7 @@ describe JenkinsApi::Client::Node do
           ).and_return(
             @online_slave
           )
-          @node.method("is_offline?").call("slave").should be false
+          expect(@node.method("is_offline?").call("slave")).to eq false
         end
 
         it "returns false if the node is online and have a string value on its attr" do
@@ -238,7 +238,7 @@ describe JenkinsApi::Client::Node do
           ).and_return(
             @offline_slave_in_string
           )
-          @node.method("is_offline?").call("slave").should be true
+          expect(@node.method("is_offline?").call("slave")).to eq true
         end
 
         it "returns false if the node is online and have a string value on its attr" do
@@ -250,7 +250,7 @@ describe JenkinsApi::Client::Node do
           ).and_return(
             @online_slave_in_string
           )
-          @node.method("is_offline?").call("slave").should be false
+          expect(@node.method("is_offline?").call("slave")).to eq false
         end
       end
 
@@ -317,7 +317,7 @@ describe JenkinsApi::Client::Node do
             @offline_slave,
             @online_slave
           )
-          @node.method("toggle_temporarilyOffline").call("slave", "foo bar").should be false
+          expect(@node.method("toggle_temporarilyOffline").call("slave", "foo bar")).to eq false
         end
 
         it "fails to toggle an offline status of a node" do
@@ -335,7 +335,7 @@ describe JenkinsApi::Client::Node do
           )
           expect {
             @node.toggle_temporarilyOffline("slave", "foo bar")
-          }.to raise_error
+          }.to raise_error(RuntimeError)
         end
       end
     end

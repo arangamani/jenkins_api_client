@@ -42,7 +42,7 @@ describe JenkinsApi::Client::BuildQueue do
         it "initializes by receiving an instance of client object" do
           mock_logger = Logger.new "/dev/null"
           expect(@client).to receive(:logger).and_return(mock_logger)
-          expect { JenkinsApi::Client::BuildQueue.new(@client) } .not_to raise_error
+          JenkinsApi::Client::BuildQueue.new(@client)
         end
       end
 
@@ -60,7 +60,7 @@ describe JenkinsApi::Client::BuildQueue do
           expect(@client).to receive(:api_get_request).with("/queue").and_return(
             @sample_queue_json
           )
-          @queue.list.class.should == Array
+          expect(@queue.list.class).to eq Array
         end
       end
 
@@ -69,7 +69,7 @@ describe JenkinsApi::Client::BuildQueue do
           expect(@client).to receive(:api_get_request).with("/queue").and_return(
             @sample_queue_json
           )
-          @queue.get_age("queue_test").class.should == Float
+          expect(@queue.get_age("queue_test").class).to eq Float
         end
       end
 
@@ -78,7 +78,7 @@ describe JenkinsApi::Client::BuildQueue do
           expect(@client).to receive(:api_get_request).with("/queue").and_return(
             @sample_queue_json
           )
-          @queue.get_details("queue_test").class.should == Hash
+          expect(@queue.get_details("queue_test").class).to eq Hash
         end
       end
 
@@ -87,7 +87,7 @@ describe JenkinsApi::Client::BuildQueue do
           expect(@client).to receive(:api_get_request).with("/queue").and_return(
             @sample_queue_json
           )
-          @queue.get_causes("queue_test").class.should == Array
+          expect(@queue.get_causes("queue_test").class).to eq Array
         end
       end
 
@@ -96,7 +96,7 @@ describe JenkinsApi::Client::BuildQueue do
           expect(@client).to receive(:api_get_request).with("/queue").and_return(
             @sample_queue_json
           )
-          @queue.get_reason("queue_test").class.should == String
+          expect(@queue.get_reason("queue_test").class).to eq String
         end
       end
 
@@ -105,7 +105,7 @@ describe JenkinsApi::Client::BuildQueue do
           expect(@client).to receive(:api_get_request).with("/queue").and_return(
             @sample_queue_json
           )
-          @queue.get_eta("queue_test").class.should == String
+          expect(@queue.get_eta("queue_test").class).to eq String
         end
       end
 
@@ -114,7 +114,7 @@ describe JenkinsApi::Client::BuildQueue do
           expect(@client).to receive(:api_get_request).with("/queue").and_return(
             @sample_queue_json
           )
-          @queue.get_params("queue_test").class.should == String
+          expect(@queue.get_params("queue_test").class).to eq String
         end
       end
 
@@ -123,7 +123,7 @@ describe JenkinsApi::Client::BuildQueue do
           expect(@client).to receive(:api_get_request).with("/queue").and_return(
             @sample_queue_json
           )
-          @queue.is_buildable?("queue_test").should == false
+          expect(@queue.is_buildable?("queue_test")).to eq false
         end
       end
 
@@ -132,7 +132,7 @@ describe JenkinsApi::Client::BuildQueue do
           expect(@client).to receive(:api_get_request).with("/queue").and_return(
             @sample_queue_json
           )
-          @queue.is_blocked?("queue_test").should == true
+          expect(@queue.is_blocked?("queue_test")).to eq true
         end
       end
 
@@ -141,7 +141,7 @@ describe JenkinsApi::Client::BuildQueue do
           expect(@client).to receive(:api_get_request).with("/queue").and_return(
             @sample_queue_json
           )
-          @queue.is_stuck?("queue_test").should == false
+          expect(@queue.is_stuck?("queue_test")).to eq false
         end
       end
 
