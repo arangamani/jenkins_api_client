@@ -1687,7 +1687,7 @@ module JenkinsApi
       def find_artifacts(job_name, build_number = nil)
         response_json       = get_build_details(job_name, build_number)
         artifact_path(build_details: response_json).map do |p|
-          URI::Parser.new.escape("#{response_json['url']}artifact/#{p['relativePath']}")
+          path_encode("#{response_json['url']}artifact/#{p['relativePath']}")
         end
       end
 
