@@ -47,7 +47,7 @@ describe JenkinsApi::Client::PluginSettings::Collection do
   describe '#configure' do
     context 'collection is empty' do
       it 'no-ops' do
-        expect { plugin_settings_collection.configure(Nokogiri::XML::Document.new)}.to_not raise_error
+        plugin_settings_collection.configure(Nokogiri::XML::Document.new)
       end
     end
 

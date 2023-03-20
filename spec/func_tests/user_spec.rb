@@ -25,7 +25,7 @@ describe JenkinsApi::Client::User do
 
       describe "#list" do
         it "Should be able to get a list of users" do
-          @client.user.list.should be_an_instance_of(Hash)
+          expect(@client.user.list).to be_an_instance_of(Hash)
         end
       end
 
@@ -35,9 +35,9 @@ describe JenkinsApi::Client::User do
           users = @client.user.list
 
           users.each do |id, user|
-            id.should eq(user['id'])
+            expect(id).to eq(user['id'])
             fetched = @client.user.get(id)
-            fetched.should eq(user)
+            expect(fetched).to eq(user)
           end
 
         end

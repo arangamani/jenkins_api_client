@@ -25,7 +25,7 @@ describe JenkinsApi::Client::System do
 
       describe "#quiet_down" do
         it "Should be able to quiet down a Jenkins server" do
-          @valid_post_responses.should include(
+          expect(@valid_post_responses).to  include(
             @client.system.quiet_down.to_i
           )
         end
@@ -33,7 +33,7 @@ describe JenkinsApi::Client::System do
 
       describe "#cancel_quiet_down" do
         it "Should be able to cancel the quiet down a Jenkins server" do
-          @valid_post_responses.should include(
+          expect(@valid_post_responses).to  include(
             @client.system.cancel_quiet_down.to_i
           )
         end
@@ -41,40 +41,42 @@ describe JenkinsApi::Client::System do
 
       describe "#restart" do
         it "Should be able to restart a Jenkins server safely" do
-          @valid_post_responses.should include(
+          expect(@valid_post_responses).to  include(
             @client.system.restart.to_i
           )
         end
 
         it "Should be able to wait after a safe restart" do
-          @client.system.wait_for_ready.should == true
+          expect(@client.system.wait_for_ready).to eq true
         end
 
         it "Should be able to force restart a Jenkins server" do
-          @valid_post_responses.should include(
+          expect(@valid_post_responses).to  include(
             @client.system.restart(true).to_i
           )
         end
 
         it "Should be able to wait after a force restart" do
-          @client.system.wait_for_ready.should == true
+          expect(@client.system.wait_for_ready).to eq true
         end
       end
 
       describe "#reload" do
         it "Should be able to reload a Jenkins server" do
-          @valid_post_responses.should include(
+          expect(@valid_post_responses).to  include(
             @client.system.reload.to_i
           )
         end
         it "Should be able to wait after a force restart" do
-          @client.system.wait_for_ready.should == true
+          expect(@client.system.wait_for_ready).to eq true
         end
       end
 
       describe "#list_users" do
         it "Should be able to get a list of users" do
-          @client.system.list_users.should be_an_instance_of(Array)
+          system = @client.system
+          expect(system).to receive(:warn) # deprecated
+          expect(system.list_users).to be_an_instance_of(Array)
         end
       end
 

@@ -28,7 +28,7 @@ describe JenkinsApi::Client::PluginManager do
     describe "InstanceMethods" do
       describe "#list_installed" do
         it "lists all installed plugins in jenkins" do
-          @client.plugin.list_installed.class.should == Hash
+          expect(@client.plugin.list_installed.class).to eq Hash
         end
         supported_filters = [
           :active, :bundled, :deleted, :downgradable, :enabled,
@@ -36,25 +36,23 @@ describe JenkinsApi::Client::PluginManager do
         ]
         supported_filters.each do |filter|
           it "lists all installed plugins matching filter '#{filter}'" do
-            @client.plugin.list_installed(filter => true).class.should == Hash
+            expect(@client.plugin.list_installed(filter => true).class).to eq Hash
           end
         end
         it "raises an error if unsupported filter is specified" do
-          expect(
-            lambda { @client.plugin.list_installed(:unsupported => true) }
-          ).to raise_error(ArgumentError)
+          expect { @client.plugin.list_installed(:unsupported => true) }.to raise_error(ArgumentError)
         end
       end
 
       describe "#list_available" do
         it "lists all available plugins in jenkins update center" do
-          @client.plugin.list_available.class.should == Hash
+          expect(@client.plugin.list_available.class).to eq Hash
         end
       end
 
       describe "#list_updates" do
         it "lists all available plugin updates in jenkins update center" do
-          @client.plugin.list_updates.class.should == Hash
+          expect(@client.plugin.list_updates.class).to eq Hash
         end
       end
 
@@ -74,8 +72,7 @@ describe JenkinsApi::Client::PluginManager do
           @client.system.restart(true) if @client.plugin.restart_required?
           @client.system.wait_for_ready
           installed = @client.plugin.list_installed.keys
-          @test_plugins.all? { |plugin| installed.include?(plugin) }.
-            should == true
+          expect(@test_plugins.all? { |plugin| installed.include?(plugin) }).to eq true
         end
       end
 
@@ -96,8 +93,7 @@ describe JenkinsApi::Client::PluginManager do
           @client.system.restart(true)
           @client.system.wait_for_ready
           installed = @client.plugin.list_installed(:active => false).keys
-          @test_plugins.all? { |plugin| installed.include?(plugin) }.
-            should == true
+          expect(@test_plugins.all? { |plugin| installed.include?(plugin) }).to eq true
         end
       end
 
@@ -118,8 +114,7 @@ describe JenkinsApi::Client::PluginManager do
           @client.system.restart(true)
           @client.system.wait_for_ready
           installed = @client.plugin.list_installed(:active => true).keys
-          @test_plugins.all? { |plugin| installed.include?(plugin) }.
-            should == true
+          expect(@test_plugins.all? { |plugin| installed.include?(plugin) }).to eq true
         end
       end
 
@@ -139,8 +134,7 @@ describe JenkinsApi::Client::PluginManager do
           @client.system.restart(true) if @client.plugin.restart_required?
           @client.system.wait_for_ready
           installed = @client.plugin.list_installed.keys
-          @test_plugins.all? { |plugin| installed.include?(plugin) }.
-            should == false
+          expect(@test_plugins.all? { |plugin| installed.include?(plugin) }).to eq false
         end
       end
     end
