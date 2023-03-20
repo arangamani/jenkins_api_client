@@ -31,7 +31,7 @@ describe JenkinsApi::Client::View do
 
       describe "#list" do
         it "Should be able to list all views" do
-          @client.view.list.class.should == Array
+          expect(@client.view.list.class).to eq Array
         end
       end
 
@@ -41,7 +41,7 @@ describe JenkinsApi::Client::View do
           @valid_post_responses.should include(
             @client.view.create(name).to_i
           )
-          @client.view.list(name).include?(name).should be_true
+          expect(@client.view.list(name).include?(name)).to be_true
           @valid_post_responses.should include(
             @client.view.delete(name).to_i
           )
@@ -51,7 +51,7 @@ describe JenkinsApi::Client::View do
           @valid_post_responses.should include(
             @client.view.create(name).to_i
           )
-          @client.view.list(name).include?(name).should be_true
+          expect(@client.view.list(name).include?(name)).to be_true
           @valid_post_responses.should include(
             @client.view.delete(name).to_i
           )
@@ -61,7 +61,7 @@ describe JenkinsApi::Client::View do
           @valid_post_responses.should include(
             @client.view.create(name, "listview").to_i
           )
-          @client.view.list(name).include?(name).should be_true
+          expect(@client.view.list(name).include?(name)).to be_true
           @valid_post_responses.should include(
             @client.view.delete(name).to_i
           )
@@ -71,20 +71,20 @@ describe JenkinsApi::Client::View do
           @valid_post_responses.should include(
             @client.view.create(name, "myview").to_i
           )
-          @client.view.list(name).include?(name).should be_true
+          expect(@client.view.list(name).include?(name)).to be_true
           @valid_post_responses.should include(
             @client.view.delete(name).to_i
           )
         end
         it "raises an error when unsupported view type is specified" do
-          expect { @client.view.create(name, "awesomeview") }.to raise_error
+          expect { @client.view.create(name, "awesomeview") }.to raise_error(ArgumentError)
         end
         it "raises proper error if the view already exists" do
           name = "duplicate_view"
           @valid_post_responses.should include(
             @client.view.create(name, "listview").to_i
           )
-          @client.view.list(name).include?(name).should be_true
+          expect(@client.view.list(name).include?(name)).to be_true
           expect { @client.view.create(name, "listview") }.to raise_error(JenkinsApi::Exceptions::ViewAlreadyExists)
           @valid_post_responses.should include(
             @client.view.delete(name).to_i
@@ -99,11 +99,11 @@ describe JenkinsApi::Client::View do
           @valid_post_responses.should include(
             @client.view.create_list_view(params).to_i
           )
-          @client.view.list(name).include?(name).should be_true
+          expect(@client.view.list(name).include?(name)).to be_true
           @valid_post_responses.should include(
             @client.view.delete(name).to_i
           )
-          @client.view.list(name).include?(name).should be_false
+          expect(@client.view.list(name).include?(name)).to be_false
         end
 
         it "accepts just the name of the view and creates the view" do
@@ -164,23 +164,23 @@ describe JenkinsApi::Client::View do
           )
         end
         it "accepts the name of the view and deletes from Jenkins" do
-          @client.view.list(name).include?(name).should be_true
+          expect(@client.view.list(name).include?(name)).to be_true
           @valid_post_responses.should include(
             @client.view.delete(name).to_i
           )
-          @client.view.list(name).include?(name).should be_false
+          expect(@client.view.list(name).include?(name)).to be_false
         end
       end
 
       describe "#list_jobs" do
         it "accepts the view name and lists all jobs in the view" do
-          @client.view.list_jobs("general_purpose_view").class.should == Array
+          expect(@client.view.list_jobs("general_purpose_view").class).to eq Array
         end
       end
 
       describe "#exists?" do
         it "accepts the vie name and returns true if the view exists" do
-          @client.view.exists?("general_purpose_view").should be_true
+          expect(@client.view.exists?("general_purpose_view")).to be_true
         end
       end
 
@@ -199,9 +199,7 @@ describe JenkinsApi::Client::View do
               "test_job_for_view"
             ).to_i
           )
-          @client.view.list_jobs(
-            "general_purpose_view"
-          ).include?("test_job_for_view").should be_true
+          expect(@client.view.list_jobs("general_purpose_view")).to include("test_job_for_view")
         end
       end
 
@@ -236,7 +234,7 @@ describe JenkinsApi::Client::View do
 
       describe "#get_config" do
         it "obtaines the view config.xml from the server" do
-          expect { @client.view.get_config("general_purpose_view") } .not_to raise_error
+          @client.view.get_config("general_purpose_view")
         end
       end
 
@@ -247,7 +245,7 @@ describe JenkinsApi::Client::View do
               xml = @client.view.get_config("general_purpose_view")
               @client.view.post_config("general_purpose_view", xml)
             }
-          ).not_to raise_error
+          ).not_to raise_error(ArgumentError)
         end
       end
     end

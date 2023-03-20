@@ -95,11 +95,11 @@ __USERLIST
       @client = double
       expect(@client).to receive(:logger).and_return(mock_logger)
       expect(@client).to receive(:timeout).and_return(mock_timeout)
-      @client.stub(:api_get_request).with('/asynchPeople').and_return(PEOPLE_JSON)
-      @client.stub(:api_get_request).with('/user/Fred%20Flintstone').and_return(FRED_JSON)
-      @client.stub(:api_get_request).with('/user/fred').and_return(FRED_JSON)
-      @client.stub(:api_get_request).with('/user/wilma').and_return(WILMA_JSON)
-      @client.stub(:api_get_request).with('/user/admin/configure', nil, '').and_return(ADMIN_CONFIGURE_TEXT)
+      allow(@client).to receive(:api_get_request).with('/asynchPeople').and_return(PEOPLE_JSON)
+      allow(@client).to receive(:api_get_request).with('/user/Fred%20Flintstone').and_return(FRED_JSON)
+      allow(@client).to receive(:api_get_request).with('/user/fred').and_return(FRED_JSON)
+      allow(@client).to receive(:api_get_request).with('/user/wilma').and_return(WILMA_JSON)
+      allow(@client).to receive(:api_get_request).with('/user/admin/configure', nil, '').and_return(ADMIN_CONFIGURE_TEXT)
       @user = JenkinsApi::Client::User.new(@client)
     end
 
@@ -110,30 +110,30 @@ __USERLIST
           mock_timeout = 300
           expect(@client).to receive(:logger).and_return(mock_logger)
           expect(@client).to receive(:timeout).and_return(mock_timeout)
-          expect { JenkinsApi::Client::User.new(@client) } .not_to raise_error
+          JenkinsApi::Client::User.new(@client)
         end
       end
 
       describe "#list" do
         it "sends a request to list the users" do
-          @user.list.should eq(USERLIST_JSON)
+          expect(@user.list).to eq(USERLIST_JSON)
         end
       end
 
       describe "#get" do
         it "returns dummy user if user cannot be found" do
           # This is artifact of Jenkins - It'll create a user to match the name you give it - even on a fetch
-          @user.get("wilma").should eq(WILMA_JSON)
+          expect(@user.get("wilma")).to eq(WILMA_JSON)
         end
 
         it "returns valid user if user can be found" do
-          @user.get("fred").should eq(FRED_JSON)
+          expect(@user.get("fred")).to eq(FRED_JSON)
         end
       end
 
       describe "#get_api_token" do
         it "returns the user's API token" do
-          @user.get_api_token('admin').should eq('12345678')
+          expect(@user.get_api_token('admin')).to eq('12345678')
         end
       end
 

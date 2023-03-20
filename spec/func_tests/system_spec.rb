@@ -47,7 +47,7 @@ describe JenkinsApi::Client::System do
         end
 
         it "Should be able to wait after a safe restart" do
-          @client.system.wait_for_ready.should == true
+          expect(@client.system.wait_for_ready).to eq true
         end
 
         it "Should be able to force restart a Jenkins server" do
@@ -57,7 +57,7 @@ describe JenkinsApi::Client::System do
         end
 
         it "Should be able to wait after a force restart" do
-          @client.system.wait_for_ready.should == true
+          expect(@client.system.wait_for_ready).to eq true
         end
       end
 
@@ -68,13 +68,13 @@ describe JenkinsApi::Client::System do
           )
         end
         it "Should be able to wait after a force restart" do
-          @client.system.wait_for_ready.should == true
+          expect(@client.system.wait_for_ready).to eq true
         end
       end
 
       describe "#list_users" do
         it "Should be able to get a list of users" do
-          @client.system.list_users.should be_an_instance_of(Array)
+          expect(@client.system.list_users).to be_an_instance_of(Array)
         end
       end
 

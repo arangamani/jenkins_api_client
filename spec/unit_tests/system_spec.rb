@@ -19,7 +19,7 @@ describe JenkinsApi::Client::System do
           mock_timeout = 300
           expect(@client).to receive(:logger).and_return(mock_logger)
           expect(@client).to receive(:timeout).and_return(mock_timeout)
-          expect { JenkinsApi::Client::System.new(@client) } .not_to raise_error
+          JenkinsApi::Client::System.new(@client)
         end
       end
 

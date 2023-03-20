@@ -268,7 +268,7 @@ describe JenkinsApi::Client::Job do
         it "raises an error if invalid mode is specified" do
           expect {
             @job.get_console_output('test_job', 1, 0, 'image')
-          }.to raise_error
+          }.to raise_error(RuntimeError)
         end
       end
 
@@ -277,8 +277,8 @@ describe JenkinsApi::Client::Job do
           expect(@client).to receive(:api_get_request).and_return(
             @sample_json_response)
           response = @job.list_all
-          response.class.should == Array
-          response.size.should == @sample_json_response["jobs"].size
+          expect(response.class).to eq Array
+          expect(response.size).to eq @sample_json_response["jobs"].size
         end
       end
 
@@ -286,7 +286,7 @@ describe JenkinsApi::Client::Job do
         it "accepts a job name and returns true if the job exists" do
           expect(@client).to receive(:api_get_request).and_return(
             @sample_json_response)
-          @job.exists?("test_job").should == true
+          expect(@job.exists?("test_job")).to eq true
         end
       end
 
@@ -294,12 +294,12 @@ describe JenkinsApi::Client::Job do
         it "accepts the status and returns jobs in specified status" do
           expect(@client).to receive(:api_get_request).twice.and_return(
             @sample_json_response)
-          @job.list_by_status("success").class.should == Array
+          expect(@job.list_by_status("success").class).to eq Array
         end
         it "accepts the status and returns the jobs in specified status" do
           expect(@client).to receive(:api_get_request).and_return(
             @sample_json_response)
-          @job.list_by_status("success", ["test_job"]).class.should == Array
+          expect(@job.list_by_status("success", ["test_job"]).class).to eq Array
         end
       end
 
@@ -307,7 +307,7 @@ describe JenkinsApi::Client::Job do
         it "accepts a filter and returns all jobs matching the filter" do
           expect(@client).to receive(:api_get_request).and_return(
             "jobs" => ["test_job"])
-          @job.list("filter").class.should == Array
+          expect(@job.list("filter").class).to eq Array
         end
       end
 
@@ -316,8 +316,8 @@ describe JenkinsApi::Client::Job do
           expect(@client).to receive(:api_get_request).and_return(
             @sample_json_response)
           response = @job.list_all_with_details
-          response.class.should == Array
-          response.size.should == @sample_json_response["jobs"].size
+          expect(response.class).to eq Array
+          expect(response.size).to eq @sample_json_response["jobs"].size
         end
       end
 
@@ -326,7 +326,7 @@ describe JenkinsApi::Client::Job do
           expect(@client).to receive(:api_get_request).and_return(
             @sample_json_response)
           response = @job.list_details("test_job")
-          response.class.should == Hash
+          expect(response.class).to eq Hash
         end
       end
 
@@ -335,7 +335,7 @@ describe JenkinsApi::Client::Job do
           expect(@client).to receive(:api_get_request).and_return(
             @sample_json_job_response)
           response = @job.get_upstream_projects("test_job")
-          response.class.should == Array
+          expect(response.class).to eq Array
         end
       end
 
@@ -344,7 +344,7 @@ describe JenkinsApi::Client::Job do
           expect(@client).to receive(:api_get_request).and_return(
             @sample_json_job_response)
           response = @job.get_downstream_projects("test_job")
-          response.class.should == Array
+          expect(response.class).to eq Array
         end
       end
 
@@ -353,25 +353,25 @@ describe JenkinsApi::Client::Job do
           expect(@client).to receive(:api_get_request).and_return(
             @sample_json_job_response)
           response = @job.get_builds("test_job")
-          response.class.should == Array
+          expect(response.class).to eq Array
         end
       end
 
       describe "#color_to_status" do
         it "accepts the color and convert it to correct status" do
-          @job.color_to_status("blue").should == "success"
-          @job.color_to_status("blue_anime").should == "running"
-          @job.color_to_status("red").should == "failure"
-          @job.color_to_status("red_anime").should == "running"
-          @job.color_to_status("yellow").should == "unstable"
-          @job.color_to_status("yellow_anime").should == "running"
-          @job.color_to_status("grey").should == "not_run"
-          @job.color_to_status("grey_anime").should == "running"
-          @job.color_to_status("aborted").should == "aborted"
-          @job.color_to_status("disabled").should == "disabled"
+          expect(@job.color_to_status("blue")).to eq "success"
+          expect(@job.color_to_status("blue_anime")).to eq "running"
+          expect(@job.color_to_status("red")).to eq "failure"
+          expect(@job.color_to_status("red_anime")).to eq "running"
+          expect(@job.color_to_status("yellow")).to eq "unstable"
+          expect(@job.color_to_status("yellow_anime")).to eq "running"
+          expect(@job.color_to_status("grey")).to eq "not_run"
+          expect(@job.color_to_status("grey_anime")).to eq "running"
+          expect(@job.color_to_status("aborted")).to eq "aborted"
+          expect(@job.color_to_status("disabled")).to eq "disabled"
         end
         it "returns invalid as the output if unknown color is detected" do
-          @job.color_to_status("orange").should == "invalid"
+          expect(@job.color_to_status("orange")).to eq "invalid"
         end
       end
 
@@ -379,7 +379,7 @@ describe JenkinsApi::Client::Job do
         it "accepts the job name and returns its current build status" do
           expect(@client).to receive(:api_get_request).and_return(
             @sample_json_job_response)
-          @job.get_current_build_status("test_job").class.should == String
+          expect(@job.get_current_build_status("test_job").class).to eq String
         end
       end
 
@@ -387,7 +387,7 @@ describe JenkinsApi::Client::Job do
         it "accepts the job name and returns its current build number" do
           expect(@client).to receive(:api_get_request).and_return(
             @sample_json_job_response)
-          @job.get_current_build_number("test_job").class.should == Integer
+          expect(@job.get_current_build_number("test_job").class).to eq Integer
         end
       end
 
@@ -396,7 +396,7 @@ describe JenkinsApi::Client::Job do
         it "accepts the job name and builds the job" do
           expect(@client).to receive(:api_post_request).with(
             "/job/test_job/build", {}, true).and_return(FakeResponse.new(302))
-          @job.build("test_job").should == '302'
+          expect(@job.build("test_job")).to eq '302'
         end
         it "accepts the job name with params and builds the job" do
           expect(@client).to receive(:api_post_request).with(
@@ -404,7 +404,7 @@ describe JenkinsApi::Client::Job do
             { :branch => 'feature/new-stuff' },
             true
           ).and_return(FakeResponse.new(302))
-          @job.build("test_job", { :branch => 'feature/new-stuff' }).should == '302'
+          expect(@job.build("test_job", { :branch => 'feature/new-stuff' })).to eq '302'
         end
 
         ### OLD NON-QUEUE RESPONSE JENKINS ###
@@ -422,19 +422,19 @@ describe JenkinsApi::Client::Job do
           end
 
           it "passes a number of seconds for timeout in opts={} parameter" do
-            @job.build("test_job", {}, { 'build_start_timeout' => 10 }).should == 1
+            expect(@job.build("test_job", {}, { 'build_start_timeout' => 10 })).to eq 1
           end
 
           it "passes a true value for timeout in opts={} parameter" do
             @job.instance_variable_set :@client_timeout, 10
-            @job.build("test_job", {}, true).should == 1
+            expect(@job.build("test_job", {}, true)).to eq 1
           end
         end
 
         it "accepts the job name and builds the job (with a false timeout value)" do
           expect(@client).to receive(:api_post_request).with(
             "/job/test_job/build", {}, true).and_return(FakeResponse.new(302))
-          @job.build("test_job", {}, false).should == "302"
+          expect(@job.build("test_job", {}, false)).to eq "302"
         end
 
         # wait for build to start (or not) (initial response will fail)
@@ -448,7 +448,7 @@ describe JenkinsApi::Client::Job do
           expect(@client).to receive(:api_get_request).with(
             "/job/test_job/1/").ordered.and_return({})
           expect(@client).to receive(:get_jenkins_version).and_return("1.1")
-          @job.build("test_job", {}, { 'build_start_timeout' => 3 }).should == 1
+          expect(@job.build("test_job", {}, { 'build_start_timeout' => 3 })).to eq 1
         end
 
         # wait for build to start - will fail
@@ -474,7 +474,7 @@ describe JenkinsApi::Client::Job do
           expect(@client).to receive(:api_get_request).with(
             "/queue/item/42").and_return({ 'executable' => { 'number' => 1 } })
           expect(@client).to receive(:get_jenkins_version).and_return("1.519")
-          @job.build("test_job", {}, { 'build_start_timeout' => 10 }).should == 1
+          expect(@job.build("test_job", {}, { 'build_start_timeout' => 10 })).to eq 1
         end
 
         # wait for build to start (or not) (initial response will fail)
@@ -486,7 +486,7 @@ describe JenkinsApi::Client::Job do
           expect(@client).to receive(:api_get_request).with(
             "/queue/item/42").and_return({}, { 'executable' => { 'number' => 1 } })
           expect(@client).to receive(:get_jenkins_version).and_return("1.519")
-          @job.build("test_job", {}, { 'build_start_timeout' => 3 }).should == 1
+          expect(@job.build("test_job", {}, { 'build_start_timeout' => 3 })).to eq 1
         end
 
         # wait for build to start - will fail
@@ -507,7 +507,7 @@ describe JenkinsApi::Client::Job do
           expect(@client).to receive(:api_post_request).with(
             "/job/test_job/polling"
           ).and_return(302)
-          @job.poll("test_job").should == 302
+          expect(@job.poll("test_job")).to eq 302
         end
       end
 
@@ -515,7 +515,7 @@ describe JenkinsApi::Client::Job do
         it "accepts the job name and enables the job" do
           expect(@client).to receive(:api_post_request).with(
             "/job/test_job/enable").and_return(302)
-          @job.enable("test_job").should == 302
+          expect(@job.enable("test_job")).to eq 302
         end
       end
 
@@ -523,7 +523,7 @@ describe JenkinsApi::Client::Job do
         it "accepts the job name and disables the job" do
           expect(@client).to receive(:api_post_request).with(
             "/job/test_job/disable").and_return(302)
-          @job.disable("test_job").should == 302
+          expect(@job.disable("test_job")).to eq 302
         end
       end
 
@@ -531,7 +531,7 @@ describe JenkinsApi::Client::Job do
         it "accepts the job name and obtains its config.xml" do
           expect(@client).to receive(:get_config).with(
             "/job/test_job").and_return("<job>test_job</job>")
-          @job.get_config("test_job").should == "<job>test_job</job>"
+          expect(@job.get_config("test_job")).to eq "<job>test_job</job>"
         end
       end
 
@@ -638,7 +638,7 @@ describe JenkinsApi::Client::Job do
           expect(@client).to receive(:api_get_request).with('/job/test_job/promotion').and_return(
             mock_job_promotions_response)
           expect(@client).to receive(:api_get_request).and_return({ 'target' => { 'number' => 42 } })
-          @job.get_promotions("test_job").should == { 'dev' => 42, 'stage' => nil }
+          expect(@job.get_promotions("test_job")).to eq( 'dev' => 42, 'stage' => nil )
         end
       end
 
@@ -696,14 +696,14 @@ describe JenkinsApi::Client::Job do
           expect(@client).to receive(:api_get_request).and_return(@sample_json_build_response)
           job_name = 'test_job'
           response = @job.get_build_details(job_name, 1)
-          response.class.should == Hash
+          expect(response.class).to eq Hash
         end
 
         it "accepts job name and gets latest build number if build number is 0" do
           expect(@client).to receive(:api_get_request).and_return(@sample_json_job_response, @sample_json_build_response)
           job_name = 'test_job'
           response = @job.get_build_details(job_name, 0)
-          response.class.should == Hash
+          expect(response.class).to eq Hash
         end
       end
 
