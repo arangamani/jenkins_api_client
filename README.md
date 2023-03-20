@@ -33,7 +33,7 @@ dynamically and automatically manage jobs and other artifacts.
 
 DETAILS:
 --------
-This projects currently only provides functionality for the
+This project currently only provides functionality for the
 <tt>jobs, node, view, system, and build queue</tt> interfaces.
 
 USAGE:
@@ -41,14 +41,14 @@ USAGE:
 
 ### Installation
 
-Install jenkins_api_client by <tt>sudo gem install jenkins_api_client</tt>
+Install jenkins_api_client by <tt>sudo gem install jenkins_api_client</tt>.
 Include this gem in your code as a require statement.
 
     require 'jenkins_api_client'
 
 ### Using with IRB
 
-If you want to just play with it and not actually want to write a script, you
+If you want to just play with it and not actually write a script, you
 can just use the irb launcher script which is available in
 <tt>scripts/login_with_irb.rb</tt>. But make sure that you have your credentials
 available in the correct location. By default the script assumes that you have
@@ -58,14 +58,14 @@ that script to point to the location where the credentials file exists.
 
     ruby scripts/login_with_irb.rb
 
-You will see the that it entered IRB session and you can play with the API
+You will see that it entered IRB session and you can play with the API
 client with the <tt>@client</tt> object that it has returned.
 
 ### Authentication
 
 Supplying credentials to the client is optional, as not all Jenkins instances
 require authentication. This project supports two types of password-based
-authentication. You can just you the plain password by using <tt>password</tt>
+authentication. You can just use the plain password by using <tt>password</tt>
 parameter. If you don't prefer leaving plain passwords in the credentials file,
 you can encode your password in base64 format and use <tt>password_base64</tt>
 parameter to specify the password either in the arguments or in the credentials
@@ -75,24 +75,24 @@ parameter is only required if <tt>username</tt> is specified.
 
 #### Using with Open ID
 
-It is very simple to authenticate with your Jenkins server that has Open ID
+It is very simple to authenticate with a Jenkins server that has Open ID
 authentication enabled. You will have to obtain your API token and use the API
-token as the password. For obtaining the API token, go to your user configuration
+token as the password. To obtain the API token, go to your user configuration
 page and click 'Show API Token'. Use this token for the `password` parameter when
 initializing the client.
 
 ### Cross-site Scripting (XSS) and Crumb Support
 
-Support for Jenkins crumbs has been added.  These allow an application to
+Support for Jenkins crumbs has been added. These allow an application to
 use the Jenkins API POST methods without requiring the 'Prevent Cross Site
-Request Forgery exploits' to be disabled.  The API will check in with the
+Request Forgery exploits' to be disabled. The API will check in with the
 Jenkins server to determine whether crumbs are enabled or not, and use them
 if appropriate.
 
 ### SSL certificate verification
 
-When connecting over HTTPS if the server's certificate is not trusted the
-connection will be aborted. To trust a certificate specify the `ca_file`
+When connecting over HTTPS, if the server's certificate is not trusted, the
+connection will be aborted. To trust a certificate, specify the `ca_file`
 parameter when creating the client. The value should be a path to a PEM encoded
 file containing the certificates.
 
@@ -166,7 +166,7 @@ and so forth till it reaches the end of the list.
 There is another filter option you can specify for the method to take only
 jobs that are in a particular state. In case if we want to build only jobs
 that are failed or unstable, we can achieve that by passing in the states in
-the third parameter. In the example above, we wanted build all jobs. If we just
+the third parameter. In the example above, we wanted to build all jobs. If we just
 want to build failed and unstable jobs, just pass
 <tt>["failure", "unstable"]</tt>. Also if you pass in an empty array, it will
 assume that you want to consider all jobs and no filtering will be performed.
@@ -194,7 +194,7 @@ end
 ### Configuring plugins
 
 Given the abundance of plugins for Jenkins, we now provide a extensible way to 
-setup jobs and configure their plugins. Right now, the gem ships with the hipchat
+set up jobs and configure their plugins. Right now, the gem ships with the hipchat
 plugin, with more plugins to follow in the future. 
 
 ```ruby
@@ -223,7 +223,7 @@ job = JenkinsApi::Client::Job.new(client, hipchat)
 
 Writing your own plugins is also straightforward. Inherit from the 
 JenkinsApi::Client::PluginSettings::Base class and override the configure method.
-Jenkins jobs are configured using xml so you just nee to figure out where in the
+Jenkins jobs are configured using xml so you just need to figure out where in the
 configuration to hook in your plugin settings.
 
 Here is an example of a plugin written to configure a job for workspace cleanup.  
@@ -384,8 +384,8 @@ fulfilled:
 * The ```jenkins_api_client/java_deps/jenkins-cli.jar``` is required as the
   client to run the CLI. You can retrieve the available commands via accessing
   the URL: ```http://<server>:<port>/cli```
-* (Optional) required if you run the Groovy Script through CLI, make sure
-  the *user* have the privilige to run script
+* (Optional) required if you run the Groovy Script through CLI; make sure
+  the *user* has the privilige to run script
 
 ### Using with command line
 Command line interface is supported only from version 0.2.0.
@@ -419,7 +419,7 @@ there are two new input arguments used during the initialization of Client.
    constants available in the Logger class or using these integers provided
    here. The default for this argument is Logger::INFO (1)
 
-If you want customization on the functionality Logger provides such as leave n
+If you want customization on the functionality Logger provides, such as leave n
 old log files, open the log file in append mode, create your own logger and
 then set that in the client.
 
@@ -454,4 +454,4 @@ FEATURE REQUEST:
 
 If you use this gem for your project and you think it would be nice to have a
 particular feature that is presently not implemented, I would love to hear that
-and consider working on it. Just open an issue in Github as a feature request.
+and consider working on it. Just open an issue in GitHub as a feature request.
