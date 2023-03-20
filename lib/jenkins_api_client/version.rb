@@ -23,6 +23,6 @@
 module JenkinsApi
   class Client
     # Version String of Jenkins API Client.
-    VERSION = "1.5.3"
+    VERSION = "2.0.0"
   end
 end
