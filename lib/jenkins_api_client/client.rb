@@ -345,7 +345,7 @@ module JenkinsApi
         when 'http'
           http = Net::HTTP::Proxy(@proxy_ip, @proxy_port).new(@server_ip, @server_port)
         when 'socks'
-          http = Net::HTTP::SOCKSProxy(@proxy_ip, @proxy_port).start(@server_ip, @server_port)
+          http = Net::HTTP::SOCKSProxy(@proxy_ip, @proxy_port).new(@server_ip, @server_port)
         else
           raise "unknown proxy protocol: '#{@proxy_protocol}'"
         end
