@@ -388,7 +388,7 @@ describe JenkinsApi::Client::Job do
         it "accepts the job name and returns its current build number" do
           @client.should_receive(:api_get_request).and_return(
             @sample_json_job_response)
-          @job.get_current_build_number("test_job").class.should == Fixnum
+          @job.get_current_build_number("test_job").class.should == Integer
         end
       end
 

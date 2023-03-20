@@ -25,7 +25,7 @@ RSpec::Core::RakeTask.new(:test) do |spec|
   spec.rspec_opts = ['--color', '--format documentation']
 end
 
-YARD::Config.load_plugin 'thor'
+# YARD::Config.load_plugin 'thor' # TODO: fix error
 YARD::Rake::YardocTask.new do |t|
   t.files = ['lib/**/*.rb', 'lib/**/**/*.rb']
 end
