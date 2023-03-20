@@ -6,19 +6,20 @@ require 'yard'
 require 'bundler/setup'
 require 'bundler/gem_tasks'
 require 'rubygems/package_task'
+require 'bump/tasks'
 
 require 'rspec/core'
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:unit_tests) do |spec|
-  spec.pattern = FileList['spec/unit_tests/*_spec.rb']
+  spec.pattern = 'spec/unit_tests/*_spec.rb'
 end
 
 RSpec::Core::RakeTask.new(:func_tests) do |spec|
-  spec.pattern = FileList['spec/func_tests/*_spec.rb']
+  spec.pattern = 'spec/func_tests/*_spec.rb'
 end
 
 RSpec::Core::RakeTask.new(:test) do |spec|
-  spec.pattern = FileList['spec/*/*.rb']
+  spec.pattern = 'spec/*/*.rb'
 end
 
 YARD::Config.load_plugin 'thor'
@@ -82,4 +83,4 @@ namespace :doc do
   end
 end
 
-task default: :unit_test
+task default: :unit_tests
