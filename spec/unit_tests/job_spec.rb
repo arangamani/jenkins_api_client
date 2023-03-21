@@ -288,6 +288,17 @@ describe JenkinsApi::Client::Job do
             @sample_json_response)
           expect(@job.exists?("test_job")).to eq true
         end
+
+        it "accepts a multibranch job name and returns true if the job exists" do
+          msg = "/job/test_job"
+          mock_job_list_response = {
+              "jobs" => [
+                  {"name" => "alma"}
+              ]
+          }
+          @client.should_receive(:api_get_request).with(msg).and_return(mock_job_list_response)
+          @job.exists?("test_job/branch/alma").should == true
+        end
       end
 
       describe "#list_by_status" do
@@ -308,6 +319,20 @@ describe JenkinsApi::Client::Job do
           expect(@client).to receive(:api_get_request).and_return(
             "jobs" => ["test_job"])
           expect(@job.list("filter").class).to eq Array
+        end
+
+        it "accepts a multibranch job name and returns jobs in the main job" do
+          mock_job_list_response = {
+              "jobs" => [
+                  {"name" => "alma"},
+                  {"name" => "almak"},
+                  {"name" => "almafa"},
+                  {"name" => "korte"}
+              ]
+          }
+
+          @client.should_receive(:api_get_request).and_return(mock_job_list_response)
+          expect(@job.list("test_job/branch/alma")).to eq(['alma', 'almak', 'almafa'])
         end
       end
 
