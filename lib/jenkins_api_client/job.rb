@@ -1662,6 +1662,10 @@ module JenkinsApi
         find_artifacts(job_name, build_number).first
       end
 
+      def build_path(job_name, build_number = 0)
+        "job/#{path_encode job_name}/#{build_number}"
+      end
+
       #A Method to check artifact exists path from the Current Build
       #
       # @param [String] job_name
