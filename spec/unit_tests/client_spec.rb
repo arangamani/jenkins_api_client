@@ -168,6 +168,11 @@ describe JenkinsApi::Client do
           expect(@client.respond_to?(:api_get_request)).to be_truthy
           expect(@client.method(:api_get_request).parameters.size).to eq 4
         end
+
+        it "can parse deeply nested response" do
+          stub_request(:get, "http://127.0.0.1:8080/api/json").to_return(body: ("[" * 101) + "1" + ("]" * 101))
+          expect(@client.api_get_request("").flatten).to eq [1]
+        end
       end
 
       describe "#api_post_request" do

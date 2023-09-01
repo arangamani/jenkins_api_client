@@ -11,4 +11,5 @@ group :development do
   gem "pry"
   gem "rake"
   gem "bump"
+  gem "webmock"
 end

@@ -1,6 +1,7 @@
 require File.expand_path('../../../lib/jenkins_api_client', __FILE__)
 require 'logger'
 require 'json'
+require 'webmock/rspec'
 
 RSpec.configure do |config|
   config.before(:each) do
