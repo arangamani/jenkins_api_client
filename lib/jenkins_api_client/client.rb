@@ -806,7 +806,7 @@ module JenkinsApi
       # the queue.
       when 200, 201, 302
         if to_send == "body" && send_json
-          return JSON.parse!(response.body)
+          return JSON.parse(response.body, max_nesting: false)
         elsif to_send == "body"
           return response.body
         elsif to_send == "code"
