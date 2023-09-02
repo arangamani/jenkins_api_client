@@ -613,10 +613,15 @@ module JenkinsApi
 
       # List all jobs on the Jenkins CI server
       #
+      # @param [String] folder_path Path of the folder as displayed in Jenkins URL.
+      #   For ex.
+      #   Root level folder - "/job/folder1"
+      #   Nested folder - "/job/folder1/job/folder2/..."
+      #
       # @return [Array<String>] the names of all jobs in jenkins
       #
-      def list_all
-        response_json = @client.api_get_request("", "tree=jobs[name]")["jobs"]
+      def list_all(folder_path = '')
+        response_json = @client.api_get_request(path_encode(folder_path), "tree=jobs[name]")["jobs"]
         response_json.map { |job| job["name"] }.sort
       end
 
@@ -637,13 +642,18 @@ module JenkinsApi
       # @param jobs [Array<String>] if specified this array will be used for
       #   filtering by the status otherwise the filtering will be done using
       #   all jobs available in jenkins
+      # @param [String] folder_path Path of the folder as displayed in Jenkins URL.
+      #   For ex.
+      #   Root level folder - "/job/folder1"
+      #   Nested folder - "/job/folder1/job/folder2/..."
+      #
       #
       # @return [Array<String>] filtered jobs
       #
-      def list_by_status(status, jobs = [])
-        jobs = list_all if jobs.empty?
+      def list_by_status(status, jobs = [], folder_path = '')
+        jobs = list_all(folder_path) if jobs.empty?
         @logger.info "Obtaining jobs matching status '#{status}'"
-        json_response = @client.api_get_request("", "tree=jobs[name,color]")
+        json_response = @client.api_get_request(path_encode(folder_path), "tree=jobs[name,color]")
         filtered_jobs = []
         json_response["jobs"].each do |job|
           if color_to_status(job["color"]) == status &&
@@ -658,12 +668,17 @@ module JenkinsApi
       #
       # @param filter [String] a regular expression or a string to filter jobs
       # @param ignorecase [Boolean] whether to ignore case or not
+      # @param [String] folder_path Path of the folder as displayed in Jenkins URL.
+      #   For ex.
+      #   Root level folder - "/job/folder1"
+      #   Nested folder - "/job/folder1/job/folder2/..."
+      #
       #
       # @return [Array<String>] jobs matching the given pattern
       #
-      def list(filter, ignorecase = true)
+      def list(filter, ignorecase = true, folder_path = '')
         @logger.info "Obtaining jobs matching filter '#{filter}'"
-        response_json = @client.api_get_request("")
+        response_json = @client.api_get_request(path_encode folder_path)
         jobs = []
         response_json["jobs"].each do |job|
           if ignorecase
@@ -677,23 +692,33 @@ module JenkinsApi
 
       # List all jobs on the Jenkins CI server along with their details
       #
+      # @param [String] folder_path Path of the folder as displayed in Jenkins URL.
+      #   For ex.
+      #   Root level folder - "/job/folder1"
+      #   Nested folder - "/job/folder1/job/folder2/..."
+      #
       # @return [Array<Hash>] the details of all jobs in jenkins
       #
-      def list_all_with_details
+      def list_all_with_details(folder_path = '')
         @logger.info "Obtaining the details of all jobs"
-        response_json = @client.api_get_request("")
+        response_json = @client.api_get_request(path_encode folder_path)
         response_json["jobs"]
       end
 
       # List details of a specific job
       #
       # @param job_name [String] the name of the job to obtain the details from
+      # @param [String] folder_path Path of the folder as displayed in Jenkins URL.
+      #   For ex.
+      #   Root level folder - "/job/folder1"
+      #   Nested folder - "/job/folder1/job/folder2/..."
+      #
       #
       # @return [Hash] the details of the specified job
       #
-      def list_details(job_name)
+      def list_details(job_name, folder_path = '')
         @logger.info "Obtaining the details of '#{job_name}'"
-        @client.api_get_request("/job/#{path_encode job_name}")
+        @client.api_get_request("#{path_encode folder_path}/job/#{path_encode job_name}")
       end
 
       # List upstream projects of a specific job

@@ -139,6 +139,9 @@ jobs_to_filter = "^test_job.*"
 # Get a filtered list of jobs from the server
 jobs = @client.job.list(jobs_to_filter)
 
+# Get job list from a specific folder
+folder_job_list = @client.job.list('/job/folder_path')
+
 # Chain all the jobs with 'success' as the threshold
 # The chain method will return the jobs that is in the head of the sequence
 # This method will also remove any existing chaining
@@ -170,6 +173,12 @@ the third parameter. In the example above, we wanted to build all jobs. If we ju
 want to build failed and unstable jobs, just pass
 <tt>["failure", "unstable"]</tt>. Also if you pass in an empty array, it will
 assume that you want to consider all jobs and no filtering will be performed.
+
+Another API is where you cnaa get list of all jobs using the `list_all` method.
+By default if no parameter is specified then it'll give a list of all jobs from
+root as an Array. If you want to get list of jobs from specific folder, then as
+mentioned in the example you can provide a complete `folder_path` as viewed in
+a browser address bar (URL).
 
 There is another parameter called <tt>threshold</tt> you can specify for the
 chaining and this is used to decide whether to move forward with the next job

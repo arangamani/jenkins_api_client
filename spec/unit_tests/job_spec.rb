@@ -280,6 +280,14 @@ describe JenkinsApi::Client::Job do
           expect(response.class).to eq Array
           expect(response.size).to eq @sample_json_response["jobs"].size
         end
+
+        it 'accepts folder_path parameter to list all jobs from inside a folder' do
+          @client.should_receive(:api_get_request).and_return(
+            @sample_json_response)
+          response = @job.list_all('/job/folder')
+          response.class.should == Array
+          response.size.should eq @sample_json_response['jobs'].size
+        end
       end
 
       describe "#exists?" do
@@ -296,10 +304,23 @@ describe JenkinsApi::Client::Job do
             @sample_json_response)
           expect(@job.list_by_status("success").class).to eq Array
         end
+
         it "accepts the status and returns the jobs in specified status" do
           expect(@client).to receive(:api_get_request).and_return(
             @sample_json_response)
           expect(@job.list_by_status("success", ["test_job"]).class).to eq Array
+        end
+
+        it 'accepts the status, folder_path and returns jobs in specified status' do
+          @client.should_receive(:api_get_request).twice.and_return(
+            @sample_json_response)
+          @job.list_by_status('success', [], '/job/folder').class.should == Array
+        end
+
+        it 'accepts the status, folder_path and returns the jobs in specified status' do
+          @client.should_receive(:api_get_request).and_return(
+            @sample_json_response)
+          @job.list_by_status('success', ['test_job'], '/job/folder').class.should == Array
         end
       end
 
@@ -308,6 +329,12 @@ describe JenkinsApi::Client::Job do
           expect(@client).to receive(:api_get_request).and_return(
             "jobs" => ["test_job"])
           expect(@job.list("filter").class).to eq Array
+        end
+
+        it 'accepts a filter and returns all jobs matching the filter' do
+          @client.should_receive(:api_get_request).and_return(
+            'jobs' => ['test_job'])
+          @job.list('filter', true, '/job/folder').class.should == Array
         end
       end
 
@@ -319,6 +346,14 @@ describe JenkinsApi::Client::Job do
           expect(response.class).to eq Array
           expect(response.size).to eq @sample_json_response["jobs"].size
         end
+
+        it 'accepts folder_path and returns all jobs with details' do
+          @client.should_receive(:api_get_request).and_return(
+            @sample_json_response)
+          response = @job.list_all_with_details('/job/folder')
+          response.class.should == Array
+          response.size.should == @sample_json_response['jobs'].size
+        end
       end
 
       describe "#list_details" do
@@ -327,6 +362,13 @@ describe JenkinsApi::Client::Job do
             @sample_json_response)
           response = @job.list_details("test_job")
           expect(response.class).to eq Hash
+        end
+
+        it 'accepts the job name with folder path and returns its details' do
+          @client.should_receive(:api_get_request).and_return(
+            @sample_json_response)
+          response = @job.list_details('test_job', '/job/folder')
+          response.class.should == Hash
         end
       end
 
