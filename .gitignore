@@ -43,3 +43,9 @@ jenkins_api_client.log
 
 # Vagrant
 .vagrant
+
+# VS Code history folder
+.history
+
+# local gem file
+*.gem
