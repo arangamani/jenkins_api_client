@@ -3,6 +3,7 @@ CHANGELOG
 
 upcoming
 --------
+* [#320][] Update jenkins-cli.jar to v2.479.3
 
 v2.1.0   [20-SEP-2023]
 ----------------------
