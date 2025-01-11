@@ -7,19 +7,12 @@ Jenkins API Client
 [![Code Climate](http://img.shields.io/codeclimate/github/arangamani/jenkins_api_client.svg)][codeclimate]
 
 [gem]: https://rubygems.org/gems/jenkins_api_client
-[travis]: http://travis-ci.org/arangamani/jenkins_api_client
 [gemnasium]: https://gemnasium.com/arangamani/jenkins_api_client
 [codeclimate]: https://codeclimate.com/github/arangamani/jenkins_api_client
 
 Copyright &copy; 2012-2017, Kannan Manickam [![endorse](http://api.coderwall.com/arangamani/endorsecount.png)](http://coderwall.com/arangamani)
 
 Client libraries for communicating with a Jenkins CI server and programatically managing jobs.
-
-IRC Channel: ##jenkins-api-client (on freenode)
-
-Mailing list: jenkins_api_client@googlegroups.com
-
-Google Group: https://groups.google.com/group/jenkins_api_client
 
 OVERVIEW:
 ---------
@@ -104,8 +97,11 @@ parse the yaml file and pass it in. The following call just passes the
 information as parameters
 
 ```ruby
-@client = JenkinsApi::Client.new(:server_ip => '0.0.0.0',
-         :username => 'somename', :password => 'secret password')
+@client = JenkinsApi::Client.new(
+  server_ip: '0.0.0.0',
+  username: 'somename', 
+  password: 'secret password'
+)
 # The following call will return all jobs matching 'Testjob'
 puts @client.job.list("^Testjob")
 ```
@@ -435,23 +431,18 @@ Please refer to [Ruby
 Logger](http://www.ruby-doc.org/stdlib-1.9.3/libdoc/logger/rdoc/Logger.html)
 for more information.
 
-CONTRIBUTING:
--------------
 
-If you would like to contribute to this project, just do the following:
 
-1. Fork the repo on Github.
-2. Add your features and make commits to your forked repo.
-3. Make a pull request to this repo.
-4. Review will be done and changes will be requested.
-5. Once changes are done or no changes are required, pull request will be merged.
-6. The next release will have your changes in it.
+Gem Development
+---------------
 
-Please take a look at the issues page if you want to get started.
+### Updating java_deps/jenkins-cli.jar
 
-FEATURE REQUEST:
-----------------
-
-If you use this gem for your project and you think it would be nice to have a
-particular feature that is presently not implemented, I would love to hear that
-and consider working on it. Just open an issue in GitHub as a feature request.
+Download the latest LTS "Generic Java package (.war)" `jenkins.war` from https://www.jenkins.io/download/, then:
+```
+mkdir tmp
+cd tmp
+mv ~/Downloads/jenkins.war .
+jar -xvf jenkins.war
+mv WEB-INF/lib/cli-*.jar ../java_deps/jenkins-cli.jar
+```
