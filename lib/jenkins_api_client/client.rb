@@ -114,7 +114,7 @@ module JenkinsApi
     def initialize(args)
       args = symbolize_keys(args)
       args.each do |key, value|
-        if value && VALID_PARAMS.include?(key.to_s)
+        if VALID_PARAMS.include?(key.to_s)
           instance_variable_set("@#{key}", value)
         end
       end if args.is_a? Hash
@@ -363,7 +363,14 @@ module JenkinsApi
         http.use_ssl = true
 
         http.verify_mode = OpenSSL::SSL::VERIFY_PEER
-        http.ca_file = @ca_file if @ca_file
+
+        if @ca_file
+            http.ca_file = @ca_file
+        else
+            http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        end
+      else
+        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
       end
       http.open_timeout = @http_open_timeout
       http.read_timeout = @http_read_timeout
