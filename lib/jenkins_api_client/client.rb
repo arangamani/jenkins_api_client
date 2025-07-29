@@ -698,11 +698,15 @@ module JenkinsApi
     # Handles Set-Cookie header for jenkins session
     #
     def set_cookie(response)
-      cookie = response['Set-Cookie']
-      return unless cookie
+      set_cookies = response.get_fields('set-cookie')
+      return unless set_cookies
 
-      @logger.debug "Setting cookie: @cookies: #{@cookies}, cookie: #{cookie}"
-      @cookies = @cookies ? "#{@cookies};#{cookie}" : cookie
+      @logger.debug "Setting cookie: " \
+                    "@cookies: #{@cookies}, set_cookies: #{set_cookies}"
+      cookies_array = set_cookies.collect { |c| cookie.split('; ')[0] }
+
+      @cookies = cookies_array.join('; ')
+      @logger.debug "Set cookie: @cookies: #{@cookies}"
     end
 
     # Obtains the crumb from Jenkins' crumb issuer
