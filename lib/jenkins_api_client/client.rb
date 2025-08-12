@@ -703,7 +703,7 @@ module JenkinsApi
 
       @logger.debug "Setting cookie: " \
                     "@cookies: #{@cookies}, set_cookies: #{set_cookies}"
-      cookies_array = set_cookies.collect { |c| cookie.split('; ')[0] }
+      cookies_array = set_cookies.collect { |cookie| cookie.split('; ')[0] }
 
       @cookies = cookies_array.join('; ')
       @logger.debug "Set cookie: @cookies: #{@cookies}"
