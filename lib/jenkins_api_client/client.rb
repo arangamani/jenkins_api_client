@@ -382,10 +382,19 @@ module JenkinsApi
           end
       end
 
+      # Handles Set-Cookie header for jenkins session
+      set_cookies = response.get_fields('set-cookie')
+      if set_cookies
+        @logger.debug "Setting cookie: " \
+                      "@cookies: #{@cookies}, set_cookies: #{set_cookies}"
+        cookies_array = set_cookies.collect { |cookie| cookie.split('; ')[0] }
+        @cookies = cookies_array.join('; ')
+        @logger.debug "Set cookie: @cookies: #{@cookies}"
+      end
+
       # Pick out some useful header info before we return
       @jenkins_version = response['X-Jenkins']
       @hudson_version = response['X-Hudson']
-      set_cookie(response)
 
       return response
     end
@@ -694,20 +703,6 @@ module JenkinsApi
     end
 
     private
-
-    # Handles Set-Cookie header for jenkins session
-    #
-    def set_cookie(response)
-      set_cookies = response.get_fields('set-cookie')
-      return unless set_cookies
-
-      @logger.debug "Setting cookie: " \
-                    "@cookies: #{@cookies}, set_cookies: #{set_cookies}"
-      cookies_array = set_cookies.collect { |cookie| cookie.split('; ')[0] }
-
-      @cookies = cookies_array.join('; ')
-      @logger.debug "Set cookie: @cookies: #{@cookies}"
-    end
 
     # Obtains the crumb from Jenkins' crumb issuer
     #
