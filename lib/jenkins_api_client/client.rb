@@ -385,11 +385,12 @@ module JenkinsApi
       # Handles Set-Cookie header for jenkins session
       set_cookies = response.get_fields('set-cookie')
       if set_cookies
-        @logger.debug "Setting cookie: " \
-                      "@cookies: #{@cookies}, set_cookies: #{set_cookies}"
+        @logger.debug "set-cookie: pre: @cookies: #{@cookies}, " \
+                      "set_cookies: #{set_cookies}"
+        cookies_array = @cookies.split('; ') if @cookies
         cookies_array = set_cookies.collect { |cookie| cookie.split('; ')[0] }
         @cookies = cookies_array.join('; ')
-        @logger.debug "Set cookie: @cookies: #{@cookies}"
+        @logger.debug "set-cookie: post: @cookies: #{@cookies}"
       end
 
       # Pick out some useful header info before we return
