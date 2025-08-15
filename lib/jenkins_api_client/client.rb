@@ -388,7 +388,7 @@ module JenkinsApi
         @logger.debug "set-cookie: pre: @cookies: #{@cookies}, " \
                       "set_cookies: #{set_cookies}"
         cookies_array = set_cookies.collect { |cookie| cookie.split('; ')[0] }
-        cookies_array.concat(@cookies.split(/;\s*/, -1)) if @cookies
+        cookies_array.concat(@cookies.split(/;\s*/, 0)) if @cookies
         @cookies = cookies_array.join('; ')
         @logger.debug "set-cookie: post: @cookies: #{@cookies}"
       end
