@@ -382,6 +382,10 @@ module JenkinsApi
           end
       end
 
+      # Pick out some useful header info before we return
+      @jenkins_version = response['X-Jenkins']
+      @hudson_version = response['X-Hudson']
+
       # Setting cookies from response
       cookies = response.get_fields('set-cookie')
       if cookies
@@ -389,10 +393,6 @@ module JenkinsApi
                       "@cookies: #{@cookies}, cookies: #{cookies}"
         @cookies = cookies.collect { |c| c.split(/;\s*/, 0)[0] }.join('; ')
       end
-
-      # Pick out some useful header info before we return
-      @jenkins_version = response['X-Jenkins']
-      @hudson_version = response['X-Hudson']
 
       return response
     end
