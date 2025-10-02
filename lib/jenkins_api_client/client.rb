@@ -386,6 +386,14 @@ module JenkinsApi
       @jenkins_version = response['X-Jenkins']
       @hudson_version = response['X-Hudson']
 
+      # Setting cookies from response
+      cookies = response.get_fields('set-cookie')
+      if cookies
+        @logger.debug 'Setting cookie: ' \
+                      "@cookies: #{@cookies}, cookies: #{cookies}"
+        @cookies = cookies.collect { |c| c.split(/;\s*/, 0)[0] }.join('; ')
+      end
+
       return response
     end
     protected :make_http_request
