@@ -10,4 +10,6 @@ group :development do
   gem "yard"
   gem "pry"
   gem "rake"
+  gem "bump"
+  gem "webmock"
 end

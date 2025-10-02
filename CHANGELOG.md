@@ -4,6 +4,23 @@ CHANGELOG
 upcoming
 --------
 
+v2.2.0   [10-JAN-2025]
+----------------------
+* [#320][] Update jenkins-cli.jar to v2.479.3
+
+v2.1.0   [20-SEP-2023]
+----------------------
+* [#318][] allow more than 100 levels of nesting
+
+v2.0.0   [20-MAR-2023]
+----------------------
+* Replace jenkins-ci.org with jenkins.io
+* Support p12 certificates with passphrase (use OpenSSL::SSL::VERIFY_NONE for artifact download)
+* Suppport multiple artifacts per job
+* Ruby version updates
+* Add MIT license
+* [#315][] Switch to Addressable
+
 v1.5.3   [29-MAR-2017]
 ----------------------
 * [#230][] Relax on nokogiri version requirement for right this time. Credit [@grosser][]

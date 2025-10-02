@@ -32,14 +32,14 @@ describe JenkinsApi::Client do
           client1 = JenkinsApi::Client.new(
             YAML.load_file(File.expand_path(@creds_file, __FILE__))
           )
-          client1.class.should == JenkinsApi::Client
+          expect(client1.class).to eq JenkinsApi::Client
         end
 
         it "Should accept a YAML argument when creating a new client" do
           client3 = JenkinsApi::Client.new(
             YAML.load_file(File.expand_path(@creds_file, __FILE__))
           )
-          client3.class.should == JenkinsApi::Client
+          expect(client3.class).to eq JenkinsApi::Client
         end
 
         it "Should fail if wrong credentials are given" do
@@ -49,26 +49,24 @@ describe JenkinsApi::Client do
             :password => 'hacked',
             :log_location => '/dev/null'
           )
-          expect(
-            lambda { client2.job.list_all }
-          ).to raise_error(JenkinsApi::Exceptions::Unauthorized)
+          expect{ client2.job.list_all }.to raise_error(JenkinsApi::Exceptions::Unauthorized)
         end
       end
       describe "#get_jenkins_version" do
         it "Should the jenkins version" do
-          @client.get_jenkins_version.class.should == String
+          expect(@client.get_jenkins_version.class).to eq String
         end
       end
 
       describe "#get_hudson_version" do
         it "Should get the hudson version" do
-          @client.get_hudson_version.class.should == String
+          expect(@client.get_hudson_version.class).to eq String
         end
       end
 
       describe "#exec_script" do
         it "Should execute the provided groovy script" do
-          @client.exec_script('println("hi")').should == "hi\n"
+          expect(@client.exec_script('println("hi")')).to eq "hi\n"
         end
       end
     end
@@ -76,31 +74,31 @@ describe JenkinsApi::Client do
     describe "SubClassAccessorMethods" do
       describe "#job" do
         it "Should return a job object on call" do
-          @client.job.class.should == JenkinsApi::Client::Job
+          expect(@client.job.class).to eq JenkinsApi::Client::Job
         end
       end
 
       describe "#node" do
         it "Should return a node object on call" do
-          @client.node.class.should == JenkinsApi::Client::Node
+          expect(@client.node.class).to eq JenkinsApi::Client::Node
         end
       end
 
       describe "#view" do
         it "Should return a view object on call" do
-          @client.view.class.should == JenkinsApi::Client::View
+          expect(@client.view.class).to eq JenkinsApi::Client::View
         end
       end
 
       describe "#system" do
         it "Should return a system object on call" do
-          @client.system.class.should == JenkinsApi::Client::System
+          expect(@client.system.class).to eq JenkinsApi::Client::System
         end
       end
 
       describe "#queue" do
         it "Should return a build queue object on call" do
-          @client.queue.class.should == JenkinsApi::Client::BuildQueue
+          expect(@client.queue.class).to eq JenkinsApi::Client::BuildQueue
         end
       end
     end
@@ -129,7 +127,7 @@ describe JenkinsApi::Client do
       end
 
       it "Should connect without an error" do
-        expect { client.job.list_all }.not_to raise_error
+        client.job.list_all
       end
     end
   end

@@ -22,15 +22,7 @@
 
 module JenkinsApi
   class Client
-    # Major version of the gem
-    MAJOR   = 1
-    # Minor version of the gem
-    MINOR   = 5
-    # Tiny version of the gem used for patches
-    TINY    = 3
-    # Used for pre-releases
-    PRE     = nil
     # Version String of Jenkins API Client.
-    VERSION = [MAJOR, MINOR, TINY, PRE].compact.join('.')
+    VERSION = "2.2.0"
   end
 end
