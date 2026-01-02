@@ -2,17 +2,12 @@ Jenkins API Client
 ==================
 
 [![Gem Version](http://img.shields.io/gem/v/jenkins_api_client.svg)][gem]
-[![Build Status](http://img.shields.io/travis/arangamani/jenkins_api_client.svg)][travis]
-[![Dependency Status](http://img.shields.io/gemnasium/arangamani/jenkins_api_client.svg)][gemnasium]
-[![Code Climate](http://img.shields.io/codeclimate/github/arangamani/jenkins_api_client.svg)][codeclimate]
 
 [gem]: https://rubygems.org/gems/jenkins_api_client
-[gemnasium]: https://gemnasium.com/arangamani/jenkins_api_client
-[codeclimate]: https://codeclimate.com/github/arangamani/jenkins_api_client
 
-Copyright &copy; 2012-2017, Kannan Manickam [![endorse](http://api.coderwall.com/arangamani/endorsecount.png)](http://coderwall.com/arangamani)
+Copyright &copy; 2012-2017, Kannan Manickam
 
-Client libraries for communicating with a Jenkins CI server and programatically managing jobs.
+Client libraries for communicating with a Jenkins CI server and programmatically managing jobs.
 
 OVERVIEW:
 ---------
@@ -20,7 +15,7 @@ This project is a simple API client for interacting with Jenkins Continuous
 Integration server. Jenkins provides three kinds of remote access API.
 1. XML API, 2. JSON API, and 3. Python API. This project aims at consuming the
 JSON API and provides some useful functions for controlling jobs on the Jenkins
-programatically. Even though Jenkins provides an awesome UI for controlling
+programmatically. Even though Jenkins provides an awesome UI for controlling
 jobs, it would be nice and helpful to have a programmable interface so we can
 dynamically and automatically manage jobs and other artifacts.
 

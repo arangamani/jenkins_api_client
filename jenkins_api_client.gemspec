@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.executables = ['jenkinscli']
   s.files         = `git ls-files -z`.split("\x0").select { |f| f.match(%r{lib/|bin/|java_deps/|gemspec}) }
   s.homepage = 'https://github.com/arangamani/jenkins_api_client'
-  s.required_ruby_version = '>= 2.7'
+  s.required_ruby_version = '>= 3.2'
   s.summary = "Jenkins JSON API Client"
   s.licenses = ["MIT"]
 
@@ -23,4 +23,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'socksify', '>= 1.7.0'
   s.add_dependency 'json', '>= 1.0'
   s.add_dependency 'addressable', '~> 2.7'
+  s.add_dependency 'base64'
+  s.add_dependency 'logger'
 end
