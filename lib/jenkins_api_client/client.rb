@@ -604,6 +604,7 @@ module JenkinsApi
     # v 1.2 is a lot older than v 1.102 - and simple < > on version
     # strings doesn't work so well
     def deconstruct_version_string(version)
+      version = version.split('.')[0..2].join('.') if version.present?
       match = version.match(/^(\d+)\.(\d+)(?:\.(\d+))?$/)
 
       # Match should have 4 parts [0] = input string, [1] = major
